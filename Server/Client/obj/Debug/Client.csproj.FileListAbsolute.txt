@@ -1,0 +1,6 @@
+C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\Server\Client\bin\Debug\Client.exe.config
+C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\Server\Client\bin\Debug\Client.exe
+C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\Server\Client\bin\Debug\Client.pdb
+C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\Server\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\Server\Client\obj\Debug\Client.exe
+C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\Server\Client\obj\Debug\Client.pdb
