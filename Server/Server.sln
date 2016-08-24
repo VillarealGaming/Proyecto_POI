@@ -1,13 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{86B94E42-F7D6-486E-AD18-CC149575C638}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{A80FD0F2-5346-46E0-80B5-11BEE7A69125}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "EasyPOI", "EasyPOI\EasyPOI.shproj", "{7C6B967B-AFE9-47BB-9394-6DF3043F6ACF}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		EasyPOI\EasyPOI.projitems*{86b94e42-f7d6-486e-ad18-cc149575c638}*SharedItemsImports = 4
+		EasyPOI\EasyPOI.projitems*{7c6b967b-afe9-47bb-9394-6df3043f6acf}*SharedItemsImports = 13
+		EasyPOI\EasyPOI.projitems*{a80fd0f2-5346-46e0-80b5-11bee7a69125}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

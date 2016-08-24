@@ -5,12 +5,12 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace Server {
     class Program {
         private static Socket server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         private static List<Socket> clients = new List<Socket>();
         private static byte[] dataBuffer = new byte[1024];
+        private const int Port = 100;
 
         static void Main(string[] args) {
             SetUp();
@@ -19,14 +19,15 @@ namespace Server {
 
         private static void SetUp() {
             Console.WriteLine("Setting up server...");
-            server.Bind(new IPEndPoint(IPAddress.Any, 100));
-            server.Listen(30);
+            server.Bind(new IPEndPoint(IPAddress.Any, Port));
+            server.Listen(0);
             server.BeginAccept(new AsyncCallback(AcceptCallback), null);
      
         }
 
         private static void AcceptCallback(IAsyncResult AR) {
             Socket client = server.EndAccept(AR);
+            Console.WriteLine("Client connected");
             clients.Add(client);
             client.BeginReceive(dataBuffer, 0, dataBuffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), client);
             server.BeginAccept(new AsyncCallback(AcceptCallback), null);
@@ -35,11 +36,11 @@ namespace Server {
 
         private static void ReceiveCallback(IAsyncResult AR) {
             Socket client = (Socket)AR.AsyncState;
-            int received;//
+            int received;
             try {
                 received = client.EndReceive(AR);
             } catch (SocketException) {
-                Console.WriteLine("Client forcefully diconnected");
+                Console.WriteLine("Client forcefully disconnected");
                 client.Close();
                 clients.Remove(client);
                 return;
