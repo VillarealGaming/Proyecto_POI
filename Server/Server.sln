@@ -7,14 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{A80FD0F2-5346-46E0-80B5-11BEE7A69125}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "EasyPOI", "EasyPOI\EasyPOI.shproj", "{7C6B967B-AFE9-47BB-9394-6DF3043F6ACF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyPOI", "EasyPOI\EasyPOI\EasyPOI.csproj", "{51F2CE07-F3F9-41C0-A017-28091754130B}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		EasyPOI\EasyPOI.projitems*{86b94e42-f7d6-486e-ad18-cc149575c638}*SharedItemsImports = 4
-		EasyPOI\EasyPOI.projitems*{7c6b967b-afe9-47bb-9394-6df3043f6acf}*SharedItemsImports = 13
-		EasyPOI\EasyPOI.projitems*{a80fd0f2-5346-46e0-80b5-11bee7a69125}*SharedItemsImports = 4
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -28,6 +23,10 @@ Global
 		{A80FD0F2-5346-46E0-80B5-11BEE7A69125}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A80FD0F2-5346-46E0-80B5-11BEE7A69125}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A80FD0F2-5346-46E0-80B5-11BEE7A69125}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51F2CE07-F3F9-41C0-A017-28091754130B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51F2CE07-F3F9-41C0-A017-28091754130B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51F2CE07-F3F9-41C0-A017-28091754130B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51F2CE07-F3F9-41C0-A017-28091754130B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

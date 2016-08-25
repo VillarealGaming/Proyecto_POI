@@ -10,3 +10,5 @@ C:\Users\w7\Source\Repos\Proyecto_POI\Server\Client\bin\Debug\Client.pdb
 C:\Users\w7\Source\Repos\Proyecto_POI\Server\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
 C:\Users\w7\Source\Repos\Proyecto_POI\Server\Client\obj\Debug\Client.exe
 C:\Users\w7\Source\Repos\Proyecto_POI\Server\Client\obj\Debug\Client.pdb
+C:\Users\w7\Source\Repos\Proyecto_POI\Server\Client\bin\Debug\EasyPOI.dll
+C:\Users\w7\Source\Repos\Proyecto_POI\Server\Client\bin\Debug\EasyPOI.pdb
