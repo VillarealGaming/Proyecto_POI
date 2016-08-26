@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 using EasyPOI;
 namespace Server {
     class Program {
@@ -23,6 +24,21 @@ namespace Server {
             server.OnPacketReceived = Received;
             Console.WriteLine("Buscando clientes");
             server.StartListening();
+            ServerDataSet database = new ServerDataSet();
+            database.ReadXml("DataBase.xml");
+
+            ServerDataSet.UsuarioRow usuarioEntry = database.Usuario.NewUsuarioRow();
+            //DataRowCollection usuario = database.Usuario.Rows;
+            database.Usuario.AddUsuarioRow(usuarioEntry);
+
+            ServerDataSet.UsuarioDataTable usuarioTable = database.Usuario;
+            var query = from usuario in usuarioTable
+                        where usuario.ID == 1
+                        select usuario;
+            //usuarioEntry.Nombre = "Jaime";
+            //usuarioEntry.Contrasenia = "1234";
+            //usuario.Add(usuarioEntry);
+            //dataBase.WriteXml("DataBase.xml");
             Console.ReadLine();
         }
     }

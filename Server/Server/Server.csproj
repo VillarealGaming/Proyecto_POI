@@ -45,9 +45,28 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerDataSet.cs">
+      <DependentUpon>ServerDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ServerDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ServerDataSet.xsd</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ServerDataSet.xsc">
+      <DependentUpon>ServerDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ServerDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ServerDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ServerDataSet.xss">
+      <DependentUpon>ServerDataSet.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EasyPOI\EasyPOI\EasyPOI.csproj">
