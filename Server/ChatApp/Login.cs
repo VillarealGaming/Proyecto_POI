@@ -24,13 +24,15 @@ namespace ChatApp
 
         private void buttonConnect_Click(object sender, EventArgs e)
         {
-            ClientSession.sessionData.username = textBoxUsername.Text;
+            ClientSession.username = textBoxUsername.Text;
             ClientSession.Connection.BeginConnect();
             while(!ClientSession.Connection.Connected)
             {
                 this.Text = "Conectando...";
             }
-            ClientSession.Connection.SendPacket(new Packet(PacketType.SessionBegin, ClientSession.sessionData));
+            SessionBegin sessionBegin = new SessionBegin();
+            sessionBegin.username = ClientSession.username;
+            ClientSession.Connection.SendPacket(new Packet(sessionBegin));
             //
             this.Hide();
             formChat chat = new formChat();

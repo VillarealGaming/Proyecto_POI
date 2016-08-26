@@ -8,7 +8,7 @@ namespace ChatApp
 {
     static class ClientSession
     {
-        public static SessionData sessionData = new SessionData();
+        public static string username { get; set; }
         public static Client Connection
         {
             get { return client; }

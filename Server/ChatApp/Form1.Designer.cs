@@ -39,10 +39,11 @@
             this.richTextBoxChat.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBoxChat.Location = new System.Drawing.Point(13, 13);
             this.richTextBoxChat.Name = "richTextBoxChat";
-            this.richTextBoxChat.ReadOnly = true;
+            this.richTextBoxChat.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
             this.richTextBoxChat.Size = new System.Drawing.Size(259, 288);
             this.richTextBoxChat.TabIndex = 0;
             this.richTextBoxChat.Text = "";
+            this.richTextBoxChat.TextChanged += new System.EventHandler(this.richTextBoxChat_TextChanged);
             // 
             // textBoxChat
             // 
@@ -59,6 +60,7 @@
             this.buttonEnviar.TabIndex = 2;
             this.buttonEnviar.Text = "Enviar";
             this.buttonEnviar.UseVisualStyleBackColor = true;
+            this.buttonEnviar.Click += new System.EventHandler(this.buttonEnviar_Click);
             // 
             // formChat
             // 
@@ -70,6 +72,7 @@
             this.Controls.Add(this.richTextBoxChat);
             this.Name = "formChat";
             this.Text = "Chat";
+            this.Load += new System.EventHandler(this.formChat_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

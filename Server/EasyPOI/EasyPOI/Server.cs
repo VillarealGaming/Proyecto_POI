@@ -165,15 +165,24 @@ namespace EasyPOI
         //Manejamos cada uno de los eventos que nos pueden llegar en los paquetes
         private void onPacketReceived(Packet packet, Socket client)
         {
-            switch(packet.Type)
+            switch(packet.Content.Type)
             {
                 case PacketType.SessionBegin:
                     {
-                        SessionData sessionData = packet.GetContent<SessionData>();
-                        connectedUsers.Add(sessionData.username, client);
+                        SessionBegin sessionBegin = packet.Content as SessionBegin;
+                        connectedUsers.Add(sessionBegin.username, client);
                     }
                     break;
                 case PacketType.Register:
+                    break;
+                case PacketType.TextMessage:
+                    {
+                        TextMessage textMessage = packet.Content as TextMessage;
+                        foreach(var user in connectedUsers)
+                        {
+                            SendPacket(packet, user.Value);
+                        }
+                    }
                     break;
             }
         }

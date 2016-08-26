@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-//TODO: Usar bools en las llamadas, así no podemos hacer 2 peticiones seguidas
 namespace EasyPOI
 {
     //Me apoye del código de Luis para las siguiente clases
@@ -15,26 +14,9 @@ namespace EasyPOI
     [Serializable]
     public class Packet
     {
-        public Packet(PacketType packetType, Object data)
+        public Packet(PacketContent content)
         {
-            this.packetType = packetType;
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                binaryFormatter.Serialize(memoryStream, data);
-                this.content = memoryStream.ToArray();
-            }
-        }
-        public void LoadData(byte[] bytes)
-        {
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            using (MemoryStream memoryStream = new MemoryStream(bytes))
-            {
-                Packet packet = (Packet)binaryFormatter.Deserialize(memoryStream);
-                this.content = packet.content;
-                this.content = packet.content;
-                this.packetType = packet.packetType;
-            }
+            this.content = content;
         }
         public byte[] ToBytes()
         {
@@ -49,22 +31,32 @@ namespace EasyPOI
                 return finalStream.ToArray();
             }
         }
-        public PacketType Type
+        public PacketContent Content
         {
-            get { return packetType; }
+            get { return content; }
         }
-        public T GetContent<T>()
-        {
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            using (MemoryStream memoryStream = new MemoryStream(this.content))
-            {
-                T content = (T)binaryFormatter.Deserialize(memoryStream);
-                return (content);
-            }
-        }
-        private PacketType packetType;
-        private byte[] content;
+        private PacketContent content;
         public const int HeaderSize = 4;
+    }
+    [Serializable]
+    public abstract class PacketContent
+    {
+        protected PacketType type;
+        public PacketType Type { get { return type; } }
+    }
+    [Serializable]
+    public class SessionBegin : PacketContent
+    {
+        public SessionBegin() { type = PacketType.SessionBegin; }
+        public string username { get; set; }
+    }
+    [Serializable]
+    public class TextMessage : PacketContent
+    {
+        public TextMessage(){ type = PacketType.TextMessage; }
+        public string message { get; set; }
+        public string destination { get; set; }
+        public string sender { get; set; }
     }
     public enum PacketType
     {
@@ -72,17 +64,6 @@ namespace EasyPOI
         SessionBegin,
         SessionEnd,
         Register
-    }
-    [Serializable]
-    public class SessionData
-    {
-        public string username { get; set; }
-    }
-    [Serializable]
-    public class TextMessage
-    {
-        public string message { get; set; }
-        //public string user { get; set; }
     }
     //Referencia
     //https://msdn.microsoft.com/en-us/library/bew39x2a(v=vs.110).aspx
