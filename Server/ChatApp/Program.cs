@@ -3,9 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using EasyPOI;
 namespace ChatApp
 {
+    static class ClientSession
+    {
+        public static SessionData sessionData = new SessionData();
+        public static Client Connection
+        {
+            get { return client; }
+        }
+        private static Client client = new Client();
+    }
     static class Program
     {
         /// <summary>
@@ -16,7 +25,7 @@ namespace ChatApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new formChat());
+            Application.Run(new formLogin());
         }
     }
 }
