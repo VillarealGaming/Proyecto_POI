@@ -4,5 +4,8 @@
 
     public partial class ServerDataSet
     {
+        partial class MensajeDataTable
+        {
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace ChatApp
 {
     static class ClientSession
     {
+        public delegate void ReceivePacketCallback(Packet packet);
         public static string username { get; set; }
         public static Client Connection
         {

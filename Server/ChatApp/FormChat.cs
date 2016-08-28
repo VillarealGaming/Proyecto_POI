@@ -28,11 +28,11 @@ namespace ChatApp
 
         private void formChat_Load(object sender, EventArgs e)
         {
-            ClientSession.Connection.OnPacketReceived = ReceivePacket;
+            ClientSession.Connection.OnPacketReceivedFunc(ReceivePacket);
         }
         //Thread safe callbacks
         //http://stackoverflow.com/questions/10775367/cross-thread-operation-not-valid-control-textbox1-accessed-from-a-thread-othe
-        private delegate void ReceivePacketCallback(Packet packet);
+        //private delegate void ReceivePacketCallback(Packet packet);
         private void ReceivePacket(Packet packet)
         {
             // InvokeRequired required compares the thread ID of the
@@ -43,7 +43,7 @@ namespace ChatApp
                 TextMessage message = packet.Content as TextMessage;
                 if (this.richTextBoxChat.InvokeRequired)
                 {
-                    ReceivePacketCallback d = new ReceivePacketCallback(ReceivePacket);
+                    ClientSession.ReceivePacketCallback d = new ClientSession.ReceivePacketCallback(ReceivePacket);
                     this.Invoke(d, new object[] { packet });
                 }
                 else

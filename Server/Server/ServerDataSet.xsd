@@ -12,20 +12,84 @@
   <xs:element name="ServerDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ServerDataSet" msprop:Generator_UserDSName="ServerDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Usuario" msdata:Locale="es-MX" msprop:Generator_TableClassName="UsuarioDataTable" msprop:Generator_TableVarName="tableUsuario" msprop:Generator_TablePropName="Usuario" msprop:Generator_RowDeletingName="UsuarioRowDeleting" msprop:Generator_RowChangingName="UsuarioRowChanging" msprop:Generator_RowEvHandlerName="UsuarioRowChangeEventHandler" msprop:Generator_RowDeletedName="UsuarioRowDeleted" msprop:Generator_UserTableName="Usuario" msprop:Generator_RowChangedName="UsuarioRowChanged" msprop:Generator_RowEvArgName="UsuarioRowChangeEvent" msprop:Generator_RowClassName="UsuarioRow">
+        <xs:element name="Usuario" msdata:Locale="es-ES" msprop:Generator_TableClassName="UsuarioDataTable" msprop:Generator_TableVarName="tableUsuario" msprop:Generator_RowChangedName="UsuarioRowChanged" msprop:Generator_TablePropName="Usuario" msprop:Generator_RowDeletingName="UsuarioRowDeleting" msprop:Generator_RowChangingName="UsuarioRowChanging" msprop:Generator_RowEvHandlerName="UsuarioRowChangeEventHandler" msprop:Generator_RowDeletedName="UsuarioRowDeleted" msprop:Generator_RowClassName="UsuarioRow" msprop:Generator_UserTableName="Usuario" msprop:Generator_RowEvArgName="UsuarioRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="NombreUsuario" msprop:Generator_ColumnVarNameInTable="columnNombreUsuario" msprop:Generator_ColumnPropNameInRow="NombreUsuario" msprop:Generator_ColumnPropNameInTable="NombreUsuarioColumn" msprop:Generator_UserColumnName="NombreUsuario" type="xs:string" />
+              <xs:element name="Contrasenia" msprop:Generator_ColumnVarNameInTable="columnContrasenia" msprop:Generator_ColumnPropNameInRow="Contrasenia" msprop:Generator_ColumnPropNameInTable="ContraseniaColumn" msprop:Generator_UserColumnName="Contrasenia" type="xs:string" />
+              <xs:element name="Estado" msprop:Generator_ColumnVarNameInTable="columnEstado" msprop:Generator_ColumnPropNameInRow="Estado" msprop:Generator_ColumnPropNameInTable="EstadoColumn" msprop:Generator_UserColumnName="Estado" type="xs:string" />
+              <xs:element name="Encriptado" msprop:Generator_ColumnVarNameInTable="columnEncriptado" msprop:Generator_ColumnPropNameInRow="Encriptado" msprop:Generator_ColumnPropNameInTable="EncriptadoColumn" msprop:Generator_UserColumnName="Encriptado" type="xs:boolean" default="false" />
+              <xs:element name="Carrera" msprop:Generator_ColumnVarNameInTable="columnCarrera" msprop:Generator_ColumnPropNameInRow="Carrera" msprop:Generator_ColumnPropNameInTable="CarreraColumn" msprop:Generator_UserColumnName="Carrera" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Conversacion" msprop:Generator_TableClassName="ConversacionDataTable" msprop:Generator_TableVarName="tableConversacion" msprop:Generator_TablePropName="Conversacion" msprop:Generator_RowDeletingName="ConversacionRowDeleting" msprop:Generator_RowChangingName="ConversacionRowChanging" msprop:Generator_RowEvHandlerName="ConversacionRowChangeEventHandler" msprop:Generator_RowDeletedName="ConversacionRowDeleted" msprop:Generator_UserTableName="Conversacion" msprop:Generator_RowChangedName="ConversacionRowChanged" msprop:Generator_RowEvArgName="ConversacionRowChangeEvent" msprop:Generator_RowClassName="ConversacionRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
               <xs:element name="Nombre" msprop:Generator_ColumnVarNameInTable="columnNombre" msprop:Generator_ColumnPropNameInRow="Nombre" msprop:Generator_ColumnPropNameInTable="NombreColumn" msprop:Generator_UserColumnName="Nombre" type="xs:string" />
-              <xs:element name="Contrasenia" msprop:Generator_ColumnVarNameInTable="columnContrasenia" msprop:Generator_ColumnPropNameInRow="Contrasenia" msprop:Generator_ColumnPropNameInTable="ContraseniaColumn" msprop:Generator_UserColumnName="Contrasenia" type="xs:string" />
+              <xs:element name="Encriptado" msprop:Generator_ColumnVarNameInTable="columnEncriptado" msprop:Generator_ColumnPropNameInRow="Encriptado" msprop:Generator_ColumnPropNameInTable="EncriptadoColumn" msprop:Generator_UserColumnName="Encriptado" type="xs:boolean" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="UsuarioConversacion" msdata:Locale="es-ES" msprop:Generator_TableClassName="UsuarioConversacionDataTable" msprop:Generator_TableVarName="tableUsuarioConversacion" msprop:Generator_TablePropName="UsuarioConversacion" msprop:Generator_RowDeletingName="UsuarioConversacionRowDeleting" msprop:Generator_RowChangingName="UsuarioConversacionRowChanging" msprop:Generator_RowEvHandlerName="UsuarioConversacionRowChangeEventHandler" msprop:Generator_RowDeletedName="UsuarioConversacionRowDeleted" msprop:Generator_UserTableName="UsuarioConversacion" msprop:Generator_RowChangedName="UsuarioConversacionRowChanged" msprop:Generator_RowEvArgName="UsuarioConversacionRowChangeEvent" msprop:Generator_RowClassName="UsuarioConversacionRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Usuario" msprop:Generator_ColumnVarNameInTable="columnUsuario" msprop:Generator_ColumnPropNameInRow="Usuario" msprop:Generator_ColumnPropNameInTable="UsuarioColumn" msprop:Generator_UserColumnName="Usuario" type="xs:string" />
+              <xs:element name="Conversacion" msprop:Generator_ColumnVarNameInTable="columnConversacion" msprop:Generator_ColumnPropNameInRow="Conversacion" msprop:Generator_ColumnPropNameInTable="ConversacionColumn" msprop:Generator_UserColumnName="Conversacion" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Mensaje" msprop:Generator_TableClassName="MensajeDataTable" msprop:Generator_TableVarName="tableMensaje" msprop:Generator_TablePropName="Mensaje" msprop:Generator_RowDeletingName="MensajeRowDeleting" msprop:Generator_RowChangingName="MensajeRowChanging" msprop:Generator_RowEvHandlerName="MensajeRowChangeEventHandler" msprop:Generator_RowDeletedName="MensajeRowDeleted" msprop:Generator_UserTableName="Mensaje" msprop:Generator_RowChangedName="MensajeRowChanged" msprop:Generator_RowEvArgName="MensajeRowChangeEvent" msprop:Generator_RowClassName="MensajeRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Conversacion" msprop:Generator_ColumnVarNameInTable="columnConversacion" msprop:Generator_ColumnPropNameInRow="Conversacion" msprop:Generator_ColumnPropNameInTable="ConversacionColumn" msprop:Generator_UserColumnName="Conversacion" type="xs:int" />
+              <xs:element name="Usuario" msprop:Generator_ColumnVarNameInTable="columnUsuario" msprop:Generator_ColumnPropNameInRow="Usuario" msprop:Generator_ColumnPropNameInTable="UsuarioColumn" msprop:Generator_UserColumnName="Usuario" type="xs:string" />
+              <xs:element name="Mensaje" msprop:Generator_ColumnVarNameInTable="columnMensaje" msprop:Generator_ColumnPropNameInRow="Mensaje" msprop:Generator_ColumnPropNameInTable="MensajeColumn" msprop:Generator_UserColumnName="Mensaje" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Contacto" msprop:Generator_TableClassName="ContactoDataTable" msprop:Generator_TableVarName="tableContacto" msprop:Generator_TablePropName="Contacto" msprop:Generator_RowDeletingName="ContactoRowDeleting" msprop:Generator_RowChangingName="ContactoRowChanging" msprop:Generator_RowEvHandlerName="ContactoRowChangeEventHandler" msprop:Generator_RowDeletedName="ContactoRowDeleted" msprop:Generator_UserTableName="Contacto" msprop:Generator_RowChangedName="ContactoRowChanged" msprop:Generator_RowEvArgName="ContactoRowChangeEvent" msprop:Generator_RowClassName="ContactoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Usuario1" msprop:Generator_ColumnVarNameInTable="columnUsuario1" msprop:Generator_ColumnPropNameInRow="Usuario1" msprop:Generator_ColumnPropNameInTable="Usuario1Column" msprop:Generator_UserColumnName="Usuario1" type="xs:string" />
+              <xs:element name="Usuario2" msprop:Generator_ColumnVarNameInTable="columnUsuario2" msprop:Generator_ColumnPropNameInRow="Usuario2" msprop:Generator_ColumnPropNameInTable="Usuario2Column" msprop:Generator_UserColumnName="Usuario2" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:choice>
     </xs:complexType>
-    <xs:unique name="Constraint1">
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:Usuario" />
+      <xs:field xpath="mstns:NombreUsuario" />
+    </xs:unique>
+    <xs:unique name="Conversacion_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Conversacion" />
       <xs:field xpath="mstns:ID" />
     </xs:unique>
+    <xs:unique name="UsuarioConversacion_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:UsuarioConversacion" />
+      <xs:field xpath="mstns:Conversacion" />
+      <xs:field xpath="mstns:Usuario" />
+    </xs:unique>
+    <xs:unique name="Mensaje_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Mensaje" />
+      <xs:field xpath="mstns:Conversacion" />
+      <xs:field xpath="mstns:Usuario" />
+    </xs:unique>
+    <xs:unique name="Contacto_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Contacto" />
+      <xs:field xpath="mstns:Usuario1" />
+      <xs:field xpath="mstns:Usuario2" />
+    </xs:unique>
   </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="UsuarioConversacion_Conversacion" msdata:parent="Conversacion" msdata:child="UsuarioConversacion" msdata:parentkey="ID" msdata:childkey="Conversacion" msprop:Generator_UserChildTable="UsuarioConversacion" msprop:Generator_ChildPropName="GetUsuarioConversacionRows" msprop:Generator_UserRelationName="UsuarioConversacion_Conversacion" msprop:Generator_ParentPropName="ConversacionRow" msprop:Generator_RelationVarName="relationUsuarioConversacion_Conversacion" msprop:Generator_UserParentTable="Conversacion" />
+      <msdata:Relationship name="Usuario_UsuarioConversacion" msdata:parent="Usuario" msdata:child="UsuarioConversacion" msdata:parentkey="NombreUsuario" msdata:childkey="Usuario" msprop:Generator_UserChildTable="UsuarioConversacion" msprop:Generator_ChildPropName="GetUsuarioConversacionRows" msprop:Generator_UserRelationName="Usuario_UsuarioConversacion" msprop:Generator_ParentPropName="UsuarioRow" msprop:Generator_RelationVarName="relationUsuario_UsuarioConversacion" msprop:Generator_UserParentTable="Usuario" />
+      <msdata:Relationship name="Conversacion_Mensaje" msdata:parent="Conversacion" msdata:child="Mensaje" msdata:parentkey="ID" msdata:childkey="Conversacion" msprop:Generator_UserChildTable="Mensaje" msprop:Generator_ChildPropName="GetMensajeRows" msprop:Generator_UserRelationName="Conversacion_Mensaje" msprop:Generator_ParentPropName="ConversacionRow" msprop:Generator_RelationVarName="relationConversacion_Mensaje" msprop:Generator_UserParentTable="Conversacion" />
+      <msdata:Relationship name="Usuario_Mensaje" msdata:parent="Usuario" msdata:child="Mensaje" msdata:parentkey="NombreUsuario" msdata:childkey="Usuario" msprop:Generator_UserChildTable="Mensaje" msprop:Generator_ChildPropName="GetMensajeRows" msprop:Generator_UserRelationName="Usuario_Mensaje" msprop:Generator_ParentPropName="UsuarioRow" msprop:Generator_RelationVarName="relationUsuario_Mensaje" msprop:Generator_UserParentTable="Usuario" />
+      <msdata:Relationship name="Contacto_Usuario" msdata:parent="Usuario" msdata:child="Contacto" msdata:parentkey="NombreUsuario" msdata:childkey="Usuario1" msprop:Generator_UserChildTable="Contacto" msprop:Generator_ChildPropName="GetContactoRows" msprop:Generator_UserRelationName="Contacto_Usuario" msprop:Generator_ParentPropName="UsuarioRow" msprop:Generator_RelationVarName="relationContacto_Usuario" msprop:Generator_UserParentTable="Usuario" />
+    </xs:appinfo>
+  </xs:annotation>
 </xs:schema>

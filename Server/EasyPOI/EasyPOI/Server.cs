@@ -14,9 +14,9 @@ namespace EasyPOI
     {
         public Server(int port = DefaultPort)
         {
-            connectedUsers = new Dictionary<string, Socket>();
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             socket.Bind(new IPEndPoint(IPAddress.Any, port));
+            this.port = port;
         }
         //Comenzamos a buscar clientes
         public void StartListening()
@@ -24,11 +24,6 @@ namespace EasyPOI
             //clients = new List<Socket>();
             socket.Listen(listenTime);
             socket.BeginAccept(new AsyncCallback(AcceptClient), null);
-            this.port = port;
-        }
-        private void Send()
-        {
-
         }
         private void AcceptClient(IAsyncResult ar)
         {
@@ -39,7 +34,7 @@ namespace EasyPOI
             socket.BeginAccept(new AsyncCallback(AcceptClient), null);
             client.BeginReceive(state.buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(Received), state);
             //if (onClientAccepted != null)
-                onClientAccepted();
+                OnClientAccepted();
         }
         //Envía un paquete al cliente la información del paquete.
         public void SendPacket(Packet packet, Socket client)
@@ -52,19 +47,37 @@ namespace EasyPOI
             }
             catch (SocketException exception)
             {
+                if (OnClientDisconnect != null) OnClientDisconnect(client);
                 //if (onConnectionFail != null) onConnectionFail();
                 // connected = false;
             }
         }
+        //
+        public void CloseClientConnection(Socket client)
+        {
+            client.Shutdown(SocketShutdown.Both);
+            client.Close();
+        }
+        //private Action<string> DisconnectUser;
+        //private Action<Socket> OnClientDisconnect;
+        public void SetPacketReceivedFunc(Action<Packet, Socket> func)
+        {
+            OnPacketReceived = func;
+        }
+        public void SetOnClientDisconnectFunc(Action<Socket> func)
+        {
+            OnClientDisconnect = func;
+        }
         private void Send(IAsyncResult ar)
         {
+            Socket client = (Socket)ar.AsyncState;
             try
             {
-                Socket client = (Socket)ar.AsyncState;
                 int bytesSent = client.EndSend(ar);
             }
             catch (SocketException exception)
             {
+                if(OnClientDisconnect != null) OnClientDisconnect(client);
                 //if (onConnectionFail != null) onConnectionFail();
                 //connected = false;
             }
@@ -97,17 +110,17 @@ namespace EasyPOI
                             {
                                 state.stream = new MemoryStream();
                                 Packet packet = (Packet)binaryFormatter.Deserialize(memoryStream);
-                                //if (onPacketReceived != null)
-                                    onPacketReceived(packet, client);
+                                if (OnPacketReceived != null)
+                                    OnPacketReceived(packet, client);
                                 //SendPacket(packet, client);
-                                client.BeginReceive(state.buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(Received), state);
+                                //client.BeginReceive(state.buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(Received), state);
                             }
                         }
-                        else
-                        {
+                        //else
+                        //{
                             //Seguimos leyendo los bytes
                             client.BeginReceive(state.buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(Received), state);
-                        }
+                        //}
                     }
                     else
                     {
@@ -131,17 +144,17 @@ namespace EasyPOI
                             {
                                 state.stream = new MemoryStream();
                                 Packet packet = (Packet)binaryFormatter.Deserialize(memoryStream);
-                                //if (onPacketReceived != null)
-                                    onPacketReceived(packet, client);
+                                if (OnPacketReceived != null)
+                                    OnPacketReceived(packet, client);
                                 SendPacket(packet, client);
-                                client.BeginReceive(state.buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(Received), state);
+                                //client.BeginReceive(state.buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(Received), state);
                             }
                         }
-                        else
-                        {
+                        //else
+                        //{
                             //Seguimos leyendo los bytes
                             client.BeginReceive(state.buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(Received), state);
-                        }
+                        //}
                     }
                     else
                     {
@@ -154,47 +167,22 @@ namespace EasyPOI
             catch (SocketException)
             {
                 //Cliente desconectado
+                if (OnClientDisconnect != null) OnClientDisconnect(client);
             }
         }
         private int port;
         private Socket socket;
-        private void onClientAccepted()
+        private void OnClientAccepted()
         {
 
         }
         //Manejamos cada uno de los eventos que nos pueden llegar en los paquetes
-        private void onPacketReceived(Packet packet, Socket client)
-        {
-            switch(packet.Content.Type)
-            {
-                case PacketType.SessionBegin:
-                    {
-                        SessionBegin sessionBegin = packet.Content as SessionBegin;
-                        connectedUsers.Add(sessionBegin.username, client);
-                    }
-                    break;
-                case PacketType.Register:
-                    break;
-                case PacketType.TextMessage:
-                    {
-                        TextMessage textMessage = packet.Content as TextMessage;
-                        foreach(var user in connectedUsers)
-                        {
-                            SendPacket(packet, user.Value);
-                        }
-                    }
-                    break;
-            }
-        }
+        private Action<Packet, Socket> OnPacketReceived;
         //private Action<Socket> onClientDisconnect;
-        private void onClientDisconnect()
-        {
-
-        }
+        private Action<Socket> OnClientDisconnect;
         private const int DefaultPort = 100;
         private const int listenTime = 10;
         //extensions
-        private Dictionary<string, Socket> connectedUsers;
         //private List<Socket> clients;
     }
 }

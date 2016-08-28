@@ -16,23 +16,49 @@ namespace EasyPOI
     {
         public Client()
         {
-            socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
         //Comenzar a buscar una conexión
         public void BeginConnect(int port = DefaultPort)
         {
+            socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             //Cerramos la conexión antes de crear una conexión nueva
-            if (socket.Connected)
-                CloseConnection();
+            //if (socket.Connected)
+            //    ShutdownConnection();
+            //else
+            //    socket.BeginConnect(IPAddress.Loopback, port, new AsyncCallback(TryConnection), socket);
             socket.BeginConnect(IPAddress.Loopback, port, new AsyncCallback(TryConnection), socket);
+            //socket.Connect(IPAddress.Loopback, port);
+            StateObject state = new StateObject();
+            state.workSocket = socket;
+            socket.BeginReceive(state.buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(Received), state);
             this.port = port;
         }
         //Cerramos la conexion
-        public void CloseConnection()
+        public void QuitConnection()
         {
             socket.Shutdown(SocketShutdown.Both);
             socket.Close();
             //connected = false;
+        }
+        public void Disconnect()
+        {
+            socket.BeginDisconnect(false, new AsyncCallback(DisconnectCallback), socket);
+        }
+        private void DisconnectCallback(IAsyncResult ar)
+        {
+            Socket client = (Socket)ar.AsyncState;
+            try
+            {
+                client.EndDisconnect(ar);
+            }
+            catch(SocketException)
+            {
+
+            }
+        }
+        public void ShutdownConnection()
+        {
+            socket.Shutdown(SocketShutdown.Both);
         }
         private void TryConnection(IAsyncResult ar)
         {
@@ -192,9 +218,9 @@ namespace EasyPOI
         {
             set { onConnectionLost = value; }
         }
-        public Action<Packet> OnPacketReceived
+        public void OnPacketReceivedFunc(Action<Packet> func)
         {
-            set { onPacketReceived = value; }
+            onPacketReceived = func;
         }
         //private bool connected;
         private int port;

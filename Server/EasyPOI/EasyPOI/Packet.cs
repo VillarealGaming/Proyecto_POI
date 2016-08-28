@@ -39,31 +39,60 @@ namespace EasyPOI
         public const int HeaderSize = 4;
     }
     [Serializable]
-    public abstract class PacketContent
+    public class PacketContent
     {
         protected PacketType type;
+        //public PacketContent() { }
+        public PacketContent(PacketType type) { this.type = type; }
         public PacketType Type { get { return type; } }
+        public string message { get; set; }
     }
     [Serializable]
     public class SessionBegin : PacketContent
     {
-        public SessionBegin() { type = PacketType.SessionBegin; }
-        public string username { get; set; }
+        public SessionBegin() : base(PacketType.SessionBegin) { }
+        public string password { get; set; }
     }
     [Serializable]
     public class TextMessage : PacketContent
     {
-        public TextMessage(){ type = PacketType.TextMessage; }
-        public string message { get; set; }
+        public TextMessage() : base(PacketType.TextMessage) { }
+        //public string message { get; set; }
         public string destination { get; set; }
         public string sender { get; set; }
+    }
+    [Serializable]
+    public class UserState : PacketContent
+    {
+        public UserState() : base(PacketType.ConnectionState){ }
+        //public UserConnectionState connectionState { get; set; }
+    }
+    [Serializable]
+    public class RegisterPacket : PacketContent
+    {
+        public RegisterPacket() : base(PacketType.Register) { }
+        //public string username { get; set; }
+        public string password { get; set; }
+        public string carrera { get; set; }
+        public bool encrypt { get; set; }
+    }
+    //Tal vez esto vaya mejor en el archivo de Client.cs
+    public enum UserConnectionState
+    {
+        Available,      //Disponible
+        NotAvailable,   //No disponible
+        Busy,           //Ocupado
+        Offline         //Desconectado
     }
     public enum PacketType
     {
         TextMessage,
         SessionBegin,
         SessionEnd,
-        Register
+        Register,
+        ConnectionState,
+        RegisterFail,
+        RegisterSucessfull
     }
     //Referencia
     //https://msdn.microsoft.com/en-us/library/bew39x2a(v=vs.110).aspx

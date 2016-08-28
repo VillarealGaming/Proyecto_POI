@@ -1,0 +1,9 @@
+<?xml version="1.0" standalone="yes"?>
+<ServerDataSet xmlns="http://tempuri.org/ServerDataSet.xsd">
+  <Usuario>
+    <NombreUsuario>123</NombreUsuario>
+    <Contrasenia>123</Contrasenia>
+    <Estado>Available</Estado>
+    <Encriptado>false</Encriptado>
+  </Usuario>
+</ServerDataSet>
