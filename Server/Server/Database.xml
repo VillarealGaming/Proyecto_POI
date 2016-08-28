@@ -5,5 +5,41 @@
     <Contrasenia>123</Contrasenia>
     <Estado>Available</Estado>
     <Encriptado>false</Encriptado>
+    <Carrera>Ciencias Computacionales</Carrera>
+  </Usuario>
+  <Usuario>
+    <NombreUsuario>Luis Carlos</NombreUsuario>
+    <Contrasenia>123</Contrasenia>
+    <Estado>Available</Estado>
+    <Encriptado>false</Encriptado>
+    <Carrera>Ciencias Computacionales</Carrera>
+  </Usuario>
+  <Usuario>
+    <NombreUsuario>jamana</NombreUsuario>
+    <Contrasenia>222</Contrasenia>
+    <Estado>Available</Estado>
+    <Encriptado>false</Encriptado>
+    <Carrera>Ciencias Computacionales</Carrera>
+  </Usuario>
+  <Usuario>
+    <NombreUsuario>jajatl</NombreUsuario>
+    <Contrasenia>asdf</Contrasenia>
+    <Estado>Available</Estado>
+    <Encriptado>false</Encriptado>
+    <Carrera>Ciencias Computacionales</Carrera>
+  </Usuario>
+  <Usuario>
+    <NombreUsuario>mr.barry</NombreUsuario>
+    <Contrasenia>123</Contrasenia>
+    <Estado>Available</Estado>
+    <Encriptado>false</Encriptado>
+    <Carrera>Ciencias Computacionales</Carrera>
+  </Usuario>
+  <Usuario>
+    <NombreUsuario>357</NombreUsuario>
+    <Contrasenia>357</Contrasenia>
+    <Estado>Available</Estado>
+    <Encriptado>false</Encriptado>
+    <Carrera>Multimedia y Animación Digital</Carrera>
   </Usuario>
 </ServerDataSet>
