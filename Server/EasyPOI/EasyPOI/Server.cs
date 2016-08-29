@@ -33,8 +33,8 @@ namespace EasyPOI
             state.workSocket = client;
             socket.BeginAccept(new AsyncCallback(AcceptClient), null);
             client.BeginReceive(state.buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(Received), state);
-            //if (onClientAccepted != null)
-                OnClientAccepted();
+            if (onClientAccepted != null)
+                onClientAccepted(client);
         }
         //Envía un paquete al cliente la información del paquete.
         public void SendPacket(Packet packet, Socket client)
@@ -57,16 +57,6 @@ namespace EasyPOI
         {
             client.Shutdown(SocketShutdown.Both);
             client.Close();
-        }
-        //private Action<string> DisconnectUser;
-        //private Action<Socket> OnClientDisconnect;
-        public void SetPacketReceivedFunc(Action<Packet, Socket> func)
-        {
-            OnPacketReceived = func;
-        }
-        public void SetOnClientDisconnectFunc(Action<Socket> func)
-        {
-            OnClientDisconnect = func;
         }
         private void Send(IAsyncResult ar)
         {
@@ -172,11 +162,23 @@ namespace EasyPOI
         }
         private int port;
         private Socket socket;
-        private void OnClientAccepted()
+        //setter functions
+        public void SetClientAcceptedFunc(Action<Socket> func)
         {
-
+            onClientAccepted = func;
+        }
+        //private Action<string> DisconnectUser;
+        //private Action<Socket> OnClientDisconnect;
+        public void SetPacketReceivedFunc(Action<Packet, Socket> func)
+        {
+            OnPacketReceived = func;
+        }
+        public void SetOnClientDisconnectFunc(Action<Socket> func)
+        {
+            OnClientDisconnect = func;
         }
         //Manejamos cada uno de los eventos que nos pueden llegar en los paquetes
+        private Action<Socket> onClientAccepted;
         private Action<Packet, Socket> OnPacketReceived;
         //private Action<Socket> onClientDisconnect;
         private Action<Socket> OnClientDisconnect;

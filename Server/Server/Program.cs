@@ -17,9 +17,9 @@ namespace Server {
             server = new EasyPOI.Server();
             server.SetOnClientDisconnectFunc(OnClientDisconnect);
             server.SetPacketReceivedFunc(OnPacketReceived);
-            //server.OnClientAccepted = () => { Console.WriteLine("Cliente conectado"); };
+            server.SetClientAcceptedFunc(OnClientAccepted);
             //server.OnPacketReceived = Received;
-            Console.WriteLine("Buscando clientes");
+            Console.WriteLine("Servidor iniciado");
             server.StartListening();
             Console.ReadLine();
         }        
@@ -29,7 +29,36 @@ namespace Server {
             switch (packet.Content.Type)
             {
                 case PacketType.SessionBegin:
-                    connectedUsers.Add(packet.Content.message, client);
+                    {
+                        ServerDataSet.UsuarioDataTable usuarioTable = database.Usuario;
+                        PacketContent packetContent;
+                        var queryResult = from usuario in usuarioTable
+                                          where usuario.NombreUsuario == packet.Content.message
+                                          && usuario.Contrasenia == (packet.Content as SessionBegin).password
+                                          select usuario;
+                        if (queryResult.Count() != 0)
+                        {
+                            //Validamos que el usuario no pueda conectarse dos veces
+                            if(!connectedUsers.ContainsKey((packet.Content as SessionBegin).message))
+                            {
+                                connectedUsers.Add(packet.Content.message, client);
+                                packetContent = new PacketContent(PacketType.SessionSuccess);
+                                packetContent.message = "Sesión iniciada";
+                                Console.WriteLine("Sesion de " + packet.Content.message + " iniciada");
+                            }
+                            else
+                            {
+                                packetContent = new PacketContent(PacketType.SessionFail);
+                                packetContent.message = "El usuario ya inició sesión";
+                            }
+                        }
+                        else
+                        {
+                            packetContent = new PacketContent(PacketType.SessionFail);
+                            packetContent.message = "Usuario o contraseña invalido";
+                        }
+                        server.SendPacket(new Packet(packetContent), client);
+                    }
                     break;
                 case PacketType.Register:
                     {
@@ -70,6 +99,10 @@ namespace Server {
                     break;
             }
         }
+        private static void OnClientAccepted(Socket client)
+        {
+            Console.WriteLine("Cliente en " + client.RemoteEndPoint + " conectado");
+        }
         //private Action<Socket> onClientDisconnect;
         private static void DisconnectUser(string username)
         {
@@ -92,8 +125,10 @@ namespace Server {
             if (user.Key != null)
             {
                 //Removemos el usuario de la lista de conectados
+                Console.WriteLine("Sesion de " + user.Key + " cerrada");
                 connectedUsers.Remove(user.Key);
             }
+            Console.WriteLine("Cliente en " + client.RemoteEndPoint + " desconectado");
             server.CloseClientConnection(client);
         }
         private static ServerDataSet database;

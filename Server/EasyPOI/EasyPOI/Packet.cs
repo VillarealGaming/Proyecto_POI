@@ -89,6 +89,8 @@ namespace EasyPOI
         TextMessage,
         SessionBegin,
         SessionEnd,
+        SessionFail,
+        SessionSuccess,
         Register,
         ConnectionState,
         RegisterFail,

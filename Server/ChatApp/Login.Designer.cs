@@ -104,6 +104,7 @@
             this.textBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxPassword.Location = new System.Drawing.Point(121, 41);
             this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.PasswordChar = '•';
             this.textBoxPassword.Size = new System.Drawing.Size(215, 20);
             this.textBoxPassword.TabIndex = 3;
             // 
@@ -151,6 +152,7 @@
             this.Name = "formLogin";
             this.Text = "Iniciar sesión";
             this.Load += new System.EventHandler(this.formLogin_Load);
+            this.Shown += new System.EventHandler(this.formLogin_Shown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

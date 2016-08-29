@@ -21,16 +21,7 @@ namespace EasyPOI
         public void BeginConnect(int port = DefaultPort)
         {
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            //Cerramos la conexión antes de crear una conexión nueva
-            //if (socket.Connected)
-            //    ShutdownConnection();
-            //else
-            //    socket.BeginConnect(IPAddress.Loopback, port, new AsyncCallback(TryConnection), socket);
             socket.BeginConnect(IPAddress.Loopback, port, new AsyncCallback(TryConnection), socket);
-            //socket.Connect(IPAddress.Loopback, port);
-            StateObject state = new StateObject();
-            state.workSocket = socket;
-            socket.BeginReceive(state.buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(Received), state);
             this.port = port;
         }
         //Cerramos la conexion
