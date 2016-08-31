@@ -122,6 +122,12 @@
   <ItemGroup>
     <None Include="closeIcon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="emotIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="emotIconHover.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

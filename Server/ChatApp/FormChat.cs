@@ -95,6 +95,14 @@ namespace ChatApp
             }
         }
 
+        private void picBox_EmoteIcon_MouseEnter(object sender, EventArgs e) {
+            picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIconHover;
+        }
+
+        private void picBox_EmoteIcon_MouseLeave(object sender, EventArgs e) {
+            picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIcon;
+        }
+
         private void formChat_MouseMove(object sender, MouseEventArgs e) {
             if (dragging) {
                 Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
