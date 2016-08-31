@@ -38,7 +38,7 @@
             // 
             // richTextBoxChat
             // 
-            this.richTextBoxChat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(60)))), ((int)(((byte)(90)))));
+            this.richTextBoxChat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
             this.richTextBoxChat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBoxChat.ForeColor = System.Drawing.Color.White;
             this.richTextBoxChat.Location = new System.Drawing.Point(13, 35);
@@ -53,13 +53,14 @@
             // 
             // textBoxChat
             // 
-            this.textBoxChat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(60)))), ((int)(((byte)(90)))));
+            this.textBoxChat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
             this.textBoxChat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxChat.ForeColor = System.Drawing.Color.White;
             this.textBoxChat.Location = new System.Drawing.Point(13, 343);
             this.textBoxChat.Name = "textBoxChat";
             this.textBoxChat.Size = new System.Drawing.Size(259, 20);
             this.textBoxChat.TabIndex = 1;
+            this.textBoxChat.TextChanged += new System.EventHandler(this.textBoxChat_TextChanged);
             this.textBoxChat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxChat_KeyDown);
             // 
             // buttonEnviar
@@ -67,6 +68,7 @@
             this.buttonEnviar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(172)))), ((int)(((byte)(165)))));
             this.buttonEnviar.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.buttonEnviar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonEnviar.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonEnviar.ForeColor = System.Drawing.Color.White;
             this.buttonEnviar.Location = new System.Drawing.Point(197, 371);
             this.buttonEnviar.Name = "buttonEnviar";
@@ -80,9 +82,9 @@
             // 
             this.Header.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(172)))), ((int)(((byte)(165)))));
             this.Header.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Header.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Header.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Header.ForeColor = System.Drawing.Color.White;
-            this.Header.Location = new System.Drawing.Point(1, 1);
+            this.Header.Location = new System.Drawing.Point(0, 0);
             this.Header.Name = "Header";
             this.Header.Size = new System.Drawing.Size(284, 24);
             this.Header.TabIndex = 3;
@@ -101,7 +103,7 @@
             this.picBox_CloseIcon.Cursor = System.Windows.Forms.Cursors.Default;
             this.picBox_CloseIcon.Location = new System.Drawing.Point(258, 0);
             this.picBox_CloseIcon.Name = "picBox_CloseIcon";
-            this.picBox_CloseIcon.Size = new System.Drawing.Size(26, 25);
+            this.picBox_CloseIcon.Size = new System.Drawing.Size(26, 24);
             this.picBox_CloseIcon.TabIndex = 9;
             this.picBox_CloseIcon.TabStop = false;
             this.picBox_CloseIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picBox_CloseIcon_MouseClick);
@@ -112,7 +114,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(60)))), ((int)(((byte)(90)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
             this.ClientSize = new System.Drawing.Size(284, 406);
             this.Controls.Add(this.picBox_CloseIcon);
             this.Controls.Add(this.Header);
@@ -133,12 +135,11 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.RichTextBox richTextBoxChat;
         private System.Windows.Forms.TextBox textBoxChat;
         private System.Windows.Forms.Button buttonEnviar;
         private System.Windows.Forms.Label Header;
         private System.Windows.Forms.PictureBox picBox_CloseIcon;
+        public System.Windows.Forms.RichTextBox richTextBoxChat;
     }
 }
 

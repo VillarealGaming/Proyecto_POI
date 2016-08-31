@@ -61,7 +61,7 @@
             this.textBoxUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxUsername.Location = new System.Drawing.Point(134, 15);
             this.textBoxUsername.Name = "textBoxUsername";
-            this.textBoxUsername.Size = new System.Drawing.Size(202, 20);
+            this.textBoxUsername.Size = new System.Drawing.Size(202, 22);
             this.textBoxUsername.TabIndex = 2;
             // 
             // Header
@@ -86,7 +86,7 @@
             this.textBoxPassword.Location = new System.Drawing.Point(134, 41);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '•';
-            this.textBoxPassword.Size = new System.Drawing.Size(202, 20);
+            this.textBoxPassword.Size = new System.Drawing.Size(202, 22);
             this.textBoxPassword.TabIndex = 3;
             // 
             // label3
@@ -105,7 +105,7 @@
             this.textBoxPasswordConfirm.Location = new System.Drawing.Point(134, 67);
             this.textBoxPasswordConfirm.Name = "textBoxPasswordConfirm";
             this.textBoxPasswordConfirm.PasswordChar = '•';
-            this.textBoxPasswordConfirm.Size = new System.Drawing.Size(202, 20);
+            this.textBoxPasswordConfirm.Size = new System.Drawing.Size(202, 22);
             this.textBoxPasswordConfirm.TabIndex = 4;
             // 
             // label4
@@ -128,6 +128,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.textBoxPassword);
             this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(13, 28);
             this.groupBox1.Name = "groupBox1";
@@ -141,7 +142,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 97);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 13);
+            this.label5.Size = new System.Drawing.Size(44, 13);
             this.label5.TabIndex = 7;
             this.label5.Text = "Carrera";
             // 
@@ -164,6 +165,7 @@
             // 
             this.buttonRegister.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(172)))), ((int)(((byte)(165)))));
             this.buttonRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonRegister.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRegister.ForeColor = System.Drawing.Color.White;
             this.buttonRegister.Location = new System.Drawing.Point(274, 163);
             this.buttonRegister.Name = "buttonRegister";
@@ -177,6 +179,7 @@
             // 
             this.buttonCancel.BackColor = System.Drawing.Color.Silver;
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCancel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCancel.ForeColor = System.Drawing.Color.White;
             this.buttonCancel.Location = new System.Drawing.Point(193, 163);
             this.buttonCancel.Name = "buttonCancel";
@@ -188,10 +191,11 @@
             // checkBoxEncrypt
             // 
             this.checkBoxEncrypt.AutoSize = true;
+            this.checkBoxEncrypt.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEncrypt.ForeColor = System.Drawing.Color.White;
             this.checkBoxEncrypt.Location = new System.Drawing.Point(22, 167);
             this.checkBoxEncrypt.Name = "checkBoxEncrypt";
-            this.checkBoxEncrypt.Size = new System.Drawing.Size(77, 17);
+            this.checkBoxEncrypt.Size = new System.Drawing.Size(82, 17);
             this.checkBoxEncrypt.TabIndex = 5;
             this.checkBoxEncrypt.Text = "Encriptado";
             this.checkBoxEncrypt.UseVisualStyleBackColor = true;
@@ -216,7 +220,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(60)))), ((int)(((byte)(90)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
             this.ClientSize = new System.Drawing.Size(375, 196);
             this.Controls.Add(this.picBox_CloseIcon);
             this.Controls.Add(this.checkBoxEncrypt);

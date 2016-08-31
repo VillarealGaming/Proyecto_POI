@@ -67,7 +67,7 @@ namespace EasyPOI
             catch (SocketException exception)
             {
                 if (onConnectionFail != null) onConnectionFail();
-                client.BeginConnect(IPAddress.Loopback, port, new AsyncCallback(TryConnection), client);
+                client.BeginConnect(IPAddress.Loopback, Server.Port, new AsyncCallback(TryConnection), client);
             }
         }
         //Envía un paquete al servidor la información del paquete.

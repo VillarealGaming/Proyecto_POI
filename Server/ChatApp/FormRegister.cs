@@ -34,13 +34,13 @@ namespace ChatApp
             else
             {
                 //Thread safe code below
-                switch (packet.Content.Type)
+                switch (packet.Type)
                 {
-                    case PacketType.RegisterFail:
-                        MessageBox.Show("El nombre de usuario " + packet.Content.message + " ya existe", "Error de registro", MessageBoxButtons.OK);
+                    case PacketType.Fail:
+                        MessageBox.Show("El nombre de usuario " + packet.tag["message"] + " ya existe", "Error de registro", MessageBoxButtons.OK);
                         break;
-                    case PacketType.RegisterSucessfull:
-                        MessageBox.Show("Usuario " + packet.Content.message + " registrado", "Registro completado", MessageBoxButtons.OK);
+                    case PacketType.Register:
+                        MessageBox.Show("Usuario " + textBoxUsername.Text + " registrado", "Registro completado", MessageBoxButtons.OK);
                         this.Close();
                         break;
                 }
@@ -57,12 +57,12 @@ namespace ChatApp
                 if (textBoxPassword.Text == textBoxPasswordConfirm.Text)
                 {
                     //ClientSession.Connection.BeginConnect();
-                    RegisterPacket packet = new RegisterPacket();
-                    packet.password = textBoxPassword.Text;
-                    packet.message = textBoxUsername.Text;
-                    packet.carrera = comboBoxCarrera.SelectedItem.ToString().Normalize();
-                    packet.encrypt = checkBoxEncrypt.Checked;
-                    ClientSession.Connection.SendPacket(new Packet(packet));
+                    Packet packet = new Packet(PacketType.Register);
+                    packet.tag["password"] = textBoxPassword.Text;
+                    packet.tag["username"] = textBoxUsername.Text;
+                    packet.tag["carrera"] = comboBoxCarrera.SelectedItem.ToString().Normalize();
+                    packet.tag["encrypt"] = checkBoxEncrypt.Checked;
+                    ClientSession.Connection.SendPacket(packet);
                 }
                 else
                 {

@@ -14,9 +14,10 @@ namespace EasyPOI
     [Serializable]
     public class Packet
     {
-        public Packet(PacketContent content)
+        public Packet(PacketType type)
         {
-            this.content = content;
+            tag = new Dictionary<string, object>();
+            this.type = type;
         }
         public byte[] ToBytes()
         {
@@ -31,50 +32,10 @@ namespace EasyPOI
                 return finalStream.ToArray();
             }
         }
-        public PacketContent Content
-        {
-            get { return content; }
-        }
-        private PacketContent content;
-        public const int HeaderSize = 4;
-    }
-    [Serializable]
-    public class PacketContent
-    {
-        protected PacketType type;
-        //public PacketContent() { }
-        public PacketContent(PacketType type) { this.type = type; }
         public PacketType Type { get { return type; } }
-        public string message { get; set; }
-    }
-    [Serializable]
-    public class SessionBegin : PacketContent
-    {
-        public SessionBegin() : base(PacketType.SessionBegin) { }
-        public string password { get; set; }
-    }
-    [Serializable]
-    public class TextMessage : PacketContent
-    {
-        public TextMessage() : base(PacketType.TextMessage) { }
-        //public string message { get; set; }
-        public string destination { get; set; }
-        public string sender { get; set; }
-    }
-    [Serializable]
-    public class UserState : PacketContent
-    {
-        public UserState() : base(PacketType.ConnectionState){ }
-        //public UserConnectionState connectionState { get; set; }
-    }
-    [Serializable]
-    public class RegisterPacket : PacketContent
-    {
-        public RegisterPacket() : base(PacketType.Register) { }
-        //public string username { get; set; }
-        public string password { get; set; }
-        public string carrera { get; set; }
-        public bool encrypt { get; set; }
+        private PacketType type;
+        public Dictionary<string, Object> tag;
+        public const int HeaderSize = 4;
     }
     //Tal vez esto vaya mejor en el archivo de Client.cs
     public enum UserConnectionState
@@ -89,12 +50,14 @@ namespace EasyPOI
         TextMessage,
         SessionBegin,
         SessionEnd,
-        SessionFail,
-        SessionSuccess,
+        Fail,
         Register,
         ConnectionState,
-        RegisterFail,
-        RegisterSucessfull
+        CreatePublicConversation,
+        CreatePrivateConversation,
+        GetUserConversations,
+        GetChatConversation
+        //
     }
     //Referencia
     //https://msdn.microsoft.com/en-us/library/bew39x2a(v=vs.110).aspx

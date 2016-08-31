@@ -14,49 +14,34 @@ namespace ChatApp
     {
         private bool dragging = false;
         private Point dragCursorPoint, dragFormPoint;
-
-        public formChat()
+        public int chatID { get; set; }
+        public ListViewItem listItem { get; set; }
+        public formChat(int chatID, ListViewItem listItem)
         {
+            Packet packet = new Packet(PacketType.GetChatConversation);
+            packet.tag["chatID"] = chatID;
+            this.chatID = chatID;
+            this.listItem = listItem;
+            ClientSession.Connection.SendPacket(packet);
             InitializeComponent();
         }
 
         private void buttonEnviar_Click(object sender, EventArgs e)
         {
-            TextMessage message = new TextMessage();
-            message.destination = "otroUsuario";
-            message.sender = ClientSession.username;
-            message.message = textBoxChat.Text;
-            ClientSession.Connection.SendPacket(new Packet(message));
+            Packet packet = new Packet(PacketType.TextMessage);
+            packet.tag["destination"] = "otroUsuario";
+            packet.tag["sender"] = ClientSession.username;
+            packet.tag["text"] = textBoxChat.Text;
+            packet.tag["chatID"] = chatID;
+            packet.tag["date"] = DateTime.Now;
+            ClientSession.Connection.SendPacket(packet);
 
             textBoxChat.Text = "";
         }
 
         private void formChat_Load(object sender, EventArgs e)
         {
-            ClientSession.Connection.OnPacketReceivedFunc(ReceivePacket);
             textBoxChat.Focus();
-        }
-        //Thread safe callbacks
-        //http://stackoverflow.com/questions/10775367/cross-thread-operation-not-valid-control-textbox1-accessed-from-a-thread-othe
-        //private delegate void ReceivePacketCallback(Packet packet);
-        private void ReceivePacket(Packet packet)
-        {
-            // InvokeRequired required compares the thread ID of the
-            // calling thread to the thread ID of the creating thread.
-            // If these threads are different, it returns true.
-            if (packet.Content.Type == PacketType.TextMessage)
-            {
-                TextMessage message = packet.Content as TextMessage;
-                if (this.richTextBoxChat.InvokeRequired)
-                {
-                    ClientSession.ReceivePacketCallback d = new ClientSession.ReceivePacketCallback(ReceivePacket);
-                    this.Invoke(d, new object[] { packet });
-                }
-                else
-                {
-                    richTextBoxChat.Text += "\n" + message.sender + ": " + message.message;
-                }
-            }
         }
 
         private void richTextBoxChat_TextChanged(object sender, EventArgs e)
@@ -84,7 +69,7 @@ namespace ChatApp
         }
 
         private void picBox_CloseIcon_MouseClick(object sender, MouseEventArgs e) {
-            this.Close();
+            this.Hide();
         }
 
         private void textBoxChat_KeyDown(object sender, KeyEventArgs e) {
@@ -93,6 +78,11 @@ namespace ChatApp
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
+        }
+
+        private void textBoxChat_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void formChat_MouseMove(object sender, MouseEventArgs e) {
