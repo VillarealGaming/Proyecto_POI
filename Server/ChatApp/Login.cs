@@ -16,6 +16,9 @@ namespace ChatApp
 {
     public partial class formLogin : Form
     {
+        private bool dragging = false;
+        private Point dragCursorPoint, dragFormPoint;
+
         public formLogin()
         {
             InitializeComponent();
@@ -33,7 +36,7 @@ namespace ChatApp
                 {
                     ClientSession.username = textBoxUsername.Text;
                     this.Hide();
-                    FormHome chat = new FormHome();
+                    formChat chat = new formChat();
                     chat.FormClosed += (s, args) => { this.Close(); };
                     chat.Show();
                 }
@@ -74,6 +77,43 @@ namespace ChatApp
                 this.Text = "Buscando servidor...";
             }
             this.Text = "Iniciar sesión";
+        }
+
+        private void formLogin_MouseMove(object sender, MouseEventArgs e) {
+            if (dragging) {
+                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
+                this.Location = Point.Add(dragFormPoint, new Size(dif));
+            }
+        }
+
+        private void formLogin_MouseUp(object sender, MouseEventArgs e) {
+            dragging = false;
+        }
+
+        private void picBox_CloseIcon_MouseEnter(object sender, EventArgs e) {
+            picBox_CloseIcon.BackColor = Color.Brown;
+        }
+
+        private void picBox_CloseIcon_MouseLeave(object sender, EventArgs e) {
+            picBox_CloseIcon.BackColor = Color.White;
+        }
+
+        private void picBox_CloseIcon_MouseClick(object sender, MouseEventArgs e) {
+            Application.Exit();
+        }
+
+        private void textBoxPassword_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Enter) {
+                buttonConnect.PerformClick();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void formLogin_MouseDown(object sender, MouseEventArgs e) {
+            dragging = true;
+            dragCursorPoint = Cursor.Position;
+            dragFormPoint = this.Location;
         }
     }
 }

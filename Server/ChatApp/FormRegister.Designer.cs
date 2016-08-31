@@ -30,18 +30,20 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxUsername = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.Header = new System.Windows.Forms.Label();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxPasswordConfirm = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.comboBoxCarrera = new System.Windows.Forms.ComboBox();
             this.buttonRegister = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkBoxEncrypt = new System.Windows.Forms.CheckBox();
-            this.comboBoxCarrera = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.picBox_CloseIcon = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -53,7 +55,6 @@
             this.label1.Size = new System.Drawing.Size(109, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "Nombre de usuario";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // textBoxUsername
             // 
@@ -62,21 +63,22 @@
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(202, 20);
             this.textBoxUsername.TabIndex = 2;
-            this.textBoxUsername.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // label2
+            // Header
             // 
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(172)))), ((int)(((byte)(165)))));
-            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(-2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(385, 24);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Captura tus datos";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.Header.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(172)))), ((int)(((byte)(165)))));
+            this.Header.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Header.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Header.ForeColor = System.Drawing.Color.White;
+            this.Header.Location = new System.Drawing.Point(-2, 0);
+            this.Header.Name = "Header";
+            this.Header.Size = new System.Drawing.Size(385, 24);
+            this.Header.TabIndex = 2;
+            this.Header.Text = "Captura tus datos";
+            this.Header.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Header.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormRegister_MouseDown);
+            this.Header.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormRegister_MouseMove);
+            this.Header.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FormRegister_MouseUp);
             // 
             // textBoxPassword
             // 
@@ -86,7 +88,6 @@
             this.textBoxPassword.PasswordChar = '•';
             this.textBoxPassword.Size = new System.Drawing.Size(202, 20);
             this.textBoxPassword.TabIndex = 3;
-            this.textBoxPassword.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label3
             // 
@@ -97,7 +98,6 @@
             this.label3.Size = new System.Drawing.Size(67, 15);
             this.label3.TabIndex = 3;
             this.label3.Text = "Contraseña";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // textBoxPasswordConfirm
             // 
@@ -107,7 +107,6 @@
             this.textBoxPasswordConfirm.PasswordChar = '•';
             this.textBoxPasswordConfirm.Size = new System.Drawing.Size(202, 20);
             this.textBoxPasswordConfirm.TabIndex = 4;
-            this.textBoxPasswordConfirm.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // label4
             // 
@@ -118,7 +117,6 @@
             this.label4.Size = new System.Drawing.Size(122, 15);
             this.label4.TabIndex = 5;
             this.label4.Text = "Confirmar contraseña";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // groupBox1
             // 
@@ -130,12 +128,37 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.textBoxPassword);
             this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(13, 28);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(348, 129);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 97);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 13);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Carrera";
+            // 
+            // comboBoxCarrera
+            // 
+            this.comboBoxCarrera.FormattingEnabled = true;
+            this.comboBoxCarrera.Items.AddRange(new object[] {
+            "Matemáticas",
+            "Física",
+            "Ciencias Computacionales",
+            "Actuaría",
+            "Multimedia y Animación Digital",
+            "Seguridad en T.I."});
+            this.comboBoxCarrera.Location = new System.Drawing.Point(134, 94);
+            this.comboBoxCarrera.Name = "comboBoxCarrera";
+            this.comboBoxCarrera.Size = new System.Drawing.Size(202, 21);
+            this.comboBoxCarrera.TabIndex = 6;
             // 
             // buttonRegister
             // 
@@ -165,6 +188,7 @@
             // checkBoxEncrypt
             // 
             this.checkBoxEncrypt.AutoSize = true;
+            this.checkBoxEncrypt.ForeColor = System.Drawing.Color.White;
             this.checkBoxEncrypt.Location = new System.Drawing.Point(22, 167);
             this.checkBoxEncrypt.Name = "checkBoxEncrypt";
             this.checkBoxEncrypt.Size = new System.Drawing.Size(77, 17);
@@ -172,47 +196,44 @@
             this.checkBoxEncrypt.Text = "Encriptado";
             this.checkBoxEncrypt.UseVisualStyleBackColor = true;
             // 
-            // comboBoxCarrera
+            // picBox_CloseIcon
             // 
-            this.comboBoxCarrera.FormattingEnabled = true;
-            this.comboBoxCarrera.Items.AddRange(new object[] {
-            "Matemáticas",
-            "Física",
-            "Ciencias Computacionales",
-            "Actuaría",
-            "Multimedia y Animación Digital",
-            "Seguridad en T.I."});
-            this.comboBoxCarrera.Location = new System.Drawing.Point(134, 94);
-            this.comboBoxCarrera.Name = "comboBoxCarrera";
-            this.comboBoxCarrera.Size = new System.Drawing.Size(202, 21);
-            this.comboBoxCarrera.TabIndex = 6;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 97);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 13);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Carrera";
+            this.picBox_CloseIcon.BackColor = System.Drawing.Color.White;
+            this.picBox_CloseIcon.BackgroundImage = global::ChatApp.Properties.Resources.closeIcon;
+            this.picBox_CloseIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.picBox_CloseIcon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBox_CloseIcon.Cursor = System.Windows.Forms.Cursors.Default;
+            this.picBox_CloseIcon.Location = new System.Drawing.Point(349, 0);
+            this.picBox_CloseIcon.Name = "picBox_CloseIcon";
+            this.picBox_CloseIcon.Size = new System.Drawing.Size(26, 25);
+            this.picBox_CloseIcon.TabIndex = 8;
+            this.picBox_CloseIcon.TabStop = false;
+            this.picBox_CloseIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picBox_CloseIcon_MouseClick);
+            this.picBox_CloseIcon.MouseEnter += new System.EventHandler(this.picBox_CloseIcon_MouseEnter);
+            this.picBox_CloseIcon.MouseLeave += new System.EventHandler(this.picBox_CloseIcon_MouseLeave);
             // 
             // FormRegister
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(60)))), ((int)(((byte)(90)))));
             this.ClientSize = new System.Drawing.Size(375, 196);
+            this.Controls.Add(this.picBox_CloseIcon);
             this.Controls.Add(this.checkBoxEncrypt);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonRegister);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.Header);
             this.Controls.Add(this.groupBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormRegister";
             this.Text = "Registro";
             this.Load += new System.EventHandler(this.FormRegister_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormRegister_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormRegister_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FormRegister_MouseUp);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -222,7 +243,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxUsername;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label Header;
         private System.Windows.Forms.TextBox textBoxPassword;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxPasswordConfirm;
@@ -233,5 +254,6 @@
         private System.Windows.Forms.CheckBox checkBoxEncrypt;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBoxCarrera;
+        private System.Windows.Forms.PictureBox picBox_CloseIcon;
     }
 }

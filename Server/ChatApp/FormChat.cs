@@ -12,6 +12,9 @@ namespace ChatApp
 {
     public partial class formChat : Form
     {
+        private bool dragging = false;
+        private Point dragCursorPoint, dragFormPoint;
+
         public formChat()
         {
             InitializeComponent();
@@ -24,11 +27,14 @@ namespace ChatApp
             message.sender = ClientSession.username;
             message.message = textBoxChat.Text;
             ClientSession.Connection.SendPacket(new Packet(message));
+
+            textBoxChat.Text = "";
         }
 
         private void formChat_Load(object sender, EventArgs e)
         {
             ClientSession.Connection.OnPacketReceivedFunc(ReceivePacket);
+            textBoxChat.Focus();
         }
         //Thread safe callbacks
         //http://stackoverflow.com/questions/10775367/cross-thread-operation-not-valid-control-textbox1-accessed-from-a-thread-othe
@@ -57,6 +63,43 @@ namespace ChatApp
         {
             richTextBoxChat.SelectionStart = richTextBoxChat.Text.Length;
             richTextBoxChat.ScrollToCaret();
+        }
+
+        private void formChat_MouseDown(object sender, MouseEventArgs e) {
+            dragging = true;
+            dragCursorPoint = Cursor.Position;
+            dragFormPoint = this.Location;
+        }
+
+        private void formChat_MouseUp(object sender, MouseEventArgs e) {
+            dragging = false;
+        }
+
+        private void picBox_CloseIcon_MouseEnter(object sender, EventArgs e) {
+            picBox_CloseIcon.BackColor = Color.Brown;
+        }
+
+        private void picBox_CloseIcon_MouseLeave(object sender, EventArgs e) {
+            picBox_CloseIcon.BackColor = Color.White;
+        }
+
+        private void picBox_CloseIcon_MouseClick(object sender, MouseEventArgs e) {
+            this.Close();
+        }
+
+        private void textBoxChat_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Enter) {
+                buttonEnviar.PerformClick();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void formChat_MouseMove(object sender, MouseEventArgs e) {
+            if (dragging) {
+                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
+                this.Location = Point.Add(dragFormPoint, new Size(dif));
+            }
         }
     }
 }
