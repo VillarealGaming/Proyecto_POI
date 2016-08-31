@@ -18,11 +18,10 @@ namespace EasyPOI
         {
         }
         //Comenzar a buscar una conexión
-        public void BeginConnect(int port = DefaultPort)
+        public void BeginConnect()
         {
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            socket.BeginConnect(IPAddress.Loopback, port, new AsyncCallback(TryConnection), socket);
-            this.port = port;
+            socket.BeginConnect(IPAddress.Parse(Server.Address)/*IPAddress.Loopback*/, Server.Port, new AsyncCallback(TryConnection), socket);
         }
         //Cerramos la conexion
         public void QuitConnection()
@@ -193,10 +192,6 @@ namespace EasyPOI
         {
             get { return socket.Connected; }
         }
-        public int Port
-        {
-            get { return port; }
-        }
         public Action OnConnection
         {
             set { onConnection = value; }
@@ -214,13 +209,11 @@ namespace EasyPOI
             onPacketReceived = func;
         }
         //private bool connected;
-        private int port;
         private Socket socket;
         //callbacks
         private Action onConnection;
         private Action onConnectionFail;
         private Action onConnectionLost;
         private Action<Packet> onPacketReceived;
-        private const int DefaultPort = 100;
     }
 }

@@ -12,11 +12,14 @@ namespace EasyPOI
 {
     public class Server
     {
-        public Server(int port = DefaultPort)
+        private const int listenTime = 10;
+        internal const int Port = 6666;
+        internal const string Address = "192.168.1.66";
+
+        public Server()
         {
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            socket.Bind(new IPEndPoint(IPAddress.Any, port));
-            this.port = port;
+            socket.Bind(new IPEndPoint(IPAddress.Any, Server.Port));
         }
         //Comenzamos a buscar clientes
         public void StartListening()
@@ -160,8 +163,6 @@ namespace EasyPOI
                 if (OnClientDisconnect != null) OnClientDisconnect(client);
             }
         }
-        private int port;
-        private Socket socket;
         //setter functions
         public void SetClientAcceptedFunc(Action<Socket> func)
         {
@@ -182,8 +183,7 @@ namespace EasyPOI
         private Action<Packet, Socket> OnPacketReceived;
         //private Action<Socket> onClientDisconnect;
         private Action<Socket> OnClientDisconnect;
-        private const int DefaultPort = 100;
-        private const int listenTime = 10;
+        private Socket socket;
         //extensions
         //private List<Socket> clients;
     }
