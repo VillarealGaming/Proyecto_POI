@@ -47,6 +47,7 @@
             // 
             this.buttonConnect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(172)))), ((int)(((byte)(165)))));
             this.buttonConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonConnect.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonConnect.ForeColor = System.Drawing.Color.White;
             this.buttonConnect.Location = new System.Drawing.Point(138, 67);
             this.buttonConnect.Name = "buttonConnect";
@@ -60,11 +61,11 @@
             // 
             this.Header.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(172)))), ((int)(((byte)(165)))));
             this.Header.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Header.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Header.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Header.ForeColor = System.Drawing.Color.White;
-            this.Header.Location = new System.Drawing.Point(-2, -1);
+            this.Header.Location = new System.Drawing.Point(0, 0);
             this.Header.Name = "Header";
-            this.Header.Size = new System.Drawing.Size(387, 24);
+            this.Header.Size = new System.Drawing.Size(370, 24);
             this.Header.TabIndex = 3;
             this.Header.Text = "Bienvenido";
             this.Header.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -79,6 +80,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.textBoxPassword);
             this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(13, 30);
             this.groupBox1.Name = "groupBox1";
@@ -89,12 +91,12 @@
             // 
             // textBoxUsername
             // 
-            this.textBoxUsername.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(60)))), ((int)(((byte)(90)))));
+            this.textBoxUsername.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
             this.textBoxUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxUsername.ForeColor = System.Drawing.Color.White;
             this.textBoxUsername.Location = new System.Drawing.Point(121, 15);
             this.textBoxUsername.Name = "textBoxUsername";
-            this.textBoxUsername.Size = new System.Drawing.Size(215, 20);
+            this.textBoxUsername.Size = new System.Drawing.Size(215, 22);
             this.textBoxUsername.TabIndex = 2;
             // 
             // label1
@@ -109,14 +111,15 @@
             // 
             // textBoxPassword
             // 
-            this.textBoxPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(60)))), ((int)(((byte)(90)))));
+            this.textBoxPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
             this.textBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxPassword.ForeColor = System.Drawing.Color.White;
             this.textBoxPassword.Location = new System.Drawing.Point(121, 41);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '•';
-            this.textBoxPassword.Size = new System.Drawing.Size(215, 20);
+            this.textBoxPassword.Size = new System.Drawing.Size(215, 22);
             this.textBoxPassword.TabIndex = 3;
+            this.textBoxPassword.TextChanged += new System.EventHandler(this.textBoxPassword_TextChanged);
             this.textBoxPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxPassword_KeyDown);
             // 
             // label3
@@ -132,6 +135,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.buttonRegistrar);
+            this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.White;
             this.groupBox2.Location = new System.Drawing.Point(12, 136);
             this.groupBox2.Name = "groupBox2";
@@ -160,9 +164,9 @@
             this.picBox_CloseIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picBox_CloseIcon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picBox_CloseIcon.Cursor = System.Windows.Forms.Cursors.Default;
-            this.picBox_CloseIcon.Location = new System.Drawing.Point(350, -2);
+            this.picBox_CloseIcon.Location = new System.Drawing.Point(348, 0);
             this.picBox_CloseIcon.Name = "picBox_CloseIcon";
-            this.picBox_CloseIcon.Size = new System.Drawing.Size(26, 25);
+            this.picBox_CloseIcon.Size = new System.Drawing.Size(26, 24);
             this.picBox_CloseIcon.TabIndex = 5;
             this.picBox_CloseIcon.TabStop = false;
             this.picBox_CloseIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picBox_CloseIcon_MouseClick);
@@ -173,7 +177,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(60)))), ((int)(((byte)(90)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
             this.ClientSize = new System.Drawing.Size(374, 202);
             this.Controls.Add(this.picBox_CloseIcon);
             this.Controls.Add(this.Header);

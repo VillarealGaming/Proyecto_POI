@@ -1350,6 +1350,8 @@ namespace Server {
             
             private global::System.Data.DataColumn columnMensaje;
             
+            private global::System.Data.DataColumn columnDate;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public MensajeDataTable() {
@@ -1409,6 +1411,14 @@ namespace Server {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn DateColumn {
+                get {
+                    return this.columnDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1444,12 +1454,13 @@ namespace Server {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public MensajeRow AddMensajeRow(ConversacionRow parentConversacionRowByConversacion_Mensaje, UsuarioRow parentUsuarioRowByUsuario_Mensaje, string Mensaje) {
+            public MensajeRow AddMensajeRow(ConversacionRow parentConversacionRowByConversacion_Mensaje, UsuarioRow parentUsuarioRowByUsuario_Mensaje, string Mensaje, System.DateTime Date) {
                 MensajeRow rowMensajeRow = ((MensajeRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         null,
-                        Mensaje};
+                        Mensaje,
+                        Date};
                 if ((parentConversacionRowByConversacion_Mensaje != null)) {
                     columnValuesArray[0] = parentConversacionRowByConversacion_Mensaje[0];
                 }
@@ -1459,14 +1470,6 @@ namespace Server {
                 rowMensajeRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMensajeRow);
                 return rowMensajeRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public MensajeRow FindByConversacionUsuario(int Conversacion, string Usuario) {
-                return ((MensajeRow)(this.Rows.Find(new object[] {
-                            Conversacion,
-                            Usuario})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1489,6 +1492,7 @@ namespace Server {
                 this.columnConversacion = base.Columns["Conversacion"];
                 this.columnUsuario = base.Columns["Usuario"];
                 this.columnMensaje = base.Columns["Mensaje"];
+                this.columnDate = base.Columns["Date"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1500,12 +1504,12 @@ namespace Server {
                 base.Columns.Add(this.columnUsuario);
                 this.columnMensaje = new global::System.Data.DataColumn("Mensaje", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMensaje);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnConversacion,
-                                this.columnUsuario}, true));
+                this.columnDate = new global::System.Data.DataColumn("Date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDate);
                 this.columnConversacion.AllowDBNull = false;
                 this.columnUsuario.AllowDBNull = false;
                 this.columnMensaje.AllowDBNull = false;
+                this.columnDate.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2185,6 +2189,17 @@ namespace Server {
                 }
                 set {
                     this[this.tableMensaje.MensajeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.DateTime Date {
+                get {
+                    return ((global::System.DateTime)(this[this.tableMensaje.DateColumn]));
+                }
+                set {
+                    this[this.tableMensaje.DateColumn] = value;
                 }
             }
             

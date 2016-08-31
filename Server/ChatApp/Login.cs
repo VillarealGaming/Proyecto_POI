@@ -32,17 +32,18 @@ namespace ChatApp
             }
             else
             {
-                if(packet.Content.Type == PacketType.SessionSuccess)
+                if(packet.Type == PacketType.SessionBegin)
                 {
                     ClientSession.username = textBoxUsername.Text;
                     this.Hide();
-                    formChat chat = new formChat();
-                    chat.FormClosed += (s, args) => { this.Close(); };
-                    chat.Show();
+                    FormHome home = new FormHome();
+                    //formChat chat = new formChat();
+                    home.FormClosed += (s, args) => { this.Close(); };
+                    home.Show();
                 }
-                else if(packet.Content.Type == PacketType.SessionFail)
+                else if(packet.Type == PacketType.Fail)
                 {
-                    MessageBox.Show(packet.Content.message, "No se puede iniciar sesión", MessageBoxButtons.OK);
+                    MessageBox.Show(packet.tag["message"] as string, "No se puede iniciar sesión", MessageBoxButtons.OK);
                 }
             }
         }
@@ -51,10 +52,10 @@ namespace ChatApp
             if(textBoxUsername.Text != "" &&
                 textBoxPassword.Text != "")
             {
-                SessionBegin sessionBegin = new SessionBegin();
-                sessionBegin.message = textBoxUsername.Text;
-                sessionBegin.password = textBoxPassword.Text;
-                ClientSession.Connection.SendPacket(new Packet(sessionBegin));
+                Packet sessionBegin = new Packet(PacketType.SessionBegin);
+                sessionBegin.tag["username"] = textBoxUsername.Text;
+                sessionBegin.tag["password"] = textBoxPassword.Text;
+                ClientSession.Connection.SendPacket(sessionBegin);
             }
         }
 
@@ -62,6 +63,7 @@ namespace ChatApp
         {
             FormRegister registerForm = new FormRegister();
             registerForm.ShowDialog();
+            ClientSession.Connection.OnPacketReceivedFunc(OnPacket);
         }
         //TODO: Comenzar la conexion en otro form, uno que solo aparezca una vez
         private void formLogin_Load(object sender, EventArgs e)
@@ -108,6 +110,11 @@ namespace ChatApp
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
+        }
+
+        private void textBoxPassword_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void formLogin_MouseDown(object sender, MouseEventArgs e) {

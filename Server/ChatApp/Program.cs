@@ -6,16 +6,6 @@ using System.Windows.Forms;
 using EasyPOI;
 namespace ChatApp
 {
-    static class ClientSession
-    {
-        public delegate void ReceivePacketCallback(Packet packet);
-        public static string username { get; set; }
-        public static Client Connection
-        {
-            get { return client; }
-        }
-        private static Client client = new Client();
-    }
     static class Program
     {
         /// <summary>
@@ -26,6 +16,7 @@ namespace ChatApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             Application.Run(new formLogin());
         }
     }
