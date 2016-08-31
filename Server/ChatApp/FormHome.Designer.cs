@@ -28,9 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-<<<<<<< HEAD
-            this.Header = new System.Windows.Forms.Label();
-=======
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("Matemáticas");
             System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("Física");
@@ -47,7 +44,6 @@
             this.columnChatName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnMessage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonNewGroupChat = new System.Windows.Forms.Button();
->>>>>>> origin/master
             this.picBox_CloseIcon = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).BeginInit();
             this.SuspendLayout();
@@ -55,20 +51,7 @@
             // Header
             // 
             this.Header.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(172)))), ((int)(((byte)(165)))));
-            this.Header.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-<<<<<<< HEAD
-            this.Header.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Header.ForeColor = System.Drawing.Color.White;
-            this.Header.Location = new System.Drawing.Point(1, 0);
-            this.Header.Name = "Header";
-            this.Header.Size = new System.Drawing.Size(600, 24);
-            this.Header.TabIndex = 4;
-            this.Header.Text = "Home";
-            this.Header.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Header.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormHome_MouseDown);
-            this.Header.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormHome_MouseMove);
-            this.Header.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FormHome_MouseUp);
-=======
+            this.Header.FlatStyle = System.Windows.Forms.FlatStyle.Flat;          
             this.Header.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Header.ForeColor = System.Drawing.Color.White;
             this.Header.Location = new System.Drawing.Point(0, 0);
@@ -77,6 +60,10 @@
             this.Header.TabIndex = 11;
             this.Header.Text = "Nombre del contacto";
             this.Header.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Header.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Header.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormHome_MouseDown);
+            this.Header.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormHome_MouseMove);
+            this.Header.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FormHome_MouseUp);
             // 
             // treeViewUsers
             // 
@@ -163,7 +150,6 @@
             this.buttonNewGroupChat.Text = "Crear chat";
             this.buttonNewGroupChat.UseVisualStyleBackColor = false;
             this.buttonNewGroupChat.Click += new System.EventHandler(this.buttonNewGroupChat_Click);
->>>>>>> origin/master
             // 
             // picBox_CloseIcon
             // 
@@ -172,7 +158,6 @@
             this.picBox_CloseIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picBox_CloseIcon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picBox_CloseIcon.Cursor = System.Windows.Forms.Cursors.Default;
-<<<<<<< HEAD
             this.picBox_CloseIcon.Location = new System.Drawing.Point(575, -1);
             this.picBox_CloseIcon.Name = "picBox_CloseIcon";
             this.picBox_CloseIcon.Size = new System.Drawing.Size(26, 25);
@@ -181,54 +166,41 @@
             this.picBox_CloseIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picBox_CloseIcon_MouseClick);
             this.picBox_CloseIcon.MouseEnter += new System.EventHandler(this.picBox_CloseIcon_MouseEnter);
             this.picBox_CloseIcon.MouseLeave += new System.EventHandler(this.picBox_CloseIcon_MouseLeave);
-=======
             this.picBox_CloseIcon.Location = new System.Drawing.Point(430, 0);
             this.picBox_CloseIcon.Name = "picBox_CloseIcon";
             this.picBox_CloseIcon.Size = new System.Drawing.Size(26, 24);
             this.picBox_CloseIcon.TabIndex = 10;
             this.picBox_CloseIcon.TabStop = false;
->>>>>>> origin/master
             // 
             // FormHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-<<<<<<< HEAD
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(60)))), ((int)(((byte)(90)))));
             this.ClientSize = new System.Drawing.Size(601, 430);
-=======
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
             this.ClientSize = new System.Drawing.Size(455, 424);
             this.Controls.Add(this.buttonNewGroupChat);
             this.Controls.Add(this.listViewPrivateMessages);
             this.Controls.Add(this.listViewConversacion);
             this.Controls.Add(this.treeViewUsers);
->>>>>>> origin/master
             this.Controls.Add(this.picBox_CloseIcon);
             this.Controls.Add(this.Header);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormHome";
             this.Text = "Home";
-<<<<<<< HEAD
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormHome_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormHome_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FormHome_MouseUp);
-=======
             this.Load += new System.EventHandler(this.FormHome_Load);
->>>>>>> origin/master
             ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-<<<<<<< HEAD
         private System.Windows.Forms.Label Header;
         private System.Windows.Forms.PictureBox picBox_CloseIcon;
-=======
-        private System.Windows.Forms.PictureBox picBox_CloseIcon;
-        private System.Windows.Forms.Label Header;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TreeView treeViewUsers;
         private System.Windows.Forms.ListView listViewConversacion;
@@ -236,6 +208,5 @@
         private System.Windows.Forms.ColumnHeader columnChatName;
         private System.Windows.Forms.ColumnHeader columnMessage;
         private System.Windows.Forms.Button buttonNewGroupChat;
->>>>>>> origin/master
     }
 }

@@ -82,6 +82,11 @@
     <Nombre>Dame doble click</Nombre>
     <Encriptado>false</Encriptado>
   </Conversacion>
+  <Conversacion>
+    <ID>1</ID>
+    <Nombre>IZI LIFING</Nombre>
+    <Encriptado>false</Encriptado>
+  </Conversacion>
   <Mensaje>
     <Conversacion>0</Conversacion>
     <Usuario>123</Usuario>

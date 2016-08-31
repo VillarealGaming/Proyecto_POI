@@ -12,19 +12,15 @@ namespace ChatApp
 {
     public partial class FormHome : Form
     {
-<<<<<<< HEAD
         private bool dragging = false;
         private Point dragCursorPoint, dragFormPoint;
-=======
         private FormCreateChat formCreateChat;
         private Dictionary<int, formChat> chatsForms = new Dictionary<int, formChat>();
->>>>>>> origin/master
 
         public FormHome()
         {
             InitializeComponent();
         }
-<<<<<<< HEAD
 
         private void FormHome_MouseDown(object sender, MouseEventArgs e) {
             dragging = true;
@@ -54,7 +50,6 @@ namespace ChatApp
         private void picBox_CloseIcon_MouseClick(object sender, MouseEventArgs e) {
             this.Close();
         }
-=======
         //Thread safe callbacks
         //http://stackoverflow.com/questions/10775367/cross-thread-operation-not-valid-control-textbox1-accessed-from-a-thread-othe
         private void OnPacket(Packet packet)
@@ -150,6 +145,5 @@ namespace ChatApp
         public static Dictionary<int, string> chats = new Dictionary<int, string>();
         public static List<string> userList = new List<string>();
         private static Client client = new Client();
->>>>>>> origin/master
     }
 }

@@ -149,15 +149,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-<<<<<<< HEAD
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(60)))), ((int)(((byte)(90)))));
             this.ClientSize = new System.Drawing.Size(332, 407);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.picBox_EmoteIcon);
-=======
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
             this.ClientSize = new System.Drawing.Size(284, 406);
->>>>>>> origin/master
             this.Controls.Add(this.picBox_CloseIcon);
             this.Controls.Add(this.Header);
             this.Controls.Add(this.buttonEnviar);
@@ -182,12 +179,9 @@
         private System.Windows.Forms.Button buttonEnviar;
         private System.Windows.Forms.Label Header;
         private System.Windows.Forms.PictureBox picBox_CloseIcon;
-<<<<<<< HEAD
         private System.Windows.Forms.PictureBox picBox_EmoteIcon;
         private System.Windows.Forms.ListView listView1;
-=======
         public System.Windows.Forms.RichTextBox richTextBoxChat;
->>>>>>> origin/master
     }
 }
 

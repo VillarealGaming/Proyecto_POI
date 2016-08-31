@@ -79,19 +79,18 @@ namespace ChatApp
                 e.SuppressKeyPress = true;
             }
         }
-
-<<<<<<< HEAD
+       
         private void picBox_EmoteIcon_MouseEnter(object sender, EventArgs e) {
             picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIconHover;
         }
 
         private void picBox_EmoteIcon_MouseLeave(object sender, EventArgs e) {
             picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIcon;
-=======
+        }
+
         private void textBoxChat_TextChanged(object sender, EventArgs e)
         {
-
->>>>>>> origin/master
+            
         }
 
         private void formChat_MouseMove(object sender, MouseEventArgs e) {
