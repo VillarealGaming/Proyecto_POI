@@ -14,7 +14,7 @@ namespace EasyPOI
     {
         private const int listenTime = 10;
         internal const int Port = 6666;
-        internal const string Address = "192.168.1.66";
+        internal const string Address = "192.168.0.3";
 
         public Server()
         {

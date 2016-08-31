@@ -18,7 +18,6 @@ namespace Server {
             server.SetOnClientDisconnectFunc(OnClientDisconnect);
             server.SetPacketReceivedFunc(OnPacketReceived);
             server.SetClientAcceptedFunc(OnClientAccepted);
-            //server.OnPacketReceived = Received;
             Console.WriteLine("Servidor iniciado");
             server.StartListening();
             Console.ReadLine();

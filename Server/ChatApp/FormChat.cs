@@ -88,11 +88,6 @@ namespace ChatApp
             picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIcon;
         }
 
-        private void textBoxChat_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
         private void formChat_MouseMove(object sender, MouseEventArgs e) {
             if (dragging) {
                 Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
