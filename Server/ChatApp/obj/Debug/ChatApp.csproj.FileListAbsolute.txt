@@ -12,17 +12,3 @@ C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\POI_Proyecto\Proyecto_POI\Server\Ch
 C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\POI_Proyecto\Proyecto_POI\Server\ChatApp\obj\Debug\ChatApp.csproj.GenerateResource.Cache
 C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\POI_Proyecto\Proyecto_POI\Server\ChatApp\obj\Debug\ChatApp.exe
 C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\POI_Proyecto\Proyecto_POI\Server\ChatApp\obj\Debug\ChatApp.pdb
-C:\Users\w7\Source\Repos\Proyecto_POI\Server\ChatApp\bin\Debug\ChatApp.exe.config
-C:\Users\w7\Source\Repos\Proyecto_POI\Server\ChatApp\obj\Debug\ChatApp.exe
-C:\Users\w7\Source\Repos\Proyecto_POI\Server\ChatApp\obj\Debug\ChatApp.pdb
-C:\Users\w7\Source\Repos\Proyecto_POI\Server\ChatApp\bin\Debug\ChatApp.exe
-C:\Users\w7\Source\Repos\Proyecto_POI\Server\ChatApp\bin\Debug\ChatApp.pdb
-C:\Users\w7\Source\Repos\Proyecto_POI\Server\ChatApp\bin\Debug\EasyPOI.dll
-C:\Users\w7\Source\Repos\Proyecto_POI\Server\ChatApp\bin\Debug\EasyPOI.pdb
-C:\Users\w7\Source\Repos\Proyecto_POI\Server\ChatApp\obj\Debug\ChatApp.csprojResolveAssemblyReference.cache
-C:\Users\w7\Source\Repos\Proyecto_POI\Server\ChatApp\obj\Debug\ChatApp.formChat.resources
-C:\Users\w7\Source\Repos\Proyecto_POI\Server\ChatApp\obj\Debug\ChatApp.FormHome.resources
-C:\Users\w7\Source\Repos\Proyecto_POI\Server\ChatApp\obj\Debug\ChatApp.FormRegister.resources
-C:\Users\w7\Source\Repos\Proyecto_POI\Server\ChatApp\obj\Debug\ChatApp.formLogin.resources
-C:\Users\w7\Source\Repos\Proyecto_POI\Server\ChatApp\obj\Debug\ChatApp.Properties.Resources.resources
-C:\Users\w7\Source\Repos\Proyecto_POI\Server\ChatApp\obj\Debug\ChatApp.csproj.GenerateResource.Cache
