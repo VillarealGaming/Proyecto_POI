@@ -22,6 +22,10 @@ namespace ChatApp
         public formLogin()
         {
             InitializeComponent();
+            ClientSession.connectionStateHash.Add("Available", new Tuple<int, string>(0, "En linea"));
+            ClientSession.connectionStateHash.Add("NotAvailable", new Tuple<int, string>(1, "No disponible"));
+            ClientSession.connectionStateHash.Add("Busy", new Tuple<int, string>(2, "Ocupado"));
+            ClientSession.connectionStateHash.Add("Offline", new Tuple<int, string>(3, "Desconectado"));
         }
         private void OnPacket(Packet packet)
         {
@@ -35,11 +39,12 @@ namespace ChatApp
                 if(packet.Type == PacketType.SessionBegin)
                 {
                     ClientSession.username = textBoxUsername.Text;
+                    ClientSession.state = packet.tag["state"] as string;
                     this.Hide();
                     FormHome home = new FormHome();
-                    //formChat chat = new formChat();
                     home.FormClosed += (s, args) => { this.Close(); };
-                    home.Show();
+                    home.OnPacket(new Packet(PacketType.SessionBegin));
+                    //formChat chat = new formChat();
                 }
                 else if(packet.Type == PacketType.Fail)
                 {

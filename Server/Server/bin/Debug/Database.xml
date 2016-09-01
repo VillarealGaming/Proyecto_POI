@@ -68,12 +68,12 @@
     <Contrasenia>peluda</Contrasenia>
     <Estado>Available</Estado>
     <Encriptado>false</Encriptado>
-    <Carrera>Seguridad en T.I.</Carrera>
+    <Carrera>Seguridad en T.I</Carrera>
   </Usuario>
   <Usuario>
     <NombreUsuario>satan</NombreUsuario>
     <Contrasenia>666</Contrasenia>
-    <Estado>Available</Estado>
+    <Estado>NotAvailable</Estado>
     <Encriptado>false</Encriptado>
     <Carrera>Ciencias Computacionales</Carrera>
   </Usuario>

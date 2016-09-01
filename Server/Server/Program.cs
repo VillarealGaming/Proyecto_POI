@@ -44,6 +44,7 @@ namespace Server {
                             {
                                 connectedUsers.Add(username, client);
                                 packetSend = new Packet(PacketType.SessionBegin);
+                                packetSend.tag["state"] = queryResult.First().Estado;
                                 //packetContent.message = "Sesión iniciada";
                                 Console.WriteLine("Sesion de " + username + " iniciada");
                             }
@@ -162,6 +163,36 @@ namespace Server {
                         server.SendPacket(packet, client);
                     }
                     break;
+                case PacketType.GetUsers:
+                    {
+                        Dictionary<string, Tuple<string, string>> userList = new Dictionary<string, Tuple<string, string>>();
+                        ServerDataSet.UsuarioDataTable usuarioTable = database.Usuario;
+                        var queryResult = from usuario in usuarioTable
+                                          select usuario;
+                        string estado;
+                        foreach (var user in queryResult)
+                        {
+                            estado = connectedUsers.ContainsKey(user.NombreUsuario) ? user.Estado : UserConnectionState.Offline.ToString();
+                            userList.Add(user.NombreUsuario, new Tuple<string, string>(estado, user.Carrera));
+                        }
+                        packet.tag["userList"] = userList;
+                        server.SendPacket(packet, client);
+                    }
+                    break;
+                case PacketType.SetUserState:
+                    {
+                        ServerDataSet.UsuarioDataTable usuarioTable = database.Usuario;
+                        var queryResult = from usuario in usuarioTable
+                                          where usuario.NombreUsuario == packet.tag["user"] as string
+                                          select usuario;
+                        queryResult.First().Estado = packet.tag["state"] as string;
+                        foreach(var user in connectedUsers)
+                        {
+                            server.SendPacket(packet, user.Value);
+                        }
+                        database.WriteXml(databaseFile);
+                    }
+                    break;
             }
         }
         private static void OnClientAccepted(Socket client)
@@ -189,9 +220,17 @@ namespace Server {
             }
             if (user.Key != null)
             {
+                //Mandamos a los usuario conectados la desconexión
+                Packet packet = new Packet(PacketType.SetUserState);
+                packet.tag["user"] = user.Key;
+                packet.tag["state"] = UserConnectionState.Offline.ToString();
                 //Removemos el usuario de la lista de conectados
                 Console.WriteLine("Sesion de " + user.Key + " cerrada");
                 connectedUsers.Remove(user.Key);
+                foreach (var connectedUser in connectedUsers)
+                {
+                    server.SendPacket(packet, connectedUser.Value);
+                }
             }
             Console.WriteLine("Cliente en " + client.RemoteEndPoint + " desconectado");
             server.CloseClientConnection(client);

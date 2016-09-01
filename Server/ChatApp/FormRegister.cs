@@ -100,6 +100,11 @@ namespace ChatApp
             }
         }
 
+        private void comboBoxCarrera_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void FormRegister_MouseUp(object sender, MouseEventArgs e) {
             dragging = false;
         }

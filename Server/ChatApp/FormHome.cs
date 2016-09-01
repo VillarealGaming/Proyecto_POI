@@ -16,7 +16,7 @@ namespace ChatApp
         private Point dragCursorPoint, dragFormPoint;
         private FormCreateChat formCreateChat;
         private Dictionary<int, formChat> chatsForms = new Dictionary<int, formChat>();
-
+        private ToolStripMenuItem selectedStateItem;
         public FormHome()
         {
             InitializeComponent();
@@ -52,7 +52,7 @@ namespace ChatApp
         }
         //Thread safe callbacks
         //http://stackoverflow.com/questions/10775367/cross-thread-operation-not-valid-control-textbox1-accessed-from-a-thread-othe
-        private void OnPacket(Packet packet)
+        internal void OnPacket(Packet packet)
         {
             if (this.InvokeRequired)
             {
@@ -81,6 +81,10 @@ namespace ChatApp
                                 chatsForms.Add(c.Key, new formChat(c.Key, item));
                                 item.Tag = chatsForms[c.Key];
                             }
+                            Packet sendPacket = new Packet(PacketType.SetUserState);
+                            sendPacket.tag["user"] = ClientSession.username;
+                            sendPacket.tag["state"] = ClientSession.state;
+                            ClientSession.Connection.SendPacket(sendPacket);
                         }
                         break;
                     case PacketType.GetChatConversation:
@@ -92,7 +96,10 @@ namespace ChatApp
                                 chatsForms[chatID].richTextBoxChat.Text += message.Item2 + ": ";
                                 chatsForms[chatID].richTextBoxChat.Text += message.Item1 + "\n";
                             }
-                            chatsForms[chatID].listItem.SubItems[1].Text = messages.Last().Item2 + ": " + messages.Last().Item1;
+                            if(messages.Count>0)
+                            {
+                                chatsForms[chatID].listItem.SubItems[1].Text = messages.Last().Item2 + ": " + messages.Last().Item1;
+                            }
                         }
                         break;
                     case PacketType.TextMessage:
@@ -101,6 +108,28 @@ namespace ChatApp
                             string textString = packet.tag["sender"] + ": " + packet.tag["text"];
                             chatsForms[chatID].richTextBoxChat.Text += "\n" + textString;
                             chatsForms[chatID].listItem.SubItems[1].Text = textString;
+                        }
+                        break;
+                    case PacketType.GetUsers:
+                        {
+                            var userList = (Dictionary<string, Tuple<string, string>>)packet.tag["userList"];
+                            foreach(var user in userList)
+                            {
+                               var nodeResult = treeViewUsers.Nodes.OfType<TreeNode>().FirstOrDefault(node => node.Text.Equals(user.Value.Item2));
+                               nodeResult.Nodes.Add(user.Key, user.Key, ClientSession.connectionStateHash[user.Value.Item1].Item1 + 1);
+                            }
+                            ClientSession.Connection.SendPacket(new Packet(PacketType.GetUserConversations));
+                        }
+                        break;
+                    case PacketType.SetUserState:
+                        {
+                            TreeNode node = treeViewUsers.Nodes.Find(packet.tag["user"] as string, true)[0];
+                            node.ImageIndex = ClientSession.connectionStateHash[packet.tag["state"] as string].Item1 + 1;
+                        }
+                        break;
+                    case PacketType.SessionBegin:
+                        {
+                            Show();
                         }
                         break;
                 }
@@ -114,10 +143,12 @@ namespace ChatApp
 
         private void FormHome_Load(object sender, EventArgs e)
         {
+            this.Header.Text = ClientSession.username + " - " + ClientSession.connectionStateHash[ClientSession.state].Item2;
+            selectedStateItem = ((contextMenuStripEstado.Items[0] as ToolStripDropDownItem).DropDownItems[ClientSession.connectionStateHash[ClientSession.state].Item1] as ToolStripMenuItem);
+            selectedStateItem.Checked = true;
             ClientSession.Connection.OnPacketReceivedFunc(OnPacket);
-            ClientSession.Connection.SendPacket(new Packet(PacketType.GetUserConversations));
+            ClientSession.Connection.SendPacket(new Packet(PacketType.GetUsers));
         }
-
         private void buttonNewGroupChat_Click(object sender, EventArgs e)
         {
             formCreateChat = new FormCreateChat();
@@ -129,6 +160,46 @@ namespace ChatApp
 
         }
 
+        private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
+
+        }
+        
+        private void conectadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetUserState(sender as ToolStripMenuItem, UserConnectionState.Available.ToString());
+        }
+        //No disponible
+        private void ocupadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetUserState(sender as ToolStripMenuItem, UserConnectionState.NotAvailable.ToString());
+        }
+        //ocupado
+        private void ocupadoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            SetUserState(sender as ToolStripMenuItem, UserConnectionState.Busy.ToString());
+        }
+
+        private void desconectadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetUserState(sender as ToolStripMenuItem, UserConnectionState.Offline.ToString());
+        }
+
+        private void SetUserState(ToolStripMenuItem menuItem, string state)
+        {
+            if(!menuItem.Checked)
+            {
+                selectedStateItem.Checked = false;
+                selectedStateItem = menuItem;
+                selectedStateItem.Checked = true;
+                Header.Text = ClientSession.username + " - " + ClientSession.connectionStateHash[ClientSession.state].Item2;
+                Packet packet = new Packet(PacketType.SetUserState);
+                packet.tag["user"] = ClientSession.username;
+                packet.tag["state"] = state;
+                ClientSession.Connection.SendPacket(packet);
+            }
+        }
+
         private void listViewConversacion_DoubleClick(object sender, EventArgs e)
         {
             (listViewConversacion.SelectedItems[0].Tag as formChat).Show();
@@ -138,12 +209,15 @@ namespace ChatApp
     {
         public delegate void ReceivePacketCallback(Packet packet);
         public static string username { get; set; }
+        public static string state;
         public static Client Connection
         {
             get { return client; }
         }
+        //connectionStateHash<key, tuple<imageIndex, nombre en español>>
+        public static Dictionary<string, Tuple<int, string>> connectionStateHash = new Dictionary<string, Tuple<int,string>>();
         public static Dictionary<int, string> chats = new Dictionary<int, string>();
-        public static List<string> userList = new List<string>();
+        public static Dictionary<string, UserConnectionState> userList = new Dictionary<string, UserConnectionState>();
         private static Client client = new Client();
     }
 }
