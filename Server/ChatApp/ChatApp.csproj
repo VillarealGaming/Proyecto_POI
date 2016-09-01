@@ -99,6 +99,9 @@
     <EmbeddedResource Include="FormChat.resx">
       <DependentUpon>FormChat.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormCreateChat.resx">
+      <DependentUpon>FormCreateChat.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormHome.resx">
       <DependentUpon>FormHome.cs</DependentUpon>
     </EmbeddedResource>
