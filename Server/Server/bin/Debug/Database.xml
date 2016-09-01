@@ -118,4 +118,10 @@
     <Mensaje>todo bien</Mensaje>
     <Date>2016-08-31T15:56:36.8144517-05:00</Date>
   </Mensaje>
+  <Mensaje>
+    <Conversacion>0</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>que rico</Mensaje>
+    <Date>2016-08-31T17:17:13.6559676-05:00</Date>
+  </Mensaje>
 </ServerDataSet>

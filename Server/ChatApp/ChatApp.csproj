@@ -70,11 +70,23 @@
     <Compile Include="FormHome.Designer.cs">
       <DependentUpon>FormHome.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormPrivateChat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPrivateChat.Designer.cs">
+      <DependentUpon>FormPrivateChat.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormRegister.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormRegister.Designer.cs">
       <DependentUpon>FormRegister.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormVideoChat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVideoChat.Designer.cs">
+      <DependentUpon>FormVideoChat.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -89,6 +101,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormHome.resx">
       <DependentUpon>FormHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPrivateChat.resx">
+      <DependentUpon>FormPrivateChat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormRegister.resx">
       <DependentUpon>FormRegister.cs</DependentUpon>
