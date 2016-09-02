@@ -68,12 +68,12 @@
     <Contrasenia>peluda</Contrasenia>
     <Estado>Available</Estado>
     <Encriptado>false</Encriptado>
-    <Carrera>Seguridad en T.I</Carrera>
+    <Carrera>Seguridad en T.I.</Carrera>
   </Usuario>
   <Usuario>
     <NombreUsuario>satan</NombreUsuario>
     <Contrasenia>666</Contrasenia>
-    <Estado>NotAvailable</Estado>
+    <Estado>Available</Estado>
     <Encriptado>false</Encriptado>
     <Carrera>Ciencias Computacionales</Carrera>
   </Usuario>
@@ -117,17 +117,5 @@
     <Usuario>123</Usuario>
     <Mensaje>todo bien</Mensaje>
     <Date>2016-08-31T15:56:36.8144517-05:00</Date>
-  </Mensaje>
-  <Mensaje>
-    <Conversacion>0</Conversacion>
-    <Usuario>123</Usuario>
-    <Mensaje>que rico</Mensaje>
-    <Date>2016-08-31T17:17:13.6559676-05:00</Date>
-  </Mensaje>
-  <Mensaje>
-    <Conversacion>0</Conversacion>
-    <Usuario>Yamil</Usuario>
-    <Mensaje>asd</Mensaje>
-    <Date>2016-09-01T15:21:11.7703911-05:00</Date>
   </Mensaje>
 </ServerDataSet>

@@ -54,7 +54,63 @@ namespace ChatApp
         }
 
         private void picBox_Options_Click(object sender, EventArgs e) {
-            list_Options.Visible = true;
+            list_Options.Visible = !list_Options.Visible;
+            if (list_Options.Visible) {
+                list_Options.Focus();
+            }
+        }
+
+        private void list_Options_Leave(object sender, EventArgs e) {
+            list_Options.Visible = false;
+        }
+
+        private void list_Options_SelectedIndexChanged(object sender, EventArgs e) {
+            list_Options.Visible = false;
+            textBoxChat.Focus();
+        }
+
+        private void picBox_EmoteIcon_MouseEnter(object sender, EventArgs e) {
+            picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIconHover;
+        }
+
+        private void picBox_EmoteIcon_MouseLeave(object sender, EventArgs e) {
+            picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIcon;
+        }
+
+        private void picBox_Buzz_MouseEnter(object sender, EventArgs e) {
+            picBox_Buzz.BackgroundImage = ChatApp.Properties.Resources.buzzIconHover;
+        }
+
+        private void picBox_Buzz_MouseLeave(object sender, EventArgs e) {
+            picBox_Buzz.BackgroundImage = ChatApp.Properties.Resources.buzzIcon;
+        }
+
+        private void buttonEnviar_Click(object sender, EventArgs e) {
+
+        }
+
+        private void picBox_Attach_MouseEnter(object sender, EventArgs e) {
+            picBox_Attach.BackgroundImage = ChatApp.Properties.Resources.attachIconHover;
+        }
+
+        private void picBox_Attach_MouseLeave(object sender, EventArgs e) {
+            picBox_Attach.BackgroundImage = ChatApp.Properties.Resources.attachIcon;
+        }
+
+        private void picBox_Attach_MouseClick(object sender, MouseEventArgs e) {
+
+        }
+
+        private void picBox_StartGame_MouseEnter(object sender, EventArgs e) {
+            picBox_StartGame.BackgroundImage = ChatApp.Properties.Resources.gameIconHover;
+        }
+
+        private void picBox_StartGame_MouseLeave(object sender, EventArgs e) {
+            picBox_StartGame.BackgroundImage = ChatApp.Properties.Resources.gameIcon;
+        }
+
+        private void picBox_StartGame_MouseClick(object sender, MouseEventArgs e) {
+
         }
 
         private void picBox_CloseIcon_MouseLeave(object sender, EventArgs e) {

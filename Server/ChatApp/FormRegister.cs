@@ -51,6 +51,7 @@ namespace ChatApp
         {
             if (comboBoxCarrera.SelectedIndex != -1 &&
                 textBoxUsername.Text != "" &&
+                textBoxEmail.Text != "" &&
                 textBoxPassword.Text != "" &&
                 textBoxPasswordConfirm.Text != "")
             {

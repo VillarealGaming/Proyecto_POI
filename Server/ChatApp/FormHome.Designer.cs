@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Matemáticas");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Física");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Ciencias Computacionales");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Actuaría");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Multimedia y Animación Digital");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Seguridad en T.I");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Favoritos");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Matemáticas");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Física");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Ciencias Computacionales");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Actuaría");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Multimedia y Animación Digital");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Seguridad en T.I");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Favoritos");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormHome));
             this.Header = new System.Windows.Forms.Label();
             this.contextMenuStripEstado = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -79,7 +79,7 @@
             this.contextMenuStripEstado.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.estadoDeConexiónToolStripMenuItem});
             this.contextMenuStripEstado.Name = "contextMenuStripEstado";
-            this.contextMenuStripEstado.Size = new System.Drawing.Size(177, 48);
+            this.contextMenuStripEstado.Size = new System.Drawing.Size(177, 26);
             // 
             // estadoDeConexiónToolStripMenuItem
             // 
@@ -95,28 +95,28 @@
             // conectadoToolStripMenuItem
             // 
             this.conectadoToolStripMenuItem.Name = "conectadoToolStripMenuItem";
-            this.conectadoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.conectadoToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.conectadoToolStripMenuItem.Text = "Conectado";
             this.conectadoToolStripMenuItem.Click += new System.EventHandler(this.conectadoToolStripMenuItem_Click);
             // 
             // noDisponibleToolStripMenuItem
             // 
             this.noDisponibleToolStripMenuItem.Name = "noDisponibleToolStripMenuItem";
-            this.noDisponibleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.noDisponibleToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.noDisponibleToolStripMenuItem.Text = "No disponible";
             this.noDisponibleToolStripMenuItem.Click += new System.EventHandler(this.ocupadoToolStripMenuItem_Click);
             // 
             // ocupadoToolStripMenuItem
             // 
             this.ocupadoToolStripMenuItem.Name = "ocupadoToolStripMenuItem";
-            this.ocupadoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ocupadoToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.ocupadoToolStripMenuItem.Text = "Ocupado";
             this.ocupadoToolStripMenuItem.Click += new System.EventHandler(this.ocupadoToolStripMenuItem1_Click);
             // 
             // desconectadoToolStripMenuItem
             // 
             this.desconectadoToolStripMenuItem.Name = "desconectadoToolStripMenuItem";
-            this.desconectadoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.desconectadoToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.desconectadoToolStripMenuItem.Text = "Desconectado";
             this.desconectadoToolStripMenuItem.Click += new System.EventHandler(this.desconectadoToolStripMenuItem_Click);
             // 
@@ -126,7 +126,7 @@
             // 
             // treeViewUsers
             // 
-            this.treeViewUsers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(150)))), ((int)(((byte)(160)))));
+            this.treeViewUsers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
             this.treeViewUsers.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.treeViewUsers.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treeViewUsers.ForeColor = System.Drawing.Color.White;
@@ -134,28 +134,28 @@
             this.treeViewUsers.ImageList = this.imageList1;
             this.treeViewUsers.Location = new System.Drawing.Point(4, 30);
             this.treeViewUsers.Name = "treeViewUsers";
-            treeNode8.Name = "NodeMatematicas";
-            treeNode8.Text = "Matemáticas";
-            treeNode9.Name = "NodeFisica";
-            treeNode9.Text = "Física";
-            treeNode10.Name = "NodeLCC";
-            treeNode10.Text = "Ciencias Computacionales";
-            treeNode11.Name = "NodeActuaria";
-            treeNode11.Text = "Actuaría";
-            treeNode12.Name = "NodeLMAD";
-            treeNode12.Text = "Multimedia y Animación Digital";
-            treeNode13.Name = "NodeSTI";
-            treeNode13.Text = "Seguridad en T.I";
-            treeNode14.Name = "NodeFavoritos";
-            treeNode14.Text = "Favoritos";
+            treeNode1.Name = "NodeMatematicas";
+            treeNode1.Text = "Matemáticas";
+            treeNode2.Name = "NodeFisica";
+            treeNode2.Text = "Física";
+            treeNode3.Name = "NodeLCC";
+            treeNode3.Text = "Ciencias Computacionales";
+            treeNode4.Name = "NodeActuaria";
+            treeNode4.Text = "Actuaría";
+            treeNode5.Name = "NodeLMAD";
+            treeNode5.Text = "Multimedia y Animación Digital";
+            treeNode6.Name = "NodeSTI";
+            treeNode6.Text = "Seguridad en T.I";
+            treeNode7.Name = "NodeFavoritos";
+            treeNode7.Text = "Favoritos";
             this.treeViewUsers.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode8,
-            treeNode9,
-            treeNode10,
-            treeNode11,
-            treeNode12,
-            treeNode13,
-            treeNode14});
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4,
+            treeNode5,
+            treeNode6,
+            treeNode7});
             this.treeViewUsers.SelectedImageIndex = 0;
             this.treeViewUsers.Size = new System.Drawing.Size(196, 382);
             this.treeViewUsers.TabIndex = 14;
@@ -175,7 +175,7 @@
             // listViewConversacion
             // 
             this.listViewConversacion.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            this.listViewConversacion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(150)))), ((int)(((byte)(160)))));
+            this.listViewConversacion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
             this.listViewConversacion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listViewConversacion.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnChatName,
@@ -191,7 +191,6 @@
             this.listViewConversacion.TabIndex = 15;
             this.listViewConversacion.UseCompatibleStateImageBehavior = false;
             this.listViewConversacion.View = System.Windows.Forms.View.Details;
-            this.listViewConversacion.SelectedIndexChanged += new System.EventHandler(this.listViewConversacion_SelectedIndexChanged);
             this.listViewConversacion.DoubleClick += new System.EventHandler(this.listViewConversacion_DoubleClick);
             // 
             // columnChatName
@@ -206,7 +205,7 @@
             // 
             // listViewPrivateMessages
             // 
-            this.listViewPrivateMessages.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(150)))), ((int)(((byte)(160)))));
+            this.listViewPrivateMessages.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
             this.listViewPrivateMessages.ForeColor = System.Drawing.Color.White;
             this.listViewPrivateMessages.Location = new System.Drawing.Point(206, 241);
             this.listViewPrivateMessages.Name = "listViewPrivateMessages";

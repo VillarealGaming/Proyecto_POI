@@ -36,6 +36,8 @@
             this.textBoxPasswordConfirm = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxEmail = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxCarrera = new System.Windows.Forms.ComboBox();
             this.buttonRegister = new System.Windows.Forms.Button();
@@ -58,7 +60,9 @@
             // 
             // textBoxUsername
             // 
+            this.textBoxUsername.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
             this.textBoxUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxUsername.ForeColor = System.Drawing.Color.White;
             this.textBoxUsername.Location = new System.Drawing.Point(134, 15);
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(202, 22);
@@ -82,8 +86,10 @@
             // 
             // textBoxPassword
             // 
+            this.textBoxPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
             this.textBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxPassword.Location = new System.Drawing.Point(134, 41);
+            this.textBoxPassword.ForeColor = System.Drawing.Color.White;
+            this.textBoxPassword.Location = new System.Drawing.Point(134, 71);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '•';
             this.textBoxPassword.Size = new System.Drawing.Size(202, 22);
@@ -93,7 +99,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 41);
+            this.label3.Location = new System.Drawing.Point(6, 71);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(67, 15);
             this.label3.TabIndex = 3;
@@ -101,8 +107,10 @@
             // 
             // textBoxPasswordConfirm
             // 
+            this.textBoxPasswordConfirm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
             this.textBoxPasswordConfirm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxPasswordConfirm.Location = new System.Drawing.Point(134, 67);
+            this.textBoxPasswordConfirm.ForeColor = System.Drawing.Color.White;
+            this.textBoxPasswordConfirm.Location = new System.Drawing.Point(134, 97);
             this.textBoxPasswordConfirm.Name = "textBoxPasswordConfirm";
             this.textBoxPasswordConfirm.PasswordChar = '•';
             this.textBoxPasswordConfirm.Size = new System.Drawing.Size(202, 22);
@@ -112,7 +120,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(6, 68);
+            this.label4.Location = new System.Drawing.Point(6, 98);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(122, 15);
             this.label4.TabIndex = 5;
@@ -120,6 +128,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBoxEmail);
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.comboBoxCarrera);
             this.groupBox1.Controls.Add(this.textBoxPasswordConfirm);
@@ -128,19 +138,40 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.textBoxPassword);
             this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(13, 28);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(348, 129);
+            this.groupBox1.Size = new System.Drawing.Size(348, 162);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos";
             // 
+            // textBoxEmail
+            // 
+            this.textBoxEmail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.textBoxEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxEmail.ForeColor = System.Drawing.Color.White;
+            this.textBoxEmail.Location = new System.Drawing.Point(134, 43);
+            this.textBoxEmail.Name = "textBoxEmail";
+            this.textBoxEmail.Size = new System.Drawing.Size(202, 22);
+            this.textBoxEmail.TabIndex = 9;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(6, 44);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(105, 15);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Correo electronico";
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 97);
+            this.label5.Location = new System.Drawing.Point(6, 127);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(44, 13);
             this.label5.TabIndex = 7;
@@ -148,6 +179,9 @@
             // 
             // comboBoxCarrera
             // 
+            this.comboBoxCarrera.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.comboBoxCarrera.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBoxCarrera.ForeColor = System.Drawing.Color.White;
             this.comboBoxCarrera.FormattingEnabled = true;
             this.comboBoxCarrera.Items.AddRange(new object[] {
             "Matemáticas",
@@ -156,7 +190,7 @@
             "Actuaría",
             "Multimedia y Animación Digital",
             "Seguridad en T.I"});
-            this.comboBoxCarrera.Location = new System.Drawing.Point(134, 94);
+            this.comboBoxCarrera.Location = new System.Drawing.Point(134, 124);
             this.comboBoxCarrera.Name = "comboBoxCarrera";
             this.comboBoxCarrera.Size = new System.Drawing.Size(202, 21);
             this.comboBoxCarrera.TabIndex = 6;
@@ -168,7 +202,7 @@
             this.buttonRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRegister.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRegister.ForeColor = System.Drawing.Color.White;
-            this.buttonRegister.Location = new System.Drawing.Point(274, 163);
+            this.buttonRegister.Location = new System.Drawing.Point(286, 196);
             this.buttonRegister.Name = "buttonRegister";
             this.buttonRegister.Size = new System.Drawing.Size(75, 23);
             this.buttonRegister.TabIndex = 6;
@@ -182,7 +216,7 @@
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCancel.ForeColor = System.Drawing.Color.White;
-            this.buttonCancel.Location = new System.Drawing.Point(193, 163);
+            this.buttonCancel.Location = new System.Drawing.Point(193, 196);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 7;
@@ -192,11 +226,12 @@
             // checkBoxEncrypt
             // 
             this.checkBoxEncrypt.AutoSize = true;
+            this.checkBoxEncrypt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxEncrypt.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEncrypt.ForeColor = System.Drawing.Color.White;
-            this.checkBoxEncrypt.Location = new System.Drawing.Point(22, 167);
+            this.checkBoxEncrypt.Location = new System.Drawing.Point(13, 200);
             this.checkBoxEncrypt.Name = "checkBoxEncrypt";
-            this.checkBoxEncrypt.Size = new System.Drawing.Size(82, 17);
+            this.checkBoxEncrypt.Size = new System.Drawing.Size(79, 17);
             this.checkBoxEncrypt.TabIndex = 5;
             this.checkBoxEncrypt.Text = "Encriptado";
             this.checkBoxEncrypt.UseVisualStyleBackColor = true;
@@ -222,7 +257,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
-            this.ClientSize = new System.Drawing.Size(375, 196);
+            this.ClientSize = new System.Drawing.Size(375, 233);
             this.Controls.Add(this.picBox_CloseIcon);
             this.Controls.Add(this.checkBoxEncrypt);
             this.Controls.Add(this.buttonCancel);
@@ -260,5 +295,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBoxCarrera;
         private System.Windows.Forms.PictureBox picBox_CloseIcon;
+        private System.Windows.Forms.TextBox textBoxEmail;
+        private System.Windows.Forms.Label label2;
     }
 }

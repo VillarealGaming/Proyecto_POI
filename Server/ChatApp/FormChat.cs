@@ -88,6 +88,46 @@ namespace ChatApp
             picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIcon;
         }
 
+        private void picBox_EmoteIcon_MouseClick(object sender, MouseEventArgs e) {
+
+        }
+
+        private void picBox_Buzz_MouseEnter(object sender, EventArgs e) {
+            picBox_Buzz.BackgroundImage = ChatApp.Properties.Resources.buzzIconHover;
+        }
+
+        private void picBox_Buzz_MouseLeave(object sender, EventArgs e) {
+            picBox_Buzz.BackgroundImage = ChatApp.Properties.Resources.buzzIcon;
+        }
+
+        private void picBox_Buzz_MouseClick(object sender, MouseEventArgs e) {
+
+        }
+
+        private void picBox_Attach_MouseEnter(object sender, EventArgs e) {
+            picBox_Attach.BackgroundImage = ChatApp.Properties.Resources.attachIconHover;
+        }
+
+        private void picBox_Attach_MouseLeave(object sender, EventArgs e) {
+            picBox_Attach.BackgroundImage = ChatApp.Properties.Resources.attachIcon;
+        }
+
+        private void picBox_Attach_MouseClick(object sender, MouseEventArgs e) {
+
+        }
+
+        private void picBox_StartGame_MouseEnter(object sender, EventArgs e) {
+            picBox_StartGame.BackgroundImage = ChatApp.Properties.Resources.gameIconHover;
+        }
+
+        private void picBox_StartGame_MouseLeave(object sender, EventArgs e) {
+            picBox_StartGame.BackgroundImage = ChatApp.Properties.Resources.gameIcon;
+        }
+
+        private void picBox_StartGame_MouseClick(object sender, MouseEventArgs e) {
+
+        }
+
         private void formChat_MouseMove(object sender, MouseEventArgs e) {
             if (dragging) {
                 Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));

@@ -44,6 +44,30 @@ namespace ChatApp
             picBox_CloseIcon.BackColor = Color.Brown;
         }
 
+        private void picBox_Mic_MouseClick(object sender, MouseEventArgs e) {
+
+        }
+
+        private void picBox_Mic_MouseEnter(object sender, EventArgs e) {
+            picBox_Mic.BackgroundImage = ChatApp.Properties.Resources.micIconHover;
+        }
+
+        private void picBox_Mic_MouseLeave(object sender, EventArgs e) {
+            picBox_Mic.BackgroundImage = ChatApp.Properties.Resources.MicIcon;
+        }
+
+        private void picBox_EndCall_MouseClick(object sender, MouseEventArgs e) {
+
+        }
+
+        private void picBox_EndCall_MouseEnter(object sender, EventArgs e) {
+            picBox_EndCall.BackgroundImage = ChatApp.Properties.Resources.endCallIconHover;
+        }
+
+        private void picBox_EndCall_MouseLeave(object sender, EventArgs e) {
+            picBox_EndCall.BackgroundImage = ChatApp.Properties.Resources.endCallIcon;
+        }
+
         private void picBox_CloseIcon_MouseLeave(object sender, EventArgs e) {
             picBox_CloseIcon.BackColor = Color.White;
         }

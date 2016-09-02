@@ -43,7 +43,7 @@
             this.buttonCreateChat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCreateChat.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCreateChat.ForeColor = System.Drawing.Color.White;
-            this.buttonCreateChat.Location = new System.Drawing.Point(253, 191);
+            this.buttonCreateChat.Location = new System.Drawing.Point(253, 120);
             this.buttonCreateChat.Name = "buttonCreateChat";
             this.buttonCreateChat.Size = new System.Drawing.Size(75, 23);
             this.buttonCreateChat.TabIndex = 7;
@@ -54,19 +54,21 @@
             // checkBoxEncrypt
             // 
             this.checkBoxEncrypt.AutoSize = true;
+            this.checkBoxEncrypt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxEncrypt.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEncrypt.ForeColor = System.Drawing.Color.White;
-            this.checkBoxEncrypt.Location = new System.Drawing.Point(12, 195);
+            this.checkBoxEncrypt.Location = new System.Drawing.Point(12, 123);
             this.checkBoxEncrypt.Name = "checkBoxEncrypt";
-            this.checkBoxEncrypt.Size = new System.Drawing.Size(82, 17);
+            this.checkBoxEncrypt.Size = new System.Drawing.Size(79, 17);
             this.checkBoxEncrypt.TabIndex = 8;
             this.checkBoxEncrypt.Text = "Encriptado";
             this.checkBoxEncrypt.UseVisualStyleBackColor = true;
             // 
             // textBoxChatName
             // 
-            this.textBoxChatName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
+            this.textBoxChatName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
             this.textBoxChatName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxChatName.ForeColor = System.Drawing.Color.White;
             this.textBoxChatName.Location = new System.Drawing.Point(126, 54);
             this.textBoxChatName.Name = "textBoxChatName";
             this.textBoxChatName.Size = new System.Drawing.Size(202, 20);
@@ -121,7 +123,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
-            this.ClientSize = new System.Drawing.Size(347, 230);
+            this.ClientSize = new System.Drawing.Size(347, 165);
             this.Controls.Add(this.picBox_CloseIcon);
             this.Controls.Add(this.Header);
             this.Controls.Add(this.textBoxChatName);

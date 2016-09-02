@@ -155,11 +155,6 @@ namespace ChatApp
             formCreateChat.ShowDialog();
         }
 
-        private void listViewConversacion_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void toolTip1_Popup(object sender, PopupEventArgs e)
         {
 
