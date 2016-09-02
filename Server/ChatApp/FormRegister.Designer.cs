@@ -155,11 +155,12 @@
             "Ciencias Computacionales",
             "Actuaría",
             "Multimedia y Animación Digital",
-            "Seguridad en T.I."});
+            "Seguridad en T.I"});
             this.comboBoxCarrera.Location = new System.Drawing.Point(134, 94);
             this.comboBoxCarrera.Name = "comboBoxCarrera";
             this.comboBoxCarrera.Size = new System.Drawing.Size(202, 21);
             this.comboBoxCarrera.TabIndex = 6;
+            this.comboBoxCarrera.SelectedIndexChanged += new System.EventHandler(this.comboBoxCarrera_SelectedIndexChanged);
             // 
             // buttonRegister
             // 

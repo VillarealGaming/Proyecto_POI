@@ -12,3 +12,11 @@ C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\POI_Proyecto\Proyecto_POI\Server\Se
 C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\POI_Proyecto\Proyecto_POI\Server\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
 C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\POI_Proyecto\Proyecto_POI\Server\Server\obj\Debug\Server.exe
 C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\POI_Proyecto\Proyecto_POI\Server\Server\obj\Debug\Server.pdb
+C:\Users\w7\Source\Repos\Proyecto_POI\Server\Server\bin\Debug\Server.exe.config
+C:\Users\w7\Source\Repos\Proyecto_POI\Server\Server\bin\Debug\Server.exe
+C:\Users\w7\Source\Repos\Proyecto_POI\Server\Server\bin\Debug\Server.pdb
+C:\Users\w7\Source\Repos\Proyecto_POI\Server\Server\bin\Debug\EasyPOI.dll
+C:\Users\w7\Source\Repos\Proyecto_POI\Server\Server\bin\Debug\EasyPOI.pdb
+C:\Users\w7\Source\Repos\Proyecto_POI\Server\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
+C:\Users\w7\Source\Repos\Proyecto_POI\Server\Server\obj\Debug\Server.exe
+C:\Users\w7\Source\Repos\Proyecto_POI\Server\Server\obj\Debug\Server.pdb
