@@ -12,3 +12,6 @@ C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\POI_Proyecto\Proyecto_POI\Server\Ch
 C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\POI_Proyecto\Proyecto_POI\Server\ChatApp\obj\Debug\ChatApp.csproj.GenerateResource.Cache
 C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\POI_Proyecto\Proyecto_POI\Server\ChatApp\obj\Debug\ChatApp.exe
 C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\POI_Proyecto\Proyecto_POI\Server\ChatApp\obj\Debug\ChatApp.pdb
+C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\POI_Proyecto\Proyecto_POI\Server\ChatApp\obj\Debug\ChatApp.FormCreateChat.resources
+C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\POI_Proyecto\Proyecto_POI\Server\ChatApp\obj\Debug\ChatApp.FormPrivateChat.resources
+C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\POI_Proyecto\Proyecto_POI\Server\ChatApp\obj\Debug\ChatApp.FormVideoChat.resources

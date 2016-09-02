@@ -28,28 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Comenzar Videollamada");
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Enviar Correo");
             this.richTextBoxChat = new System.Windows.Forms.RichTextBox();
             this.textBoxChat = new System.Windows.Forms.TextBox();
             this.buttonEnviar = new System.Windows.Forms.Button();
             this.Header = new System.Windows.Forms.Label();
             this.picBox_EmoteIcon = new System.Windows.Forms.PictureBox();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.picBox_CloseIcon = new System.Windows.Forms.PictureBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.listView1 = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_EmoteIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // richTextBoxChat
             // 
             this.richTextBoxChat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
             this.richTextBoxChat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBoxChat.CausesValidation = false;
             this.richTextBoxChat.ForeColor = System.Drawing.Color.White;
-            this.richTextBoxChat.Location = new System.Drawing.Point(13, 81);
+            this.richTextBoxChat.Location = new System.Drawing.Point(148, 39);
             this.richTextBoxChat.Name = "richTextBoxChat";
+            this.richTextBoxChat.ReadOnly = true;
             this.richTextBoxChat.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.richTextBoxChat.Size = new System.Drawing.Size(307, 242);
+            this.richTextBoxChat.Size = new System.Drawing.Size(292, 263);
             this.richTextBoxChat.TabIndex = 0;
             this.richTextBoxChat.TabStop = false;
             this.richTextBoxChat.Text = "";
@@ -60,11 +62,11 @@
             this.textBoxChat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
             this.textBoxChat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxChat.ForeColor = System.Drawing.Color.White;
-            this.textBoxChat.Location = new System.Drawing.Point(13, 329);
+            this.textBoxChat.Location = new System.Drawing.Point(12, 308);
             this.textBoxChat.Multiline = true;
             this.textBoxChat.Name = "textBoxChat";
-            this.textBoxChat.Size = new System.Drawing.Size(307, 40);
-            this.textBoxChat.TabIndex = 1;
+            this.textBoxChat.Size = new System.Drawing.Size(428, 57);
+            this.textBoxChat.TabIndex = 0;
             this.textBoxChat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxChat_KeyDown);
             // 
             // buttonEnviar
@@ -74,10 +76,10 @@
             this.buttonEnviar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonEnviar.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonEnviar.ForeColor = System.Drawing.Color.White;
-            this.buttonEnviar.Location = new System.Drawing.Point(245, 375);
+            this.buttonEnviar.Location = new System.Drawing.Point(365, 371);
             this.buttonEnviar.Name = "buttonEnviar";
             this.buttonEnviar.Size = new System.Drawing.Size(75, 23);
-            this.buttonEnviar.TabIndex = 2;
+            this.buttonEnviar.TabIndex = 1;
             this.buttonEnviar.Text = "Enviar";
             this.buttonEnviar.UseVisualStyleBackColor = false;
             this.buttonEnviar.Click += new System.EventHandler(this.buttonEnviar_Click);
@@ -90,9 +92,9 @@
             this.Header.ForeColor = System.Drawing.Color.White;
             this.Header.Location = new System.Drawing.Point(0, 0);
             this.Header.Name = "Header";
-            this.Header.Size = new System.Drawing.Size(338, 24);
+            this.Header.Size = new System.Drawing.Size(453, 24);
             this.Header.TabIndex = 3;
-            this.Header.Text = "Nombre del contacto";
+            this.Header.Text = "Nombre de la Sala";
             this.Header.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.Header.MouseDown += new System.Windows.Forms.MouseEventHandler(this.formChat_MouseDown);
             this.Header.MouseMove += new System.Windows.Forms.MouseEventHandler(this.formChat_MouseMove);
@@ -103,30 +105,13 @@
             this.picBox_EmoteIcon.BackgroundImage = global::ChatApp.Properties.Resources.emotIcon;
             this.picBox_EmoteIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picBox_EmoteIcon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picBox_EmoteIcon.Location = new System.Drawing.Point(215, 375);
+            this.picBox_EmoteIcon.Location = new System.Drawing.Point(335, 371);
             this.picBox_EmoteIcon.Name = "picBox_EmoteIcon";
             this.picBox_EmoteIcon.Size = new System.Drawing.Size(24, 23);
             this.picBox_EmoteIcon.TabIndex = 10;
             this.picBox_EmoteIcon.TabStop = false;
             this.picBox_EmoteIcon.MouseEnter += new System.EventHandler(this.picBox_EmoteIcon_MouseEnter);
             this.picBox_EmoteIcon.MouseLeave += new System.EventHandler(this.picBox_EmoteIcon_MouseLeave);
-            // 
-            // listView1
-            // 
-            this.listView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(172)))), ((int)(((byte)(165)))));
-            this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listView1.ForeColor = System.Drawing.Color.White;
-            this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem3,
-            listViewItem4});
-            this.listView1.Location = new System.Drawing.Point(196, 66);
-            this.listView1.MultiSelect = false;
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(124, 83);
-            this.listView1.TabIndex = 11;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.List;
-            this.listView1.Visible = false;
             // 
             // picBox_CloseIcon
             // 
@@ -135,7 +120,7 @@
             this.picBox_CloseIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picBox_CloseIcon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picBox_CloseIcon.Cursor = System.Windows.Forms.Cursors.Default;
-            this.picBox_CloseIcon.Location = new System.Drawing.Point(312, 0);
+            this.picBox_CloseIcon.Location = new System.Drawing.Point(427, 0);
             this.picBox_CloseIcon.Name = "picBox_CloseIcon";
             this.picBox_CloseIcon.Size = new System.Drawing.Size(26, 24);
             this.picBox_CloseIcon.TabIndex = 12;
@@ -144,14 +129,37 @@
             this.picBox_CloseIcon.MouseEnter += new System.EventHandler(this.picBox_CloseIcon_MouseEnter);
             this.picBox_CloseIcon.MouseLeave += new System.EventHandler(this.picBox_CloseIcon_MouseLeave);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.listView1);
+            this.groupBox1.ForeColor = System.Drawing.Color.White;
+            this.groupBox1.Location = new System.Drawing.Point(12, 33);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(130, 269);
+            this.groupBox1.TabIndex = 13;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Participantes";
+            // 
+            // listView1
+            // 
+            this.listView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
+            this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listView1.ForeColor = System.Drawing.Color.White;
+            this.listView1.Location = new System.Drawing.Point(3, 16);
+            this.listView1.MultiSelect = false;
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(121, 241);
+            this.listView1.TabIndex = 0;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
             // formChat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
-            this.ClientSize = new System.Drawing.Size(338, 406);
+            this.ClientSize = new System.Drawing.Size(452, 406);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.picBox_CloseIcon);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.picBox_EmoteIcon);
             this.Controls.Add(this.Header);
             this.Controls.Add(this.buttonEnviar);
@@ -166,6 +174,7 @@
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.formChat_MouseUp);
             ((System.ComponentModel.ISupportInitialize)(this.picBox_EmoteIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).EndInit();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -176,9 +185,10 @@
         private System.Windows.Forms.Button buttonEnviar;
         private System.Windows.Forms.Label Header;
         private System.Windows.Forms.PictureBox picBox_EmoteIcon;
-        private System.Windows.Forms.ListView listView1;
         public System.Windows.Forms.RichTextBox richTextBoxChat;
         private System.Windows.Forms.PictureBox picBox_CloseIcon;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ListView listView1;
     }
 }
 
