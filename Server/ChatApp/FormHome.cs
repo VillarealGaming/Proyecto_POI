@@ -75,31 +75,32 @@ namespace ChatApp
                     case PacketType.GetUserConversations:
                         {
                             ClientSession.chats = packet.tag["conversations"] as Dictionary<int, string>;
-                            foreach(var c in ClientSession.chats)
+                            Dictionary<int, List<Tuple<string, string>>> text = packet.tag["messages"] as Dictionary<int, List<Tuple<string, string>>>;
+                            Dictionary<int, List<string>> users = packet.tag["users"] as Dictionary<int, List<string>>;
+                            //Conversations
+                            foreach (var c in ClientSession.chats)
                             {
                                 var item = listViewConversacion.Items.Add(new ListViewItem(new string[] { c.Value, " " }));
                                 chatsForms.Add(c.Key, new formChat(c.Key, item));
+                                chatsForms[c.Key].Header.Text = c.Value;
                                 item.Tag = chatsForms[c.Key];
+                                //Messages
+                                foreach (var message in text[c.Key])
+                                {
+                                    chatsForms[c.Key].richTextBoxChat.Text += message.Item2 + ": ";
+                                    chatsForms[c.Key].richTextBoxChat.Text += message.Item1 + "\n";
+                                }
+                                if (text[c.Key].Count > 0)
+                                {
+                                    chatsForms[c.Key].listItem.SubItems[1].Text = text[c.Key].Last().Item2 + ": " + text[c.Key].Last().Item1;
+                                }
+                                //Users
+                                foreach(var user in users[c.Key]){ chatsForms[c.Key].listViewUsers.Items.Add(user); }
                             }
                             Packet sendPacket = new Packet(PacketType.SetUserState);
                             sendPacket.tag["user"] = ClientSession.username;
                             sendPacket.tag["state"] = ClientSession.state;
                             ClientSession.Connection.SendPacket(sendPacket);
-                        }
-                        break;
-                    case PacketType.GetChatConversation:
-                        {
-                            int chatID = (int)packet.tag["chatID"];
-                            List<Tuple<string, string>> messages = (List<Tuple<string, string>>)packet.tag["messages"];
-                            foreach (var message in messages)
-                            {
-                                chatsForms[chatID].richTextBoxChat.Text += message.Item2 + ": ";
-                                chatsForms[chatID].richTextBoxChat.Text += message.Item1 + "\n";
-                            }
-                            if(messages.Count>0)
-                            {
-                                chatsForms[chatID].listItem.SubItems[1].Text = messages.Last().Item2 + ": " + messages.Last().Item1;
-                            }
                         }
                         break;
                     case PacketType.TextMessage:
@@ -115,10 +116,15 @@ namespace ChatApp
                             var userList = (Dictionary<string, Tuple<string, string>>)packet.tag["userList"];
                             foreach(var user in userList)
                             {
+                                //tree nodes
                                var nodeResult = treeViewUsers.Nodes.OfType<TreeNode>().FirstOrDefault(node => node.Text.Equals(user.Value.Item2));
                                nodeResult.Nodes.Add(user.Key, user.Key, ClientSession.connectionStateHash[user.Value.Item1].Item1 + 1);
+                                //userList
+                                ClientSession.userList.Add(user.Key);
                             }
-                            ClientSession.Connection.SendPacket(new Packet(PacketType.GetUserConversations));
+                            Packet sendPacket = new Packet(PacketType.GetUserConversations);
+                            sendPacket.tag["user"] = ClientSession.username;
+                            ClientSession.Connection.SendPacket(sendPacket);
                         }
                         break;
                     case PacketType.SetUserState:
@@ -130,6 +136,12 @@ namespace ChatApp
                     case PacketType.SessionBegin:
                         {
                             Show();
+                        }
+                        break;
+                    case PacketType.Fail:
+                        {
+                            MessageBox.Show(packet.tag["message"] as string, packet.tag["case"] as string, MessageBoxButtons.OK);
+                            formCreateChat.Close();
                         }
                         break;
                 }
@@ -187,6 +199,7 @@ namespace ChatApp
                 selectedStateItem.Checked = false;
                 selectedStateItem = menuItem;
                 selectedStateItem.Checked = true;
+                ClientSession.state = state;
                 Header.Text = ClientSession.username + " - " + ClientSession.connectionStateHash[ClientSession.state].Item2;
                 Packet packet = new Packet(PacketType.SetUserState);
                 packet.tag["user"] = ClientSession.username;
@@ -209,10 +222,12 @@ namespace ChatApp
         {
             get { return client; }
         }
+        private static List<Packet> packetQueue = new List<Packet>();
         //connectionStateHash<key, tuple<imageIndex, nombre en español>>
         public static Dictionary<string, Tuple<int, string>> connectionStateHash = new Dictionary<string, Tuple<int,string>>();
         public static Dictionary<int, string> chats = new Dictionary<int, string>();
-        public static Dictionary<string, UserConnectionState> userList = new Dictionary<string, UserConnectionState>();
+        //public static Dictionary<string, UserConnectionState> userList = new Dictionary<string, UserConnectionState>();
+        public static List<string> userList = new List<string>();
         private static Client client = new Client();
     }
 }

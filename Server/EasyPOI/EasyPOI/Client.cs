@@ -16,6 +16,7 @@ namespace EasyPOI
     {
         public Client()
         {
+            packetQueue = new List<Packet>();
         }
         //Comenzar a buscar una conexión
         public void BeginConnect()
@@ -215,5 +216,7 @@ namespace EasyPOI
         private Action onConnectionFail;
         private Action onConnectionLost;
         private Action<Packet> onPacketReceived;
+        //
+        private List<Packet> packetQueue;
     }
 }

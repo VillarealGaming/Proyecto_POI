@@ -460,8 +460,6 @@ namespace Server {
             
             private global::System.Data.DataColumn columnEstado;
             
-            private global::System.Data.DataColumn columnEncriptado;
-            
             private global::System.Data.DataColumn columnCarrera;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -523,14 +521,6 @@ namespace Server {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn EncriptadoColumn {
-                get {
-                    return this.columnEncriptado;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn CarreraColumn {
                 get {
                     return this.columnCarrera;
@@ -574,13 +564,12 @@ namespace Server {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public UsuarioRow AddUsuarioRow(string NombreUsuario, string Contrasenia, string Estado, bool Encriptado, string Carrera) {
+            public UsuarioRow AddUsuarioRow(string NombreUsuario, string Contrasenia, string Estado, string Carrera) {
                 UsuarioRow rowUsuarioRow = ((UsuarioRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         NombreUsuario,
                         Contrasenia,
                         Estado,
-                        Encriptado,
                         Carrera};
                 rowUsuarioRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowUsuarioRow);
@@ -614,7 +603,6 @@ namespace Server {
                 this.columnNombreUsuario = base.Columns["NombreUsuario"];
                 this.columnContrasenia = base.Columns["Contrasenia"];
                 this.columnEstado = base.Columns["Estado"];
-                this.columnEncriptado = base.Columns["Encriptado"];
                 this.columnCarrera = base.Columns["Carrera"];
             }
             
@@ -627,8 +615,6 @@ namespace Server {
                 base.Columns.Add(this.columnContrasenia);
                 this.columnEstado = new global::System.Data.DataColumn("Estado", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnEstado);
-                this.columnEncriptado = new global::System.Data.DataColumn("Encriptado", typeof(bool), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnEncriptado);
                 this.columnCarrera = new global::System.Data.DataColumn("Carrera", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCarrera);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
@@ -637,8 +623,6 @@ namespace Server {
                 this.columnNombreUsuario.Unique = true;
                 this.columnContrasenia.AllowDBNull = false;
                 this.columnEstado.AllowDBNull = false;
-                this.columnEncriptado.AllowDBNull = false;
-                this.columnEncriptado.DefaultValue = ((bool)(false));
                 this.columnCarrera.AllowDBNull = false;
                 this.Locale = new global::System.Globalization.CultureInfo("es-ES");
             }
@@ -778,8 +762,6 @@ namespace Server {
             
             private global::System.Data.DataColumn columnNombre;
             
-            private global::System.Data.DataColumn columnEncriptado;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ConversacionDataTable() {
@@ -831,14 +813,6 @@ namespace Server {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn EncriptadoColumn {
-                get {
-                    return this.columnEncriptado;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -874,12 +848,11 @@ namespace Server {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ConversacionRow AddConversacionRow(string Nombre, bool Encriptado) {
+            public ConversacionRow AddConversacionRow(string Nombre) {
                 ConversacionRow rowConversacionRow = ((ConversacionRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        Nombre,
-                        Encriptado};
+                        Nombre};
                 rowConversacionRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowConversacionRow);
                 return rowConversacionRow;
@@ -911,7 +884,6 @@ namespace Server {
             internal void InitVars() {
                 this.columnID = base.Columns["ID"];
                 this.columnNombre = base.Columns["Nombre"];
-                this.columnEncriptado = base.Columns["Encriptado"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -921,15 +893,12 @@ namespace Server {
                 base.Columns.Add(this.columnID);
                 this.columnNombre = new global::System.Data.DataColumn("Nombre", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNombre);
-                this.columnEncriptado = new global::System.Data.DataColumn("Encriptado", typeof(bool), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnEncriptado);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
                 this.columnID.AllowDBNull = false;
                 this.columnID.Unique = true;
                 this.columnNombre.AllowDBNull = false;
-                this.columnEncriptado.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1352,6 +1321,8 @@ namespace Server {
             
             private global::System.Data.DataColumn columnDate;
             
+            private global::System.Data.DataColumn columnEncriptado;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public MensajeDataTable() {
@@ -1419,6 +1390,14 @@ namespace Server {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn EncriptadoColumn {
+                get {
+                    return this.columnEncriptado;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1454,13 +1433,14 @@ namespace Server {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public MensajeRow AddMensajeRow(ConversacionRow parentConversacionRowByConversacion_Mensaje, UsuarioRow parentUsuarioRowByUsuario_Mensaje, string Mensaje, System.DateTime Date) {
+            public MensajeRow AddMensajeRow(ConversacionRow parentConversacionRowByConversacion_Mensaje, UsuarioRow parentUsuarioRowByUsuario_Mensaje, string Mensaje, System.DateTime Date, string Encriptado) {
                 MensajeRow rowMensajeRow = ((MensajeRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         null,
                         Mensaje,
-                        Date};
+                        Date,
+                        Encriptado};
                 if ((parentConversacionRowByConversacion_Mensaje != null)) {
                     columnValuesArray[0] = parentConversacionRowByConversacion_Mensaje[0];
                 }
@@ -1493,6 +1473,7 @@ namespace Server {
                 this.columnUsuario = base.Columns["Usuario"];
                 this.columnMensaje = base.Columns["Mensaje"];
                 this.columnDate = base.Columns["Date"];
+                this.columnEncriptado = base.Columns["Encriptado"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1506,6 +1487,8 @@ namespace Server {
                 base.Columns.Add(this.columnMensaje);
                 this.columnDate = new global::System.Data.DataColumn("Date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDate);
+                this.columnEncriptado = new global::System.Data.DataColumn("Encriptado", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEncriptado);
                 this.columnConversacion.AllowDBNull = false;
                 this.columnUsuario.AllowDBNull = false;
                 this.columnMensaje.AllowDBNull = false;
@@ -1962,17 +1945,6 @@ namespace Server {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool Encriptado {
-                get {
-                    return ((bool)(this[this.tableUsuario.EncriptadoColumn]));
-                }
-                set {
-                    this[this.tableUsuario.EncriptadoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string Carrera {
                 get {
                     return ((string)(this[this.tableUsuario.CarreraColumn]));
@@ -2049,17 +2021,6 @@ namespace Server {
                 }
                 set {
                     this[this.tableConversacion.NombreColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool Encriptado {
-                get {
-                    return ((bool)(this[this.tableConversacion.EncriptadoColumn]));
-                }
-                set {
-                    this[this.tableConversacion.EncriptadoColumn] = value;
                 }
             }
             
@@ -2205,6 +2166,22 @@ namespace Server {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Encriptado {
+                get {
+                    try {
+                        return ((string)(this[this.tableMensaje.EncriptadoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Encriptado\' in table \'Mensaje\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMensaje.EncriptadoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ConversacionRow ConversacionRow {
                 get {
                     return ((ConversacionRow)(this.GetParentRow(this.Table.ParentRelations["Conversacion_Mensaje"])));
@@ -2223,6 +2200,18 @@ namespace Server {
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["Usuario_Mensaje"]);
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsEncriptadoNull() {
+                return this.IsNull(this.tableMensaje.EncriptadoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetEncriptadoNull() {
+                this[this.tableMensaje.EncriptadoColumn] = global::System.Convert.DBNull;
             }
         }
         

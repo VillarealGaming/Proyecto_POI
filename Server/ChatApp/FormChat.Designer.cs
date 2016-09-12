@@ -33,7 +33,7 @@
             this.buttonEnviar = new System.Windows.Forms.Button();
             this.Header = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listViewUsers = new System.Windows.Forms.ListView();
             this.picBox_StartGame = new System.Windows.Forms.PictureBox();
             this.picBox_Attach = new System.Windows.Forms.PictureBox();
             this.picBox_Buzz = new System.Windows.Forms.PictureBox();
@@ -109,7 +109,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
-            this.groupBox1.Controls.Add(this.listView1);
+            this.groupBox1.Controls.Add(this.listViewUsers);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(12, 33);
@@ -119,17 +119,19 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Participantes";
             // 
-            // listView1
+            // listViewUsers
             // 
-            this.listView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
-            this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listView1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
-            this.listView1.Location = new System.Drawing.Point(3, 16);
-            this.listView1.MultiSelect = false;
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(121, 241);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listViewUsers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.listViewUsers.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listViewUsers.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listViewUsers.ForeColor = System.Drawing.Color.White;
+            this.listViewUsers.Location = new System.Drawing.Point(3, 16);
+            this.listViewUsers.MultiSelect = false;
+            this.listViewUsers.Name = "listViewUsers";
+            this.listViewUsers.Size = new System.Drawing.Size(121, 241);
+            this.listViewUsers.TabIndex = 0;
+            this.listViewUsers.UseCompatibleStateImageBehavior = false;
+            this.listViewUsers.View = System.Windows.Forms.View.List;
             // 
             // picBox_StartGame
             // 
@@ -244,15 +246,15 @@
         #endregion
         private System.Windows.Forms.TextBox textBoxChat;
         private System.Windows.Forms.Button buttonEnviar;
-        private System.Windows.Forms.Label Header;
         private System.Windows.Forms.PictureBox picBox_EmoteIcon;
         public System.Windows.Forms.RichTextBox richTextBoxChat;
         private System.Windows.Forms.PictureBox picBox_CloseIcon;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.PictureBox picBox_Buzz;
         private System.Windows.Forms.PictureBox picBox_Attach;
         private System.Windows.Forms.PictureBox picBox_StartGame;
+        public System.Windows.Forms.ListView listViewUsers;
+        public System.Windows.Forms.Label Header;
     }
 }
 

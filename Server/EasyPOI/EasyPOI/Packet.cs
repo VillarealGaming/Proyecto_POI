@@ -56,9 +56,9 @@ namespace EasyPOI
         CreatePublicConversation,
         CreatePrivateConversation,
         GetUserConversations,
-        GetChatConversation,
         GetUsers,
-        SetUserState
+        SetUserState,
+        CreatePublicConversationFail
         //
     }
     //Referencia

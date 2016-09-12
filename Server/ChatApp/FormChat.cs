@@ -15,14 +15,12 @@ namespace ChatApp
         private bool dragging = false;
         private Point dragCursorPoint, dragFormPoint;
         public int chatID { get; set; }
+        public List<string> users { get; set; }
         public ListViewItem listItem { get; set; }
         public formChat(int chatID, ListViewItem listItem)
         {
-            Packet packet = new Packet(PacketType.GetChatConversation);
-            packet.tag["chatID"] = chatID;
             this.chatID = chatID;
             this.listItem = listItem;
-            ClientSession.Connection.SendPacket(packet);
             InitializeComponent();
         }
 
@@ -35,7 +33,6 @@ namespace ChatApp
             packet.tag["chatID"] = chatID;
             packet.tag["date"] = DateTime.Now;
             ClientSession.Connection.SendPacket(packet);
-
             textBoxChat.Text = "";
         }
 

@@ -14,7 +14,7 @@ namespace EasyPOI
     {
         private const int listenTime = 10;
         internal const int Port = 6666;
-        internal const string Address = "192.168.1.66";
+        internal const string Address = "192.168.1.64";
 
         public Server()
         {
@@ -67,6 +67,7 @@ namespace EasyPOI
             try
             {
                 int bytesSent = client.EndSend(ar);
+                int a = 0;
             }
             catch (SocketException exception)
             {

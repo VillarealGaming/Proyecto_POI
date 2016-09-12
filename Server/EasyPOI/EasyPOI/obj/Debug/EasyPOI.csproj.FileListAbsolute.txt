@@ -5,6 +5,6 @@ C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\POI_Proyecto\Proyecto_POI\Server\Ea
 C:\Users\Yamil Yáñez\Desktop\Proyectos 5to\POI_Proyecto\Proyecto_POI\Server\EasyPOI\EasyPOI\obj\Debug\EasyPOI.pdb
 C:\Users\w7\Source\Repos\Proyecto_POI\Server\EasyPOI\EasyPOI\bin\Debug\EasyPOI.dll
 C:\Users\w7\Source\Repos\Proyecto_POI\Server\EasyPOI\EasyPOI\bin\Debug\EasyPOI.pdb
-C:\Users\w7\Source\Repos\Proyecto_POI\Server\EasyPOI\EasyPOI\obj\Debug\EasyPOI.csprojResolveAssemblyReference.cache
 C:\Users\w7\Source\Repos\Proyecto_POI\Server\EasyPOI\EasyPOI\obj\Debug\EasyPOI.dll
 C:\Users\w7\Source\Repos\Proyecto_POI\Server\EasyPOI\EasyPOI\obj\Debug\EasyPOI.pdb
+C:\Users\w7\Source\Repos\Proyecto_POI\Server\EasyPOI\EasyPOI\obj\Debug\EasyPOI.csprojResolveAssemblyReference.cache
