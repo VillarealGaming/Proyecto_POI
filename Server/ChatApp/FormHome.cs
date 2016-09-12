@@ -87,8 +87,8 @@ namespace ChatApp
                                 //Messages
                                 foreach (var message in text[c.Key])
                                 {
-                                    chatsForms[c.Key].richTextBoxChat.Text += message.Item2 + ": ";
-                                    chatsForms[c.Key].richTextBoxChat.Text += message.Item1 + "\n";
+                                    chatsForms[c.Key].richTextBoxChat.AppendText(message.Item2 + ": ");
+                                    chatsForms[c.Key].richTextBoxChat.AppendText(message.Item1 + "\n");
                                 }
                                 if (text[c.Key].Count > 0)
                                 {
@@ -96,6 +96,8 @@ namespace ChatApp
                                 }
                                 //Users
                                 foreach(var user in users[c.Key]){ chatsForms[c.Key].listViewUsers.Items.Add(user); }
+                                //Set converstaion emoticons
+                                chatsForms[c.Key].CheckEmoticons();
                             }
                             Packet sendPacket = new Packet(PacketType.SetUserState);
                             sendPacket.tag["user"] = ClientSession.username;
@@ -107,8 +109,9 @@ namespace ChatApp
                         {
                             int chatID = (int)packet.tag["chatID"];
                             string textString = packet.tag["sender"] + ": " + packet.tag["text"];
-                            chatsForms[chatID].richTextBoxChat.Text += "\n" + textString;
+                            chatsForms[chatID].richTextBoxChat.AppendText(textString + "\n");
                             chatsForms[chatID].listItem.SubItems[1].Text = textString;
+                            chatsForms[chatID].CheckEmoticons();
                         }
                         break;
                     case PacketType.GetUsers:

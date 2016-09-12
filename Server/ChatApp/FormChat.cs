@@ -13,14 +13,19 @@ namespace ChatApp
     public partial class formChat : Form
     {
         private bool dragging = false;
+        private string realText;
         private Point dragCursorPoint, dragFormPoint;
         public int chatID { get; set; }
         public List<string> users { get; set; }
         public ListViewItem listItem { get; set; }
+        //http://csharpdemos.blogspot.mx/2012/10/how-to-insert-smiley-images-in.html
+        private Dictionary<string, Bitmap> Emoticons;
         public formChat(int chatID, ListViewItem listItem)
         {
             this.chatID = chatID;
             this.listItem = listItem;
+            Emoticons = new Dictionary<string, Bitmap>();
+            Emoticons.Add(":)", ChatApp.Properties.Resources.happy);
             InitializeComponent();
         }
 
@@ -40,11 +45,25 @@ namespace ChatApp
         {
             textBoxChat.Focus();
         }
-
+        public void CheckEmoticons()
+        {
+            richTextBoxChat.ReadOnly = false;
+            foreach (string emote in Emoticons.Keys)
+            {
+                while (richTextBoxChat.Text.Contains(emote))
+                {
+                    int index = richTextBoxChat.Text.IndexOf(emote);
+                    richTextBoxChat.Select(index, emote.Length);
+                    Clipboard.SetImage(Emoticons[emote]);
+                    richTextBoxChat.Paste();
+                }
+            }
+            richTextBoxChat.Select(richTextBoxChat.Text.Length, 0);
+            richTextBoxChat.ScrollToCaret();
+        }
         private void richTextBoxChat_TextChanged(object sender, EventArgs e)
         {
-            richTextBoxChat.SelectionStart = richTextBoxChat.Text.Length;
-            richTextBoxChat.ScrollToCaret();
+            int i = 0;
         }
 
         private void formChat_MouseDown(object sender, MouseEventArgs e) {
@@ -69,24 +88,12 @@ namespace ChatApp
             this.Hide();
         }
 
-        private void textBoxChat_KeyDown(object sender, KeyEventArgs e) {
-            if (e.KeyCode == Keys.Enter) {
-                buttonEnviar.PerformClick();
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-            }
-        }
-       
         private void picBox_EmoteIcon_MouseEnter(object sender, EventArgs e) {
             picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIconHover;
         }
 
         private void picBox_EmoteIcon_MouseLeave(object sender, EventArgs e) {
             picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIcon;
-        }
-
-        private void picBox_EmoteIcon_MouseClick(object sender, MouseEventArgs e) {
-
         }
 
         private void picBox_Buzz_MouseEnter(object sender, EventArgs e) {
@@ -109,10 +116,6 @@ namespace ChatApp
             picBox_Attach.BackgroundImage = ChatApp.Properties.Resources.attachIcon;
         }
 
-        private void picBox_Attach_MouseClick(object sender, MouseEventArgs e) {
-
-        }
-
         private void picBox_StartGame_MouseEnter(object sender, EventArgs e) {
             picBox_StartGame.BackgroundImage = ChatApp.Properties.Resources.gameIconHover;
         }
@@ -121,7 +124,8 @@ namespace ChatApp
             picBox_StartGame.BackgroundImage = ChatApp.Properties.Resources.gameIcon;
         }
 
-        private void picBox_StartGame_MouseClick(object sender, MouseEventArgs e) {
+        private void TextBoxChat_KeyDown_1(object sender, KeyEventArgs e)
+        {
 
         }
 
@@ -131,5 +135,20 @@ namespace ChatApp
                 this.Location = Point.Add(dragFormPoint, new Size(dif));
             }
         }
+        //unused
+        private void picBox_Attach_MouseClick(object sender, MouseEventArgs e) {
+
+        }
+        private void picBox_EmoteIcon_MouseClick(object sender, MouseEventArgs e) { }
+        private void textBoxChat_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonEnviar.PerformClick();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+        private void picBox_StartGame_MouseClick(object sender, MouseEventArgs e) { }
     }
 }

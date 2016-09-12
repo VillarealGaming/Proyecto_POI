@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.richTextBoxChat = new System.Windows.Forms.RichTextBox();
-            this.textBoxChat = new System.Windows.Forms.TextBox();
             this.buttonEnviar = new System.Windows.Forms.Button();
             this.Header = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -39,6 +38,7 @@
             this.picBox_Buzz = new System.Windows.Forms.PictureBox();
             this.picBox_CloseIcon = new System.Windows.Forms.PictureBox();
             this.picBox_EmoteIcon = new System.Windows.Forms.PictureBox();
+            this.textBoxChat = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_StartGame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_Attach)).BeginInit();
@@ -55,25 +55,12 @@
             this.richTextBoxChat.ForeColor = System.Drawing.Color.White;
             this.richTextBoxChat.Location = new System.Drawing.Point(148, 39);
             this.richTextBoxChat.Name = "richTextBoxChat";
-            this.richTextBoxChat.ReadOnly = true;
             this.richTextBoxChat.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
             this.richTextBoxChat.Size = new System.Drawing.Size(292, 263);
             this.richTextBoxChat.TabIndex = 0;
             this.richTextBoxChat.TabStop = false;
             this.richTextBoxChat.Text = "";
             this.richTextBoxChat.TextChanged += new System.EventHandler(this.richTextBoxChat_TextChanged);
-            // 
-            // textBoxChat
-            // 
-            this.textBoxChat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
-            this.textBoxChat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxChat.ForeColor = System.Drawing.Color.White;
-            this.textBoxChat.Location = new System.Drawing.Point(12, 308);
-            this.textBoxChat.Multiline = true;
-            this.textBoxChat.Name = "textBoxChat";
-            this.textBoxChat.Size = new System.Drawing.Size(428, 57);
-            this.textBoxChat.TabIndex = 0;
-            this.textBoxChat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxChat_KeyDown);
             // 
             // buttonEnviar
             // 
@@ -209,12 +196,25 @@
             this.picBox_EmoteIcon.MouseEnter += new System.EventHandler(this.picBox_EmoteIcon_MouseEnter);
             this.picBox_EmoteIcon.MouseLeave += new System.EventHandler(this.picBox_EmoteIcon_MouseLeave);
             // 
+            // textBoxChat
+            // 
+            this.textBoxChat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.textBoxChat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxChat.ForeColor = System.Drawing.Color.White;
+            this.textBoxChat.Location = new System.Drawing.Point(12, 308);
+            this.textBoxChat.Multiline = true;
+            this.textBoxChat.Name = "textBoxChat";
+            this.textBoxChat.Size = new System.Drawing.Size(428, 57);
+            this.textBoxChat.TabIndex = 0;
+            this.textBoxChat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxChat_KeyDown);
+            // 
             // formChat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
             this.ClientSize = new System.Drawing.Size(452, 410);
+            this.Controls.Add(this.textBoxChat);
             this.Controls.Add(this.picBox_StartGame);
             this.Controls.Add(this.picBox_Attach);
             this.Controls.Add(this.picBox_Buzz);
@@ -223,7 +223,6 @@
             this.Controls.Add(this.picBox_EmoteIcon);
             this.Controls.Add(this.Header);
             this.Controls.Add(this.buttonEnviar);
-            this.Controls.Add(this.textBoxChat);
             this.Controls.Add(this.richTextBoxChat);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "formChat";
@@ -244,7 +243,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.TextBox textBoxChat;
         private System.Windows.Forms.Button buttonEnviar;
         private System.Windows.Forms.PictureBox picBox_EmoteIcon;
         public System.Windows.Forms.RichTextBox richTextBoxChat;
@@ -255,6 +253,7 @@
         private System.Windows.Forms.PictureBox picBox_StartGame;
         public System.Windows.Forms.ListView listViewUsers;
         public System.Windows.Forms.Label Header;
+        private System.Windows.Forms.TextBox textBoxChat;
     }
 }
 
