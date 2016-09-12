@@ -3,43 +3,223 @@
   <Usuario>
     <NombreUsuario>123</NombreUsuario>
     <Contrasenia>123</Contrasenia>
-    <Estado>Available</Estado>
-    <Encriptado>false</Encriptado>
+    <Estado>NotAvailable</Estado>
     <Carrera>Ciencias Computacionales</Carrera>
   </Usuario>
   <Usuario>
     <NombreUsuario>Luis Carlos</NombreUsuario>
     <Contrasenia>123</Contrasenia>
     <Estado>Available</Estado>
-    <Encriptado>false</Encriptado>
     <Carrera>Ciencias Computacionales</Carrera>
   </Usuario>
   <Usuario>
     <NombreUsuario>jamana</NombreUsuario>
     <Contrasenia>222</Contrasenia>
     <Estado>Available</Estado>
-    <Encriptado>false</Encriptado>
     <Carrera>Ciencias Computacionales</Carrera>
   </Usuario>
   <Usuario>
     <NombreUsuario>jajatl</NombreUsuario>
     <Contrasenia>asdf</Contrasenia>
     <Estado>Available</Estado>
-    <Encriptado>false</Encriptado>
     <Carrera>Ciencias Computacionales</Carrera>
   </Usuario>
   <Usuario>
     <NombreUsuario>mr.barry</NombreUsuario>
     <Contrasenia>123</Contrasenia>
     <Estado>Available</Estado>
-    <Encriptado>false</Encriptado>
     <Carrera>Ciencias Computacionales</Carrera>
   </Usuario>
   <Usuario>
     <NombreUsuario>357</NombreUsuario>
     <Contrasenia>357</Contrasenia>
     <Estado>Available</Estado>
-    <Encriptado>false</Encriptado>
     <Carrera>Multimedia y Animación Digital</Carrera>
   </Usuario>
+  <Usuario>
+    <NombreUsuario>Yamil</NombreUsuario>
+    <Contrasenia>micontra</Contrasenia>
+    <Estado>Available</Estado>
+    <Carrera>Multimedia y Animación Digital</Carrera>
+  </Usuario>
+  <Usuario>
+    <NombreUsuario>homero simpson</NombreUsuario>
+    <Contrasenia>jebus</Contrasenia>
+    <Estado>Available</Estado>
+    <Carrera>Multimedia y Animación Digital</Carrera>
+  </Usuario>
+  <Usuario>
+    <NombreUsuario>1234</NombreUsuario>
+    <Contrasenia>1234</Contrasenia>
+    <Estado>Available</Estado>
+    <Carrera>Matemáticas</Carrera>
+  </Usuario>
+  <Usuario>
+    <NombreUsuario>lawea</NombreUsuario>
+    <Contrasenia>peluda</Contrasenia>
+    <Estado>Available</Estado>
+    <Carrera>Seguridad en T.I</Carrera>
+  </Usuario>
+  <Usuario>
+    <NombreUsuario>satan</NombreUsuario>
+    <Contrasenia>666</Contrasenia>
+    <Estado>Available</Estado>
+    <Carrera>Ciencias Computacionales</Carrera>
+  </Usuario>
+  <Conversacion>
+    <ID>0</ID>
+    <Nombre>chattest</Nombre>
+  </Conversacion>
+  <Conversacion>
+    <ID>1</ID>
+    <Nombre>chattest2</Nombre>
+  </Conversacion>
+  <Conversacion>
+    <ID>2</ID>
+    <Nombre>ert</Nombre>
+  </Conversacion>
+  <Conversacion>
+    <ID>3</ID>
+    <Nombre>asdf</Nombre>
+  </Conversacion>
+  <UsuarioConversacion>
+    <Usuario>Yamil</Usuario>
+    <Conversacion>0</Conversacion>
+  </UsuarioConversacion>
+  <UsuarioConversacion>
+    <Usuario>lawea</Usuario>
+    <Conversacion>0</Conversacion>
+  </UsuarioConversacion>
+  <UsuarioConversacion>
+    <Usuario>Luis Carlos</Usuario>
+    <Conversacion>0</Conversacion>
+  </UsuarioConversacion>
+  <UsuarioConversacion>
+    <Usuario>homero simpson</Usuario>
+    <Conversacion>0</Conversacion>
+  </UsuarioConversacion>
+  <UsuarioConversacion>
+    <Usuario>123</Usuario>
+    <Conversacion>0</Conversacion>
+  </UsuarioConversacion>
+  <UsuarioConversacion>
+    <Usuario>Yamil</Usuario>
+    <Conversacion>1</Conversacion>
+  </UsuarioConversacion>
+  <UsuarioConversacion>
+    <Usuario>homero simpson</Usuario>
+    <Conversacion>1</Conversacion>
+  </UsuarioConversacion>
+  <UsuarioConversacion>
+    <Usuario>Luis Carlos</Usuario>
+    <Conversacion>1</Conversacion>
+  </UsuarioConversacion>
+  <UsuarioConversacion>
+    <Usuario>jamana</Usuario>
+    <Conversacion>1</Conversacion>
+  </UsuarioConversacion>
+  <UsuarioConversacion>
+    <Usuario>123</Usuario>
+    <Conversacion>1</Conversacion>
+  </UsuarioConversacion>
+  <UsuarioConversacion>
+    <Usuario>Yamil</Usuario>
+    <Conversacion>2</Conversacion>
+  </UsuarioConversacion>
+  <UsuarioConversacion>
+    <Usuario>Luis Carlos</Usuario>
+    <Conversacion>2</Conversacion>
+  </UsuarioConversacion>
+  <UsuarioConversacion>
+    <Usuario>1234</Usuario>
+    <Conversacion>2</Conversacion>
+  </UsuarioConversacion>
+  <UsuarioConversacion>
+    <Usuario>satan</Usuario>
+    <Conversacion>2</Conversacion>
+  </UsuarioConversacion>
+  <UsuarioConversacion>
+    <Usuario>123</Usuario>
+    <Conversacion>2</Conversacion>
+  </UsuarioConversacion>
+  <UsuarioConversacion>
+    <Usuario>Yamil</Usuario>
+    <Conversacion>3</Conversacion>
+  </UsuarioConversacion>
+  <UsuarioConversacion>
+    <Usuario>mr.barry</Usuario>
+    <Conversacion>3</Conversacion>
+  </UsuarioConversacion>
+  <UsuarioConversacion>
+    <Usuario>satan</Usuario>
+    <Conversacion>3</Conversacion>
+  </UsuarioConversacion>
+  <UsuarioConversacion>
+    <Usuario>1234</Usuario>
+    <Conversacion>3</Conversacion>
+  </UsuarioConversacion>
+  <UsuarioConversacion>
+    <Usuario>123</Usuario>
+    <Conversacion>3</Conversacion>
+  </UsuarioConversacion>
+  <Mensaje>
+    <Conversacion>0</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>hols</Mensaje>
+    <Date>2016-09-11T15:53:01.2481834-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>0</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>sdf</Mensaje>
+    <Date>2016-09-11T15:56:48.1738522-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>0</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>dfg</Mensaje>
+    <Date>2016-09-11T15:56:56.4307899-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>0</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>oli</Mensaje>
+    <Date>2016-09-11T17:02:50.9198274-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>2</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>YAhoo!|</Mensaje>
+    <Date>2016-09-11T18:39:54.3309316-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>satan</Usuario>
+    <Mensaje>ya llegue</Mensaje>
+    <Date>2016-09-11T18:49:52.9143256-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>que bueno &lt;3</Mensaje>
+    <Date>2016-09-11T18:50:03.4989544-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>:)</Mensaje>
+    <Date>2016-09-11T19:35:47.7453209-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>2</Conversacion>
+    <Usuario>satan</Usuario>
+    <Mensaje>:)</Mensaje>
+    <Date>2016-09-11T21:33:10.0838634-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>2</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>:)</Mensaje>
+    <Date>2016-09-11T21:33:16.6439882-05:00</Date>
+  </Mensaje>
 </ServerDataSet>
