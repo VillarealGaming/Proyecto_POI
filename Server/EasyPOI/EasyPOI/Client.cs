@@ -16,6 +16,7 @@ namespace EasyPOI
     {
         public Client()
         {
+            packetQueue = new List<Packet>();
         }
         //Comenzar a buscar una conexión
         public void BeginConnect()
@@ -101,7 +102,7 @@ namespace EasyPOI
                 //connected = false;
             }
         }
-        private void Received(IAsyncResult ar)
+        private async void Received(IAsyncResult ar)
         {
             //if (socket.Connected)
             //{
@@ -109,82 +110,94 @@ namespace EasyPOI
                 //no obstante es algo que dejare así por el momento
                 StateObject state = (StateObject)ar.AsyncState;
                 Socket client = state.workSocket;
-                try
+            try
+            {
+                int bytesRead = client.EndReceive(ar);
+                //Checar si stream esta vacío, así sabemos si es el primer paquete
+                if (state.stream.Length < 1)//(state.sb.Length < 1)
                 {
-                    int bytesRead = client.EndReceive(ar);
-                    //Checar si stream esta vacío, así sabemos si es el primer paquete
-                    if (state.stream.Length < 1)//(state.sb.Length < 1)
+                    //Checar si leímos los primeros 4 bytes del encabezado
+                    if (bytesRead >= Packet.HeaderSize)
                     {
-                        //Checar si leímos los primeros 4 bytes del encabezado
-                        if (bytesRead >= Packet.HeaderSize)
+                        state.packetSize = BitConverter.ToInt32(state.buffer, 0);//.Take(4).ToArray()
+                        await state.stream.WriteAsync(state.buffer, 0, bytesRead);
+                        //state.sb.Append(Encoding.ASCII.GetString(
+                        //state.buffer, 0, bytesRead));
+                        //Leímos toda el paquete
+                        if (state.stream.Length == state.packetSize)//(state.sb.Length  == state.packetSize)
                         {
-                            state.packetSize = BitConverter.ToInt32(state.buffer, 0);//.Take(4).ToArray()
-                            state.stream.Write(state.buffer, 0, bytesRead);
-                            //state.sb.Append(Encoding.ASCII.GetString(
-                            //state.buffer, 0, bytesRead));
-                            //Leímos toda el paquete
-                            if (state.stream.Length == state.packetSize)//(state.sb.Length  == state.packetSize)
+                            // All the data has been read from the 
+                            using (MemoryStream memoryStream = new MemoryStream(state.stream.ToArray(), Packet.HeaderSize, state.packetSize - Packet.HeaderSize))
                             {
-                                // All the data has been read from the 
                                 BinaryFormatter binaryFormatter = new BinaryFormatter();
-                                using (MemoryStream memoryStream = new MemoryStream(state.stream.ToArray(), Packet.HeaderSize, state.packetSize - Packet.HeaderSize))
-                                {
-                                    state.stream = new MemoryStream();
-                                    Packet packet = (Packet)binaryFormatter.Deserialize(memoryStream);
-                                    if (onPacketReceived != null) onPacketReceived(packet);
-                                    client.BeginReceive(state.buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(Received), state);
-                                }
-                            }
-                            else
-                            {
-                                //Seguimos leyendo los bytes
+                                state.stream = new MemoryStream();
+                                Packet packet = (Packet)binaryFormatter.Deserialize(memoryStream);
+                                if (onPacketReceived != null) onPacketReceived(packet);
                                 client.BeginReceive(state.buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(Received), state);
                             }
                         }
                         else
                         {
-                            //Seguimos leyendo el encabezado
-                            //Seguimos leyendo los bytes y dejamos la información del header del paquete
-                            client.BeginReceive(state.buffer, bytesRead, StateObject.BufferSize - bytesRead, SocketFlags.None, new AsyncCallback(Received), state);
+                            //Seguimos leyendo los bytes
+                            if (state.packetSize - state.stream.Length > StateObject.BufferSize)
+                                client.BeginReceive(state.buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(Received), state);
+                            else
+                                client.BeginReceive(state.buffer, 0, state.packetSize - (int)state.stream.Length, SocketFlags.None, new AsyncCallback(Received), state);
                         }
                     }
                     else
                     {
-                        //Estamos continuando la lectura de un paquete
-                        state.stream.Write(state.buffer, 0, bytesRead);
-                        //Checar si leímos los primeros 4 bytes del encabezado
-                        if (state.stream.Length >= state.packetSize)
+                        //Seguimos leyendo el encabezado
+                        //Seguimos leyendo los bytes y dejamos la información del header del paquete
+                        if (state.packetSize - state.stream.Length > StateObject.BufferSize)
+                            client.BeginReceive(state.buffer, bytesRead, StateObject.BufferSize - bytesRead, SocketFlags.None, new AsyncCallback(Received), state);
+                        else
+                            client.BeginReceive(state.buffer, bytesRead, state.packetSize - (int)state.stream.Length - bytesRead, SocketFlags.None, new AsyncCallback(Received), state);
+                    }
+                }
+                else
+                {
+                    //Estamos continuando la lectura de un paquete
+                    await state.stream.WriteAsync(state.buffer, 0, bytesRead);
+                    //Checar si leímos los primeros 4 bytes del encabezado
+                    if (state.stream.Length >= Packet.HeaderSize)
+                    {
+                        if (state.stream.Length == state.packetSize)//(state.sb.Length  == state.packetSize)
                         {
-                            if (state.stream.Length == state.packetSize)//(state.sb.Length  == state.packetSize)
+                            //Leímos todo el paquete, ya podemos deserializar
+                            using (MemoryStream memoryStream = new MemoryStream(state.stream.ToArray(), Packet.HeaderSize, state.packetSize - Packet.HeaderSize))
                             {
-                                //Leímos todo el paquete, ya podemos deserializar
                                 BinaryFormatter binaryFormatter = new BinaryFormatter();
-                                using (MemoryStream memoryStream = new MemoryStream(state.stream.ToArray(), Packet.HeaderSize, state.packetSize - Packet.HeaderSize))
-                                {
-                                    state.stream = new MemoryStream();
-                                    Packet packet = (Packet)binaryFormatter.Deserialize(memoryStream);
-                                    if (onPacketReceived != null) onPacketReceived(packet);
-                                    client.BeginReceive(state.buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(Received), state);
-                                }
-                            }
-                            else
-                            {
-                                //Seguimos leyendo los bytes
+                                state.stream = new MemoryStream();
+                                Packet packet = (Packet)binaryFormatter.Deserialize(memoryStream);
+                                if (onPacketReceived != null) onPacketReceived(packet);
                                 client.BeginReceive(state.buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(Received), state);
                             }
                         }
                         else
                         {
-                            //Seguimos leyendo el encabezado
-                            //Seguimos leyendo los bytes y dejamos la información del header del paquete
-                            client.BeginReceive(state.buffer, bytesRead, StateObject.BufferSize - bytesRead, SocketFlags.None, new AsyncCallback(Received), state);
+                            //Seguimos leyendo los bytes
+                            if (state.packetSize - state.stream.Length > StateObject.BufferSize)
+                                client.BeginReceive(state.buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(Received), state);
+                            else
+                                client.BeginReceive(state.buffer, 0, state.packetSize - (int)state.stream.Length, SocketFlags.None, new AsyncCallback(Received), state);
                         }
                     }
+                    else
+                    {
+                        //Seguimos leyendo el encabezado
+                        //Seguimos leyendo los bytes y dejamos la información del header del paquete
+                        if (state.packetSize - state.stream.Length > StateObject.BufferSize)
+                            client.BeginReceive(state.buffer, bytesRead, StateObject.BufferSize - bytesRead, SocketFlags.None, new AsyncCallback(Received), state);
+                        else
+                            client.BeginReceive(state.buffer, bytesRead, state.packetSize - (int)state.stream.Length - bytesRead, SocketFlags.None, new AsyncCallback(Received), state);
+                    }
                 }
-                catch (SocketException)
-                {
-                    //Cliente desconectado
-                }
+            }
+            catch (SocketException)
+            {
+                //Cliente desconectado
+            }
             //}
         }
         //getters y setters
@@ -215,5 +228,7 @@ namespace EasyPOI
         private Action onConnectionFail;
         private Action onConnectionLost;
         private Action<Packet> onPacketReceived;
+        //
+        private List<Packet> packetQueue;
     }
 }

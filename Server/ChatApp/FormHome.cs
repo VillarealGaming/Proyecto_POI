@@ -20,6 +20,8 @@ namespace ChatApp
         public FormHome()
         {
             InitializeComponent();
+            listViewConversacion.Sorting = SortOrder.Ascending;
+            listViewConversacion.ListViewItemSorter = new ListViewSorter(2);
         }
 
         private void FormHome_MouseDown(object sender, MouseEventArgs e) {
@@ -75,11 +77,38 @@ namespace ChatApp
                     case PacketType.GetUserConversations:
                         {
                             ClientSession.chats = packet.tag["conversations"] as Dictionary<int, string>;
-                            foreach(var c in ClientSession.chats)
+                            Dictionary<int, List<Tuple<string, string>>> text = packet.tag["messages"] as Dictionary<int, List<Tuple<string, string>>>;
+                            Dictionary<int, List<string>> users = packet.tag["users"] as Dictionary<int, List<string>>;
+                            Dictionary<int, DateTime> lastMessageDate = packet.tag["lastDate"] as Dictionary<int, DateTime>;
+                            //Conversations
+                            foreach (var c in ClientSession.chats)
                             {
-                                var item = listViewConversacion.Items.Add(new ListViewItem(new string[] { c.Value, " " }));
+                                var item = listViewConversacion.Items.Add(new ListViewItem(new string[] { c.Value, "" , "" }));
                                 chatsForms.Add(c.Key, new formChat(c.Key, item));
+                                chatsForms[c.Key].Header.Text = c.Value;
                                 item.Tag = chatsForms[c.Key];
+                                //Messages
+                                foreach (var message in text[c.Key])
+                                {
+                                    var chatRichTextBox = chatsForms[c.Key].richTextBoxChat;
+                                    chatRichTextBox.SelectionFont = new Font(chatRichTextBox.Font, FontStyle.Bold);
+                                    chatRichTextBox.AppendText(message.Item2 + ": ");
+                                    chatRichTextBox.SelectionFont = new Font(chatRichTextBox.Font, FontStyle.Regular);
+                                    chatRichTextBox.AppendText(message.Item1 + "\n");
+                                }
+                                //Last message
+                                if (text[c.Key].Count > 0)
+                                {
+                                    chatsForms[c.Key].listItem.SubItems[1].Text = text[c.Key].Last().Item2 + ": " + text[c.Key].Last().Item1;
+                                    chatsForms[c.Key].listItem.SubItems[2].Tag = lastMessageDate[c.Key];
+                                    chatsForms[c.Key].listItem.SubItems[2].Text = lastMessageDate[c.Key].ToString();
+                                }
+                                //sort by date
+                                listViewConversacion.Sort();
+                                //Users
+                                foreach (var user in users[c.Key]){ chatsForms[c.Key].listViewUsers.Items.Add(user); }
+                                //Set converstaion emoticons
+                                chatsForms[c.Key].CheckEmoticons();
                             }
                             Packet sendPacket = new Packet(PacketType.SetUserState);
                             sendPacket.tag["user"] = ClientSession.username;
@@ -87,27 +116,21 @@ namespace ChatApp
                             ClientSession.Connection.SendPacket(sendPacket);
                         }
                         break;
-                    case PacketType.GetChatConversation:
-                        {
-                            int chatID = (int)packet.tag["chatID"];
-                            List<Tuple<string, string>> messages = (List<Tuple<string, string>>)packet.tag["messages"];
-                            foreach (var message in messages)
-                            {
-                                chatsForms[chatID].richTextBoxChat.Text += message.Item2 + ": ";
-                                chatsForms[chatID].richTextBoxChat.Text += message.Item1 + "\n";
-                            }
-                            if(messages.Count>0)
-                            {
-                                chatsForms[chatID].listItem.SubItems[1].Text = messages.Last().Item2 + ": " + messages.Last().Item1;
-                            }
-                        }
-                        break;
                     case PacketType.TextMessage:
                         {
                             int chatID = (int)packet.tag["chatID"];
-                            string textString = packet.tag["sender"] + ": " + packet.tag["text"];
-                            chatsForms[chatID].richTextBoxChat.Text += "\n" + textString;
-                            chatsForms[chatID].listItem.SubItems[1].Text = textString;
+                            DateTime date = (DateTime)packet.tag["date"];
+                            var chatRichTextBox = chatsForms[chatID].richTextBoxChat;
+                            chatRichTextBox.SelectionFont = new Font(chatRichTextBox.Font, FontStyle.Bold);
+                            chatRichTextBox.AppendText(packet.tag["sender"] + ": ");
+                            chatRichTextBox.SelectionFont = new Font(chatRichTextBox.Font, FontStyle.Regular);
+                            chatRichTextBox.AppendText(packet.tag["text"] + "\n");
+                            chatsForms[chatID].listItem.SubItems[1].Text = packet.tag["sender"] + ": " + packet.tag["text"];
+                            chatsForms[chatID].CheckEmoticons();
+                            //sort by date
+                            chatsForms[chatID].listItem.SubItems[2].Tag = date;
+                            chatsForms[chatID].listItem.SubItems[2].Text = date.ToString();
+                            listViewConversacion.Sort();
                         }
                         break;
                     case PacketType.GetUsers:
@@ -115,10 +138,19 @@ namespace ChatApp
                             var userList = (Dictionary<string, Tuple<string, string>>)packet.tag["userList"];
                             foreach(var user in userList)
                             {
-                               var nodeResult = treeViewUsers.Nodes.OfType<TreeNode>().FirstOrDefault(node => node.Text.Equals(user.Value.Item2));
-                               nodeResult.Nodes.Add(user.Key, user.Key, ClientSession.connectionStateHash[user.Value.Item1].Item1 + 1);
+                                //tree nodes
+                                var nodeResult = treeViewUsers.Nodes.OfType<TreeNode>().FirstOrDefault(node => node.Text.Equals(user.Value.Item2));
+                                TreeNode insertedNode = nodeResult.Nodes.Add(user.Key, user.Key, ClientSession.connectionStateHash[user.Value.Item1].Item1 + 1);
+                                //font
+                                insertedNode.NodeFont = new Font(treeViewUsers.Font,FontStyle.Regular);
+                                insertedNode.ForeColor = Color.LightGray;
+                                //userList
+                                ClientSession.userList.Add(user.Key);
                             }
-                            ClientSession.Connection.SendPacket(new Packet(PacketType.GetUserConversations));
+                            treeViewUsers.ExpandAll();
+                            Packet sendPacket = new Packet(PacketType.GetUserConversations);
+                            sendPacket.tag["user"] = ClientSession.username;
+                            ClientSession.Connection.SendPacket(sendPacket);
                         }
                         break;
                     case PacketType.SetUserState:
@@ -130,6 +162,29 @@ namespace ChatApp
                     case PacketType.SessionBegin:
                         {
                             Show();
+                        }
+                        break;
+                    case PacketType.Fail:
+                        {
+                            MessageBox.Show(packet.tag["message"] as string, packet.tag["case"] as string, MessageBoxButtons.OK);
+                            formCreateChat.Close();
+                        }
+                        break;
+                    case PacketType.Buzz:
+                        {
+                            if(packet.tag["sender"] as string != ClientSession.username)
+                            {
+                                chatsForms[(int)packet.tag["chatID"]].Buzz();
+                            }
+                            else
+                            {
+                                Packet packetSend = new Packet(PacketType.TextMessage);
+                                packetSend.tag["sender"] = packet.tag["sender"];
+                                packetSend.tag["text"] = ".-*Zumbido*-.";
+                                packetSend.tag["chatID"] = packet.tag["chatID"];
+                                packetSend.tag["date"] = DateTime.Now;
+                                ClientSession.Connection.SendPacket(packetSend);
+                            }
                         }
                         break;
                 }
@@ -148,6 +203,21 @@ namespace ChatApp
             selectedStateItem.Checked = true;
             ClientSession.Connection.OnPacketReceivedFunc(OnPacket);
             ClientSession.Connection.SendPacket(new Packet(PacketType.GetUsers));
+            //Emoticons
+            formChat.Emoticons = new Dictionary<Bitmap, string[]>();
+            formChat.Emoticons.Add(ChatApp.Properties.Resources.angry, new string[] { " >:(", ":angry:" });
+            formChat.Emoticons.Add(ChatApp.Properties.Resources.cool, new string[] { " 8)", ":cool:" });
+            formChat.Emoticons.Add(ChatApp.Properties.Resources.devil, new string[] { " >:)", ":devil:" });
+            formChat.Emoticons.Add(ChatApp.Properties.Resources.dumb, new string[] { " :P", ":dumb:" });
+            formChat.Emoticons.Add(ChatApp.Properties.Resources.happy, new string[] { " :)", ":happy:" });
+            formChat.Emoticons.Add(ChatApp.Properties.Resources.meh, new string[] { " :/", ":meh:" });
+            formChat.Emoticons.Add(ChatApp.Properties.Resources.naughty, new string[] { " ^O^", ":naughty:" });
+            formChat.Emoticons.Add(ChatApp.Properties.Resources.sad, new string[] { " :(", ":sad:" });
+            formChat.Emoticons.Add(ChatApp.Properties.Resources.serious, new string[] { " :I", " .-.", " ._.", ":serious:" });
+            formChat.Emoticons.Add(ChatApp.Properties.Resources.smile, new string[] { " :D", ":smile:" });
+            formChat.Emoticons.Add(ChatApp.Properties.Resources.surprise, new string[] { " :O", " :o", " :0", ":surprise:" });
+            formChat.Emoticons.Add(ChatApp.Properties.Resources.weird, new string[] { " :$", " .~.", ":weird:" });
+            formChat.Emoticons.Add(ChatApp.Properties.Resources.wink, new string[] { " ;)", ":wink:" });
         }
         private void buttonNewGroupChat_Click(object sender, EventArgs e)
         {
@@ -187,6 +257,7 @@ namespace ChatApp
                 selectedStateItem.Checked = false;
                 selectedStateItem = menuItem;
                 selectedStateItem.Checked = true;
+                ClientSession.state = state;
                 Header.Text = ClientSession.username + " - " + ClientSession.connectionStateHash[ClientSession.state].Item2;
                 Packet packet = new Packet(PacketType.SetUserState);
                 packet.tag["user"] = ClientSession.username;
@@ -195,9 +266,40 @@ namespace ChatApp
             }
         }
 
+        private void listViewConversacion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void listViewConversacion_DoubleClick(object sender, EventArgs e)
         {
             (listViewConversacion.SelectedItems[0].Tag as formChat).Show();
+        }
+        //sorting listview columns
+        //http://stackoverflow.com/questions/1214289/how-do-i-sort-integers-in-a-listview
+        private class ListViewSorter : System.Collections.IComparer
+        {
+            private int _colIndex;
+            public ListViewSorter(int colIndex) { _colIndex = colIndex; }
+            public int Compare(object x, object y)
+            {
+                var item1 = (ListViewItem)x;
+                var item2 = (ListViewItem)y;
+                if (item2.SubItems[_colIndex].Tag == null)
+                    return 0;
+                if (item1.SubItems[_colIndex].Tag == null)
+                    return 1;
+                if (item1.SubItems[_colIndex].Tag is DateTime)
+                {
+                    DateTime date1 = (DateTime)item1.SubItems[_colIndex].Tag;
+                    DateTime date2 = (DateTime)item2.SubItems[_colIndex].Tag;
+                    return date2.CompareTo(date1);
+                }
+                else
+                {
+                    return 0;
+                }
+            }
         }
     }
     static class ClientSession
@@ -209,10 +311,12 @@ namespace ChatApp
         {
             get { return client; }
         }
+        private static List<Packet> packetQueue = new List<Packet>();
         //connectionStateHash<key, tuple<imageIndex, nombre en español>>
         public static Dictionary<string, Tuple<int, string>> connectionStateHash = new Dictionary<string, Tuple<int,string>>();
         public static Dictionary<int, string> chats = new Dictionary<int, string>();
-        public static Dictionary<string, UserConnectionState> userList = new Dictionary<string, UserConnectionState>();
+        //public static Dictionary<string, UserConnectionState> userList = new Dictionary<string, UserConnectionState>();
+        public static List<string> userList = new List<string>();
         private static Client client = new Client();
     }
 }

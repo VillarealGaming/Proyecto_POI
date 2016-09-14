@@ -163,4 +163,43 @@
   <data name="gameIconHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\gameIconHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="happy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Emoticons\happy.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="angry" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Emoticons\angry.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cool" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Emoticons\cool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="devil" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Emoticons\devil.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dumb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Emoticons\dumb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="meh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Emoticons\meh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="naughty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Emoticons\naughty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sad" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Emoticons\sad.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="serious" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Emoticons\serious.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="smile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Emoticons\smile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="surprise" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Emoticons\surprise.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="weird" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Emoticons\weird.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wink" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Emoticons\wink.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

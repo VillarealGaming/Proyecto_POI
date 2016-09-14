@@ -236,6 +236,48 @@
   <ItemGroup>
     <None Include="gameIconHover.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\emoticonHappy.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Emoticons\happy.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Emoticons\angry.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Emoticons\cool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Emoticons\devil.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Emoticons\dumb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Emoticons\meh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Emoticons\naughty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Emoticons\sad.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Emoticons\serious.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Emoticons\smile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Emoticons\surprise.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Emoticons\weird.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Emoticons\wink.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
