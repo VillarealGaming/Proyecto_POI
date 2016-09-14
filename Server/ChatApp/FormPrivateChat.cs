@@ -113,6 +113,30 @@ namespace ChatApp
 
         }
 
+        private void picBox_EmoteIcon_Click(object sender, EventArgs e) {
+            list_Emoticons.Visible = !list_Emoticons.Visible;
+            list_Emoticons.Focus();
+        }
+
+        private void list_Emoticons_Leave(object sender, EventArgs e) {
+            list_Emoticons.Visible = false;
+        }
+
+        private void list_Buzzers_Leave(object sender, EventArgs e) {
+            list_Buzzers.Visible = false;
+        }
+
+        private void picBox_Buzz_Click(object sender, EventArgs e) {
+            MouseEventArgs mE = (MouseEventArgs)e;
+            if (mE.Button == System.Windows.Forms.MouseButtons.Right) {
+                list_Buzzers.Visible = !list_Emoticons.Visible;
+                list_Buzzers.Focus();
+            } else if (mE.Button == System.Windows.Forms.MouseButtons.Left) {
+                //Mandar buzz a los otros parcitipantes
+                list_Buzzers.Visible = false;
+            }
+        }
+
         private void picBox_CloseIcon_MouseLeave(object sender, EventArgs e) {
             picBox_CloseIcon.BackColor = Color.White;
         }

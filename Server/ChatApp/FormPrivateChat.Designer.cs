@@ -28,26 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "Comenzar Videollamada"}, -1, System.Drawing.Color.Empty, System.Drawing.Color.Empty, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Enviar Correo");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Enviar Correo");
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrivateChat));
             this.list_Options = new System.Windows.Forms.ListView();
             this.buttonEnviar = new System.Windows.Forms.Button();
             this.textBoxChat = new System.Windows.Forms.TextBox();
             this.richTextBoxChat = new System.Windows.Forms.RichTextBox();
             this.Header = new System.Windows.Forms.Label();
+            this.picBox_StartGame = new System.Windows.Forms.PictureBox();
             this.picBox_Attach = new System.Windows.Forms.PictureBox();
             this.picBox_Buzz = new System.Windows.Forms.PictureBox();
             this.picBox_Options = new System.Windows.Forms.PictureBox();
             this.picBox_CloseIcon = new System.Windows.Forms.PictureBox();
             this.picBox_EmoteIcon = new System.Windows.Forms.PictureBox();
-            this.picBox_StartGame = new System.Windows.Forms.PictureBox();
+            this.list_Emoticons = new System.Windows.Forms.ListView();
+            this.list_Buzzers = new System.Windows.Forms.ListView();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox_StartGame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_Attach)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_Buzz)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_Options)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_EmoteIcon)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBox_StartGame)).BeginInit();
             this.SuspendLayout();
             // 
             // list_Options
@@ -55,11 +58,11 @@
             this.list_Options.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
             this.list_Options.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.list_Options.ForeColor = System.Drawing.Color.White;
-            listViewItem5.StateImageIndex = 0;
-            listViewItem6.StateImageIndex = 0;
+            listViewItem1.StateImageIndex = 0;
+            listViewItem2.StateImageIndex = 0;
             this.list_Options.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem5,
-            listViewItem6});
+            listViewItem1,
+            listViewItem2});
             this.list_Options.Location = new System.Drawing.Point(198, 51);
             this.list_Options.MultiSelect = false;
             this.list_Options.Name = "list_Options";
@@ -128,6 +131,21 @@
             this.Header.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormPrivateChat_MouseMove);
             this.Header.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FormPrivateChat_MouseUp);
             // 
+            // picBox_StartGame
+            // 
+            this.picBox_StartGame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.picBox_StartGame.BackgroundImage = global::ChatApp.Properties.Resources.gameIcon;
+            this.picBox_StartGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.picBox_StartGame.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBox_StartGame.Location = new System.Drawing.Point(198, 351);
+            this.picBox_StartGame.Name = "picBox_StartGame";
+            this.picBox_StartGame.Size = new System.Drawing.Size(27, 27);
+            this.picBox_StartGame.TabIndex = 22;
+            this.picBox_StartGame.TabStop = false;
+            this.picBox_StartGame.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picBox_StartGame_MouseClick);
+            this.picBox_StartGame.MouseEnter += new System.EventHandler(this.picBox_StartGame_MouseEnter);
+            this.picBox_StartGame.MouseLeave += new System.EventHandler(this.picBox_StartGame_MouseLeave);
+            // 
             // picBox_Attach
             // 
             this.picBox_Attach.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
@@ -154,6 +172,7 @@
             this.picBox_Buzz.Size = new System.Drawing.Size(27, 27);
             this.picBox_Buzz.TabIndex = 20;
             this.picBox_Buzz.TabStop = false;
+            this.picBox_Buzz.Click += new System.EventHandler(this.picBox_Buzz_Click);
             this.picBox_Buzz.MouseEnter += new System.EventHandler(this.picBox_Buzz_MouseEnter);
             this.picBox_Buzz.MouseLeave += new System.EventHandler(this.picBox_Buzz_MouseLeave);
             // 
@@ -196,23 +215,39 @@
             this.picBox_EmoteIcon.Size = new System.Drawing.Size(27, 27);
             this.picBox_EmoteIcon.TabIndex = 15;
             this.picBox_EmoteIcon.TabStop = false;
+            this.picBox_EmoteIcon.Click += new System.EventHandler(this.picBox_EmoteIcon_Click);
             this.picBox_EmoteIcon.MouseEnter += new System.EventHandler(this.picBox_EmoteIcon_MouseEnter);
             this.picBox_EmoteIcon.MouseLeave += new System.EventHandler(this.picBox_EmoteIcon_MouseLeave);
             // 
-            // picBox_StartGame
+            // list_Emoticons
             // 
-            this.picBox_StartGame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
-            this.picBox_StartGame.BackgroundImage = global::ChatApp.Properties.Resources.gameIcon;
-            this.picBox_StartGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.picBox_StartGame.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picBox_StartGame.Location = new System.Drawing.Point(198, 351);
-            this.picBox_StartGame.Name = "picBox_StartGame";
-            this.picBox_StartGame.Size = new System.Drawing.Size(27, 27);
-            this.picBox_StartGame.TabIndex = 22;
-            this.picBox_StartGame.TabStop = false;
-            this.picBox_StartGame.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picBox_StartGame_MouseClick);
-            this.picBox_StartGame.MouseEnter += new System.EventHandler(this.picBox_StartGame_MouseEnter);
-            this.picBox_StartGame.MouseLeave += new System.EventHandler(this.picBox_StartGame_MouseLeave);
+            this.list_Emoticons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.list_Emoticons.ForeColor = System.Drawing.Color.White;
+            this.list_Emoticons.Location = new System.Drawing.Point(12, 208);
+            this.list_Emoticons.MultiSelect = false;
+            this.list_Emoticons.Name = "list_Emoticons";
+            this.list_Emoticons.Size = new System.Drawing.Size(163, 143);
+            this.list_Emoticons.TabIndex = 23;
+            this.list_Emoticons.TileSize = new System.Drawing.Size(1, 1);
+            this.list_Emoticons.UseCompatibleStateImageBehavior = false;
+            this.list_Emoticons.View = System.Windows.Forms.View.List;
+            this.list_Emoticons.Visible = false;
+            this.list_Emoticons.Leave += new System.EventHandler(this.list_Emoticons_Leave);
+            // 
+            // list_Buzzers
+            // 
+            this.list_Buzzers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.list_Buzzers.ForeColor = System.Drawing.Color.White;
+            this.list_Buzzers.Location = new System.Drawing.Point(45, 208);
+            this.list_Buzzers.MultiSelect = false;
+            this.list_Buzzers.Name = "list_Buzzers";
+            this.list_Buzzers.Size = new System.Drawing.Size(163, 143);
+            this.list_Buzzers.TabIndex = 24;
+            this.list_Buzzers.TileSize = new System.Drawing.Size(1, 1);
+            this.list_Buzzers.UseCompatibleStateImageBehavior = false;
+            this.list_Buzzers.View = System.Windows.Forms.View.List;
+            this.list_Buzzers.Visible = false;
+            this.list_Buzzers.Leave += new System.EventHandler(this.list_Buzzers_Leave);
             // 
             // FormPrivateChat
             // 
@@ -220,6 +255,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
             this.ClientSize = new System.Drawing.Size(331, 397);
+            this.Controls.Add(this.list_Buzzers);
+            this.Controls.Add(this.list_Emoticons);
             this.Controls.Add(this.picBox_StartGame);
             this.Controls.Add(this.picBox_Attach);
             this.Controls.Add(this.picBox_Buzz);
@@ -232,17 +269,18 @@
             this.Controls.Add(this.textBoxChat);
             this.Controls.Add(this.richTextBoxChat);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormPrivateChat";
             this.Text = "FormPrivateChat";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormPrivateChat_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormPrivateChat_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FormPrivateChat_MouseUp);
+            ((System.ComponentModel.ISupportInitialize)(this.picBox_StartGame)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_Attach)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_Buzz)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_Options)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_EmoteIcon)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBox_StartGame)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -261,5 +299,7 @@
         private System.Windows.Forms.PictureBox picBox_Buzz;
         private System.Windows.Forms.PictureBox picBox_Attach;
         private System.Windows.Forms.PictureBox picBox_StartGame;
+        private System.Windows.Forms.ListView list_Emoticons;
+        private System.Windows.Forms.ListView list_Buzzers;
     }
 }

@@ -68,12 +68,12 @@
     <Contrasenia>peluda</Contrasenia>
     <Estado>Available</Estado>
     <Encriptado>false</Encriptado>
-    <Carrera>Seguridad en T.I.</Carrera>
+    <Carrera>Seguridad en T.I</Carrera>
   </Usuario>
   <Usuario>
     <NombreUsuario>satan</NombreUsuario>
     <Contrasenia>666</Contrasenia>
-    <Estado>Available</Estado>
+    <Estado>NotAvailable</Estado>
     <Encriptado>false</Encriptado>
     <Carrera>Ciencias Computacionales</Carrera>
   </Usuario>
@@ -85,37 +85,37 @@
   <Mensaje>
     <Conversacion>0</Conversacion>
     <Usuario>123</Usuario>
-    <Mensaje>asdfsdfsdf</Mensaje>
-    <Date>2016-08-31T15:31:20.0469061-05:00</Date>
+    <Mensaje>Hola</Mensaje>
+    <Date>2016-09-02T15:41:34.8668394-05:00</Date>
   </Mensaje>
   <Mensaje>
     <Conversacion>0</Conversacion>
-    <Usuario>123</Usuario>
-    <Mensaje>afffssfsff</Mensaje>
-    <Date>2016-08-31T15:34:27.4878016-05:00</Date>
+    <Usuario>Yamil</Usuario>
+    <Mensaje>Hla</Mensaje>
+    <Date>2016-09-02T15:42:54.8058832-05:00</Date>
   </Mensaje>
   <Mensaje>
     <Conversacion>0</Conversacion>
-    <Usuario>satan</Usuario>
-    <Mensaje>que rollo</Mensaje>
-    <Date>2016-08-31T15:35:16.029983-05:00</Date>
+    <Usuario>Yamil</Usuario>
+    <Mensaje>*Hola</Mensaje>
+    <Date>2016-09-02T15:43:01.2865392-05:00</Date>
   </Mensaje>
   <Mensaje>
     <Conversacion>0</Conversacion>
-    <Usuario>123</Usuario>
-    <Mensaje>nada aquí todo tranqui</Mensaje>
-    <Date>2016-08-31T15:35:38.6420865-05:00</Date>
+    <Usuario>Luis Carlos</Usuario>
+    <Mensaje>Hola</Mensaje>
+    <Date>2016-09-02T15:43:08.0656313-05:00</Date>
   </Mensaje>
   <Mensaje>
     <Conversacion>0</Conversacion>
-    <Usuario>123</Usuario>
-    <Mensaje>q weno</Mensaje>
-    <Date>2016-08-31T15:51:25.1260796-05:00</Date>
+    <Usuario>Yamil</Usuario>
+    <Mensaje>Hola</Mensaje>
+    <Date>2016-09-14T14:25:55.6095333-05:00</Date>
   </Mensaje>
   <Mensaje>
     <Conversacion>0</Conversacion>
-    <Usuario>123</Usuario>
-    <Mensaje>todo bien</Mensaje>
-    <Date>2016-08-31T15:56:36.8144517-05:00</Date>
+    <Usuario>Yamil</Usuario>
+    <Mensaje>Aloh</Mensaje>
+    <Date>2016-09-14T14:38:43.1374772-05:00</Date>
   </Mensaje>
 </ServerDataSet>

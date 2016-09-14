@@ -28,17 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formChat));
             this.richTextBoxChat = new System.Windows.Forms.RichTextBox();
             this.textBoxChat = new System.Windows.Forms.TextBox();
             this.buttonEnviar = new System.Windows.Forms.Button();
             this.Header = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.list_Emoticons = new System.Windows.Forms.ListView();
             this.picBox_StartGame = new System.Windows.Forms.PictureBox();
             this.picBox_Attach = new System.Windows.Forms.PictureBox();
             this.picBox_Buzz = new System.Windows.Forms.PictureBox();
             this.picBox_CloseIcon = new System.Windows.Forms.PictureBox();
             this.picBox_EmoteIcon = new System.Windows.Forms.PictureBox();
+            this.list_Buzzers = new System.Windows.Forms.ListView();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_StartGame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_Attach)).BeginInit();
@@ -131,6 +134,21 @@
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
+            // list_Emoticons
+            // 
+            this.list_Emoticons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.list_Emoticons.ForeColor = System.Drawing.Color.White;
+            this.list_Emoticons.Location = new System.Drawing.Point(12, 228);
+            this.list_Emoticons.MultiSelect = false;
+            this.list_Emoticons.Name = "list_Emoticons";
+            this.list_Emoticons.Size = new System.Drawing.Size(163, 143);
+            this.list_Emoticons.TabIndex = 17;
+            this.list_Emoticons.TileSize = new System.Drawing.Size(1, 1);
+            this.list_Emoticons.UseCompatibleStateImageBehavior = false;
+            this.list_Emoticons.View = System.Windows.Forms.View.List;
+            this.list_Emoticons.Visible = false;
+            this.list_Emoticons.Leave += new System.EventHandler(this.list_Emoticons_Leave);
+            // 
             // picBox_StartGame
             // 
             this.picBox_StartGame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
@@ -172,6 +190,7 @@
             this.picBox_Buzz.Size = new System.Drawing.Size(27, 27);
             this.picBox_Buzz.TabIndex = 14;
             this.picBox_Buzz.TabStop = false;
+            this.picBox_Buzz.Click += new System.EventHandler(this.picBox_Buzz_Click);
             this.picBox_Buzz.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picBox_Buzz_MouseClick);
             this.picBox_Buzz.MouseEnter += new System.EventHandler(this.picBox_Buzz_MouseEnter);
             this.picBox_Buzz.MouseLeave += new System.EventHandler(this.picBox_Buzz_MouseLeave);
@@ -203,9 +222,25 @@
             this.picBox_EmoteIcon.Size = new System.Drawing.Size(27, 27);
             this.picBox_EmoteIcon.TabIndex = 10;
             this.picBox_EmoteIcon.TabStop = false;
+            this.picBox_EmoteIcon.Click += new System.EventHandler(this.picBox_EmoteIcon_Click);
             this.picBox_EmoteIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picBox_EmoteIcon_MouseClick);
             this.picBox_EmoteIcon.MouseEnter += new System.EventHandler(this.picBox_EmoteIcon_MouseEnter);
             this.picBox_EmoteIcon.MouseLeave += new System.EventHandler(this.picBox_EmoteIcon_MouseLeave);
+            // 
+            // list_Buzzers
+            // 
+            this.list_Buzzers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.list_Buzzers.ForeColor = System.Drawing.Color.White;
+            this.list_Buzzers.Location = new System.Drawing.Point(45, 228);
+            this.list_Buzzers.MultiSelect = false;
+            this.list_Buzzers.Name = "list_Buzzers";
+            this.list_Buzzers.Size = new System.Drawing.Size(163, 143);
+            this.list_Buzzers.TabIndex = 18;
+            this.list_Buzzers.TileSize = new System.Drawing.Size(1, 1);
+            this.list_Buzzers.UseCompatibleStateImageBehavior = false;
+            this.list_Buzzers.View = System.Windows.Forms.View.List;
+            this.list_Buzzers.Visible = false;
+            this.list_Buzzers.Leave += new System.EventHandler(this.list_Buzzers_Leave);
             // 
             // formChat
             // 
@@ -213,6 +248,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
             this.ClientSize = new System.Drawing.Size(452, 410);
+            this.Controls.Add(this.list_Buzzers);
+            this.Controls.Add(this.list_Emoticons);
             this.Controls.Add(this.picBox_StartGame);
             this.Controls.Add(this.picBox_Attach);
             this.Controls.Add(this.picBox_Buzz);
@@ -224,6 +261,7 @@
             this.Controls.Add(this.textBoxChat);
             this.Controls.Add(this.richTextBoxChat);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "formChat";
             this.Text = "Chat";
             this.Load += new System.EventHandler(this.formChat_Load);
@@ -253,6 +291,8 @@
         private System.Windows.Forms.PictureBox picBox_Buzz;
         private System.Windows.Forms.PictureBox picBox_Attach;
         private System.Windows.Forms.PictureBox picBox_StartGame;
+        private System.Windows.Forms.ListView list_Emoticons;
+        private System.Windows.Forms.ListView list_Buzzers;
     }
 }
 

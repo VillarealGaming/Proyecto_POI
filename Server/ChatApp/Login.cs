@@ -54,7 +54,7 @@ namespace ChatApp
         }
         private void buttonConnect_Click(object sender, EventArgs e)
         {
-            if(textBoxUsername.Text != "" &&
+            if (textBoxUsername.Text != "" &&
                 textBoxPassword.Text != "")
             {
                 Packet sessionBegin = new Packet(PacketType.SessionBegin);
@@ -79,8 +79,7 @@ namespace ChatApp
         {
             ClientSession.Connection.OnPacketReceivedFunc(OnPacket);
             ClientSession.Connection.BeginConnect();
-            while (!ClientSession.Connection.Connected)
-            {
+            while (!ClientSession.Connection.Connected) {
                 this.Text = "Buscando servidor...";
             }
             this.Text = "Iniciar sesión";
@@ -120,6 +119,14 @@ namespace ChatApp
         private void textBoxPassword_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void lbl_Registrarte_MouseEnter(object sender, EventArgs e) {
+            lbl_Registrarte.ForeColor = Color.White;
+        }
+
+        private void lbl_Registrarte_MouseLeave(object sender, EventArgs e) {
+            lbl_Registrarte.ForeColor = Color.FromArgb(0, 192, 192);
         }
 
         private void formLogin_MouseDown(object sender, MouseEventArgs e) {
