@@ -58,7 +58,8 @@ namespace EasyPOI
         GetUserConversations,
         GetUsers,
         SetUserState,
-        CreatePublicConversationFail
+        CreatePublicConversationFail,
+        Buzz
         //
     }
     //Referencia
@@ -73,7 +74,7 @@ namespace EasyPOI
         // Client socket.
         public Socket workSocket = null;
         // Size of receive buffer.
-        public const int BufferSize = 8192;
+        public const int BufferSize = 512;//8192;
         // Receive buffer.
         public byte[] buffer = new byte[BufferSize];
         // Received data string.

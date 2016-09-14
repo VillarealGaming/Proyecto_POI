@@ -85,7 +85,7 @@ namespace ChatApp
                 if (ClientSession.userList.Contains(textBoxUsers.Text)
                     && !listBoxUsers.Items.Contains(textBoxUsers.Text)
                     && textBoxUsers.Text != ClientSession.username
-                    && listBoxUsers.Items.Count < 4)
+                    && listBoxUsers.Items.Count == 4)
                 {
                     listBoxUsers.Items.Add(textBoxUsers.Text);
                     ValidateChat();

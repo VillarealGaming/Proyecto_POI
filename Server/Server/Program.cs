@@ -92,11 +92,26 @@ namespace Server {
                         server.SendPacket(packetSend, client);
                     }
                     break;
+                case PacketType.Buzz:
+                    {
+                        ServerDataSet.MensajeDataTable mensajeTable = database.Mensaje;
+                        ServerDataSet.UsuarioConversacionDataTable usuarioConversacionTable = database.UsuarioConversacion;
+                        //Usuarios a mandar
+                        var queryResult = from usuario in usuarioConversacionTable
+                                          where usuario.Conversacion == (int)packet.tag["chatID"]
+                                          select usuario;
+                        foreach (var toSendUser in queryResult)
+                        {
+                            if (connectedUsers.ContainsKey(toSendUser.Usuario))
+                                server.SendPacket(packet, connectedUsers[toSendUser.Usuario]);
+                        }
+                    }
+                    break;
                 case PacketType.TextMessage:
                     {
                         ServerDataSet.MensajeDataTable mensajeTable = database.Mensaje;
-                        ServerDataSet.MensajeRow mensajeRow = database.Mensaje.NewMensajeRow();
                         ServerDataSet.UsuarioConversacionDataTable usuarioConversacionTable = database.UsuarioConversacion;
+                        ServerDataSet.MensajeRow mensajeRow = database.Mensaje.NewMensajeRow();
                         mensajeRow.Mensaje = packet.tag["text"] as string;
                         mensajeRow.Usuario = packet.tag["sender"] as string;
                         mensajeRow.Conversacion = (int)packet.tag["chatID"];
@@ -111,7 +126,6 @@ namespace Server {
                         {
                             if(connectedUsers.ContainsKey(toSendUser.Usuario))
                                 server.SendPacket(packet, connectedUsers[toSendUser.Usuario]);
-
                         }
                     }
                     break;
@@ -158,6 +172,7 @@ namespace Server {
                         Dictionary<int, string> conversations = new Dictionary<int, string>();
                         Dictionary<int, List<Tuple<string, string>>> text = new Dictionary<int, List<Tuple<string, string>>>();
                         Dictionary<int, List<string>> users = new Dictionary<int, List<string>>();
+                        Dictionary<int, DateTime> lastMessageDate = new Dictionary<int, DateTime>();
                         //Conversaciones
                         var queryResult = from conversation in conversacionDatatable
                                           join userConversation in usuarioConversacion
@@ -182,6 +197,11 @@ namespace Server {
                             {
                                 text[c.ID].Add(new Tuple<string, string>(result.Mensaje, result.Usuario));
                             }
+                            if(queryResultMessages.Count() > 0)
+                            {
+                                //ultimo mensaje
+                                lastMessageDate.Add(c.ID, queryResultMessages.Last().Date);
+                            }
                             //Participantes
                             var queryResultUsers = from user in usuarioConversacion
                                                    where user.Conversacion == c.ID
@@ -191,6 +211,8 @@ namespace Server {
                                 users[c.ID].Add(user.Usuario);
                             }
                         }
+                        //ultimo mensaje
+                        packetSend.tag["lastDate"] = lastMessageDate;
                         packetSend.tag["messages"] = text;
                         packetSend.tag["conversations"] = conversations;
                         packetSend.tag["users"] = users;
