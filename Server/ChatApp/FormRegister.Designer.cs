@@ -28,45 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxUsername = new System.Windows.Forms.TextBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRegister));
             this.Header = new System.Windows.Forms.Label();
-            this.textBoxPassword = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxPasswordConfirm = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBoxEmail = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.comboBoxCarrera = new System.Windows.Forms.ComboBox();
             this.buttonRegister = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkBoxEncrypt = new System.Windows.Forms.CheckBox();
             this.picBox_CloseIcon = new System.Windows.Forms.PictureBox();
-            this.groupBox1.SuspendLayout();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxPassword = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBoxUsername = new System.Windows.Forms.TextBox();
+            this.textBoxPasswordConfirm = new System.Windows.Forms.TextBox();
+            this.comboBoxCarrera = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxEmail = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(109, 15);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Nombre de usuario";
-            // 
-            // textBoxUsername
-            // 
-            this.textBoxUsername.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
-            this.textBoxUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxUsername.ForeColor = System.Drawing.Color.White;
-            this.textBoxUsername.Location = new System.Drawing.Point(134, 15);
-            this.textBoxUsername.Name = "textBoxUsername";
-            this.textBoxUsername.Size = new System.Drawing.Size(202, 22);
-            this.textBoxUsername.TabIndex = 2;
             // 
             // Header
             // 
@@ -83,118 +62,6 @@
             this.Header.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormRegister_MouseDown);
             this.Header.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormRegister_MouseMove);
             this.Header.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FormRegister_MouseUp);
-            // 
-            // textBoxPassword
-            // 
-            this.textBoxPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
-            this.textBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxPassword.ForeColor = System.Drawing.Color.White;
-            this.textBoxPassword.Location = new System.Drawing.Point(134, 71);
-            this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.PasswordChar = '•';
-            this.textBoxPassword.Size = new System.Drawing.Size(202, 22);
-            this.textBoxPassword.TabIndex = 3;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 71);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 15);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Contraseña";
-            // 
-            // textBoxPasswordConfirm
-            // 
-            this.textBoxPasswordConfirm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
-            this.textBoxPasswordConfirm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxPasswordConfirm.ForeColor = System.Drawing.Color.White;
-            this.textBoxPasswordConfirm.Location = new System.Drawing.Point(134, 97);
-            this.textBoxPasswordConfirm.Name = "textBoxPasswordConfirm";
-            this.textBoxPasswordConfirm.PasswordChar = '•';
-            this.textBoxPasswordConfirm.Size = new System.Drawing.Size(202, 22);
-            this.textBoxPasswordConfirm.TabIndex = 4;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(6, 98);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(122, 15);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Confirmar contraseña";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.textBoxEmail);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.comboBoxCarrera);
-            this.groupBox1.Controls.Add(this.textBoxPasswordConfirm);
-            this.groupBox1.Controls.Add(this.textBoxUsername);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.textBoxPassword);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(13, 28);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(348, 162);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Datos";
-            // 
-            // textBoxEmail
-            // 
-            this.textBoxEmail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
-            this.textBoxEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxEmail.ForeColor = System.Drawing.Color.White;
-            this.textBoxEmail.Location = new System.Drawing.Point(134, 43);
-            this.textBoxEmail.Name = "textBoxEmail";
-            this.textBoxEmail.Size = new System.Drawing.Size(202, 22);
-            this.textBoxEmail.TabIndex = 9;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(6, 44);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(105, 15);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Correo electronico";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 127);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(44, 13);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Carrera";
-            // 
-            // comboBoxCarrera
-            // 
-            this.comboBoxCarrera.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
-            this.comboBoxCarrera.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBoxCarrera.ForeColor = System.Drawing.Color.White;
-            this.comboBoxCarrera.FormattingEnabled = true;
-            this.comboBoxCarrera.Items.AddRange(new object[] {
-            "Matemáticas",
-            "Física",
-            "Ciencias Computacionales",
-            "Actuaría",
-            "Multimedia y Animación Digital",
-            "Seguridad en T.I"});
-            this.comboBoxCarrera.Location = new System.Drawing.Point(134, 124);
-            this.comboBoxCarrera.Name = "comboBoxCarrera";
-            this.comboBoxCarrera.Size = new System.Drawing.Size(202, 21);
-            this.comboBoxCarrera.TabIndex = 6;
-            this.comboBoxCarrera.SelectedIndexChanged += new System.EventHandler(this.comboBoxCarrera_SelectedIndexChanged);
             // 
             // buttonRegister
             // 
@@ -235,6 +102,7 @@
             this.checkBoxEncrypt.TabIndex = 5;
             this.checkBoxEncrypt.Text = "Encriptado";
             this.checkBoxEncrypt.UseVisualStyleBackColor = true;
+            this.checkBoxEncrypt.Visible = false;
             // 
             // picBox_CloseIcon
             // 
@@ -252,27 +120,150 @@
             this.picBox_CloseIcon.MouseEnter += new System.EventHandler(this.picBox_CloseIcon_MouseEnter);
             this.picBox_CloseIcon.MouseLeave += new System.EventHandler(this.picBox_CloseIcon_MouseLeave);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(10, 102);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(67, 15);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Contraseña";
+            // 
+            // textBoxPassword
+            // 
+            this.textBoxPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.textBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxPassword.ForeColor = System.Drawing.Color.White;
+            this.textBoxPassword.Location = new System.Drawing.Point(138, 102);
+            this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.PasswordChar = '•';
+            this.textBoxPassword.Size = new System.Drawing.Size(223, 20);
+            this.textBoxPassword.TabIndex = 3;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(10, 47);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(109, 15);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Nombre de usuario";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(10, 129);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(122, 15);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Confirmar contraseña";
+            // 
+            // textBoxUsername
+            // 
+            this.textBoxUsername.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.textBoxUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxUsername.ForeColor = System.Drawing.Color.White;
+            this.textBoxUsername.Location = new System.Drawing.Point(138, 46);
+            this.textBoxUsername.Name = "textBoxUsername";
+            this.textBoxUsername.Size = new System.Drawing.Size(223, 20);
+            this.textBoxUsername.TabIndex = 2;
+            // 
+            // textBoxPasswordConfirm
+            // 
+            this.textBoxPasswordConfirm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.textBoxPasswordConfirm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxPasswordConfirm.ForeColor = System.Drawing.Color.White;
+            this.textBoxPasswordConfirm.Location = new System.Drawing.Point(138, 128);
+            this.textBoxPasswordConfirm.Name = "textBoxPasswordConfirm";
+            this.textBoxPasswordConfirm.PasswordChar = '•';
+            this.textBoxPasswordConfirm.Size = new System.Drawing.Size(223, 20);
+            this.textBoxPasswordConfirm.TabIndex = 4;
+            // 
+            // comboBoxCarrera
+            // 
+            this.comboBoxCarrera.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.comboBoxCarrera.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBoxCarrera.ForeColor = System.Drawing.Color.White;
+            this.comboBoxCarrera.FormattingEnabled = true;
+            this.comboBoxCarrera.Items.AddRange(new object[] {
+            "Matemáticas",
+            "Física",
+            "Ciencias Computacionales",
+            "Actuaría",
+            "Multimedia y Animación Digital",
+            "Seguridad en T.I"});
+            this.comboBoxCarrera.Location = new System.Drawing.Point(138, 155);
+            this.comboBoxCarrera.Name = "comboBoxCarrera";
+            this.comboBoxCarrera.Size = new System.Drawing.Size(223, 21);
+            this.comboBoxCarrera.TabIndex = 6;
+            this.comboBoxCarrera.SelectedIndexChanged += new System.EventHandler(this.comboBoxCarrera_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(10, 158);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 13);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Carrera";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(10, 75);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(105, 15);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Correo electronico";
+            // 
+            // textBoxEmail
+            // 
+            this.textBoxEmail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.textBoxEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxEmail.ForeColor = System.Drawing.Color.White;
+            this.textBoxEmail.Location = new System.Drawing.Point(138, 74);
+            this.textBoxEmail.Name = "textBoxEmail";
+            this.textBoxEmail.Size = new System.Drawing.Size(223, 20);
+            this.textBoxEmail.TabIndex = 9;
+            // 
             // FormRegister
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
             this.ClientSize = new System.Drawing.Size(375, 233);
+            this.Controls.Add(this.textBoxEmail);
             this.Controls.Add(this.picBox_CloseIcon);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.checkBoxEncrypt);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.comboBoxCarrera);
             this.Controls.Add(this.buttonRegister);
+            this.Controls.Add(this.textBoxPasswordConfirm);
             this.Controls.Add(this.Header);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.textBoxUsername);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.textBoxPassword);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormRegister";
             this.Text = "Registro";
             this.Load += new System.EventHandler(this.FormRegister_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormRegister_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormRegister_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FormRegister_MouseUp);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -280,22 +271,20 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxUsername;
         private System.Windows.Forms.Label Header;
-        private System.Windows.Forms.TextBox textBoxPassword;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxPasswordConfirm;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button buttonRegister;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.CheckBox checkBoxEncrypt;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBoxCarrera;
         private System.Windows.Forms.PictureBox picBox_CloseIcon;
-        private System.Windows.Forms.TextBox textBoxEmail;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBoxPassword;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBoxUsername;
+        private System.Windows.Forms.TextBox textBoxPasswordConfirm;
+        private System.Windows.Forms.ComboBox comboBoxCarrera;
+        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBoxEmail;
     }
 }

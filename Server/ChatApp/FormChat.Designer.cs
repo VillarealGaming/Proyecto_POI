@@ -43,6 +43,9 @@
             System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem("", 0);
             System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem("", 2);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formChat));
+            System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem("", 3);
+            System.Windows.Forms.ListViewItem listViewItem15 = new System.Windows.Forms.ListViewItem("", 0);
+            System.Windows.Forms.ListViewItem listViewItem16 = new System.Windows.Forms.ListViewItem("", 2);
             this.richTextBoxChat = new System.Windows.Forms.RichTextBox();
             this.buttonEnviar = new System.Windows.Forms.Button();
             this.Header = new System.Windows.Forms.Label();
@@ -57,6 +60,7 @@
             this.buzzTimer = new System.Windows.Forms.Timer(this.components);
             this.listViewEmoticons = new System.Windows.Forms.ListView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.listViewBuzzers = new System.Windows.Forms.ListView();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_StartGame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_Attach)).BeginInit();
@@ -279,7 +283,7 @@
             this.listViewEmoticons.View = System.Windows.Forms.View.Tile;
             this.listViewEmoticons.Visible = false;
             this.listViewEmoticons.SelectedIndexChanged += new System.EventHandler(this.listViewEmoticons_SelectedIndexChanged);
-            this.listViewEmoticons.Leave += new System.EventHandler(this.listView1_Leave);
+            this.listViewEmoticons.Leave += new System.EventHandler(this.listViewEmoticons_Leave);
             this.listViewEmoticons.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewEmoticons_MouseDoubleClick);
             // 
             // imageList1
@@ -300,12 +304,41 @@
             this.imageList1.Images.SetKeyName(11, "weird.png");
             this.imageList1.Images.SetKeyName(12, "wink.png");
             // 
+            // listViewBuzzers
+            // 
+            this.listViewBuzzers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.listViewBuzzers.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listViewBuzzers.ForeColor = System.Drawing.Color.Black;
+            this.listViewBuzzers.HoverSelection = true;
+            listViewItem14.Tag = ":dumb:";
+            listViewItem15.Tag = ":angry:";
+            listViewItem16.Tag = ":devil:";
+            this.listViewBuzzers.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem14,
+            listViewItem15,
+            listViewItem16});
+            this.listViewBuzzers.LargeImageList = this.imageList1;
+            this.listViewBuzzers.Location = new System.Drawing.Point(45, 258);
+            this.listViewBuzzers.MultiSelect = false;
+            this.listViewBuzzers.Name = "listViewBuzzers";
+            this.listViewBuzzers.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.listViewBuzzers.Size = new System.Drawing.Size(124, 107);
+            this.listViewBuzzers.SmallImageList = this.imageList1;
+            this.listViewBuzzers.TabIndex = 17;
+            this.listViewBuzzers.TabStop = false;
+            this.listViewBuzzers.TileSize = new System.Drawing.Size(24, 24);
+            this.listViewBuzzers.UseCompatibleStateImageBehavior = false;
+            this.listViewBuzzers.View = System.Windows.Forms.View.Tile;
+            this.listViewBuzzers.Visible = false;
+            this.listViewBuzzers.Leave += new System.EventHandler(this.listViewBuzzers_Leave);
+            // 
             // formChat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
             this.ClientSize = new System.Drawing.Size(452, 410);
+            this.Controls.Add(this.listViewBuzzers);
             this.Controls.Add(this.listViewEmoticons);
             this.Controls.Add(this.textBoxChat);
             this.Controls.Add(this.picBox_StartGame);
@@ -318,6 +351,7 @@
             this.Controls.Add(this.richTextBoxChat);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "formChat";
             this.Text = "Chat";
             this.Load += new System.EventHandler(this.formChat_Load);
@@ -350,6 +384,7 @@
         private System.Windows.Forms.Timer buzzTimer;
         private System.Windows.Forms.ListView listViewEmoticons;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ListView listViewBuzzers;
     }
 }
 

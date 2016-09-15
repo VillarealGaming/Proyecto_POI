@@ -122,6 +122,14 @@ namespace ChatApp
 
         }
 
+        private void lbl_Registrar_MouseEnter(object sender, EventArgs e) {
+            lbl_Registrar.ForeColor = Color.White;
+        }
+
+        private void lbl_Registrar_MouseLeave(object sender, EventArgs e) {
+            lbl_Registrar.ForeColor = Color.FromArgb(0, 192, 192);
+        }
+
         private void formLogin_MouseDown(object sender, MouseEventArgs e) {
             dragging = true;
             dragCursorPoint = Cursor.Position;

@@ -199,6 +199,7 @@ namespace ChatApp
         private void FormHome_Load(object sender, EventArgs e)
         {
             this.Header.Text = ClientSession.username + " - " + ClientSession.connectionStateHash[ClientSession.state].Item2;
+            lbl_Jugador.Text = ClientSession.username;
             selectedStateItem = ((contextMenuStripEstado.Items[0] as ToolStripDropDownItem).DropDownItems[ClientSession.connectionStateHash[ClientSession.state].Item1] as ToolStripMenuItem);
             selectedStateItem.Checked = true;
             ClientSession.Connection.OnPacketReceivedFunc(OnPacket);

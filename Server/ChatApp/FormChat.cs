@@ -219,10 +219,18 @@ namespace ChatApp
 
         private void picBox_Buzz_Click(object sender, EventArgs e)
         {
-            Packet packet = new Packet(PacketType.Buzz);
-            packet.tag["sender"] = ClientSession.username;
-            packet.tag["chatID"] = chatID;
-            ClientSession.Connection.SendPacket(packet);
+            MouseEventArgs mE = (MouseEventArgs)e;
+            if (mE.Button == System.Windows.Forms.MouseButtons.Left) {
+                listViewBuzzers.Visible = false;
+                Packet packet = new Packet(PacketType.Buzz);
+                packet.tag["sender"] = ClientSession.username;
+                packet.tag["chatID"] = chatID;
+                ClientSession.Connection.SendPacket(packet);
+            } else if (mE.Button == System.Windows.Forms.MouseButtons.Right) {
+                listViewBuzzers.Visible = !listViewBuzzers.Visible;
+                listViewBuzzers.Focus();
+            }
+            
         }
 
         private void listView1_Leave(object sender, EventArgs e)
@@ -251,6 +259,14 @@ namespace ChatApp
                 textBoxChat.AppendText(listViewEmoticons.SelectedItems[0].Tag as string + " ");
                 textBoxChat.Focus();
             }
+        }
+
+        private void listViewBuzzers_Leave(object sender, EventArgs e) {
+            listViewBuzzers.Visible = false;
+        }
+
+        private void listViewEmoticons_Leave(object sender, EventArgs e) {
+            listViewEmoticons.Visible = false;
         }
 
         private void picBox_StartGame_MouseClick(object sender, MouseEventArgs e) { }
