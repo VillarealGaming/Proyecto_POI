@@ -3,7 +3,7 @@
   <Usuario>
     <NombreUsuario>123</NombreUsuario>
     <Contrasenia>123</Contrasenia>
-    <Estado>NotAvailable</Estado>
+    <Estado>Busy</Estado>
     <Carrera>Ciencias Computacionales</Carrera>
   </Usuario>
   <Usuario>
@@ -486,4 +486,200 @@
     <Mensaje>:wink: </Mensaje>
     <Date>2016-09-14T18:02:52.1786762-05:00</Date>
   </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>satan</Usuario>
+    <Mensaje>:happy: </Mensaje>
+    <Date>2016-09-14T21:41:05.8864284-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>2</Conversacion>
+    <Usuario>satan</Usuario>
+    <Mensaje>:D</Mensaje>
+    <Date>2016-09-14T21:47:11.0352434-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>2</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>:devil: </Mensaje>
+    <Date>2016-09-14T21:47:26.8775775-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>satan</Usuario>
+    <Mensaje>.-*Zumbido*-.</Mensaje>
+    <Date>2016-09-14T21:48:16.1419631-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>satan</Usuario>
+    <Mensaje>.-*Zumbido*-.</Mensaje>
+    <Date>2016-09-14T21:48:19.4275248-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>satan</Usuario>
+    <Mensaje>.-*Zumbido*-.</Mensaje>
+    <Date>2016-09-14T21:48:21.060484-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>satan</Usuario>
+    <Mensaje>.-*Zumbido*-.</Mensaje>
+    <Date>2016-09-14T21:48:22.0121514-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>satan</Usuario>
+    <Mensaje>:surprise: </Mensaje>
+    <Date>2016-09-14T21:48:26.4359142-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>.-*Zumbido*-.</Mensaje>
+    <Date>2016-09-15T11:33:52.8086881-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>--Archivo adjunto enviado--</Mensaje>
+    <Date>2016-09-15T12:20:56.8474847-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>--Archivo adjunto enviado--</Mensaje>
+    <Date>2016-09-15T12:21:54.4120212-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>--Archivo adjunto enviado--</Mensaje>
+    <Date>2016-09-15T12:22:14.812785-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>--Archivo adjunto enviado--</Mensaje>
+    <Date>2016-09-15T12:25:01.1444392-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>--Archivo adjunto enviado--</Mensaje>
+    <Date>2016-09-15T12:35:49.7083461-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>--Archivo adjunto enviado--</Mensaje>
+    <Date>2016-09-15T12:46:06.5370835-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>--Archivo adjunto enviado--</Mensaje>
+    <Date>2016-09-15T12:47:59.7860403-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>--Archivo adjunto enviado--</Mensaje>
+    <Date>2016-09-15T12:51:03.3048889-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>--Archivo adjunto enviado--</Mensaje>
+    <Date>2016-09-15T12:52:21.5172863-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>2</Conversacion>
+    <Usuario>satan</Usuario>
+    <Mensaje>--Archivo adjunto enviado--</Mensaje>
+    <Date>2016-09-15T13:18:32.8503574-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>2</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>añsdlkfjasñldkfjañsldkfjañslkdjflñkj</Mensaje>
+    <Date>2016-09-15T13:40:21.3371352-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>2</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>Este texto increíblemente largo pone a prueba que funcionen los acentos y que el texto se recorte en la pantalla de HOME</Mensaje>
+    <Date>2016-09-15T13:41:22.6021516-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>holi boli</Mensaje>
+    <Date>2016-09-15T20:28:55.0730225-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>0</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>test :D</Mensaje>
+    <Date>2016-09-15T20:40:40.0176811-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>3</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>oki woki</Mensaje>
+    <Date>2016-09-15T20:45:47.0615194-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>0</Conversacion>
+    <Usuario>123</Usuario>
+    <Mensaje>lol</Mensaje>
+    <Date>2016-09-15T20:47:07.9262008-05:00</Date>
+  </Mensaje>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T00:18:01.6574496-05:00</Date>
+    <Mensaje>Hola satanas</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T00:39:25.2880278-05:00</Date>
+    <Mensaje>Como estas :D</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T00:40:03.0682336-05:00</Date>
+    <Mensaje>:3</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T00:40:07.0113722-05:00</Date>
+    <Mensaje>espero que bien</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T00:44:33.9045706-05:00</Date>
+    <Mensaje>:angry: :dumb: </Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <ConversacionPrivada>
+    <ID>0</ID>
+  </ConversacionPrivada>
+  <UsuarioPrivado>
+    <Usuario>123</Usuario>
+    <ConversacionPrivada>0</ConversacionPrivada>
+  </UsuarioPrivado>
+  <UsuarioPrivado>
+    <Usuario>satan</Usuario>
+    <ConversacionPrivada>0</ConversacionPrivada>
+  </UsuarioPrivado>
 </ServerDataSet>
