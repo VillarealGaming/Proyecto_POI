@@ -83,7 +83,7 @@ namespace ChatApp
                                 Packet packetSend = new Packet(PacketType.PrivateTextMessage);
                                 packetSend.tag["chatID"] = chatID;
                                 packetSend.tag["sender"] = ClientSession.username;
-                                packetSend.tag["users"] = users;
+                                //packetSend.tag["users"] = users;
                                 packetSend.tag["text"] = packet.tag["text"];
                                 packetSend.tag["date"] = packet.tag["date"];
                                 packetSend.tag["encriptado"] = packet.tag["encriptado"];
@@ -232,6 +232,41 @@ namespace ChatApp
                                 packetSend.tag["date"] = DateTime.Now;
                                 ClientSession.Connection.SendPacket(packetSend);
                             }
+                        }
+                        break;
+                    case PacketType.PrivateBuzz:
+                        {
+                            if (packet.tag["sender"] as string != ClientSession.username)
+                            {
+                                privateChatForms[(int)packet.tag["chatID"]].Buzz();
+                            }
+                            else
+                            {
+                                Packet packetSend = new Packet(PacketType.PrivateTextMessage);
+                                packetSend.tag["sender"] = packet.tag["sender"];
+                                packetSend.tag["text"] = ".-*Zumbido*-.";
+                                packetSend.tag["chatID"] = packet.tag["chatID"];
+                                packetSend.tag["date"] = DateTime.Now;
+                                packetSend.tag["encriptado"] = false;
+                                ClientSession.Connection.SendPacket(packetSend);
+                            }
+                        }
+                        break;
+                    case PacketType.FileSendPrivate:
+                        if (packet.tag["sender"] as string != ClientSession.username)
+                        {
+                            //save file
+                            privateChatForms[(int)packet.tag["chatID"]].ReceiveFile(packet);
+                        }
+                        else
+                        {
+                            Packet packetSend = new Packet(PacketType.PrivateTextMessage);
+                            packetSend.tag["sender"] = packet.tag["sender"];
+                            packetSend.tag["text"] = "--Archivo adjunto enviado--";
+                            packetSend.tag["chatID"] = packet.tag["chatID"];
+                            packetSend.tag["date"] = DateTime.Now;
+                            packetSend.tag["encriptado"] = false;
+                            ClientSession.Connection.SendPacket(packetSend);
                         }
                         break;
                     case PacketType.FileSendChat:

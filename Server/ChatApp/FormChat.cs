@@ -57,7 +57,7 @@ namespace ChatApp
                     {
                         int index = richTextBoxChat.Text.IndexOf(emote);
                         richTextBoxChat.Select(index, emote.Length);
-                        Clipboard.SetImage(ClientSession.Emoticons.FirstOrDefault(x => x.Value.Contains(emote)).Key);
+                        Clipboard.SetDataObject(ClientSession.Emoticons.FirstOrDefault(x => x.Value.Contains(emote)).Key, false, 2, 100);
                         richTextBoxChat.Paste();
                     }
                 }
@@ -110,13 +110,16 @@ namespace ChatApp
 
         private void buttonEnviar_Click(object sender, EventArgs e)
         {
-            Packet packet = new Packet(PacketType.TextMessage);
-            packet.tag["sender"] = ClientSession.username;
-            packet.tag["text"] = textBoxChat.Text;
-            packet.tag["chatID"] = chatID;
-            packet.tag["date"] = DateTime.Now;
-            ClientSession.Connection.SendPacket(packet);
-            textBoxChat.Text = "";
+            if(!string.IsNullOrWhiteSpace(textBoxChat.Text))
+            {
+                Packet packet = new Packet(PacketType.TextMessage);
+                packet.tag["sender"] = ClientSession.username;
+                packet.tag["text"] = textBoxChat.Text;
+                packet.tag["chatID"] = chatID;
+                packet.tag["date"] = DateTime.Now;
+                ClientSession.Connection.SendPacket(packet);
+                textBoxChat.Text = "";
+            }
         }
 
         private void formChat_MouseMove(object sender, MouseEventArgs e) {

@@ -80,7 +80,7 @@ namespace ChatApp
                     {
                         int index = richTextBoxChat.Text.IndexOf(emote);
                         richTextBoxChat.Select(index, emote.Length);
-                        Clipboard.SetImage(ClientSession.Emoticons.FirstOrDefault(x => x.Value.Contains(emote)).Key);
+                        Clipboard.SetDataObject(ClientSession.Emoticons.FirstOrDefault(x => x.Value.Contains(emote)).Key, false, 2, 100);
                         richTextBoxChat.Paste();
                     }
                 }
@@ -121,7 +121,7 @@ namespace ChatApp
                     {
                         byte[] fileBuffer = new byte[fileStream.Length];
                         fileStream.Read(fileBuffer, 0, (int)fileStream.Length);
-                        Packet packet = new Packet(PacketType.FileSendChat);
+                        Packet packet = new Packet(PacketType.FileSendPrivate);
                         packet.tag["sender"] = ClientSession.username;
                         packet.tag["chatID"] = chatID;
                         packet.tag["filename"] = openFileDialog.FileName;
@@ -213,18 +213,21 @@ namespace ChatApp
         }
 
         private void buttonEnviar_Click(object sender, EventArgs e) {
-            Packet packet = new Packet(PacketType.PrivateTextMessage);
-            var list = new List<string>();
-            list.Add(ClientSession.username);
-            list.Add(Header.Text);
-            packet.tag["users"] = list;
-            packet.tag["sender"] = ClientSession.username;
-            packet.tag["text"] = textBoxChat.Text;
-            packet.tag["chatID"] = chatID;
-            packet.tag["date"] = DateTime.Now;
-            packet.tag["encriptado"] = checkBoxEncrypt.Checked;
-            ClientSession.Connection.SendPacket(packet);
-            textBoxChat.Text = "";
+            if(!string.IsNullOrWhiteSpace(textBoxChat.Text))
+            {
+                Packet packet = new Packet(PacketType.PrivateTextMessage);
+                //var list = new List<string>();
+                //list.Add(ClientSession.username);
+                //list.Add(Header.Text);
+                //packet.tag["users"] = list;
+                packet.tag["sender"] = ClientSession.username;
+                packet.tag["text"] = textBoxChat.Text;
+                packet.tag["chatID"] = chatID;
+                packet.tag["date"] = DateTime.Now;
+                packet.tag["encriptado"] = checkBoxEncrypt.Checked;
+                ClientSession.Connection.SendPacket(packet);
+                textBoxChat.Text = "";
+            }
         }
 
         private void picBox_Attach_MouseEnter(object sender, EventArgs e) {
@@ -283,6 +286,19 @@ namespace ChatApp
                 textBoxChat.AppendText(listViewEmoticons.SelectedItems[0].Tag as string + " ");
                 textBoxChat.Focus();
             }
+        }
+
+        private void picBox_Buzz_Click(object sender, EventArgs e)
+        {
+            Packet packet = new Packet(PacketType.PrivateBuzz);
+            packet.tag["sender"] = ClientSession.username;
+            packet.tag["chatID"] = chatID;
+            ClientSession.Connection.SendPacket(packet);
+        }
+
+        private void picBox_Attach_Click(object sender, EventArgs e)
+        {
+            SendFile();
         }
 
         private void picBox_CloseIcon_MouseLeave(object sender, EventArgs e) {

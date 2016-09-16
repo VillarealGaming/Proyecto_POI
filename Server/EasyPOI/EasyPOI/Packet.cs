@@ -62,6 +62,7 @@ namespace EasyPOI
         SetUserState,
         CreatePublicConversationFail,
         Buzz,
+        PrivateBuzz,
         FileSendChat,
         FileSendPrivate
         //
