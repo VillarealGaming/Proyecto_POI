@@ -129,6 +129,49 @@ namespace Server {
                         }
                     }
                     break;
+                case PacketType.PrivateTextMessage:
+                    {
+                        ServerDataSet.MensajePrivadoDataTable mensajePrivado = database.MensajePrivado;
+                        ServerDataSet.MensajePrivadoRow mensajePrivadoRow = database.MensajePrivado.NewMensajePrivadoRow();
+                        List<string> users = packet.tag["users"] as List<string>;
+                        mensajePrivadoRow.Mensaje = packet.tag["text"] as string;
+                        mensajePrivadoRow.Usuario = packet.tag["sender"] as string;
+                        mensajePrivadoRow.ConversacionPrivada = (int)packet.tag["chatID"];
+                        mensajePrivadoRow.Date = (DateTime)packet.tag["date"];
+                        mensajePrivadoRow.Encriptado = (bool)packet.tag["encriptado"];
+                        mensajePrivado.AddMensajePrivadoRow(mensajePrivadoRow);
+                        database.WriteXml(databaseFile);
+                        //usuarios a mandar
+                        foreach (var user in users)
+                        {
+                            if (connectedUsers.ContainsKey(user))
+                                server.SendPacket(packet, connectedUsers[user]);
+                        }
+                    }
+                    break;
+                case PacketType.CreatePrivateConversation:
+                    {
+                        ServerDataSet.UsuarioPrivadoDataTable usuarioPrivado = database.UsuarioPrivado;
+                        ServerDataSet.ConversacionPrivadaRow conversacionPrivadaRow = database.ConversacionPrivada.NewConversacionPrivadaRow();
+                        database.ConversacionPrivada.AddConversacionPrivadaRow(conversacionPrivadaRow);
+                        List<string> users = packet.tag["users"] as List<string>;
+                        foreach(var user in users)
+                        {
+                            ServerDataSet.UsuarioPrivadoRow usuarioPrivadoRow = database.UsuarioPrivado.NewUsuarioPrivadoRow();
+                            usuarioPrivadoRow.Usuario = user;
+                            usuarioPrivadoRow.ConversacionPrivada = database.ConversacionPrivada.Last().ID;
+                            database.UsuarioPrivado.AddUsuarioPrivadoRow(usuarioPrivadoRow);
+                        }
+                        database.WriteXml(databaseFile);
+                        packet.tag["id"] = database.ConversacionPrivada.Last().ID;
+                        //Usuarios a mandar
+                        foreach (var toSendUser in users)
+                        {
+                            if (connectedUsers.ContainsKey(toSendUser))
+                                server.SendPacket(packet, connectedUsers[toSendUser]);
+                        }
+                    }
+                    break;
                 case PacketType.CreatePublicConversation:
                     {
                         //Esto podría ir en una función
@@ -152,7 +195,13 @@ namespace Server {
                                 }
                                 database.WriteXml(databaseFile);
                                 packet.tag["id"] = database.Conversacion.Last().ID;
-                                server.SendPacket(packet, client);
+                                //server.SendPacket(packet, client);
+                                //Usuarios a mandar
+                                foreach (var toSendUser in users)
+                                {
+                                    if (connectedUsers.ContainsKey(toSendUser))
+                                        server.SendPacket(packet, connectedUsers[toSendUser]);
+                                }
                         }
                         else
                         {
@@ -161,6 +210,51 @@ namespace Server {
                             packetSend.tag["case"] = "No se puede crear la conversación";
                             server.SendPacket(packetSend, client);
                         }
+                    }
+                    break;
+                case PacketType.GetPrivateConversations:
+                    {
+                        ServerDataSet.UsuarioPrivadoDataTable usuarioPrivado = database.UsuarioPrivado;
+                        ServerDataSet.MensajePrivadoDataTable mensajePrivado = database.MensajePrivado;
+                        ServerDataSet.ConversacionPrivadaDataTable conversacionPrivada = database.ConversacionPrivada;
+                        packetSend = new Packet(PacketType.GetPrivateConversations);
+                        Dictionary<int, List<string>> conversations = new Dictionary<int, List<string>>();
+                        Dictionary<int, List<Tuple<string, string>>> text = new Dictionary<int, List<Tuple<string, string>>>();
+                        Dictionary<int, DateTime> lastMessageDate = new Dictionary<int, DateTime>();
+                        //Conversaciones
+                        var queryResult = from conversation in usuarioPrivado
+                                          join chat in conversacionPrivada
+                                          on conversation.ConversacionPrivada equals chat.ID
+                                          select conversation;
+                        var chats = from chat in queryResult
+                                    where chat.Usuario == packet.tag["user"] as string
+                                    group chat by new { chat.ConversacionPrivada } into uniqueChat
+                                     select uniqueChat;
+                        foreach(var chat in chats)
+                        {
+                            conversations.Add(chat.Key.ConversacionPrivada, new List<string>());
+                            text.Add(chat.Key.ConversacionPrivada, new List<Tuple<string, string>>());
+                            //Mensajes
+                            var queryResultMessages = from mensaje in mensajePrivado
+                                                      where mensaje.ConversacionPrivada == chat.Key.ConversacionPrivada
+                                                      select mensaje;
+                            foreach (var result in queryResultMessages)
+                                text[chat.Key.ConversacionPrivada].Add(new Tuple<string, string>(result.Mensaje, result.Usuario));
+                            if (queryResultMessages.Count() > 0)
+                            {
+                                //ultimo mensaje
+                                lastMessageDate.Add(chat.Key.ConversacionPrivada, queryResultMessages.Last().Date);
+                            }
+                        }
+                        //users
+                        foreach(var c in queryResult)
+                        {
+                            conversations[c.ConversacionPrivada].Add(c.Usuario);
+                        }
+                        packetSend.tag["lastDate"] = lastMessageDate;
+                        packetSend.tag["messages"] = text;
+                        packetSend.tag["conversations"] = conversations;
+                        server.SendPacket(packetSend, client);
                     }
                     break;
                 case PacketType.GetUserConversations:
@@ -211,7 +305,6 @@ namespace Server {
                                 users[c.ID].Add(user.Usuario);
                             }
                         }
-                        //ultimo mensaje
                         packetSend.tag["lastDate"] = lastMessageDate;
                         packetSend.tag["messages"] = text;
                         packetSend.tag["conversations"] = conversations;
@@ -247,6 +340,21 @@ namespace Server {
                             server.SendPacket(packet, user.Value);
                         }
                         database.WriteXml(databaseFile);
+                    }
+                    break;
+                case PacketType.FileSendChat:
+                    {
+                        ServerDataSet.MensajeDataTable mensajeTable = database.Mensaje;
+                        ServerDataSet.UsuarioConversacionDataTable usuarioConversacionTable = database.UsuarioConversacion;
+                        //Usuarios a mandar
+                        var queryResult = from usuario in usuarioConversacionTable
+                                          where usuario.Conversacion == (int)packet.tag["chatID"]
+                                          select usuario;
+                        foreach (var toSendUser in queryResult)
+                        {
+                            if (connectedUsers.ContainsKey(toSendUser.Usuario))
+                                server.SendPacket(packet, connectedUsers[toSendUser.Usuario]);
+                        }
                     }
                     break;
             }

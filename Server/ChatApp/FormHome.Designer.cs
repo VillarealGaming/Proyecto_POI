@@ -51,15 +51,18 @@
             this.columnMessage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnFecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listViewPrivateMessages = new System.Windows.Forms.ListView();
+            this.columnPrivateUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnPrivateFecha = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnPrivateMessage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonNewGroupChat = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.picBox_CloseIcon = new System.Windows.Forms.PictureBox();
             this.lbl_Jugador = new System.Windows.Forms.Label();
-            this.picBox_IconoRango = new System.Windows.Forms.PictureBox();
             this.lbl_Rango = new System.Windows.Forms.Label();
+            this.picBox_IconoRango = new System.Windows.Forms.PictureBox();
+            this.picBox_CloseIcon = new System.Windows.Forms.PictureBox();
             this.contextMenuStripEstado.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_IconoRango)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // Header
@@ -198,7 +201,7 @@
             this.listViewConversacion.UseCompatibleStateImageBehavior = false;
             this.listViewConversacion.View = System.Windows.Forms.View.Details;
             this.listViewConversacion.SelectedIndexChanged += new System.EventHandler(this.listViewConversacion_SelectedIndexChanged);
-            this.listViewConversacion.DoubleClick += new System.EventHandler(this.listViewConversacion_DoubleClick);
+            this.listViewConversacion.Click += new System.EventHandler(this.listViewConversacion_Click);
             // 
             // columnChatName
             // 
@@ -219,14 +222,40 @@
             // 
             // listViewPrivateMessages
             // 
+            this.listViewPrivateMessages.Activation = System.Windows.Forms.ItemActivation.OneClick;
             this.listViewPrivateMessages.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.listViewPrivateMessages.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listViewPrivateMessages.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnPrivateUser,
+            this.columnPrivateFecha,
+            this.columnPrivateMessage});
             this.listViewPrivateMessages.ForeColor = System.Drawing.Color.White;
+            this.listViewPrivateMessages.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listViewPrivateMessages.HotTracking = true;
+            this.listViewPrivateMessages.HoverSelection = true;
             this.listViewPrivateMessages.Location = new System.Drawing.Point(225, 314);
+            this.listViewPrivateMessages.MultiSelect = false;
             this.listViewPrivateMessages.Name = "listViewPrivateMessages";
             this.listViewPrivateMessages.Size = new System.Drawing.Size(395, 171);
             this.listViewPrivateMessages.TabIndex = 16;
             this.listViewPrivateMessages.UseCompatibleStateImageBehavior = false;
             this.listViewPrivateMessages.View = System.Windows.Forms.View.Details;
+            this.listViewPrivateMessages.Click += new System.EventHandler(this.listViewPrivateMessages_Click);
+            // 
+            // columnPrivateUser
+            // 
+            this.columnPrivateUser.Text = "Usuario";
+            this.columnPrivateUser.Width = 80;
+            // 
+            // columnPrivateFecha
+            // 
+            this.columnPrivateFecha.Text = "Fecha";
+            this.columnPrivateFecha.Width = 139;
+            // 
+            // columnPrivateMessage
+            // 
+            this.columnPrivateMessage.Text = "Mensaje";
+            this.columnPrivateMessage.Width = 171;
             // 
             // buttonNewGroupChat
             // 
@@ -254,8 +283,40 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 18;
-            this.button1.Text = "Crear chat";
+            this.button1.Text = "Mensaje";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // lbl_Jugador
+            // 
+            this.lbl_Jugador.AutoSize = true;
+            this.lbl_Jugador.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Jugador.ForeColor = System.Drawing.Color.White;
+            this.lbl_Jugador.Location = new System.Drawing.Point(81, 42);
+            this.lbl_Jugador.Name = "lbl_Jugador";
+            this.lbl_Jugador.Size = new System.Drawing.Size(235, 29);
+            this.lbl_Jugador.TabIndex = 19;
+            this.lbl_Jugador.Text = "Nombre del Jugador";
+            // 
+            // lbl_Rango
+            // 
+            this.lbl_Rango.AutoSize = true;
+            this.lbl_Rango.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Rango.ForeColor = System.Drawing.Color.Silver;
+            this.lbl_Rango.Location = new System.Drawing.Point(82, 82);
+            this.lbl_Rango.Name = "lbl_Rango";
+            this.lbl_Rango.Size = new System.Drawing.Size(92, 20);
+            this.lbl_Rango.TabIndex = 21;
+            this.lbl_Rango.Text = "Titulo rango";
+            // 
+            // picBox_IconoRango
+            // 
+            this.picBox_IconoRango.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBox_IconoRango.Location = new System.Drawing.Point(15, 42);
+            this.picBox_IconoRango.Name = "picBox_IconoRango";
+            this.picBox_IconoRango.Size = new System.Drawing.Size(60, 60);
+            this.picBox_IconoRango.TabIndex = 20;
+            this.picBox_IconoRango.TabStop = false;
             // 
             // picBox_CloseIcon
             // 
@@ -272,37 +333,6 @@
             this.picBox_CloseIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picBox_CloseIcon_MouseClick);
             this.picBox_CloseIcon.MouseEnter += new System.EventHandler(this.picBox_CloseIcon_MouseEnter);
             this.picBox_CloseIcon.MouseLeave += new System.EventHandler(this.picBox_CloseIcon_MouseLeave);
-            // 
-            // lbl_Jugador
-            // 
-            this.lbl_Jugador.AutoSize = true;
-            this.lbl_Jugador.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Jugador.ForeColor = System.Drawing.Color.White;
-            this.lbl_Jugador.Location = new System.Drawing.Point(81, 42);
-            this.lbl_Jugador.Name = "lbl_Jugador";
-            this.lbl_Jugador.Size = new System.Drawing.Size(235, 29);
-            this.lbl_Jugador.TabIndex = 19;
-            this.lbl_Jugador.Text = "Nombre del Jugador";
-            // 
-            // picBox_IconoRango
-            // 
-            this.picBox_IconoRango.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picBox_IconoRango.Location = new System.Drawing.Point(15, 42);
-            this.picBox_IconoRango.Name = "picBox_IconoRango";
-            this.picBox_IconoRango.Size = new System.Drawing.Size(60, 60);
-            this.picBox_IconoRango.TabIndex = 20;
-            this.picBox_IconoRango.TabStop = false;
-            // 
-            // lbl_Rango
-            // 
-            this.lbl_Rango.AutoSize = true;
-            this.lbl_Rango.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Rango.ForeColor = System.Drawing.Color.Silver;
-            this.lbl_Rango.Location = new System.Drawing.Point(82, 82);
-            this.lbl_Rango.Name = "lbl_Rango";
-            this.lbl_Rango.Size = new System.Drawing.Size(92, 20);
-            this.lbl_Rango.TabIndex = 21;
-            this.lbl_Rango.Text = "Titulo rango";
             // 
             // FormHome
             // 
@@ -329,8 +359,8 @@
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormHome_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FormHome_MouseUp);
             this.contextMenuStripEstado.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_IconoRango)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -358,5 +388,8 @@
         private System.Windows.Forms.Label lbl_Jugador;
         private System.Windows.Forms.PictureBox picBox_IconoRango;
         private System.Windows.Forms.Label lbl_Rango;
+        private System.Windows.Forms.ColumnHeader columnPrivateUser;
+        private System.Windows.Forms.ColumnHeader columnPrivateFecha;
+        private System.Windows.Forms.ColumnHeader columnPrivateMessage;
     }
 }

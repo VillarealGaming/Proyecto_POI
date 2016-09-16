@@ -32,15 +32,15 @@
             this.buttonCreateChat = new System.Windows.Forms.Button();
             this.textBoxChatName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.picBox_CloseIcon = new System.Windows.Forms.PictureBox();
             this.Header = new System.Windows.Forms.Label();
             this.textBoxUsers = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.listBoxUsers = new System.Windows.Forms.ListBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.quitarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).BeginInit();
+            this.picBox_CloseIcon = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonCreateChat
@@ -79,22 +79,6 @@
             this.label1.Size = new System.Drawing.Size(93, 15);
             this.label1.TabIndex = 9;
             this.label1.Text = "Nombre de chat";
-            // 
-            // picBox_CloseIcon
-            // 
-            this.picBox_CloseIcon.BackColor = System.Drawing.Color.White;
-            this.picBox_CloseIcon.BackgroundImage = global::ChatApp.Properties.Resources.closeIcon;
-            this.picBox_CloseIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.picBox_CloseIcon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picBox_CloseIcon.Cursor = System.Windows.Forms.Cursors.Default;
-            this.picBox_CloseIcon.Location = new System.Drawing.Point(295, 0);
-            this.picBox_CloseIcon.Name = "picBox_CloseIcon";
-            this.picBox_CloseIcon.Size = new System.Drawing.Size(26, 24);
-            this.picBox_CloseIcon.TabIndex = 14;
-            this.picBox_CloseIcon.TabStop = false;
-            this.picBox_CloseIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picBox_CloseIcon_MouseClick);
-            this.picBox_CloseIcon.MouseEnter += new System.EventHandler(this.picBox_CloseIcon_MouseEnter);
-            this.picBox_CloseIcon.MouseLeave += new System.EventHandler(this.picBox_CloseIcon_MouseLeave);
             // 
             // Header
             // 
@@ -157,9 +141,26 @@
             // quitarToolStripMenuItem
             // 
             this.quitarToolStripMenuItem.Name = "quitarToolStripMenuItem";
-            this.quitarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.quitarToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.quitarToolStripMenuItem.Text = "Quitar";
             this.quitarToolStripMenuItem.Click += new System.EventHandler(this.quitarToolStripMenuItem_Click);
+            // 
+            // picBox_CloseIcon
+            // 
+            this.picBox_CloseIcon.BackColor = System.Drawing.Color.White;
+            this.picBox_CloseIcon.BackgroundImage = global::ChatApp.Properties.Resources.closeIcon;
+            this.picBox_CloseIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.picBox_CloseIcon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBox_CloseIcon.Cursor = System.Windows.Forms.Cursors.Default;
+            this.picBox_CloseIcon.Location = new System.Drawing.Point(295, 0);
+            this.picBox_CloseIcon.Name = "picBox_CloseIcon";
+            this.picBox_CloseIcon.Size = new System.Drawing.Size(26, 24);
+            this.picBox_CloseIcon.TabIndex = 14;
+            this.picBox_CloseIcon.TabStop = false;
+            this.picBox_CloseIcon.Click += new System.EventHandler(this.picBox_CloseIcon_Click);
+            this.picBox_CloseIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picBox_CloseIcon_MouseClick);
+            this.picBox_CloseIcon.MouseEnter += new System.EventHandler(this.picBox_CloseIcon_MouseEnter);
+            this.picBox_CloseIcon.MouseLeave += new System.EventHandler(this.picBox_CloseIcon_MouseLeave);
             // 
             // FormCreateChat
             // 
@@ -182,8 +183,8 @@
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormCreateChat_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormCreateChat_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FormCreateChat_MouseUp);
-            ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

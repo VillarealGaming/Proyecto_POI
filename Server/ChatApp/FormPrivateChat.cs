@@ -7,19 +7,146 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
+using System.IO;
+using EasyPOI;
 
 namespace ChatApp
 {
     public partial class FormPrivateChat : Form
     {
+        public int chatID { get; set; }
+        public ListViewItem listItem { get; set; }
+        private const int buzzDuration = 500;
+        private const int buzzStrength = 5;
         private bool dragging = false;
         private Point dragCursorPoint, dragFormPoint;
-
-        public FormPrivateChat()
+        private Stopwatch buzzStopWatch;
+        private Point formStartPoint;
+        private List<Point> controlsStartPositions;
+        public FormPrivateChat(int chatID, ListViewItem listItem)
         {
+            this.listItem = listItem;
+            //buzz
+            buzzStopWatch = new Stopwatch();
+            formStartPoint = new Point();
             InitializeComponent();
         }
+        
+        public void Buzz()
+        {
+            controlsStartPositions = new List<Point>();
+            foreach (Control control in Controls)
+                controlsStartPositions.Add(new Point());
+            formStartPoint = Location;
+            for (int i = 0; i < Controls.Count; i++)
+                controlsStartPositions[i] = Controls[i].Location;
+            buzzTimer.Start();
+            buzzStopWatch.Restart();
+        }
+        
+        private void buzzTimer_Tick(object sender, EventArgs e)
+        {
+            if (buzzStopWatch.ElapsedMilliseconds < buzzDuration)
+            {
+                Location = RandomPoint(formStartPoint, -buzzStrength, buzzStrength);
+                for (int i = 0; i < Controls.Count; i++)
+                    Controls[i].Location = RandomPoint(controlsStartPositions[i], -buzzStrength, buzzStrength);
+            }
+            else
+            {
+                Location = formStartPoint;
+                for (int i = 0; i < Controls.Count; i++)
+                    Controls[i].Location = controlsStartPositions[i];
+                buzzTimer.Stop();
+                buzzStopWatch.Reset();
+            }
+        }
 
+        private Point RandomPoint(Point startPoint, int minValue, int maxValue)
+        {
+            Random random = new Random();
+            return new Point(startPoint.X + random.Next(minValue, maxValue), startPoint.Y + random.Next(minValue, maxValue));
+        }
+
+        public void CheckEmoticons()
+        {
+            richTextBoxChat.ReadOnly = false;
+            foreach (string[] emoteArray in ClientSession.Emoticons.Values)
+            {
+                foreach (string emote in emoteArray)
+                {
+                    while (richTextBoxChat.Text.Contains(emote))
+                    {
+                        int index = richTextBoxChat.Text.IndexOf(emote);
+                        richTextBoxChat.Select(index, emote.Length);
+                        Clipboard.SetImage(ClientSession.Emoticons.FirstOrDefault(x => x.Value.Contains(emote)).Key);
+                        richTextBoxChat.Paste();
+                    }
+                }
+            }
+            richTextBoxChat.Select(richTextBoxChat.Text.Length, 0);
+            richTextBoxChat.ScrollToCaret();
+            richTextBoxChat.ReadOnly = true;
+        }
+
+        public void AddMessageToChat(string sender, string message)
+        {
+            richTextBoxChat.SelectionFont = new Font(richTextBoxChat.Font, FontStyle.Bold);
+            richTextBoxChat.AppendText(sender + ": ");
+            richTextBoxChat.SelectionFont = new Font(richTextBoxChat.Font, FontStyle.Regular);
+            richTextBoxChat.AppendText(message + "\n");
+        }
+
+        public void SetLastMessage(string sender, string message, DateTime date)
+        {
+            listItem.SubItems[2].Text = message;
+            if (listItem.SubItems[2].Text.Length > ClientSession.textMessagesVisibleText)
+                listItem.SubItems[2].Text = listItem.SubItems[1].Text.Substring(0, ClientSession.textMessagesVisibleText) + "...";
+            listItem.SubItems[1].Tag = date;
+            listItem.SubItems[1].Text = date.ToString();
+        }
+
+        private void SendFile()
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "All files (*.*)|*.*";
+                openFileDialog.RestoreDirectory = true;
+                openFileDialog.CheckPathExists = true;
+                openFileDialog.Multiselect = false;
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (FileStream fileStream = (FileStream)openFileDialog.OpenFile())
+                    {
+                        byte[] fileBuffer = new byte[fileStream.Length];
+                        fileStream.Read(fileBuffer, 0, (int)fileStream.Length);
+                        Packet packet = new Packet(PacketType.FileSendChat);
+                        packet.tag["sender"] = ClientSession.username;
+                        packet.tag["chatID"] = chatID;
+                        packet.tag["filename"] = openFileDialog.FileName;
+                        packet.tag["file"] = fileBuffer;
+                        ClientSession.Connection.SendPacket(packet);
+                    }
+                }
+            }
+        }
+
+        public void ReceiveFile(Packet packet)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "All files (*.*)|*.*";
+            saveFileDialog.FileName = packet.tag["filename"] as string;
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                using (FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create))
+                {
+                    byte[] fileBuffer = (byte[])packet.tag["file"];
+                    fileStream.Write(fileBuffer, 0, fileBuffer.Length);
+                    fileStream.Flush();
+                }
+            }
+        }
         private void FormPrivateChat_MouseDown(object sender, MouseEventArgs e) {
             dragging = true;
             dragCursorPoint = Cursor.Position;
@@ -86,7 +213,18 @@ namespace ChatApp
         }
 
         private void buttonEnviar_Click(object sender, EventArgs e) {
-
+            Packet packet = new Packet(PacketType.PrivateTextMessage);
+            var list = new List<string>();
+            list.Add(ClientSession.username);
+            list.Add(Header.Text);
+            packet.tag["users"] = list;
+            packet.tag["sender"] = ClientSession.username;
+            packet.tag["text"] = textBoxChat.Text;
+            packet.tag["chatID"] = chatID;
+            packet.tag["date"] = DateTime.Now;
+            packet.tag["encriptado"] = checkBoxEncrypt.Checked;
+            ClientSession.Connection.SendPacket(packet);
+            textBoxChat.Text = "";
         }
 
         private void picBox_Attach_MouseEnter(object sender, EventArgs e) {
@@ -111,6 +249,40 @@ namespace ChatApp
 
         private void picBox_StartGame_MouseClick(object sender, MouseEventArgs e) {
 
+        }
+
+        private void picBox_EmoteIcon_Click(object sender, EventArgs e)
+        {
+            listViewEmoticons.Visible = !listViewEmoticons.Visible;
+            if (listViewEmoticons.Visible)
+                listViewEmoticons.Focus();
+            else
+                textBoxChat.Focus();
+        }
+
+        private void listViewEmoticons_MouseLeave(object sender, EventArgs e)
+        {
+            listViewEmoticons.Visible = false;
+        }
+
+        private void FormPrivateChat_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listViewEmoticons_Leave(object sender, EventArgs e)
+        {
+            listViewEmoticons.Visible = false;
+        }
+
+        private void listViewEmoticons_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (listViewEmoticons.SelectedItems.Count == 1)
+            {
+                listViewEmoticons.Visible = false;
+                textBoxChat.AppendText(listViewEmoticons.SelectedItems[0].Tag as string + " ");
+                textBoxChat.Focus();
+            }
         }
 
         private void picBox_CloseIcon_MouseLeave(object sender, EventArgs e) {

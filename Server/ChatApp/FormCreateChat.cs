@@ -20,6 +20,7 @@ namespace ChatApp
             InitializeComponent();
             autoCompleteUsers = new AutoCompleteStringCollection();
             autoCompleteUsers.AddRange(ClientSession.userList.ToArray());
+            autoCompleteUsers.Remove(ClientSession.username);
             textBoxUsers.AutoCompleteCustomSource = autoCompleteUsers;
             textBoxUsers.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             textBoxUsers.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -118,6 +119,12 @@ namespace ChatApp
 
         private void picBox_CloseIcon_MouseClick(object sender, MouseEventArgs e) { this.Close(); }
         private void textBoxChatName_TextChanged(object sender, EventArgs e){ ValidateChat(); }
+
+        private void picBox_CloseIcon_Click(object sender, EventArgs e)
+        {
+
+        }
+
         //validamos que existan cuatro usuarios (+1 por el usuario actual)
         private void ValidateChat()
         {

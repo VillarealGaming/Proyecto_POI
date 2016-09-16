@@ -112,6 +112,12 @@
     <Compile Include="FormPrivateChat.Designer.cs">
       <DependentUpon>FormPrivateChat.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormPrivateMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPrivateMessage.Designer.cs">
+      <DependentUpon>FormPrivateMessage.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormRegister.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +158,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrivateChat.resx">
       <DependentUpon>FormPrivateChat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPrivateMessage.resx">
+      <DependentUpon>FormPrivateMessage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormRegister.resx">
       <DependentUpon>FormRegister.cs</DependentUpon>
@@ -247,9 +256,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="gameIconHover.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\emoticonHappy.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Emoticons\happy.PNG" />

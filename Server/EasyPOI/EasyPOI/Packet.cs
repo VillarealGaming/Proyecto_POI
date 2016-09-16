@@ -48,6 +48,7 @@ namespace EasyPOI
     public enum PacketType
     {
         TextMessage,
+        PrivateTextMessage,
         SessionBegin,
         SessionEnd,
         Fail,
@@ -56,10 +57,13 @@ namespace EasyPOI
         CreatePublicConversation,
         CreatePrivateConversation,
         GetUserConversations,
+        GetPrivateConversations,
         GetUsers,
         SetUserState,
         CreatePublicConversationFail,
-        Buzz
+        Buzz,
+        FileSendChat,
+        FileSendPrivate
         //
     }
     //Referencia

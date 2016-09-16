@@ -32,7 +32,11 @@ namespace Server {
         
         private MensajeDataTable tableMensaje;
         
-        private ContactoDataTable tableContacto;
+        private MensajePrivadoDataTable tableMensajePrivado;
+        
+        private ConversacionPrivadaDataTable tableConversacionPrivada;
+        
+        private UsuarioPrivadoDataTable tableUsuarioPrivado;
         
         private global::System.Data.DataRelation relationUsuarioConversacion_Conversacion;
         
@@ -42,7 +46,13 @@ namespace Server {
         
         private global::System.Data.DataRelation relationUsuario_Mensaje;
         
-        private global::System.Data.DataRelation relationContacto_Usuario;
+        private global::System.Data.DataRelation relationUsuario_UsuarioPrivado;
+        
+        private global::System.Data.DataRelation relationUsuario_MensajePrivado;
+        
+        private global::System.Data.DataRelation relationConversacionPrivada_UsuarioPrivado;
+        
+        private global::System.Data.DataRelation relationConversacionPrivada_MensajePrivado;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -84,8 +94,14 @@ namespace Server {
                 if ((ds.Tables["Mensaje"] != null)) {
                     base.Tables.Add(new MensajeDataTable(ds.Tables["Mensaje"]));
                 }
-                if ((ds.Tables["Contacto"] != null)) {
-                    base.Tables.Add(new ContactoDataTable(ds.Tables["Contacto"]));
+                if ((ds.Tables["MensajePrivado"] != null)) {
+                    base.Tables.Add(new MensajePrivadoDataTable(ds.Tables["MensajePrivado"]));
+                }
+                if ((ds.Tables["ConversacionPrivada"] != null)) {
+                    base.Tables.Add(new ConversacionPrivadaDataTable(ds.Tables["ConversacionPrivada"]));
+                }
+                if ((ds.Tables["UsuarioPrivado"] != null)) {
+                    base.Tables.Add(new UsuarioPrivadoDataTable(ds.Tables["UsuarioPrivado"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -149,9 +165,29 @@ namespace Server {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ContactoDataTable Contacto {
+        public MensajePrivadoDataTable MensajePrivado {
             get {
-                return this.tableContacto;
+                return this.tableMensajePrivado;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public ConversacionPrivadaDataTable ConversacionPrivada {
+            get {
+                return this.tableConversacionPrivada;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public UsuarioPrivadoDataTable UsuarioPrivado {
+            get {
+                return this.tableUsuarioPrivado;
             }
         }
         
@@ -234,8 +270,14 @@ namespace Server {
                 if ((ds.Tables["Mensaje"] != null)) {
                     base.Tables.Add(new MensajeDataTable(ds.Tables["Mensaje"]));
                 }
-                if ((ds.Tables["Contacto"] != null)) {
-                    base.Tables.Add(new ContactoDataTable(ds.Tables["Contacto"]));
+                if ((ds.Tables["MensajePrivado"] != null)) {
+                    base.Tables.Add(new MensajePrivadoDataTable(ds.Tables["MensajePrivado"]));
+                }
+                if ((ds.Tables["ConversacionPrivada"] != null)) {
+                    base.Tables.Add(new ConversacionPrivadaDataTable(ds.Tables["ConversacionPrivada"]));
+                }
+                if ((ds.Tables["UsuarioPrivado"] != null)) {
+                    base.Tables.Add(new UsuarioPrivadoDataTable(ds.Tables["UsuarioPrivado"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -294,17 +336,32 @@ namespace Server {
                     this.tableMensaje.InitVars();
                 }
             }
-            this.tableContacto = ((ContactoDataTable)(base.Tables["Contacto"]));
+            this.tableMensajePrivado = ((MensajePrivadoDataTable)(base.Tables["MensajePrivado"]));
             if ((initTable == true)) {
-                if ((this.tableContacto != null)) {
-                    this.tableContacto.InitVars();
+                if ((this.tableMensajePrivado != null)) {
+                    this.tableMensajePrivado.InitVars();
+                }
+            }
+            this.tableConversacionPrivada = ((ConversacionPrivadaDataTable)(base.Tables["ConversacionPrivada"]));
+            if ((initTable == true)) {
+                if ((this.tableConversacionPrivada != null)) {
+                    this.tableConversacionPrivada.InitVars();
+                }
+            }
+            this.tableUsuarioPrivado = ((UsuarioPrivadoDataTable)(base.Tables["UsuarioPrivado"]));
+            if ((initTable == true)) {
+                if ((this.tableUsuarioPrivado != null)) {
+                    this.tableUsuarioPrivado.InitVars();
                 }
             }
             this.relationUsuarioConversacion_Conversacion = this.Relations["UsuarioConversacion_Conversacion"];
             this.relationUsuario_UsuarioConversacion = this.Relations["Usuario_UsuarioConversacion"];
             this.relationConversacion_Mensaje = this.Relations["Conversacion_Mensaje"];
             this.relationUsuario_Mensaje = this.Relations["Usuario_Mensaje"];
-            this.relationContacto_Usuario = this.Relations["Contacto_Usuario"];
+            this.relationUsuario_UsuarioPrivado = this.Relations["Usuario_UsuarioPrivado"];
+            this.relationUsuario_MensajePrivado = this.Relations["Usuario_MensajePrivado"];
+            this.relationConversacionPrivada_UsuarioPrivado = this.Relations["ConversacionPrivada_UsuarioPrivado"];
+            this.relationConversacionPrivada_MensajePrivado = this.Relations["ConversacionPrivada_MensajePrivado"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -323,8 +380,12 @@ namespace Server {
             base.Tables.Add(this.tableUsuarioConversacion);
             this.tableMensaje = new MensajeDataTable();
             base.Tables.Add(this.tableMensaje);
-            this.tableContacto = new ContactoDataTable();
-            base.Tables.Add(this.tableContacto);
+            this.tableMensajePrivado = new MensajePrivadoDataTable();
+            base.Tables.Add(this.tableMensajePrivado);
+            this.tableConversacionPrivada = new ConversacionPrivadaDataTable();
+            base.Tables.Add(this.tableConversacionPrivada);
+            this.tableUsuarioPrivado = new UsuarioPrivadoDataTable();
+            base.Tables.Add(this.tableUsuarioPrivado);
             this.relationUsuarioConversacion_Conversacion = new global::System.Data.DataRelation("UsuarioConversacion_Conversacion", new global::System.Data.DataColumn[] {
                         this.tableConversacion.IDColumn}, new global::System.Data.DataColumn[] {
                         this.tableUsuarioConversacion.ConversacionColumn}, false);
@@ -341,10 +402,22 @@ namespace Server {
                         this.tableUsuario.NombreUsuarioColumn}, new global::System.Data.DataColumn[] {
                         this.tableMensaje.UsuarioColumn}, false);
             this.Relations.Add(this.relationUsuario_Mensaje);
-            this.relationContacto_Usuario = new global::System.Data.DataRelation("Contacto_Usuario", new global::System.Data.DataColumn[] {
+            this.relationUsuario_UsuarioPrivado = new global::System.Data.DataRelation("Usuario_UsuarioPrivado", new global::System.Data.DataColumn[] {
                         this.tableUsuario.NombreUsuarioColumn}, new global::System.Data.DataColumn[] {
-                        this.tableContacto.Usuario1Column}, false);
-            this.Relations.Add(this.relationContacto_Usuario);
+                        this.tableUsuarioPrivado.UsuarioColumn}, false);
+            this.Relations.Add(this.relationUsuario_UsuarioPrivado);
+            this.relationUsuario_MensajePrivado = new global::System.Data.DataRelation("Usuario_MensajePrivado", new global::System.Data.DataColumn[] {
+                        this.tableUsuario.NombreUsuarioColumn}, new global::System.Data.DataColumn[] {
+                        this.tableMensajePrivado.UsuarioColumn}, false);
+            this.Relations.Add(this.relationUsuario_MensajePrivado);
+            this.relationConversacionPrivada_UsuarioPrivado = new global::System.Data.DataRelation("ConversacionPrivada_UsuarioPrivado", new global::System.Data.DataColumn[] {
+                        this.tableConversacionPrivada.IDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableUsuarioPrivado.ConversacionPrivadaColumn}, false);
+            this.Relations.Add(this.relationConversacionPrivada_UsuarioPrivado);
+            this.relationConversacionPrivada_MensajePrivado = new global::System.Data.DataRelation("ConversacionPrivada_MensajePrivado", new global::System.Data.DataColumn[] {
+                        this.tableConversacionPrivada.IDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableMensajePrivado.ConversacionPrivadaColumn}, false);
+            this.Relations.Add(this.relationConversacionPrivada_MensajePrivado);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -373,7 +446,19 @@ namespace Server {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeContacto() {
+        private bool ShouldSerializeMensajePrivado() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeConversacionPrivada() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeUsuarioPrivado() {
             return false;
         }
         
@@ -445,7 +530,13 @@ namespace Server {
         public delegate void MensajeRowChangeEventHandler(object sender, MensajeRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void ContactoRowChangeEventHandler(object sender, ContactoRowChangeEvent e);
+        public delegate void MensajePrivadoRowChangeEventHandler(object sender, MensajePrivadoRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void ConversacionPrivadaRowChangeEventHandler(object sender, ConversacionPrivadaRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void UsuarioPrivadoRowChangeEventHandler(object sender, UsuarioPrivadoRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -1624,16 +1715,22 @@ namespace Server {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ContactoDataTable : global::System.Data.TypedTableBase<ContactoRow> {
+        public partial class MensajePrivadoDataTable : global::System.Data.TypedTableBase<MensajePrivadoRow> {
             
-            private global::System.Data.DataColumn columnUsuario1;
+            private global::System.Data.DataColumn columnEncriptado;
             
-            private global::System.Data.DataColumn columnUsuario2;
+            private global::System.Data.DataColumn columnDate;
+            
+            private global::System.Data.DataColumn columnMensaje;
+            
+            private global::System.Data.DataColumn columnConversacionPrivada;
+            
+            private global::System.Data.DataColumn columnUsuario;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ContactoDataTable() {
-                this.TableName = "Contacto";
+            public MensajePrivadoDataTable() {
+                this.TableName = "MensajePrivado";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -1641,7 +1738,7 @@ namespace Server {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal ContactoDataTable(global::System.Data.DataTable table) {
+            internal MensajePrivadoDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -1658,24 +1755,48 @@ namespace Server {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected ContactoDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected MensajePrivadoDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn Usuario1Column {
+            public global::System.Data.DataColumn EncriptadoColumn {
                 get {
-                    return this.columnUsuario1;
+                    return this.columnEncriptado;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn Usuario2Column {
+            public global::System.Data.DataColumn DateColumn {
                 get {
-                    return this.columnUsuario2;
+                    return this.columnDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn MensajeColumn {
+                get {
+                    return this.columnMensaje;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ConversacionPrivadaColumn {
+                get {
+                    return this.columnConversacionPrivada;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn UsuarioColumn {
+                get {
+                    return this.columnUsuario;
                 }
             }
             
@@ -1690,57 +1811,55 @@ namespace Server {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ContactoRow this[int index] {
+            public MensajePrivadoRow this[int index] {
                 get {
-                    return ((ContactoRow)(this.Rows[index]));
+                    return ((MensajePrivadoRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ContactoRowChangeEventHandler ContactoRowChanging;
+            public event MensajePrivadoRowChangeEventHandler MensajePrivadoRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ContactoRowChangeEventHandler ContactoRowChanged;
+            public event MensajePrivadoRowChangeEventHandler MensajePrivadoRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ContactoRowChangeEventHandler ContactoRowDeleting;
+            public event MensajePrivadoRowChangeEventHandler MensajePrivadoRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event ContactoRowChangeEventHandler ContactoRowDeleted;
+            public event MensajePrivadoRowChangeEventHandler MensajePrivadoRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddContactoRow(ContactoRow row) {
+            public void AddMensajePrivadoRow(MensajePrivadoRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ContactoRow AddContactoRow(UsuarioRow parentUsuarioRowByContacto_Usuario, string Usuario2) {
-                ContactoRow rowContactoRow = ((ContactoRow)(this.NewRow()));
+            public MensajePrivadoRow AddMensajePrivadoRow(bool Encriptado, System.DateTime Date, string Mensaje, ConversacionPrivadaRow parentConversacionPrivadaRowByConversacionPrivada_MensajePrivado, UsuarioRow parentUsuarioRowByUsuario_MensajePrivado) {
+                MensajePrivadoRow rowMensajePrivadoRow = ((MensajePrivadoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
+                        Encriptado,
+                        Date,
+                        Mensaje,
                         null,
-                        Usuario2};
-                if ((parentUsuarioRowByContacto_Usuario != null)) {
-                    columnValuesArray[0] = parentUsuarioRowByContacto_Usuario[0];
+                        null};
+                if ((parentConversacionPrivadaRowByConversacionPrivada_MensajePrivado != null)) {
+                    columnValuesArray[3] = parentConversacionPrivadaRowByConversacionPrivada_MensajePrivado[0];
                 }
-                rowContactoRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowContactoRow);
-                return rowContactoRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ContactoRow FindByUsuario1Usuario2(string Usuario1, string Usuario2) {
-                return ((ContactoRow)(this.Rows.Find(new object[] {
-                            Usuario1,
-                            Usuario2})));
+                if ((parentUsuarioRowByUsuario_MensajePrivado != null)) {
+                    columnValuesArray[4] = parentUsuarioRowByUsuario_MensajePrivado[0];
+                }
+                rowMensajePrivadoRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowMensajePrivadoRow);
+                return rowMensajePrivadoRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                ContactoDataTable cln = ((ContactoDataTable)(base.Clone()));
+                MensajePrivadoDataTable cln = ((MensajePrivadoDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -1748,54 +1867,61 @@ namespace Server {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new ContactoDataTable();
+                return new MensajePrivadoDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
-                this.columnUsuario1 = base.Columns["Usuario1"];
-                this.columnUsuario2 = base.Columns["Usuario2"];
+                this.columnEncriptado = base.Columns["Encriptado"];
+                this.columnDate = base.Columns["Date"];
+                this.columnMensaje = base.Columns["Mensaje"];
+                this.columnConversacionPrivada = base.Columns["ConversacionPrivada"];
+                this.columnUsuario = base.Columns["Usuario"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnUsuario1 = new global::System.Data.DataColumn("Usuario1", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnUsuario1);
-                this.columnUsuario2 = new global::System.Data.DataColumn("Usuario2", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnUsuario2);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnUsuario1,
-                                this.columnUsuario2}, true));
-                this.columnUsuario1.AllowDBNull = false;
-                this.columnUsuario2.AllowDBNull = false;
+                this.columnEncriptado = new global::System.Data.DataColumn("Encriptado", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEncriptado);
+                this.columnDate = new global::System.Data.DataColumn("Date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDate);
+                this.columnMensaje = new global::System.Data.DataColumn("Mensaje", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMensaje);
+                this.columnConversacionPrivada = new global::System.Data.DataColumn("ConversacionPrivada", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnConversacionPrivada);
+                this.columnUsuario = new global::System.Data.DataColumn("Usuario", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUsuario);
+                this.columnEncriptado.AllowDBNull = false;
+                this.columnMensaje.AllowDBNull = false;
+                this.columnConversacionPrivada.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ContactoRow NewContactoRow() {
-                return ((ContactoRow)(this.NewRow()));
+            public MensajePrivadoRow NewMensajePrivadoRow() {
+                return ((MensajePrivadoRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new ContactoRow(builder);
+                return new MensajePrivadoRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(ContactoRow);
+                return typeof(MensajePrivadoRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.ContactoRowChanged != null)) {
-                    this.ContactoRowChanged(this, new ContactoRowChangeEvent(((ContactoRow)(e.Row)), e.Action));
+                if ((this.MensajePrivadoRowChanged != null)) {
+                    this.MensajePrivadoRowChanged(this, new MensajePrivadoRowChangeEvent(((MensajePrivadoRow)(e.Row)), e.Action));
                 }
             }
             
@@ -1803,8 +1929,8 @@ namespace Server {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.ContactoRowChanging != null)) {
-                    this.ContactoRowChanging(this, new ContactoRowChangeEvent(((ContactoRow)(e.Row)), e.Action));
+                if ((this.MensajePrivadoRowChanging != null)) {
+                    this.MensajePrivadoRowChanging(this, new MensajePrivadoRowChangeEvent(((MensajePrivadoRow)(e.Row)), e.Action));
                 }
             }
             
@@ -1812,8 +1938,8 @@ namespace Server {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.ContactoRowDeleted != null)) {
-                    this.ContactoRowDeleted(this, new ContactoRowChangeEvent(((ContactoRow)(e.Row)), e.Action));
+                if ((this.MensajePrivadoRowDeleted != null)) {
+                    this.MensajePrivadoRowDeleted(this, new MensajePrivadoRowChangeEvent(((MensajePrivadoRow)(e.Row)), e.Action));
                 }
             }
             
@@ -1821,14 +1947,14 @@ namespace Server {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.ContactoRowDeleting != null)) {
-                    this.ContactoRowDeleting(this, new ContactoRowChangeEvent(((ContactoRow)(e.Row)), e.Action));
+                if ((this.MensajePrivadoRowDeleting != null)) {
+                    this.MensajePrivadoRowDeleting(this, new MensajePrivadoRowChangeEvent(((MensajePrivadoRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveContactoRow(ContactoRow row) {
+            public void RemoveMensajePrivadoRow(MensajePrivadoRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -1855,7 +1981,527 @@ namespace Server {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ContactoDataTable";
+                attribute2.FixedValue = "MensajePrivadoDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class ConversacionPrivadaDataTable : global::System.Data.TypedTableBase<ConversacionPrivadaRow> {
+            
+            private global::System.Data.DataColumn columnID;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ConversacionPrivadaDataTable() {
+                this.TableName = "ConversacionPrivada";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal ConversacionPrivadaDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected ConversacionPrivadaDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IDColumn {
+                get {
+                    return this.columnID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ConversacionPrivadaRow this[int index] {
+                get {
+                    return ((ConversacionPrivadaRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ConversacionPrivadaRowChangeEventHandler ConversacionPrivadaRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ConversacionPrivadaRowChangeEventHandler ConversacionPrivadaRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ConversacionPrivadaRowChangeEventHandler ConversacionPrivadaRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ConversacionPrivadaRowChangeEventHandler ConversacionPrivadaRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddConversacionPrivadaRow(ConversacionPrivadaRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ConversacionPrivadaRow AddConversacionPrivadaRow() {
+                ConversacionPrivadaRow rowConversacionPrivadaRow = ((ConversacionPrivadaRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null};
+                rowConversacionPrivadaRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowConversacionPrivadaRow);
+                return rowConversacionPrivadaRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                ConversacionPrivadaDataTable cln = ((ConversacionPrivadaDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new ConversacionPrivadaDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnID = base.Columns["ID"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnID = new global::System.Data.DataColumn("ID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnID);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnID}, false));
+                this.columnID.AutoIncrement = true;
+                this.columnID.AllowDBNull = false;
+                this.columnID.Unique = true;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ConversacionPrivadaRow NewConversacionPrivadaRow() {
+                return ((ConversacionPrivadaRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new ConversacionPrivadaRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(ConversacionPrivadaRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.ConversacionPrivadaRowChanged != null)) {
+                    this.ConversacionPrivadaRowChanged(this, new ConversacionPrivadaRowChangeEvent(((ConversacionPrivadaRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.ConversacionPrivadaRowChanging != null)) {
+                    this.ConversacionPrivadaRowChanging(this, new ConversacionPrivadaRowChangeEvent(((ConversacionPrivadaRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.ConversacionPrivadaRowDeleted != null)) {
+                    this.ConversacionPrivadaRowDeleted(this, new ConversacionPrivadaRowChangeEvent(((ConversacionPrivadaRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.ConversacionPrivadaRowDeleting != null)) {
+                    this.ConversacionPrivadaRowDeleting(this, new ConversacionPrivadaRowChangeEvent(((ConversacionPrivadaRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveConversacionPrivadaRow(ConversacionPrivadaRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                ServerDataSet ds = new ServerDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "ConversacionPrivadaDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class UsuarioPrivadoDataTable : global::System.Data.TypedTableBase<UsuarioPrivadoRow> {
+            
+            private global::System.Data.DataColumn columnUsuario;
+            
+            private global::System.Data.DataColumn columnConversacionPrivada;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public UsuarioPrivadoDataTable() {
+                this.TableName = "UsuarioPrivado";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal UsuarioPrivadoDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected UsuarioPrivadoDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn UsuarioColumn {
+                get {
+                    return this.columnUsuario;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ConversacionPrivadaColumn {
+                get {
+                    return this.columnConversacionPrivada;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public UsuarioPrivadoRow this[int index] {
+                get {
+                    return ((UsuarioPrivadoRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event UsuarioPrivadoRowChangeEventHandler UsuarioPrivadoRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event UsuarioPrivadoRowChangeEventHandler UsuarioPrivadoRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event UsuarioPrivadoRowChangeEventHandler UsuarioPrivadoRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event UsuarioPrivadoRowChangeEventHandler UsuarioPrivadoRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddUsuarioPrivadoRow(UsuarioPrivadoRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public UsuarioPrivadoRow AddUsuarioPrivadoRow(UsuarioRow parentUsuarioRowByUsuario_UsuarioPrivado, ConversacionPrivadaRow parentConversacionPrivadaRowByConversacionPrivada_UsuarioPrivado) {
+                UsuarioPrivadoRow rowUsuarioPrivadoRow = ((UsuarioPrivadoRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        null};
+                if ((parentUsuarioRowByUsuario_UsuarioPrivado != null)) {
+                    columnValuesArray[0] = parentUsuarioRowByUsuario_UsuarioPrivado[0];
+                }
+                if ((parentConversacionPrivadaRowByConversacionPrivada_UsuarioPrivado != null)) {
+                    columnValuesArray[1] = parentConversacionPrivadaRowByConversacionPrivada_UsuarioPrivado[0];
+                }
+                rowUsuarioPrivadoRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowUsuarioPrivadoRow);
+                return rowUsuarioPrivadoRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                UsuarioPrivadoDataTable cln = ((UsuarioPrivadoDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new UsuarioPrivadoDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnUsuario = base.Columns["Usuario"];
+                this.columnConversacionPrivada = base.Columns["ConversacionPrivada"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnUsuario = new global::System.Data.DataColumn("Usuario", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUsuario);
+                this.columnConversacionPrivada = new global::System.Data.DataColumn("ConversacionPrivada", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnConversacionPrivada);
+                this.columnConversacionPrivada.AllowDBNull = false;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public UsuarioPrivadoRow NewUsuarioPrivadoRow() {
+                return ((UsuarioPrivadoRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new UsuarioPrivadoRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(UsuarioPrivadoRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.UsuarioPrivadoRowChanged != null)) {
+                    this.UsuarioPrivadoRowChanged(this, new UsuarioPrivadoRowChangeEvent(((UsuarioPrivadoRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.UsuarioPrivadoRowChanging != null)) {
+                    this.UsuarioPrivadoRowChanging(this, new UsuarioPrivadoRowChangeEvent(((UsuarioPrivadoRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.UsuarioPrivadoRowDeleted != null)) {
+                    this.UsuarioPrivadoRowDeleted(this, new UsuarioPrivadoRowChangeEvent(((UsuarioPrivadoRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.UsuarioPrivadoRowDeleting != null)) {
+                    this.UsuarioPrivadoRowDeleting(this, new UsuarioPrivadoRowChangeEvent(((UsuarioPrivadoRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveUsuarioPrivadoRow(UsuarioPrivadoRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                ServerDataSet ds = new ServerDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "UsuarioPrivadoDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -1978,12 +2624,23 @@ namespace Server {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ContactoRow[] GetContactoRows() {
-                if ((this.Table.ChildRelations["Contacto_Usuario"] == null)) {
-                    return new ContactoRow[0];
+            public UsuarioPrivadoRow[] GetUsuarioPrivadoRows() {
+                if ((this.Table.ChildRelations["Usuario_UsuarioPrivado"] == null)) {
+                    return new UsuarioPrivadoRow[0];
                 }
                 else {
-                    return ((ContactoRow[])(base.GetChildRows(this.Table.ChildRelations["Contacto_Usuario"])));
+                    return ((UsuarioPrivadoRow[])(base.GetChildRows(this.Table.ChildRelations["Usuario_UsuarioPrivado"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public MensajePrivadoRow[] GetMensajePrivadoRows() {
+                if ((this.Table.ChildRelations["Usuario_MensajePrivado"] == null)) {
+                    return new MensajePrivadoRow[0];
+                }
+                else {
+                    return ((MensajePrivadoRow[])(base.GetChildRows(this.Table.ChildRelations["Usuario_MensajePrivado"])));
                 }
             }
         }
@@ -2218,36 +2875,79 @@ namespace Server {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class ContactoRow : global::System.Data.DataRow {
+        public partial class MensajePrivadoRow : global::System.Data.DataRow {
             
-            private ContactoDataTable tableContacto;
+            private MensajePrivadoDataTable tableMensajePrivado;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal ContactoRow(global::System.Data.DataRowBuilder rb) : 
+            internal MensajePrivadoRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableContacto = ((ContactoDataTable)(this.Table));
+                this.tableMensajePrivado = ((MensajePrivadoDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Usuario1 {
+            public bool Encriptado {
                 get {
-                    return ((string)(this[this.tableContacto.Usuario1Column]));
+                    return ((bool)(this[this.tableMensajePrivado.EncriptadoColumn]));
                 }
                 set {
-                    this[this.tableContacto.Usuario1Column] = value;
+                    this[this.tableMensajePrivado.EncriptadoColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Usuario2 {
+            public System.DateTime Date {
                 get {
-                    return ((string)(this[this.tableContacto.Usuario2Column]));
+                    try {
+                        return ((global::System.DateTime)(this[this.tableMensajePrivado.DateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Date\' in table \'MensajePrivado\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this[this.tableContacto.Usuario2Column] = value;
+                    this[this.tableMensajePrivado.DateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Mensaje {
+                get {
+                    return ((string)(this[this.tableMensajePrivado.MensajeColumn]));
+                }
+                set {
+                    this[this.tableMensajePrivado.MensajeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int ConversacionPrivada {
+                get {
+                    return ((int)(this[this.tableMensajePrivado.ConversacionPrivadaColumn]));
+                }
+                set {
+                    this[this.tableMensajePrivado.ConversacionPrivadaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Usuario {
+                get {
+                    try {
+                        return ((string)(this[this.tableMensajePrivado.UsuarioColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Usuario\' in table \'MensajePrivado\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMensajePrivado.UsuarioColumn] = value;
                 }
             }
             
@@ -2255,11 +2955,170 @@ namespace Server {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public UsuarioRow UsuarioRow {
                 get {
-                    return ((UsuarioRow)(this.GetParentRow(this.Table.ParentRelations["Contacto_Usuario"])));
+                    return ((UsuarioRow)(this.GetParentRow(this.Table.ParentRelations["Usuario_MensajePrivado"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["Contacto_Usuario"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["Usuario_MensajePrivado"]);
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ConversacionPrivadaRow ConversacionPrivadaRow {
+                get {
+                    return ((ConversacionPrivadaRow)(this.GetParentRow(this.Table.ParentRelations["ConversacionPrivada_MensajePrivado"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["ConversacionPrivada_MensajePrivado"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsDateNull() {
+                return this.IsNull(this.tableMensajePrivado.DateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetDateNull() {
+                this[this.tableMensajePrivado.DateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsUsuarioNull() {
+                return this.IsNull(this.tableMensajePrivado.UsuarioColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetUsuarioNull() {
+                this[this.tableMensajePrivado.UsuarioColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class ConversacionPrivadaRow : global::System.Data.DataRow {
+            
+            private ConversacionPrivadaDataTable tableConversacionPrivada;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal ConversacionPrivadaRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableConversacionPrivada = ((ConversacionPrivadaDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int ID {
+                get {
+                    return ((int)(this[this.tableConversacionPrivada.IDColumn]));
+                }
+                set {
+                    this[this.tableConversacionPrivada.IDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public UsuarioPrivadoRow[] GetUsuarioPrivadoRows() {
+                if ((this.Table.ChildRelations["ConversacionPrivada_UsuarioPrivado"] == null)) {
+                    return new UsuarioPrivadoRow[0];
+                }
+                else {
+                    return ((UsuarioPrivadoRow[])(base.GetChildRows(this.Table.ChildRelations["ConversacionPrivada_UsuarioPrivado"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public MensajePrivadoRow[] GetMensajePrivadoRows() {
+                if ((this.Table.ChildRelations["ConversacionPrivada_MensajePrivado"] == null)) {
+                    return new MensajePrivadoRow[0];
+                }
+                else {
+                    return ((MensajePrivadoRow[])(base.GetChildRows(this.Table.ChildRelations["ConversacionPrivada_MensajePrivado"])));
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class UsuarioPrivadoRow : global::System.Data.DataRow {
+            
+            private UsuarioPrivadoDataTable tableUsuarioPrivado;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal UsuarioPrivadoRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableUsuarioPrivado = ((UsuarioPrivadoDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Usuario {
+                get {
+                    try {
+                        return ((string)(this[this.tableUsuarioPrivado.UsuarioColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Usuario\' in table \'UsuarioPrivado\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableUsuarioPrivado.UsuarioColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int ConversacionPrivada {
+                get {
+                    return ((int)(this[this.tableUsuarioPrivado.ConversacionPrivadaColumn]));
+                }
+                set {
+                    this[this.tableUsuarioPrivado.ConversacionPrivadaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public UsuarioRow UsuarioRow {
+                get {
+                    return ((UsuarioRow)(this.GetParentRow(this.Table.ParentRelations["Usuario_UsuarioPrivado"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["Usuario_UsuarioPrivado"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ConversacionPrivadaRow ConversacionPrivadaRow {
+                get {
+                    return ((ConversacionPrivadaRow)(this.GetParentRow(this.Table.ParentRelations["ConversacionPrivada_UsuarioPrivado"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["ConversacionPrivada_UsuarioPrivado"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsUsuarioNull() {
+                return this.IsNull(this.tableUsuarioPrivado.UsuarioColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetUsuarioNull() {
+                this[this.tableUsuarioPrivado.UsuarioColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -2403,22 +3262,90 @@ namespace Server {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class ContactoRowChangeEvent : global::System.EventArgs {
+        public class MensajePrivadoRowChangeEvent : global::System.EventArgs {
             
-            private ContactoRow eventRow;
+            private MensajePrivadoRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ContactoRowChangeEvent(ContactoRow row, global::System.Data.DataRowAction action) {
+            public MensajePrivadoRowChangeEvent(MensajePrivadoRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ContactoRow Row {
+            public MensajePrivadoRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class ConversacionPrivadaRowChangeEvent : global::System.EventArgs {
+            
+            private ConversacionPrivadaRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ConversacionPrivadaRowChangeEvent(ConversacionPrivadaRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ConversacionPrivadaRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class UsuarioPrivadoRowChangeEvent : global::System.EventArgs {
+            
+            private UsuarioPrivadoRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public UsuarioPrivadoRowChangeEvent(UsuarioPrivadoRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public UsuarioPrivadoRow Row {
                 get {
                     return this.eventRow;
                 }

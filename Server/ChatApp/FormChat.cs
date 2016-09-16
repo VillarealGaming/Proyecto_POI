@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.IO;
 using EasyPOI;
 namespace ChatApp
 {
@@ -23,22 +24,6 @@ namespace ChatApp
         private Stopwatch buzzStopWatch;
         private Point formStartPoint;
         private List<Point> controlsStartPositions;
-        //http://csharpdemos.blogspot.mx/2012/10/how-to-insert-smiley-images-in.html
-        public static Dictionary<Bitmap, string[]> Emoticons;
-        //Emoticons = new Dictionary<Bitmap, string[]>();
-        //    Emoticons.Add(ChatApp.Properties.Resources.angry, new string[] { " >:(", ":angry:" });
-        //    Emoticons.Add(ChatApp.Properties.Resources.cool, new string[] { " 8)", ":cool:" });
-        //    Emoticons.Add(ChatApp.Properties.Resources.devil, new string[] { " >:)", ":devil:" });
-        //    Emoticons.Add(ChatApp.Properties.Resources.dumb, new string[] { " :P", ":dumb:" });
-        //    Emoticons.Add(ChatApp.Properties.Resources.happy, new string[] { " :)", ":happy:" });
-        //    Emoticons.Add(ChatApp.Properties.Resources.meh, new string[] { " :/", ":meh:" });
-        //    Emoticons.Add(ChatApp.Properties.Resources.naughty, new string[] { " ^O^", ":naughty:" });
-        //    Emoticons.Add(ChatApp.Properties.Resources.sad, new string[] { " :(", ":sad:" });
-        //    Emoticons.Add(ChatApp.Properties.Resources.serious, new string[] { " :I", " .-.", " ._.", ":serious:" });
-        //    Emoticons.Add(ChatApp.Properties.Resources.smile, new string[] { " :D", ":smile:" });
-        //    Emoticons.Add(ChatApp.Properties.Resources.surprise, new string[] { " :O", " :o", " :0", ":surprise:" });
-        //    Emoticons.Add(ChatApp.Properties.Resources.weird, new string[] { " :$", " .~.", ":weird:" });
-        //    Emoticons.Add(ChatApp.Properties.Resources.wink, new string[] { " ;)", ":wink:" });
         public formChat(int chatID, ListViewItem listItem)
         {
             this.chatID = chatID;
@@ -60,10 +45,11 @@ namespace ChatApp
             buzzTimer.Start();
             buzzStopWatch.Restart();
         }
+
         public void CheckEmoticons()
         {
             richTextBoxChat.ReadOnly = false;
-            foreach (string[] emoteArray in Emoticons.Values)
+            foreach (string[] emoteArray in ClientSession.Emoticons.Values)
             {
                 foreach (string emote in emoteArray)
                 {
@@ -71,7 +57,7 @@ namespace ChatApp
                     {
                         int index = richTextBoxChat.Text.IndexOf(emote);
                         richTextBoxChat.Select(index, emote.Length);
-                        Clipboard.SetImage(Emoticons.FirstOrDefault(x => x.Value.Contains(emote)).Key);
+                        Clipboard.SetImage(ClientSession.Emoticons.FirstOrDefault(x => x.Value.Contains(emote)).Key);
                         richTextBoxChat.Paste();
                     }
                 }
@@ -79,6 +65,23 @@ namespace ChatApp
             richTextBoxChat.Select(richTextBoxChat.Text.Length, 0);
             richTextBoxChat.ScrollToCaret();
             richTextBoxChat.ReadOnly = true;
+        }
+
+        public void AddMessageToChat(string sender, string message)
+        {
+            richTextBoxChat.SelectionFont = new Font(richTextBoxChat.Font, FontStyle.Bold);
+            richTextBoxChat.AppendText(sender + ": ");
+            richTextBoxChat.SelectionFont = new Font(richTextBoxChat.Font, FontStyle.Regular);
+            richTextBoxChat.AppendText(message + "\n");
+        }
+
+        public void SetLastMessage(string sender, string message, DateTime date)
+        {
+            listItem.SubItems[1].Text = sender + ": " + message;
+            if (listItem.SubItems[1].Text.Length > ClientSession.textMessagesVisibleText)
+                listItem.SubItems[1].Text = listItem.SubItems[1].Text.Substring(0, ClientSession.textMessagesVisibleText) + "...";
+            listItem.SubItems[2].Tag = date;
+            listItem.SubItems[2].Text = date.ToString();
         }
 
         private void buzzTimer_Tick(object sender, EventArgs e)
@@ -193,16 +196,6 @@ namespace ChatApp
         {
             picBox_Attach.BackgroundImage = ChatApp.Properties.Resources.attachIcon;
         }
-
-        private void picBox_StartGame_MouseEnter(object sender, EventArgs e)
-        {
-            picBox_StartGame.BackgroundImage = ChatApp.Properties.Resources.gameIconHover;
-        }
-
-        private void picBox_StartGame_MouseLeave(object sender, EventArgs e)
-        {
-            picBox_StartGame.BackgroundImage = ChatApp.Properties.Resources.gameIcon;
-        }
         //unused
         private void picBox_Buzz_MouseClick(object sender, MouseEventArgs e)
         {
@@ -267,6 +260,51 @@ namespace ChatApp
 
         private void listViewEmoticons_Leave(object sender, EventArgs e) {
             listViewEmoticons.Visible = false;
+        }
+
+        private void SendFile()
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "All files (*.*)|*.*";
+                openFileDialog.RestoreDirectory = true;
+                openFileDialog.CheckPathExists = true;
+                openFileDialog.Multiselect = false;
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (FileStream fileStream = (FileStream)openFileDialog.OpenFile())
+                    {
+                        byte[] fileBuffer = new byte[fileStream.Length];
+                        fileStream.Read(fileBuffer, 0, (int)fileStream.Length);
+                        Packet packet = new Packet(PacketType.FileSendChat);
+                        packet.tag["sender"] = ClientSession.username;
+                        packet.tag["chatID"] = chatID;
+                        packet.tag["filename"] = openFileDialog.FileName;
+                        packet.tag["file"] = fileBuffer;
+                        ClientSession.Connection.SendPacket(packet);
+                    }
+                }
+            }
+        }
+
+        public void ReceiveFile(Packet packet)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "All files (*.*)|*.*";
+            saveFileDialog.FileName = packet.tag["filename"] as string;
+            if(saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                using (FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create))
+                {
+                    byte[] fileBuffer = (byte[])packet.tag["file"];
+                    fileStream.Write(fileBuffer, 0, fileBuffer.Length);
+                    fileStream.Flush();
+                }
+            }
+        }
+        private void picBox_Attach_Click(object sender, EventArgs e)
+        {
+            SendFile();
         }
 
         private void picBox_StartGame_MouseClick(object sender, MouseEventArgs e) { }
