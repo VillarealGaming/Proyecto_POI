@@ -53,6 +53,10 @@ namespace ChatApp
         }
 
         private void picBox_CloseIcon_MouseClick(object sender, MouseEventArgs e) {
+            if(ClientSession.HasCamera)
+            {
+                Camera.Release();
+            }
             this.Close();
         }
         //Thread safe callbacks
@@ -271,10 +275,10 @@ namespace ChatApp
                         break;
                     case PacketType.WebCamFrame:
                         {
-                            if(packet.tag["sender"] as string != ClientSession.username)
-                                privateChatForms[(int)packet.tag["chatID"]].DrawCamFrame(packet);
+                            if (packet.tag["sender"] as string != ClientSession.username)
+                                privateChatForms[(int)packet.tag["chatID"]].ReceiveCameraPacket(packet);
                             else
-                                privateChatForms[(int)packet.tag["chatID"]].frameEndSend = true;
+                                Camera.CanSend = true;
                         }
                         break;
                     case PacketType.FileSendChat:
@@ -327,6 +331,7 @@ namespace ChatApp
             ClientSession.Emoticons.Add(ChatApp.Properties.Resources.surprise, new string[] { " :O", " :o", " :0", ":surprise:" });
             ClientSession.Emoticons.Add(ChatApp.Properties.Resources.weird, new string[] { " :$", " .~.", ":weird:" });
             ClientSession.Emoticons.Add(ChatApp.Properties.Resources.wink, new string[] { " ;)", ":wink:" });
+            ClientSession.HasCamera = Camera.Detect();
         }
         private void buttonNewGroupChat_Click(object sender, EventArgs e)
         {
@@ -429,6 +434,7 @@ namespace ChatApp
         public static string username { get; set; }
         public static string state;
         public const int textMessagesVisibleText = 40;
+        public static bool HasCamera;
         public static Client Connection
         {
             get { return client; }

@@ -10,8 +10,6 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using EasyPOI;
-using AForge.Video;
-using AForge.Video.DirectShow;
 
 namespace ChatApp
 {
@@ -26,10 +24,6 @@ namespace ChatApp
         private Stopwatch buzzStopWatch;
         private Point formStartPoint;
         private List<Point> controlsStartPositions;
-        //camera
-        private VideoCaptureDevice videoSource = null;
-        private FilterInfoCollection videoDevices;
-        public bool frameEndSend { get; set; } = true;
         public FormPrivateChat(int chatID, ListViewItem listItem)
         {
             this.listItem = listItem;
@@ -153,94 +147,41 @@ namespace ChatApp
                 }
             }
         }
-        private void FormPrivateChat_MouseDown(object sender, MouseEventArgs e) {
-            dragging = true;
-            dragCursorPoint = Cursor.Position;
-            dragFormPoint = this.Location;
-        }
-
-        private void FormPrivateChat_MouseMove(object sender, MouseEventArgs e) {
-            if (dragging) {
-                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
-                this.Location = Point.Add(dragFormPoint, new Size(dif));
-            }
-        }
-
-        private void FormPrivateChat_MouseUp(object sender, MouseEventArgs e) {
-            dragging = false;
-        }
 
         private void picBox_CloseIcon_MouseClick(object sender, MouseEventArgs e) {
-            if(videoSource != null)
-            {
-                if(videoSource.IsRunning)
-                {
-                    videoSource.SignalToStop();
-                    videoSource = null;
-                }
-            }
+            if(Camera.OwnerChat == chatID)
+                Camera.Stop();
             this.Hide();
         }
 
-        private void picBox_CloseIcon_MouseEnter(object sender, EventArgs e) {
-            picBox_CloseIcon.BackColor = Color.Brown;
-        }
-
-        private void textBoxChat_KeyDown(object sender, KeyEventArgs e) {
-            if (e.KeyCode == Keys.Enter) {
-                buttonEnviar.PerformClick();
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-            }
-        }
-
-        private void picBox_Options_Click(object sender, EventArgs e) {
-            list_Options.Visible = !list_Options.Visible;
-            if (list_Options.Visible) {
-                list_Options.Focus();
-            }
-        }
-
-        private void list_Options_Leave(object sender, EventArgs e) {
-            list_Options.Visible = false;
-        }
-
         private void list_Options_SelectedIndexChanged(object sender, EventArgs e) {
+            //Start camera
             if(list_Options.Items[0].Selected)
             {
-                InitCamera();
+                if(ClientSession.HasCamera)
+                {
+                    if (!Camera.IsRunning)
+                    {
+                        Camera.OwnerChat = chatID;
+                        Camera.Start();
+                        Camera.OnNewFrame = SendCameraPacket;
+                    }
+                    else
+                    {
+                        //Camera is in use;
+
+                    }
+                }
             }
             list_Options.Visible = false;
             textBoxChat.Focus();
         }
-        //https://haryoktav.wordpress.com/2009/03/21/webcam-in-c-aforgenet/
-        private void InitCamera()
-        {
-            try
-            {
-                videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-                if(videoDevices.Count > 0)
-                {
-                    if(videoSource == null)
-                    {
-                        videoSource = new VideoCaptureDevice(videoDevices[0].MonikerString);
-                        videoSource.NewFrame += new NewFrameEventHandler(Video_NewFrame);
-                        videoSource.VideoResolution = videoSource.VideoCapabilities[0];
-                        videoSource.Start();
-                    }
-                }
-            }
-            catch
-            {
-                //No camera devices...
-            }
-        }
         //camera new frame event
-        private void Video_NewFrame(object sender, NewFrameEventArgs eventArgs)
+        public void SendCameraPacket(Bitmap bitmap)
         {
-            using (Bitmap img = new Bitmap((Bitmap)eventArgs.Frame.Clone(), pictureBoxCam.Size))
+            using (Bitmap img = new Bitmap(bitmap, pictureBoxCam.Size))
             {
-                if(frameEndSend)
+                if(Camera.CanSend)
                 {
                     //pictureBoxCam.Image = img;
                     Packet packet = new Packet(PacketType.WebCamFrame);
@@ -249,39 +190,21 @@ namespace ChatApp
                     packet.tag["sender"] = ClientSession.username;
                     //packet.tag["user"] = Header.Text;
                     ClientSession.Connection.SendPacket(packet);
-                    frameEndSend = false;
+                    Camera.CanSend = false;
                 }
             }
 
         }
-        public void DrawCamFrame(Packet packet)
+
+        public void ReceiveCameraPacket(Packet packet)
         {
             pictureBoxCam.Image = (Bitmap)packet.tag["bitmap"];
-        }
-        private void picBox_EmoteIcon_MouseEnter(object sender, EventArgs e) {
-            picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIconHover;
-        }
-
-        private void picBox_EmoteIcon_MouseLeave(object sender, EventArgs e) {
-            picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIcon;
-        }
-
-        private void picBox_Buzz_MouseEnter(object sender, EventArgs e) {
-            picBox_Buzz.BackgroundImage = ChatApp.Properties.Resources.buzzIconHover;
-        }
-
-        private void picBox_Buzz_MouseLeave(object sender, EventArgs e) {
-            picBox_Buzz.BackgroundImage = ChatApp.Properties.Resources.buzzIcon;
         }
 
         private void buttonEnviar_Click(object sender, EventArgs e) {
             if(!string.IsNullOrWhiteSpace(textBoxChat.Text))
             {
                 Packet packet = new Packet(PacketType.PrivateTextMessage);
-                //var list = new List<string>();
-                //list.Add(ClientSession.username);
-                //list.Add(Header.Text);
-                //packet.tag["users"] = list;
                 packet.tag["sender"] = ClientSession.username;
                 packet.tag["text"] = textBoxChat.Text;
                 packet.tag["chatID"] = chatID;
@@ -365,6 +288,76 @@ namespace ChatApp
 
         private void picBox_CloseIcon_MouseLeave(object sender, EventArgs e) {
             picBox_CloseIcon.BackColor = Color.White;
+        }
+
+        private void picBox_CloseIcon_MouseEnter(object sender, EventArgs e)
+        {
+            picBox_CloseIcon.BackColor = Color.Brown;
+        }
+
+        private void textBoxChat_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonEnviar.PerformClick();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void picBox_Options_Click(object sender, EventArgs e)
+        {
+            list_Options.Visible = !list_Options.Visible;
+            if (list_Options.Visible)
+            {
+                list_Options.Focus();
+            }
+        }
+
+        private void list_Options_Leave(object sender, EventArgs e)
+        {
+            list_Options.Visible = false;
+        }
+
+        private void picBox_EmoteIcon_MouseEnter(object sender, EventArgs e)
+        {
+            picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIconHover;
+        }
+
+        private void picBox_EmoteIcon_MouseLeave(object sender, EventArgs e)
+        {
+            picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIcon;
+        }
+
+        private void picBox_Buzz_MouseEnter(object sender, EventArgs e)
+        {
+            picBox_Buzz.BackgroundImage = ChatApp.Properties.Resources.buzzIconHover;
+        }
+
+        private void picBox_Buzz_MouseLeave(object sender, EventArgs e)
+        {
+            picBox_Buzz.BackgroundImage = ChatApp.Properties.Resources.buzzIcon;
+        }
+
+        private void FormPrivateChat_MouseDown(object sender, MouseEventArgs e)
+        {
+            dragging = true;
+            dragCursorPoint = Cursor.Position;
+            dragFormPoint = this.Location;
+        }
+
+        private void FormPrivateChat_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (dragging)
+            {
+                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
+                this.Location = Point.Add(dragFormPoint, new Size(dif));
+            }
+        }
+
+        private void FormPrivateChat_MouseUp(object sender, MouseEventArgs e)
+        {
+            dragging = false;
         }
     }
 }

@@ -79,6 +79,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Camera.cs" />
     <Compile Include="FormAchievement.cs">
       <SubType>Form</SubType>
     </Compile>
