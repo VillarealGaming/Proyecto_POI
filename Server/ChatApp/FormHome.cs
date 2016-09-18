@@ -269,6 +269,14 @@ namespace ChatApp
                             ClientSession.Connection.SendPacket(packetSend);
                         }
                         break;
+                    case PacketType.WebCamFrame:
+                        {
+                            if(packet.tag["sender"] as string != ClientSession.username)
+                                privateChatForms[(int)packet.tag["chatID"]].DrawCamFrame(packet);
+                            else
+                                privateChatForms[(int)packet.tag["chatID"]].frameEndSend = true;
+                        }
+                        break;
                     case PacketType.FileSendChat:
                         {
                             if (packet.tag["sender"] as string != ClientSession.username)

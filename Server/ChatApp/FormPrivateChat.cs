@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using EasyPOI;
+using AForge.Video;
+using AForge.Video.DirectShow;
 
 namespace ChatApp
 {
@@ -24,6 +26,10 @@ namespace ChatApp
         private Stopwatch buzzStopWatch;
         private Point formStartPoint;
         private List<Point> controlsStartPositions;
+        //camera
+        private VideoCaptureDevice videoSource = null;
+        private FilterInfoCollection videoDevices;
+        public bool frameEndSend { get; set; } = true;
         public FormPrivateChat(int chatID, ListViewItem listItem)
         {
             this.listItem = listItem;
@@ -165,6 +171,14 @@ namespace ChatApp
         }
 
         private void picBox_CloseIcon_MouseClick(object sender, MouseEventArgs e) {
+            if(videoSource != null)
+            {
+                if(videoSource.IsRunning)
+                {
+                    videoSource.SignalToStop();
+                    videoSource = null;
+                }
+            }
             this.Hide();
         }
 
@@ -192,10 +206,58 @@ namespace ChatApp
         }
 
         private void list_Options_SelectedIndexChanged(object sender, EventArgs e) {
+            if(list_Options.Items[0].Selected)
+            {
+                InitCamera();
+            }
             list_Options.Visible = false;
             textBoxChat.Focus();
         }
+        //https://haryoktav.wordpress.com/2009/03/21/webcam-in-c-aforgenet/
+        private void InitCamera()
+        {
+            try
+            {
+                videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+                if(videoDevices.Count > 0)
+                {
+                    if(videoSource == null)
+                    {
+                        videoSource = new VideoCaptureDevice(videoDevices[0].MonikerString);
+                        videoSource.NewFrame += new NewFrameEventHandler(Video_NewFrame);
+                        videoSource.VideoResolution = videoSource.VideoCapabilities[0];
+                        videoSource.Start();
+                    }
+                }
+            }
+            catch
+            {
+                //No camera devices...
+            }
+        }
+        //camera new frame event
+        private void Video_NewFrame(object sender, NewFrameEventArgs eventArgs)
+        {
+            using (Bitmap img = new Bitmap((Bitmap)eventArgs.Frame.Clone(), pictureBoxCam.Size))
+            {
+                if(frameEndSend)
+                {
+                    //pictureBoxCam.Image = img;
+                    Packet packet = new Packet(PacketType.WebCamFrame);
+                    packet.tag["bitmap"] = img;
+                    packet.tag["chatID"] = chatID;
+                    packet.tag["sender"] = ClientSession.username;
+                    //packet.tag["user"] = Header.Text;
+                    ClientSession.Connection.SendPacket(packet);
+                    frameEndSend = false;
+                }
+            }
 
+        }
+        public void DrawCamFrame(Packet packet)
+        {
+            pictureBoxCam.Image = (Bitmap)packet.tag["bitmap"];
+        }
         private void picBox_EmoteIcon_MouseEnter(object sender, EventArgs e) {
             picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIconHover;
         }

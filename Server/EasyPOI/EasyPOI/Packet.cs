@@ -64,7 +64,8 @@ namespace EasyPOI
         Buzz,
         PrivateBuzz,
         FileSendChat,
-        FileSendPrivate
+        FileSendPrivate,
+        WebCamFrame
         //
     }
     //Referencia

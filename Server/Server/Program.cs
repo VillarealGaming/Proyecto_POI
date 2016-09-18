@@ -24,7 +24,7 @@ namespace Server {
             Console.WriteLine("Servidor iniciado");
             server.StartListening();
             Console.ReadLine();
-        }        
+        }    
         //Manejamos cada uno de los eventos que nos pueden llegar en los paquetes
         private static void OnPacketReceived(Packet packet, Socket client)
         {
@@ -361,6 +361,7 @@ namespace Server {
                     break;
                 case PacketType.PrivateBuzz:
                 case PacketType.FileSendPrivate:
+                case PacketType.WebCamFrame:
                     {
                         ServerDataSet.UsuarioPrivadoDataTable usuarioPrivado = database.UsuarioPrivado;
                         //usuarios a mandar
@@ -374,6 +375,12 @@ namespace Server {
                         }
                     }
                     break;
+                //case PacketType.WebCamFrame:
+                //    {
+                //        if (connectedUsers.ContainsKey(packet.tag["user"] as string))
+                //            server.SendPacket(packet, connectedUsers[packet.tag["user"] as string]);
+                //    }
+                //    break;
             }
         }
         //http://tekeye.biz/2015/encrypt-decrypt-c-sharp-string

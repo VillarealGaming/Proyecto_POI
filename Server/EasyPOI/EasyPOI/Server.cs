@@ -13,13 +13,14 @@ namespace EasyPOI
     public class Server
     {
         private const int listenTime = 10;
-        internal const int Port = 6666;
+        internal const int TcpPort = 6666;
+        internal const int UdpPort = 7777;
         internal const string Address = "192.168.1.64";
 
         public Server()
         {
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            socket.Bind(new IPEndPoint(IPAddress.Any, Server.Port));
+            socket.Bind(new IPEndPoint(IPAddress.Any, Server.TcpPort));
         }
         //Comenzamos a buscar clientes
         public void StartListening()
