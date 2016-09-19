@@ -19,6 +19,11 @@ namespace ChatApp
         public ListViewItem listItem { get; set; }
         private const int buzzDuration = 500;
         private const int buzzStrength = 5;
+        private const int minSize = 334;
+        private const int maxSize = 690;
+        private Size resizeRatio = new Size(1, 1);
+        private bool resizing = false;
+        private bool expanding = true;
         private bool dragging = false;
         private Point dragCursorPoint, dragFormPoint;
         private Stopwatch buzzStopWatch;
@@ -60,6 +65,24 @@ namespace ChatApp
                     Controls[i].Location = controlsStartPositions[i];
                 buzzTimer.Stop();
                 buzzStopWatch.Reset();
+            }
+            if (resizing) {
+                if (expanding && this.Size.Width <= maxSize) {
+                    this.Size += resizeRatio;
+                } else {
+                    expanding = false;
+                    resizing = false;
+                    return;
+                }
+                if (!expanding && this.Size.Width >= minSize) {
+                    this.Size -= resizeRatio;
+                } else {
+                    expanding = true;
+                    resizing = false;
+                    return;
+                }
+
+
             }
         }
 
@@ -149,9 +172,9 @@ namespace ChatApp
         }
 
         private void picBox_CloseIcon_MouseClick(object sender, MouseEventArgs e) {
-            if(Camera.OwnerChat == chatID)
-                Camera.Stop();
-            this.Hide();
+            //if(Camera.OwnerChat == chatID)
+            //    Camera.Stop();
+            //this.Hide();
         }
 
         private void list_Options_SelectedIndexChanged(object sender, EventArgs e) {
@@ -160,14 +183,11 @@ namespace ChatApp
             {
                 if(ClientSession.HasCamera)
                 {
-                    if (!Camera.IsRunning)
-                    {
+                    if (!Camera.IsRunning) {
                         Camera.OwnerChat = chatID;
                         Camera.Start();
                         Camera.OnNewFrame = SendCameraPacket;
-                    }
-                    else
-                    {
+                    } else {
                         //Camera is in use;
 
                     }
@@ -181,8 +201,7 @@ namespace ChatApp
         {
             using (Bitmap img = new Bitmap(bitmap, pictureBoxCam.Size))
             {
-                if(Camera.CanSend)
-                {
+                if (Camera.CanSend) {
                     //pictureBoxCam.Image = img;
                     Packet packet = new Packet(PacketType.WebCamFrame);
                     packet.tag["bitmap"] = img;
@@ -212,6 +231,8 @@ namespace ChatApp
                 packet.tag["encriptado"] = checkBoxEncrypt.Checked;
                 ClientSession.Connection.SendPacket(packet);
                 textBoxChat.Text = "";
+            } else { //bloque de pruebas
+                resizing = true;
             }
         }
 
@@ -353,6 +374,10 @@ namespace ChatApp
                 Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
                 this.Location = Point.Add(dragFormPoint, new Size(dif));
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e) {
+
         }
 
         private void FormPrivateChat_MouseUp(object sender, MouseEventArgs e)
