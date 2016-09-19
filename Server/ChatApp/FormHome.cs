@@ -401,6 +401,10 @@ namespace ChatApp
             (listViewPrivateMessages.SelectedItems[0].Tag as FormPrivateChat).Show();
         }
 
+        private void listViewPrivateMessages_SelectedIndexChanged(object sender, EventArgs e) {
+
+        }
+
         //sorting listview columns
         //http://stackoverflow.com/questions/1214289/how-do-i-sort-integers-in-a-listview
         private class ListViewSorter : System.Collections.IComparer

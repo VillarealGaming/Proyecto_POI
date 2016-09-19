@@ -60,6 +60,7 @@
             this.lbl_Rango = new System.Windows.Forms.Label();
             this.picBox_IconoRango = new System.Windows.Forms.PictureBox();
             this.picBox_CloseIcon = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.contextMenuStripEstado.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_IconoRango)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).BeginInit();
@@ -240,6 +241,7 @@
             this.listViewPrivateMessages.TabIndex = 16;
             this.listViewPrivateMessages.UseCompatibleStateImageBehavior = false;
             this.listViewPrivateMessages.View = System.Windows.Forms.View.Details;
+            this.listViewPrivateMessages.SelectedIndexChanged += new System.EventHandler(this.listViewPrivateMessages_SelectedIndexChanged);
             this.listViewPrivateMessages.Click += new System.EventHandler(this.listViewPrivateMessages_Click);
             // 
             // columnPrivateUser
@@ -334,12 +336,24 @@
             this.picBox_CloseIcon.MouseEnter += new System.EventHandler(this.picBox_CloseIcon_MouseEnter);
             this.picBox_CloseIcon.MouseLeave += new System.EventHandler(this.picBox_CloseIcon_MouseLeave);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Silver;
+            this.label1.Location = new System.Drawing.Point(547, 85);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(73, 17);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "EXP: X / X";
+            // 
             // FormHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
             this.ClientSize = new System.Drawing.Size(632, 524);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lbl_Rango);
             this.Controls.Add(this.picBox_IconoRango);
             this.Controls.Add(this.lbl_Jugador);
@@ -391,5 +405,6 @@
         private System.Windows.Forms.ColumnHeader columnPrivateUser;
         private System.Windows.Forms.ColumnHeader columnPrivateFecha;
         private System.Windows.Forms.ColumnHeader columnPrivateMessage;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -57,7 +57,7 @@
             this.Header.Name = "Header";
             this.Header.Size = new System.Drawing.Size(385, 24);
             this.Header.TabIndex = 2;
-            this.Header.Text = "Captura tus datos";
+            this.Header.Text = "Registrarme";
             this.Header.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.Header.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormRegister_MouseDown);
             this.Header.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormRegister_MouseMove);
@@ -69,11 +69,11 @@
             this.buttonRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRegister.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRegister.ForeColor = System.Drawing.Color.White;
-            this.buttonRegister.Location = new System.Drawing.Point(286, 196);
+            this.buttonRegister.Location = new System.Drawing.Point(279, 196);
             this.buttonRegister.Name = "buttonRegister";
-            this.buttonRegister.Size = new System.Drawing.Size(75, 23);
+            this.buttonRegister.Size = new System.Drawing.Size(82, 23);
             this.buttonRegister.TabIndex = 6;
-            this.buttonRegister.Text = "Registrar";
+            this.buttonRegister.Text = "Registrarme";
             this.buttonRegister.UseVisualStyleBackColor = false;
             this.buttonRegister.Click += new System.EventHandler(this.buttonRegister_Click);
             // 
@@ -83,7 +83,7 @@
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCancel.ForeColor = System.Drawing.Color.White;
-            this.buttonCancel.Location = new System.Drawing.Point(193, 196);
+            this.buttonCancel.Location = new System.Drawing.Point(180, 196);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 7;

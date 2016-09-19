@@ -37,9 +37,9 @@
             this.lbl_Titulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.lbl_Titulo.Location = new System.Drawing.Point(8, 9);
             this.lbl_Titulo.Name = "lbl_Titulo";
-            this.lbl_Titulo.Size = new System.Drawing.Size(269, 17);
+            this.lbl_Titulo.Size = new System.Drawing.Size(127, 17);
             this.lbl_Titulo.TabIndex = 0;
-            this.lbl_Titulo.Text = "Emoticono / Zumbido Desbloqueado";
+            this.lbl_Titulo.Text = "X Desbloqueado";
             // 
             // lbl_NombreRecurso
             // 
@@ -48,9 +48,9 @@
             this.lbl_NombreRecurso.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.lbl_NombreRecurso.Location = new System.Drawing.Point(88, 40);
             this.lbl_NombreRecurso.Name = "lbl_NombreRecurso";
-            this.lbl_NombreRecurso.Size = new System.Drawing.Size(203, 26);
+            this.lbl_NombreRecurso.Size = new System.Drawing.Size(141, 26);
             this.lbl_NombreRecurso.TabIndex = 1;
-            this.lbl_NombreRecurso.Text = "Nombre del recurso";
+            this.lbl_NombreRecurso.Text = "Nombre de X";
             // 
             // lbl_Causa
             // 
