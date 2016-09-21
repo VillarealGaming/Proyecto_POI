@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Runtime.InteropServices;
 namespace EasyPOI
 {
-    //Me apoye del código de Luis para las siguiente clases
     //Clase que contendra la información que nosotros queramos enviar
     [Serializable]
     public class Packet
@@ -36,6 +36,60 @@ namespace EasyPOI
         private PacketType type;
         public Dictionary<string, Object> tag;
         public const int HeaderSize = 4;
+    }
+    //Super hardcoded udp packet class...
+    public class UdpPacket
+    {
+        private MemoryStream data;
+        private UdpPacketType packetType;
+        public UdpPacketType PacketType{
+            get { return packetType; }
+        }
+        public byte[] Data
+        {
+            get{ return data.ToArray(); }
+        }
+        public byte[] ReadData(int lenght, int position){
+            byte[] bytes = new byte[lenght];
+            data.Position = position;
+            data.Read(bytes, 0, bytes.Length);
+            return bytes;
+        }
+        static public int ReadInt(byte[] bytes, int position)
+        {
+            return BitConverter.ToInt32(bytes, position);
+        }
+        public UdpPacket(UdpPacketType packetType)
+        {
+            data = new MemoryStream();
+            this.packetType = packetType;
+        }
+        public void WriteData(byte[] bytes)
+        {
+            data.Write(bytes, 0, bytes.Length);
+        }
+        public void WriteData(byte[] bytes, int offset)
+        {
+            data.Write(bytes, offset, bytes.Length - offset);
+        }
+        public byte[] ToBytes()
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                byte[] bytes = data.ToArray();
+                stream.Write(BitConverter.GetBytes((int)packetType), 0, sizeof(int));
+                stream.Write(bytes, 0, bytes.Length);
+                return stream.ToArray();
+            }
+        }
+        public static UdpPacket CreateFromStream(byte[] bytes)
+        {
+            //BitConverter.ToInt32(state.buffer, 0)
+            UdpPacketType packetType = (UdpPacketType)BitConverter.ToInt32(bytes, 0);
+            UdpPacket packet = new UdpPacket(packetType);
+            packet.WriteData(bytes, 4);
+            return packet;
+        }
     }
     //Tal vez esto vaya mejor en el archivo de Client.cs
     public enum UserConnectionState
@@ -65,8 +119,18 @@ namespace EasyPOI
         PrivateBuzz,
         FileSendChat,
         FileSendPrivate,
-        WebCamFrame
+        WebCamFrame,
+        UdpLocalEndPoint
         //
+    }
+    public enum UdpPacketType
+    {
+        AudioStream
+    }
+    public enum DataType
+    {
+        Int,
+        Byte
     }
     //Referencia
     //https://msdn.microsoft.com/en-us/library/bew39x2a(v=vs.110).aspx
@@ -89,4 +153,10 @@ namespace EasyPOI
         //Tamaño del paquete
         public int packetSize;
     }
+    public class UdpState
+    {
+        public UdpClient client = null;
+        public IPEndPoint ipEndPoint = null;
+    }
+    //similar a la clase de packete normal, solo que omitira
 }

@@ -16,7 +16,6 @@ namespace EasyPOI
         internal const int TcpPort = 6666;
         internal const int UdpPort = 7777;
         internal const string Address = "192.168.1.64";
-
         public Server()
         {
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -28,6 +27,67 @@ namespace EasyPOI
             //clients = new List<Socket>();
             socket.Listen(listenTime);
             socket.BeginAccept(new AsyncCallback(AcceptClient), null);
+            //udp
+            IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Any, UdpPort);
+            //udpListener = new UdpClient(ipEndPoint);
+            udpListener = new UdpClient();
+            udpListener.ExclusiveAddressUse = false;
+            udpListener.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+            udpListener.Client.Bind(ipEndPoint);
+            UdpState state = new UdpState();
+            state.client = udpListener;
+            state.ipEndPoint = ipEndPoint;
+            udpListener.BeginReceive(new AsyncCallback(UdpReceive), state);
+        }
+        //https://msdn.microsoft.com/en-us/library/system.net.sockets.udpclient.beginreceive(v=vs.110).aspx
+        private void UdpReceive(IAsyncResult ar)
+        {
+            UdpState state = ((UdpState)ar.AsyncState);
+            UdpClient client = state.client;
+            IPEndPoint ipEndPoint = state.ipEndPoint;
+            byte[] bytes = client.EndReceive(ar, ref ipEndPoint);
+            //read data
+            if (OnUdpPacketReceived != null)
+                OnUdpPacketReceived(UdpPacket.CreateFromStream(bytes));
+
+            //
+            ipEndPoint = new IPEndPoint(IPAddress.Any, UdpPort);
+            //udpListener = new UdpClient(ipEndPoint);
+            udpListener = new UdpClient();
+            udpListener.ExclusiveAddressUse = false;
+            udpListener.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+            udpListener.Client.Bind(ipEndPoint);
+            state = new UdpState();
+            state.client = udpListener;
+            state.ipEndPoint = ipEndPoint;
+            udpListener.BeginReceive(new AsyncCallback(UdpReceive), state);
+            //udpListener.BeginReceive(new AsyncCallback(UdpReceive), state);
+        }
+        public void SendUdpPacket(UdpPacket packet, IPEndPoint ipEndPoint)
+        {
+            //try
+            //{
+            byte[] data = packet.ToBytes();
+            if (data.Length < 1024)
+                udpListener.BeginSend(data, data.Length, ipEndPoint, new AsyncCallback(SendUdp), udpListener);
+            //}
+            //catch
+            //{
+
+            //}
+        }
+        private void SendUdp(IAsyncResult ar)
+        {
+            try
+            {
+                UdpClient client = (UdpClient)ar.AsyncState;
+                int bytesSent = client.EndSend(ar);
+            }
+            catch (SocketException exception)
+            {
+                //if (onConnectionFail != null) onConnectionFail();
+                //connected = false;
+            }
         }
         private void AcceptClient(IAsyncResult ar)
         {
@@ -192,12 +252,18 @@ namespace EasyPOI
         {
             OnClientDisconnect = func;
         }
+        public void SetOnUdpPacketReceived(Action<UdpPacket> func)
+        {
+            OnUdpPacketReceived = func;
+        }
         //Manejamos cada uno de los eventos que nos pueden llegar en los paquetes
         private Action<Socket> onClientAccepted;
         private Action<Packet, Socket> OnPacketReceived;
+        private Action<UdpPacket> OnUdpPacketReceived;
         //private Action<Socket> onClientDisconnect;
         private Action<Socket> OnClientDisconnect;
         private Socket socket;
+        private UdpClient udpListener;
         //extensions
         //private List<Socket> clients;
     }

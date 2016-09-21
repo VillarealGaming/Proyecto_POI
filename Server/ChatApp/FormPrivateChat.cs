@@ -19,6 +19,11 @@ namespace ChatApp
         public ListViewItem listItem { get; set; }
         private const int buzzDuration = 500;
         private const int buzzStrength = 5;
+        private const int minSize = 334;
+        private const int maxSize = 690;
+        private Size resizeRatio = new Size(1, 1);
+        private bool resizing = false;
+        private bool expanding = true;
         private bool dragging = false;
         private Point dragCursorPoint, dragFormPoint;
         private Stopwatch buzzStopWatch;
@@ -27,6 +32,7 @@ namespace ChatApp
         public FormPrivateChat(int chatID, ListViewItem listItem)
         {
             this.listItem = listItem;
+            this.chatID = chatID;
             //buzz
             buzzStopWatch = new Stopwatch();
             formStartPoint = new Point();
@@ -61,6 +67,22 @@ namespace ChatApp
                 buzzTimer.Stop();
                 buzzStopWatch.Reset();
             }
+            if (resizing) {
+                if (expanding && this.Size.Width <= maxSize) {
+                    this.Size += resizeRatio;
+                } else {
+                    expanding = false;
+                    resizing = false;
+                    return;
+                }
+                if (!expanding && this.Size.Width >= minSize) {
+                    this.Size -= resizeRatio;
+                } else {
+                    expanding = true;
+                    resizing = false;
+                    return;
+                }
+            }
         }
 
         private Point RandomPoint(Point startPoint, int minValue, int maxValue)
@@ -68,21 +90,34 @@ namespace ChatApp
             Random random = new Random();
             return new Point(startPoint.X + random.Next(minValue, maxValue), startPoint.Y + random.Next(minValue, maxValue));
         }
-
+        //Handle clipboard oddities
+        //http://stackoverflow.com/questions/6583642/determine-which-process-is-locking-the-clipboard
+        //http://stackoverflow.com/questions/6583642/determine-which-process-is-locking-the-clipboard
+        [System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr GetOpenClipboardWindow();
         public void CheckEmoticons()
         {
             richTextBoxChat.ReadOnly = false;
             foreach (string[] emoteArray in ClientSession.Emoticons.Values)
             {
-                foreach (string emote in emoteArray)
+                while (true)
                 {
-                    while (richTextBoxChat.Text.Contains(emote))
+                    foreach (string emote in emoteArray)
                     {
-                        int index = richTextBoxChat.Text.IndexOf(emote);
-                        richTextBoxChat.Select(index, emote.Length);
-                        Clipboard.SetDataObject(ClientSession.Emoticons.FirstOrDefault(x => x.Value.Contains(emote)).Key, false, 2, 100);
-                        richTextBoxChat.Paste();
+                        try
+                        {
+                            Clipboard.SetImage(ClientSession.Emoticons.FirstOrDefault(x => x.Value.Contains(emote)).Key);
+                            while (richTextBoxChat.Text.Contains(emote))
+                            {
+                                int index = richTextBoxChat.Text.IndexOf(emote);
+                                richTextBoxChat.Select(index, emote.Length);
+                                //Clipboard.SetDataObject(ClientSession.Emoticons.FirstOrDefault(x => x.Value.Contains(emote)).Key, false, 2, 1);
+                                richTextBoxChat.Paste();
+                            }
+                        }
+                        catch { }
                     }
+                    break;
                 }
             }
             richTextBoxChat.Select(richTextBoxChat.Text.Length, 0);
@@ -102,7 +137,7 @@ namespace ChatApp
         {
             listItem.SubItems[2].Text = message;
             if (listItem.SubItems[2].Text.Length > ClientSession.textMessagesVisibleText)
-                listItem.SubItems[2].Text = listItem.SubItems[1].Text.Substring(0, ClientSession.textMessagesVisibleText) + "...";
+                listItem.SubItems[2].Text = listItem.SubItems[2].Text.Substring(0, ClientSession.textMessagesVisibleText) + "...";
             listItem.SubItems[1].Tag = date;
             listItem.SubItems[1].Text = date.ToString();
         }
@@ -149,8 +184,11 @@ namespace ChatApp
         }
 
         private void picBox_CloseIcon_MouseClick(object sender, MouseEventArgs e) {
-            if(Camera.OwnerChat == chatID)
+            if (Camera.OwnerChat == chatID)
+            {
                 Camera.Stop();
+                Microphone.EndRecording();
+            }
             this.Hide();
         }
 
@@ -160,14 +198,14 @@ namespace ChatApp
             {
                 if(ClientSession.HasCamera)
                 {
-                    if (!Camera.IsRunning)
-                    {
+                    if (!Camera.IsRunning) {
                         Camera.OwnerChat = chatID;
                         Camera.Start();
-                        Camera.OnNewFrame = SendCameraPacket;
-                    }
-                    else
-                    {
+                        Camera.OnNewFrameCallback(SendCameraPacket);
+                        //start audio record
+                        Microphone.OnAudioInCallback(SendAudioStream);
+                        Microphone.StartRecording();
+                    } else {
                         //Camera is in use;
 
                     }
@@ -176,13 +214,27 @@ namespace ChatApp
             list_Options.Visible = false;
             textBoxChat.Focus();
         }
+        public void SendAudioStream(byte[] bytes)
+        {
+            UdpPacket packet = new UdpPacket(UdpPacketType.AudioStream);
+            packet.WriteData(BitConverter.GetBytes(chatID));
+            packet.WriteData(BitConverter.GetBytes((int)bytes.Length));
+            packet.WriteData(bytes);
+            //Get string bytes
+            //https://msdn.microsoft.com/en-us/library/ds4kkd55(v=vs.110).aspx
+            string username = ClientSession.username;
+            byte[] stringBytes = Encoding.Unicode.GetBytes(username);
+            //System.Buffer.BlockCopy(username.ToCharArray(), 0, stringBytes, 0, stringBytes.Length);
+            packet.WriteData(BitConverter.GetBytes(stringBytes.Length));
+            packet.WriteData(stringBytes);
+            ClientSession.Connection.SendUdpPacket(packet);
+        }
         //camera new frame event
         public void SendCameraPacket(Bitmap bitmap)
         {
             using (Bitmap img = new Bitmap(bitmap, pictureBoxCam.Size))
             {
-                if(Camera.CanSend)
-                {
+                if (Camera.CanSend) {
                     //pictureBoxCam.Image = img;
                     Packet packet = new Packet(PacketType.WebCamFrame);
                     packet.tag["bitmap"] = img;
@@ -193,7 +245,6 @@ namespace ChatApp
                     Camera.CanSend = false;
                 }
             }
-
         }
 
         public void ReceiveCameraPacket(Packet packet)
@@ -212,6 +263,8 @@ namespace ChatApp
                 packet.tag["encriptado"] = checkBoxEncrypt.Checked;
                 ClientSession.Connection.SendPacket(packet);
                 textBoxChat.Text = "";
+            } else { //bloque de pruebas
+                resizing = true;
             }
         }
 
@@ -353,6 +406,10 @@ namespace ChatApp
                 Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
                 this.Location = Point.Add(dragFormPoint, new Size(dif));
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e) {
+
         }
 
         private void FormPrivateChat_MouseUp(object sender, MouseEventArgs e)

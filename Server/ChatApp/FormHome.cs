@@ -56,7 +56,9 @@ namespace ChatApp
             if(ClientSession.HasCamera)
             {
                 Camera.Release();
+                Microphone.Dispose();
             }
+            Speaker.Dispose();
             this.Close();
         }
         //Thread safe callbacks
@@ -66,7 +68,14 @@ namespace ChatApp
             if (this.InvokeRequired)
             {
                 ClientSession.ReceivePacketCallback d = new ClientSession.ReceivePacketCallback(OnPacket);
-                this.Invoke(d, new object[] { packet });
+                try
+                {
+                    this.Invoke(d, new object[] { packet });
+                }
+                catch
+                {
+
+                }
             }
             else
             {
@@ -275,7 +284,8 @@ namespace ChatApp
                         break;
                     case PacketType.WebCamFrame:
                         {
-                            if (packet.tag["sender"] as string != ClientSession.username)
+                            if (packet.tag["sender"] as string != ClientSession.username
+                                && privateChatForms.ContainsKey((int)packet.tag["chatID"]))
                                 privateChatForms[(int)packet.tag["chatID"]].ReceiveCameraPacket(packet);
                             else
                                 Camera.CanSend = true;
@@ -303,6 +313,34 @@ namespace ChatApp
             }
         }
 
+        internal void OnUdpPacket(UdpPacket packet)
+        {
+            if (this.InvokeRequired)
+            {
+                ClientSession.ReceiveUdpPacketCallback d = new ClientSession.ReceiveUdpPacketCallback(OnUdpPacket);
+                this.Invoke(d, new object[] { packet });
+            }
+            else
+            {
+                switch(packet.PacketType)
+                {
+                    case UdpPacketType.AudioStream:
+                        {
+                            byte[] bytes = packet.Data;
+                            int chatID = UdpPacket.ReadInt(bytes, 0);
+                            int audioStreamLenght = UdpPacket.ReadInt(bytes, 4);
+                            byte[] audioStream = packet.ReadData(audioStreamLenght, 8);
+                            int stringLenght = UdpPacket.ReadInt(bytes, 8 + audioStreamLenght);
+                            string username = Encoding.Unicode.GetString(packet.ReadData(stringLenght, 12 + audioStreamLenght));
+                            if (ClientSession.username == "Luis Carlos")
+                            {
+                                Speaker.PlayBuffer(audioStream);
+                            }
+                        }
+                        break;
+                }
+            }
+        }
         private void treeViewUsers_AfterSelect(object sender, TreeViewEventArgs e)
         {
 
@@ -315,6 +353,7 @@ namespace ChatApp
             selectedStateItem = ((contextMenuStripEstado.Items[0] as ToolStripDropDownItem).DropDownItems[ClientSession.connectionStateHash[ClientSession.state].Item1] as ToolStripMenuItem);
             selectedStateItem.Checked = true;
             ClientSession.Connection.OnPacketReceivedFunc(OnPacket);
+            ClientSession.Connection.SetOnUdpPacketReceived(OnUdpPacket);
             ClientSession.Connection.SendPacket(new Packet(PacketType.GetUsers));
             //Emoticons
             ClientSession.Emoticons = new Dictionary<Bitmap, string[]>();
@@ -332,6 +371,7 @@ namespace ChatApp
             ClientSession.Emoticons.Add(ChatApp.Properties.Resources.weird, new string[] { " :$", " .~.", ":weird:" });
             ClientSession.Emoticons.Add(ChatApp.Properties.Resources.wink, new string[] { " ;)", ":wink:" });
             ClientSession.HasCamera = Camera.Detect();
+            Speaker.Init();
         }
         private void buttonNewGroupChat_Click(object sender, EventArgs e)
         {
@@ -431,6 +471,7 @@ namespace ChatApp
     static class ClientSession
     {
         public delegate void ReceivePacketCallback(Packet packet);
+        public delegate void ReceiveUdpPacketCallback(UdpPacket packet);
         public static string username { get; set; }
         public static string state;
         public const int textMessagesVisibleText = 40;

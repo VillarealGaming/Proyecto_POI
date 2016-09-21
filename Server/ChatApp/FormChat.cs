@@ -49,16 +49,25 @@ namespace ChatApp
         public void CheckEmoticons()
         {
             richTextBoxChat.ReadOnly = false;
+            bool ClipboardSuccesfull = true;
             foreach (string[] emoteArray in ClientSession.Emoticons.Values)
             {
                 foreach (string emote in emoteArray)
                 {
-                    while (richTextBoxChat.Text.Contains(emote))
+                    while (richTextBoxChat.Text.Contains(emote) && ClipboardSuccesfull)
                     {
                         int index = richTextBoxChat.Text.IndexOf(emote);
                         richTextBoxChat.Select(index, emote.Length);
-                        Clipboard.SetDataObject(ClientSession.Emoticons.FirstOrDefault(x => x.Value.Contains(emote)).Key, false, 2, 100);
-                        richTextBoxChat.Paste();
+                        try
+                        {
+                            Clipboard.SetDataObject(ClientSession.Emoticons.FirstOrDefault(x => x.Value.Contains(emote)).Key, false, 2, 100);
+                            richTextBoxChat.Paste();
+                            ClipboardSuccesfull = true;
+                        }
+                        catch
+                        {
+                            ClipboardSuccesfull = false;
+                        }
                     }
                 }
             }

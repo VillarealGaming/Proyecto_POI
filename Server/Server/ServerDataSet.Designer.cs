@@ -370,7 +370,7 @@ namespace Server {
             this.DataSetName = "ServerDataSet";
             this.Prefix = "";
             this.Namespace = "http://tempuri.org/ServerDataSet.xsd";
-            this.EnforceConstraints = true;
+            this.EnforceConstraints = false;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableUsuario = new UsuarioDataTable();
             base.Tables.Add(this.tableUsuario);

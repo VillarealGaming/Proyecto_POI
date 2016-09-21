@@ -20,6 +20,7 @@ namespace Server {
             server = new EasyPOI.Server();
             server.SetOnClientDisconnectFunc(OnClientDisconnect);
             server.SetPacketReceivedFunc(OnPacketReceived);
+            server.SetOnUdpPacketReceived(OnUdpPacket);
             server.SetClientAcceptedFunc(OnClientAccepted);
             Console.WriteLine("Servidor iniciado");
             server.StartListening();
@@ -249,9 +250,10 @@ namespace Server {
                             }
                         }
                         //users
-                        foreach(var c in queryResult)
+                        foreach (var c in queryResult)
                         {
-                            conversations[c.ConversacionPrivada].Add(c.Usuario);
+                            if (conversations.ContainsKey(c.ConversacionPrivada))
+                                conversations[c.ConversacionPrivada].Add(c.Usuario);
                         }
                         packetSend.tag["lastDate"] = lastMessageDate;
                         packetSend.tag["messages"] = text;
@@ -383,6 +385,28 @@ namespace Server {
                 //    break;
             }
         }
+        private static void OnUdpPacket(UdpPacket packet)
+        {
+            switch(packet.PacketType)
+            {
+                case UdpPacketType.AudioStream:
+                    {
+                        ServerDataSet.UsuarioPrivadoDataTable usuarioPrivado = database.UsuarioPrivado;
+                        int chatID = BitConverter.ToInt32(packet.ReadData(4, 0), 0);
+                        //usuarios a mandar
+                        var queryResult = from user in usuarioPrivado
+                                          where user.ConversacionPrivada == chatID
+                                          select user;
+                        foreach (var user in queryResult)
+                        {
+                            if (connectedUsersUdp.ContainsKey(user.Usuario))
+                                server.SendUdpPacket(packet, connectedUsersUdp[user.Usuario].Client.LocalEndPoint as IPEndPoint);
+                        }
+                    }
+                    break;
+            }
+        }
+        //Manejamos cada uno de los eventos que nos pueden llegar en los paquetes
         //http://tekeye.biz/2015/encrypt-decrypt-c-sharp-string
         // This size of the IV (in bytes) must = (keysize / 8).  Default keysize is 256, so the IV must be
         // 32 bytes long.  Using a 16 character string here gives us 32 bytes when converted to a byte array.
@@ -468,6 +492,7 @@ namespace Server {
         }
         private static ServerDataSet database;
         private static Dictionary<string, Socket> connectedUsers;
+        private static Dictionary<string, UdpClient> connectedUsersUdp;
         private const string databaseFile = "Database.xml";
     }
 }

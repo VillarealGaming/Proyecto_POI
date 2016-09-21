@@ -14,15 +14,60 @@ namespace EasyPOI
     //TODO: hacer callbacks de cada evento que Client pueda presentar
     public class Client
     {
-        public Client()
-        {
-            packetQueue = new List<Packet>();
-        }
         //Comenzar a buscar una conexión
         public void BeginConnect()
         {
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             socket.BeginConnect(IPAddress.Parse(Server.Address)/*IPAddress.Loopback*/, Server.TcpPort, new AsyncCallback(TryConnection), socket);
+            //IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(Server.Address), Server.UdpPort);
+            IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(Server.Address), 0);
+            //udpSocket = new UdpClient(ipEndPoint);
+            udpSocket = new UdpClient();
+            udpSocket.ExclusiveAddressUse = false;
+            udpSocket.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+            udpSocket.Client.Bind(ipEndPoint);
+            UdpState state = new UdpState();
+            state.client = udpSocket;
+            state.ipEndPoint = ipEndPoint;
+            udpSocket.BeginReceive(new AsyncCallback(UdpReceive), state);
+        }
+        //https://msdn.microsoft.com/en-us/library/system.net.sockets.udpclient.beginreceive(v=vs.110).aspx
+        private void UdpReceive(IAsyncResult ar)
+        {
+            UdpState state = ((UdpState)ar.AsyncState);
+            UdpClient client = state.client;
+            IPEndPoint ipEndPoint = state.ipEndPoint;
+            byte[] bytes = client.EndReceive(ar, ref ipEndPoint);
+            //read data
+            if (OnUdpPacketReceived != null)
+                OnUdpPacketReceived(UdpPacket.CreateFromStream(bytes));
+            udpSocket.BeginReceive(new AsyncCallback(UdpReceive), state);
+        }
+        public void SendUdpPacket(UdpPacket packet)
+        {
+            //try
+            //{
+            byte[] data = packet.ToBytes();
+            if (data.Length < 1024)
+                udpSocket.BeginSend(data, data.Length, new IPEndPoint(IPAddress.Parse(Server.Address), Server.UdpPort), new AsyncCallback(SendUdp), udpSocket);
+            //}
+            //catch
+            //{
+
+            //}
+        }
+        private void SendUdp(IAsyncResult ar)
+        {
+            try
+            {
+                UdpClient client = (UdpClient)ar.AsyncState;
+                int bytesSent = client.EndSend(ar);
+            }
+            catch (SocketException exception)
+            {
+                //if (onConnectionFail != null) onConnectionFail();
+                //connected = false;
+            }
         }
         //Cerramos la conexion
         public void QuitConnection()
@@ -121,8 +166,6 @@ namespace EasyPOI
                     {
                         state.packetSize = BitConverter.ToInt32(state.buffer, 0);//.Take(4).ToArray()
                         await state.stream.WriteAsync(state.buffer, 0, bytesRead);
-                        //state.sb.Append(Encoding.ASCII.GetString(
-                        //state.buffer, 0, bytesRead));
                         //Leímos toda el paquete
                         if (state.stream.Length == state.packetSize)//(state.sb.Length  == state.packetSize)
                         {
@@ -221,14 +264,19 @@ namespace EasyPOI
         {
             onPacketReceived = func;
         }
+        public void SetOnUdpPacketReceived(Action<UdpPacket> func)
+        {
+            OnUdpPacketReceived = func;
+        }
         //private bool connected;
         private Socket socket;
+        private UdpClient udpSocket;
         //callbacks
         private Action onConnection;
         private Action onConnectionFail;
         private Action onConnectionLost;
         private Action<Packet> onPacketReceived;
+        private Action<UdpPacket> OnUdpPacketReceived;
         //
-        private List<Packet> packetQueue;
     }
 }
