@@ -27,41 +27,6 @@ namespace ChatApp
             listViewPrivateMessages.Sorting = SortOrder.Ascending;
             listViewPrivateMessages.ListViewItemSorter = new ListViewSorter(1);
         }
-
-        private void FormHome_MouseDown(object sender, MouseEventArgs e) {
-            dragging = true;
-            dragCursorPoint = Cursor.Position;
-            dragFormPoint = this.Location;
-        }
-
-        private void FormHome_MouseMove(object sender, MouseEventArgs e) {
-            if (dragging) {
-                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
-                this.Location = Point.Add(dragFormPoint, new Size(dif));
-            }
-        }
-
-        private void FormHome_MouseUp(object sender, MouseEventArgs e) {
-            dragging = false;
-        }
-
-        private void picBox_CloseIcon_MouseEnter(object sender, EventArgs e) {
-            picBox_CloseIcon.BackColor = Color.Brown;
-        }
-
-        private void picBox_CloseIcon_MouseLeave(object sender, EventArgs e) {
-            picBox_CloseIcon.BackColor = Color.White;
-        }
-
-        private void picBox_CloseIcon_MouseClick(object sender, MouseEventArgs e) {
-            if(ClientSession.HasCamera)
-            {
-                Camera.Release();
-                Microphone.Dispose();
-            }
-            Speaker.Dispose();
-            this.Close();
-        }
         //Thread safe callbacks
         //http://stackoverflow.com/questions/10775367/cross-thread-operation-not-valid-control-textbox1-accessed-from-a-thread-othe
         internal void OnPacket(Packet packet)
@@ -383,9 +348,27 @@ namespace ChatApp
                 }
             }
         }
-        private void treeViewUsers_AfterSelect(object sender, TreeViewEventArgs e)
-        {
+        
+        private void FormHome_MouseDown(object sender, MouseEventArgs e) {
+            dragging = true;
+            dragCursorPoint = Cursor.Position;
+            dragFormPoint = this.Location;
+        }
 
+        private void FormHome_MouseMove(object sender, MouseEventArgs e) {
+            if (dragging) {
+                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
+                this.Location = Point.Add(dragFormPoint, new Size(dif));
+            }
+        }
+
+        private void picBox_CloseIcon_MouseClick(object sender, MouseEventArgs e) {
+            if (ClientSession.HasCamera) {
+                Camera.Release();
+                Microphone.Dispose();
+            }
+            Speaker.Dispose();
+            this.Close();
         }
 
         private void FormHome_Load(object sender, EventArgs e)
@@ -415,36 +398,20 @@ namespace ChatApp
             ClientSession.HasCamera = Camera.Detect();
             //Speaker.Init();
         }
+
         private void buttonNewGroupChat_Click(object sender, EventArgs e)
         {
             formCreateChat = new FormCreateChat();
             formCreateChat.ShowDialog();
         }
-
-        private void toolTip1_Popup(object sender, PopupEventArgs e)
-        {
-
-        }
-        
-        private void conectadoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetUserState(sender as ToolStripMenuItem, UserConnectionState.Available.ToString());
-        }
-        //No disponible
-        private void ocupadoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetUserState(sender as ToolStripMenuItem, UserConnectionState.NotAvailable.ToString());
-        }
+        //disponible
+        private void conectadoToolStripMenuItem_Click(object sender, EventArgs e){SetUserState(sender as ToolStripMenuItem, UserConnectionState.Available.ToString());}
+        //no disponible
+        private void ocupadoToolStripMenuItem_Click(object sender, EventArgs e){SetUserState(sender as ToolStripMenuItem, UserConnectionState.NotAvailable.ToString());}
         //ocupado
-        private void ocupadoToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            SetUserState(sender as ToolStripMenuItem, UserConnectionState.Busy.ToString());
-        }
-
-        private void desconectadoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetUserState(sender as ToolStripMenuItem, UserConnectionState.Offline.ToString());
-        }
+        private void ocupadoToolStripMenuItem1_Click(object sender, EventArgs e){SetUserState(sender as ToolStripMenuItem, UserConnectionState.Busy.ToString());}
+        //desconectado
+        private void desconectadoToolStripMenuItem_Click(object sender, EventArgs e){SetUserState(sender as ToolStripMenuItem, UserConnectionState.Offline.ToString());}
 
         private void SetUserState(ToolStripMenuItem menuItem, string state)
         {
@@ -462,27 +429,11 @@ namespace ChatApp
             }
         }
 
-        private void listViewConversacion_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             FormPrivateMessage form = new FormPrivateMessage();
             form.ShowDialog();
         }
-
-        private void listViewConversacion_Click(object sender, EventArgs e)
-        {
-            (listViewConversacion.SelectedItems[0].Tag as formChat).Show();
-        }
-
-        private void listViewPrivateMessages_Click(object sender, EventArgs e)
-        {
-            (listViewPrivateMessages.SelectedItems[0].Tag as FormPrivateChat).Show();
-        }
-
         //sorting listview columns
         //http://stackoverflow.com/questions/1214289/how-do-i-sort-integers-in-a-listview
         private class ListViewSorter : System.Collections.IComparer
@@ -509,6 +460,15 @@ namespace ChatApp
                 }
             }
         }
+        private void listViewConversacion_Click(object sender, EventArgs e) { (listViewConversacion.SelectedItems[0].Tag as formChat).Show(); }
+        private void listViewPrivateMessages_Click(object sender, EventArgs e) { (listViewPrivateMessages.SelectedItems[0].Tag as FormPrivateChat).Show(); }
+        private void FormHome_MouseUp(object sender, MouseEventArgs e) { dragging = false; }
+        private void picBox_CloseIcon_MouseEnter(object sender, EventArgs e) { picBox_CloseIcon.BackColor = Color.Brown; }
+        private void picBox_CloseIcon_MouseLeave(object sender, EventArgs e) { picBox_CloseIcon.BackColor = Color.White; }
+        //unused
+        private void listViewConversacion_SelectedIndexChanged(object sender, EventArgs e) { }
+        private void toolTip1_Popup(object sender, PopupEventArgs e) { }
+        private void treeViewUsers_AfterSelect(object sender, TreeViewEventArgs e) { }
     }
     static class ClientSession
     {
