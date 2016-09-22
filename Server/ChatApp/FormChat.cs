@@ -141,6 +141,7 @@ namespace ChatApp
                 this.Location = Point.Add(dragFormPoint, new Size(dif));
             }
         }
+
         private void textBoxChat_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -151,11 +152,6 @@ namespace ChatApp
             }
         }
 
-        private void formChat_Load(object sender, EventArgs e)
-        {
-            textBoxChat.Focus();
-        }
-
         private void formChat_MouseDown(object sender, MouseEventArgs e)
         {
             dragging = true;
@@ -163,68 +159,6 @@ namespace ChatApp
             dragFormPoint = this.Location;
         }
 
-        private void formChat_MouseUp(object sender, MouseEventArgs e)
-        {
-            dragging = false;
-        }
-
-        private void picBox_CloseIcon_MouseEnter(object sender, EventArgs e)
-        {
-            picBox_CloseIcon.BackColor = Color.Brown;
-        }
-
-        private void picBox_CloseIcon_MouseLeave(object sender, EventArgs e)
-        {
-            picBox_CloseIcon.BackColor = Color.White;
-        }
-
-        private void picBox_CloseIcon_MouseClick(object sender, MouseEventArgs e)
-        {
-            this.Hide();
-        }
-
-        private void picBox_EmoteIcon_MouseEnter(object sender, EventArgs e)
-        {
-            picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIconHover;
-        }
-
-        private void picBox_EmoteIcon_MouseLeave(object sender, EventArgs e)
-        {
-            picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIcon;
-        }
-
-        private void picBox_Buzz_MouseEnter(object sender, EventArgs e)
-        {
-            picBox_Buzz.BackgroundImage = ChatApp.Properties.Resources.buzzIconHover;
-        }
-
-        private void picBox_Buzz_MouseLeave(object sender, EventArgs e)
-        {
-            picBox_Buzz.BackgroundImage = ChatApp.Properties.Resources.buzzIcon;
-        }
-
-        private void picBox_Attach_MouseEnter(object sender, EventArgs e)
-        {
-            picBox_Attach.BackgroundImage = ChatApp.Properties.Resources.attachIconHover;
-        }
-
-        private void picBox_Attach_MouseLeave(object sender, EventArgs e)
-        {
-            picBox_Attach.BackgroundImage = ChatApp.Properties.Resources.attachIcon;
-        }
-        //unused
-        private void picBox_Buzz_MouseClick(object sender, MouseEventArgs e)
-        {
-
-        }
-        private void TextBoxChat_KeyDown_1(object sender, KeyEventArgs e)
-        {
-
-        }
-        private void picBox_Attach_MouseClick(object sender, MouseEventArgs e) {
-
-        }
-        private void picBox_EmoteIcon_MouseClick(object sender, MouseEventArgs e) { }
 
         private void picBox_Buzz_Click(object sender, EventArgs e)
         {
@@ -242,10 +176,6 @@ namespace ChatApp
             
         }
 
-        private void listView1_Leave(object sender, EventArgs e)
-        {
-            listViewEmoticons.Visible = false;
-        }
 
         private void picBox_EmoteIcon_Click(object sender, EventArgs e)
         {
@@ -256,10 +186,6 @@ namespace ChatApp
                 textBoxChat.Focus();
         }
 
-        private void listViewEmoticons_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
         private void listViewEmoticons_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if(listViewEmoticons.SelectedItems.Count == 1)
@@ -268,14 +194,6 @@ namespace ChatApp
                 textBoxChat.AppendText(listViewEmoticons.SelectedItems[0].Tag as string + " ");
                 textBoxChat.Focus();
             }
-        }
-
-        private void listViewBuzzers_Leave(object sender, EventArgs e) {
-            listViewBuzzers.Visible = false;
-        }
-
-        private void listViewEmoticons_Leave(object sender, EventArgs e) {
-            listViewEmoticons.Visible = false;
         }
 
         private void SendFile()
@@ -318,11 +236,28 @@ namespace ChatApp
                 }
             }
         }
-        private void picBox_Attach_Click(object sender, EventArgs e)
-        {
-            SendFile();
-        }
-
+        
+        private void picBox_Attach_Click(object sender, EventArgs e) { SendFile(); }
+        private void listView1_Leave(object sender, EventArgs e) { listViewEmoticons.Visible = false; }
+        private void formChat_Load(object sender, EventArgs e) { textBoxChat.Focus(); }
+        private void listViewBuzzers_Leave(object sender, EventArgs e) { listViewBuzzers.Visible = false; }
+        private void listViewEmoticons_Leave(object sender, EventArgs e) { listViewEmoticons.Visible = false; }
+        private void formChat_MouseUp(object sender, MouseEventArgs e) { dragging = false; }
+        private void picBox_CloseIcon_MouseEnter(object sender, EventArgs e) { picBox_CloseIcon.BackColor = Color.Brown; }
+        private void picBox_CloseIcon_MouseLeave(object sender, EventArgs e) { picBox_CloseIcon.BackColor = Color.White; }
+        private void picBox_CloseIcon_MouseClick(object sender, MouseEventArgs e) { this.Hide(); }
+        private void picBox_EmoteIcon_MouseEnter(object sender, EventArgs e) { picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIconHover; }
+        private void picBox_EmoteIcon_MouseLeave(object sender, EventArgs e) { picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIcon; }
+        private void picBox_Buzz_MouseEnter(object sender, EventArgs e) { picBox_Buzz.BackgroundImage = ChatApp.Properties.Resources.buzzIconHover; }
+        private void picBox_Buzz_MouseLeave(object sender, EventArgs e) { picBox_Buzz.BackgroundImage = ChatApp.Properties.Resources.buzzIcon; }
+        private void picBox_Attach_MouseEnter(object sender, EventArgs e) { picBox_Attach.BackgroundImage = ChatApp.Properties.Resources.attachIconHover; }
+        private void picBox_Attach_MouseLeave(object sender, EventArgs e) { picBox_Attach.BackgroundImage = ChatApp.Properties.Resources.attachIcon; }
+        //unused
         private void picBox_StartGame_MouseClick(object sender, MouseEventArgs e) { }
+        private void picBox_Buzz_MouseClick(object sender, MouseEventArgs e) { }
+        private void TextBoxChat_KeyDown_1(object sender, KeyEventArgs e) { }
+        private void picBox_Attach_MouseClick(object sender, MouseEventArgs e) { }
+        private void picBox_EmoteIcon_MouseClick(object sender, MouseEventArgs e) { }
+        private void listViewEmoticons_SelectedIndexChanged(object sender, EventArgs e) { }
     }
 }

@@ -14,8 +14,7 @@ using System.Threading;
 
 namespace ChatApp
 {
-    public partial class FormPrivateChat : Form
-    {
+    public partial class FormPrivateChat : Form {
         public int chatID { get; set; }
         public ListViewItem listItem { get; set; }
         private const int buzzDuration = 500;
@@ -31,8 +30,7 @@ namespace ChatApp
         private Point formStartPoint;
         private List<Point> controlsStartPositions;
         private static Mutex clipboardMutex = new Mutex(false, "Clipboard");
-        public FormPrivateChat(int chatID, ListViewItem listItem)
-        {
+        public FormPrivateChat(int chatID, ListViewItem listItem) {
             this.listItem = listItem;
             this.chatID = chatID;
             //buzz
@@ -40,9 +38,8 @@ namespace ChatApp
             formStartPoint = new Point();
             InitializeComponent();
         }
-        
-        public void Buzz()
-        {
+
+        public void Buzz() {
             controlsStartPositions = new List<Point>();
             foreach (Control control in Controls)
                 controlsStartPositions.Add(new Point());
@@ -52,17 +49,14 @@ namespace ChatApp
             buzzTimer.Start();
             buzzStopWatch.Restart();
         }
-        
-        private void buzzTimer_Tick(object sender, EventArgs e)
-        {
-            if (buzzStopWatch.ElapsedMilliseconds < buzzDuration)
-            {
+
+        private void buzzTimer_Tick(object sender, EventArgs e) {
+            if (buzzStopWatch.ElapsedMilliseconds < buzzDuration) {
                 Location = RandomPoint(formStartPoint, -buzzStrength, buzzStrength);
                 for (int i = 0; i < Controls.Count; i++)
                     Controls[i].Location = RandomPoint(controlsStartPositions[i], -buzzStrength, buzzStrength);
             }
-            else
-            {
+            else {
                 Location = formStartPoint;
                 for (int i = 0; i < Controls.Count; i++)
                     Controls[i].Location = controlsStartPositions[i];
@@ -71,35 +65,28 @@ namespace ChatApp
             }
         }
 
-        private Point RandomPoint(Point startPoint, int minValue, int maxValue)
-        {
+        private Point RandomPoint(Point startPoint, int minValue, int maxValue) {
             Random random = new Random();
             return new Point(startPoint.X + random.Next(minValue, maxValue), startPoint.Y + random.Next(minValue, maxValue));
         }
 
-        public void CheckEmoticons()
-        {
+        public void CheckEmoticons() {
             richTextBoxChat.ReadOnly = false;
             clipboardMutex.WaitOne();
-            foreach (string[] emoteArray in ClientSession.Emoticons.Values)
-            {
-                while (true)
-                {
-                foreach (string emote in emoteArray)
-                {
-                        try
-                        {
+            foreach (string[] emoteArray in ClientSession.Emoticons.Values) {
+                while (true) {
+                    foreach (string emote in emoteArray) {
+                        try {
                             Clipboard.SetImage(ClientSession.Emoticons.FirstOrDefault(x => x.Value.Contains(emote)).Key);
-                    while (richTextBoxChat.Text.Contains(emote))
-                    {
-                        int index = richTextBoxChat.Text.IndexOf(emote);
-                        richTextBoxChat.Select(index, emote.Length);
+                            while (richTextBoxChat.Text.Contains(emote)) {
+                                int index = richTextBoxChat.Text.IndexOf(emote);
+                                richTextBoxChat.Select(index, emote.Length);
                                 //Clipboard.SetDataObject(ClientSession.Emoticons.FirstOrDefault(x => x.Value.Contains(emote)).Key, false, 2, 1);
-                        richTextBoxChat.Paste();
-                    }
-                }
+                                richTextBoxChat.Paste();
+                            }
+                        }
                         catch { }
-            }
+                    }
                     break;
                 }
             }
@@ -109,16 +96,14 @@ namespace ChatApp
             richTextBoxChat.ReadOnly = true;
         }
 
-        public void AddMessageToChat(string sender, string message)
-        {
+        public void AddMessageToChat(string sender, string message) {
             richTextBoxChat.SelectionFont = new Font(richTextBoxChat.Font, FontStyle.Bold);
             richTextBoxChat.AppendText(sender + ": ");
             richTextBoxChat.SelectionFont = new Font(richTextBoxChat.Font, FontStyle.Regular);
             richTextBoxChat.AppendText(message + "\n");
         }
 
-        public void SetLastMessage(string sender, string message, DateTime date)
-        {
+        public void SetLastMessage(string sender, string message, DateTime date) {
             listItem.SubItems[2].Text = message;
             if (listItem.SubItems[2].Text.Length > ClientSession.textMessagesVisibleText)
                 listItem.SubItems[2].Text = listItem.SubItems[2].Text.Substring(0, ClientSession.textMessagesVisibleText) + "...";
@@ -126,18 +111,14 @@ namespace ChatApp
             listItem.SubItems[1].Text = date.ToString();
         }
 
-        private void SendFile()
-        {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
+        private void SendFile() {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog()) {
                 openFileDialog.Filter = "All files (*.*)|*.*";
                 openFileDialog.RestoreDirectory = true;
                 openFileDialog.CheckPathExists = true;
                 openFileDialog.Multiselect = false;
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    using (FileStream fileStream = (FileStream)openFileDialog.OpenFile())
-                    {
+                if (openFileDialog.ShowDialog() == DialogResult.OK) {
+                    using (FileStream fileStream = (FileStream)openFileDialog.OpenFile()) {
                         byte[] fileBuffer = new byte[fileStream.Length];
                         fileStream.Read(fileBuffer, 0, (int)fileStream.Length);
                         Packet packet = new Packet(PacketType.FileSendPrivate);
@@ -151,15 +132,12 @@ namespace ChatApp
             }
         }
 
-        public void ReceiveFile(Packet packet)
-        {
+        public void ReceiveFile(Packet packet) {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "All files (*.*)|*.*";
             saveFileDialog.FileName = packet.tag["filename"] as string;
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                using (FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create))
-                {
+            if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+                using (FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create)) {
                     byte[] fileBuffer = (byte[])packet.tag["file"];
                     fileStream.Write(fileBuffer, 0, fileBuffer.Length);
                     fileStream.Flush();
@@ -168,32 +146,29 @@ namespace ChatApp
         }
 
         private void picBox_CloseIcon_MouseClick(object sender, MouseEventArgs e) {
-            if (Camera.OwnerChat == chatID)
-            {
+            if (Camera.OwnerChat == chatID) {
                 Camera.Stop();
                 Microphone.EndRecording();
             }
             this.Hide();
         }
-        public void StartWebcam()
-            {
-            if (!Camera.IsRunning)
-            {
-                        Camera.OwnerChat = chatID;
-                        Camera.Start();
+
+        public void StartWebcam() {
+            if (!Camera.IsRunning) {
+                Camera.OwnerChat = chatID;
+                Camera.Start();
                 Camera.OnNewFrameCallback(SendCameraPacket);
                 //start audio record
                 Microphone.OnAudioInCallback(SendAudioStream);
                 Microphone.StartRecording();
             }
         }
+
         private void list_Options_SelectedIndexChanged(object sender, EventArgs e) {
             //Start camera
-            if(list_Options.Items[0].Selected)
-            {
+            if (list_Options.Items[0].Selected) {
                 //If camera is in no use, we can send a webcam request
-                if(ClientSession.HasCamera)
-                {
+                if (ClientSession.HasCamera) {
                     if (!Camera.IsRunning) {
                         Packet packet = new Packet(PacketType.WebCamRequest);
                         packet.tag["chatID"] = chatID;
@@ -206,7 +181,7 @@ namespace ChatApp
                         ////start audio record
                         //Microphone.OnAudioInCallback(SendAudioStream);
                         //Microphone.StartRecording();
-                        
+
                     } else {
                         //Camera is in use;
                         MessageBox.Show("La camara se encuentra en uso por otro chat", "Camara en uso", MessageBoxButtons.OK);
@@ -216,8 +191,8 @@ namespace ChatApp
             list_Options.Visible = false;
             textBoxChat.Focus();
         }
-        public void SendAudioStream(byte[] bytes)
-        {
+
+        public void SendAudioStream(byte[] bytes) {
             UdpPacket packet = new UdpPacket(UdpPacketType.AudioStream);
             packet.WriteData(BitConverter.GetBytes(chatID));
             packet.WriteData(BitConverter.GetBytes((int)bytes.Length));
@@ -234,10 +209,8 @@ namespace ChatApp
             ClientSession.Connection.SendUdpPacket(packet);
         }
         //camera new frame event
-        public void SendCameraPacket(Bitmap bitmap)
-        {
-            using (Bitmap img = new Bitmap(bitmap, pictureBoxCam.Size))
-            {
+        public void SendCameraPacket(Bitmap bitmap) {
+            using (Bitmap img = new Bitmap(bitmap, pictureBoxCam.Size)) {
                 if (Camera.CanSend) {
                     //pictureBoxCam.Image = img;
                     Packet packet = new Packet(PacketType.WebCamFrame);
@@ -252,14 +225,12 @@ namespace ChatApp
 
         }
 
-        public void ReceiveCameraPacket(Packet packet)
-        {
+        public void ReceiveCameraPacket(Packet packet) {
             pictureBoxCam.Image = (Bitmap)packet.tag["bitmap"];
         }
 
         private void buttonEnviar_Click(object sender, EventArgs e) {
-            if(!string.IsNullOrWhiteSpace(textBoxChat.Text))
-            {
+            if (!string.IsNullOrWhiteSpace(textBoxChat.Text)) {
                 Packet packet = new Packet(PacketType.PrivateTextMessage);
                 packet.tag["sender"] = ClientSession.username;
                 packet.tag["text"] = textBoxChat.Text;
@@ -274,52 +245,12 @@ namespace ChatApp
             }
         }
 
-        private void picBox_Attach_MouseEnter(object sender, EventArgs e) {
-            picBox_Attach.BackgroundImage = ChatApp.Properties.Resources.attachIconHover;
-        }
-
-        private void picBox_Attach_MouseLeave(object sender, EventArgs e) {
-            picBox_Attach.BackgroundImage = ChatApp.Properties.Resources.attachIcon;
-        }
-
-        private void picBox_Attach_MouseClick(object sender, MouseEventArgs e) {
-
-        }
-
-        private void picBox_StartGame_MouseEnter(object sender, EventArgs e) {
-            picBox_StartGame.BackgroundImage = ChatApp.Properties.Resources.gameIconHover;
-        }
-
-        private void picBox_StartGame_MouseLeave(object sender, EventArgs e) {
-            picBox_StartGame.BackgroundImage = ChatApp.Properties.Resources.gameIcon;
-        }
-
-        private void picBox_StartGame_MouseClick(object sender, MouseEventArgs e) {
-
-        }
-
-        private void picBox_EmoteIcon_Click(object sender, EventArgs e)
-        {
+        private void picBox_EmoteIcon_Click(object sender, EventArgs e) {
             listViewEmoticons.Visible = !listViewEmoticons.Visible;
             if (listViewEmoticons.Visible)
                 listViewEmoticons.Focus();
             else
                 textBoxChat.Focus();
-        }
-
-        private void listViewEmoticons_MouseLeave(object sender, EventArgs e)
-        {
-            listViewEmoticons.Visible = false;
-        }
-
-        private void FormPrivateChat_Load(object sender, EventArgs e)
-        {
-            timer1.Stop();
-        }
-
-        private void listViewEmoticons_Leave(object sender, EventArgs e)
-        {
-            listViewEmoticons.Visible = false;
         }
 
         private void listViewEmoticons_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -339,21 +270,7 @@ namespace ChatApp
             packet.tag["chatID"] = chatID;
             ClientSession.Connection.SendPacket(packet);
         }
-
-        private void picBox_Attach_Click(object sender, EventArgs e)
-        {
-            SendFile();
-        }
-
-        private void picBox_CloseIcon_MouseLeave(object sender, EventArgs e) {
-            picBox_CloseIcon.BackColor = Color.White;
-        }
-
-        private void picBox_CloseIcon_MouseEnter(object sender, EventArgs e)
-        {
-            picBox_CloseIcon.BackColor = Color.Brown;
-        }
-
+        
         private void textBoxChat_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -371,31 +288,6 @@ namespace ChatApp
             {
                 list_Options.Focus();
             }
-        }
-
-        private void list_Options_Leave(object sender, EventArgs e)
-        {
-            list_Options.Visible = false;
-        }
-
-        private void picBox_EmoteIcon_MouseEnter(object sender, EventArgs e)
-        {
-            picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIconHover;
-        }
-
-        private void picBox_EmoteIcon_MouseLeave(object sender, EventArgs e)
-        {
-            picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIcon;
-        }
-
-        private void picBox_Buzz_MouseEnter(object sender, EventArgs e)
-        {
-            picBox_Buzz.BackgroundImage = ChatApp.Properties.Resources.buzzIconHover;
-        }
-
-        private void picBox_Buzz_MouseLeave(object sender, EventArgs e)
-        {
-            picBox_Buzz.BackgroundImage = ChatApp.Properties.Resources.buzzIcon;
         }
 
         private void FormPrivateChat_MouseDown(object sender, MouseEventArgs e)
@@ -438,13 +330,24 @@ namespace ChatApp
             }
         }
 
-        private void picBox_CloseIcon_Click(object sender, EventArgs e) {
-            this.Hide();
-        }
-
-        private void FormPrivateChat_MouseUp(object sender, MouseEventArgs e)
-        {
-            dragging = false;
-        }
+        private void list_Options_Leave(object sender, EventArgs e) { list_Options.Visible = false; }
+        private void picBox_EmoteIcon_MouseEnter(object sender, EventArgs e) { picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIconHover; }
+        private void picBox_EmoteIcon_MouseLeave(object sender, EventArgs e) { picBox_EmoteIcon.BackgroundImage = ChatApp.Properties.Resources.emotIcon; }
+        private void picBox_Buzz_MouseEnter(object sender, EventArgs e) { picBox_Buzz.BackgroundImage = ChatApp.Properties.Resources.buzzIconHover; }
+        private void picBox_Buzz_MouseLeave(object sender, EventArgs e) { picBox_Buzz.BackgroundImage = ChatApp.Properties.Resources.buzzIcon; }
+        private void picBox_Attach_MouseEnter(object sender, EventArgs e) { picBox_Attach.BackgroundImage = ChatApp.Properties.Resources.attachIconHover; }
+        private void picBox_Attach_MouseLeave(object sender, EventArgs e) { picBox_Attach.BackgroundImage = ChatApp.Properties.Resources.attachIcon; }
+        private void picBox_Attach_MouseClick(object sender, MouseEventArgs e) { }
+        private void picBox_StartGame_MouseEnter(object sender, EventArgs e) { picBox_StartGame.BackgroundImage = ChatApp.Properties.Resources.gameIconHover; }
+        private void picBox_StartGame_MouseLeave(object sender, EventArgs e) { picBox_StartGame.BackgroundImage = ChatApp.Properties.Resources.gameIcon; }
+        private void picBox_StartGame_MouseClick(object sender, MouseEventArgs e) { }
+        private void listViewEmoticons_MouseLeave(object sender, EventArgs e) { listViewEmoticons.Visible = false; }
+        private void FormPrivateChat_Load(object sender, EventArgs e) { timer1.Stop(); }
+        private void listViewEmoticons_Leave(object sender, EventArgs e) { listViewEmoticons.Visible = false; }
+        private void picBox_Attach_Click(object sender, EventArgs e) { SendFile(); }
+        private void picBox_CloseIcon_MouseLeave(object sender, EventArgs e) { picBox_CloseIcon.BackColor = Color.White; }
+        private void picBox_CloseIcon_MouseEnter(object sender, EventArgs e) { picBox_CloseIcon.BackColor = Color.Brown; }
+        private void picBox_CloseIcon_Click(object sender, EventArgs e) { this.Hide(); }
+        private void FormPrivateChat_MouseUp(object sender, MouseEventArgs e) { dragging = false; }
     }
 }
