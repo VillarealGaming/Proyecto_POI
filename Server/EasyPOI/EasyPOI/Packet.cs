@@ -41,27 +41,40 @@ namespace EasyPOI
     public class UdpPacket
     {
         private MemoryStream data;
+        private byte[] dataBytes;
         private UdpPacketType packetType;
         public UdpPacketType PacketType{
             get { return packetType; }
         }
         public byte[] Data
         {
-            get{ return data.ToArray(); }
+            get{
+                if(dataBytes == null)
+                {
+                    dataBytes = data.ToArray();
+                }
+                return dataBytes;
+            }
         }
         public byte[] ReadData(int lenght, int position){
-            byte[] bytes = new byte[lenght];
-            data.Position = position;
-            data.Read(bytes, 0, bytes.Length);
-            return bytes;
+            //byte[] bytes = new byte[lenght];
+            //data.Position = position;
+            //data.Read(bytes, 0, bytes.Length);
+            return dataBytes.Skip(position).Take(lenght).ToArray();
         }
-        static public int ReadInt(byte[] bytes, int position)
+        public int ReadInt(int position)
         {
-            return BitConverter.ToInt32(bytes, position);
+            return BitConverter.ToInt32(dataBytes, position);
         }
         public UdpPacket(UdpPacketType packetType)
         {
             data = new MemoryStream();
+            this.packetType = packetType;
+        }
+        protected UdpPacket(UdpPacketType packetType, byte[] bytes)
+        {
+            data = new MemoryStream();
+            dataBytes = bytes;
             this.packetType = packetType;
         }
         public void WriteData(byte[] bytes)
@@ -76,9 +89,16 @@ namespace EasyPOI
         {
             using (MemoryStream stream = new MemoryStream())
             {
-                byte[] bytes = data.ToArray();
                 stream.Write(BitConverter.GetBytes((int)packetType), 0, sizeof(int));
-                stream.Write(bytes, 0, bytes.Length);
+                if (dataBytes == null)
+                {
+                    byte[] bytes = data.ToArray();
+                    stream.Write(bytes, 0, bytes.Length);
+                }
+                else
+                {
+                    stream.Write(dataBytes, 0, dataBytes.Length);
+                }
                 return stream.ToArray();
             }
         }
@@ -86,8 +106,8 @@ namespace EasyPOI
         {
             //BitConverter.ToInt32(state.buffer, 0)
             UdpPacketType packetType = (UdpPacketType)BitConverter.ToInt32(bytes, 0);
-            UdpPacket packet = new UdpPacket(packetType);
-            packet.WriteData(bytes, 4);
+            UdpPacket packet = new UdpPacket(packetType, bytes.Skip(4).ToArray());
+            //packet.WriteData(bytes, 4);
             return packet;
         }
     }
@@ -119,6 +139,8 @@ namespace EasyPOI
         PrivateBuzz,
         FileSendChat,
         FileSendPrivate,
+        WebCamRequest,
+        WebCamResponse,
         WebCamFrame,
         UdpLocalEndPoint
         //
@@ -126,11 +148,6 @@ namespace EasyPOI
     public enum UdpPacketType
     {
         AudioStream
-    }
-    public enum DataType
-    {
-        Int,
-        Byte
     }
     //Referencia
     //https://msdn.microsoft.com/en-us/library/bew39x2a(v=vs.110).aspx

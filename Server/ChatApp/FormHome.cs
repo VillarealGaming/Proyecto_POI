@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using EasyPOI;
+using NAudio.Wave;
 namespace ChatApp
 {
     public partial class FormHome : Form
@@ -222,6 +223,10 @@ namespace ChatApp
                     case PacketType.SessionBegin:
                         {
                             Show();
+                            Packet sendPacket = new Packet(PacketType.UdpLocalEndPoint);
+                            sendPacket.tag["username"] = ClientSession.username;
+                            sendPacket.tag["endPoint"] = ClientSession.Connection.UdpLocalEndPoint;
+                            ClientSession.Connection.SendPacket(sendPacket);
                         }
                         break;
                     case PacketType.Fail:
@@ -309,6 +314,40 @@ namespace ChatApp
                             }
                         }
                         break;
+                    case PacketType.WebCamRequest:
+                        {
+                            if (packet.tag["sender"] as string != ClientSession.username)
+                            {
+                                DialogResult result = MessageBox.Show("¿Quieres comenzar una videollamada con ?" + packet.tag["sender"] as string, "Videollamada de " + packet.tag["sender"] as string, MessageBoxButtons.YesNo);
+                                Packet sendPacket = new Packet(PacketType.WebCamResponse);
+                                sendPacket.tag["chatID"] = packet.tag["chatID"];
+                                sendPacket.tag["sender"] = ClientSession.username;
+                                if(result == DialogResult.Yes)
+                                {
+                                    sendPacket.tag["response"] = true;
+                                    Dictionary<string, int> waveFormat = packet.tag["waveFormat"] as Dictionary<string, int>;
+                                    int rate = waveFormat["rate"];
+                                    int bits = waveFormat["bits"];
+                                    int channels = waveFormat["channels"];
+                                    Speaker.Init(rate, bits, channels);
+                                }
+                                else
+                                {
+                                    sendPacket.tag["response"] = false;
+                                }
+                                ClientSession.Connection.SendPacket(sendPacket);
+                            }
+                        }
+                        break;
+                    case PacketType.WebCamResponse:
+                        {
+                            if (packet.tag["sender"] as string != ClientSession.username)
+                            {
+                                if((bool)packet.tag["response"])
+                                    privateChatForms[(int)packet.tag["chatID"]].StartWebcam();
+                            }
+                        }
+                        break;
                 }
             }
         }
@@ -318,7 +357,14 @@ namespace ChatApp
             if (this.InvokeRequired)
             {
                 ClientSession.ReceiveUdpPacketCallback d = new ClientSession.ReceiveUdpPacketCallback(OnUdpPacket);
-                this.Invoke(d, new object[] { packet });
+                try
+                {
+                    this.Invoke(d, new object[] { packet });
+                }
+                catch
+                {
+
+                }
             }
             else
             {
@@ -326,16 +372,12 @@ namespace ChatApp
                 {
                     case UdpPacketType.AudioStream:
                         {
-                            byte[] bytes = packet.Data;
-                            int chatID = UdpPacket.ReadInt(bytes, 0);
-                            int audioStreamLenght = UdpPacket.ReadInt(bytes, 4);
+                            int chatID = packet.ReadInt(0);
+                            int audioStreamLenght = packet.ReadInt(4);
                             byte[] audioStream = packet.ReadData(audioStreamLenght, 8);
-                            int stringLenght = UdpPacket.ReadInt(bytes, 8 + audioStreamLenght);
-                            string username = Encoding.Unicode.GetString(packet.ReadData(stringLenght, 12 + audioStreamLenght));
-                            if (ClientSession.username == "Luis Carlos")
-                            {
-                                Speaker.PlayBuffer(audioStream);
-                            }
+                            //int stringLenght = UdpPacket.ReadInt(bytes, 8 + audioStreamLenght);
+                            //string username = Encoding.Unicode.GetString(packet.ReadData(stringLenght, 12 + audioStreamLenght));
+                            Speaker.PlayBuffer(audioStream);
                         }
                         break;
                 }
@@ -371,7 +413,7 @@ namespace ChatApp
             ClientSession.Emoticons.Add(ChatApp.Properties.Resources.weird, new string[] { " :$", " .~.", ":weird:" });
             ClientSession.Emoticons.Add(ChatApp.Properties.Resources.wink, new string[] { " ;)", ":wink:" });
             ClientSession.HasCamera = Camera.Detect();
-            Speaker.Init();
+            //Speaker.Init();
         }
         private void buttonNewGroupChat_Click(object sender, EventArgs e)
         {

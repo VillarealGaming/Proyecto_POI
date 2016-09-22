@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using EasyPOI;
+using System.Threading;
 
 namespace ChatApp
 {
@@ -29,6 +30,7 @@ namespace ChatApp
         private Stopwatch buzzStopWatch;
         private Point formStartPoint;
         private List<Point> controlsStartPositions;
+        private static Mutex clipboardMutex = new Mutex(false, "Clipboard");
         public FormPrivateChat(int chatID, ListViewItem listItem)
         {
             this.listItem = listItem;
@@ -90,14 +92,11 @@ namespace ChatApp
             Random random = new Random();
             return new Point(startPoint.X + random.Next(minValue, maxValue), startPoint.Y + random.Next(minValue, maxValue));
         }
-        //Handle clipboard oddities
-        //http://stackoverflow.com/questions/6583642/determine-which-process-is-locking-the-clipboard
-        //http://stackoverflow.com/questions/6583642/determine-which-process-is-locking-the-clipboard
-        [System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
-        private static extern IntPtr GetOpenClipboardWindow();
+
         public void CheckEmoticons()
         {
             richTextBoxChat.ReadOnly = false;
+            clipboardMutex.WaitOne();
             foreach (string[] emoteArray in ClientSession.Emoticons.Values)
             {
                 while (true)
@@ -120,6 +119,7 @@ namespace ChatApp
                     break;
                 }
             }
+            clipboardMutex.ReleaseMutex();
             richTextBoxChat.Select(richTextBoxChat.Text.Length, 0);
             richTextBoxChat.ScrollToCaret();
             richTextBoxChat.ReadOnly = true;
@@ -191,23 +191,41 @@ namespace ChatApp
             }
             this.Hide();
         }
-
+        public void StartWebcam()
+        {
+            if (!Camera.IsRunning)
+            {
+                Camera.OwnerChat = chatID;
+                Camera.Start();
+                Camera.OnNewFrameCallback(SendCameraPacket);
+                //start audio record
+                Microphone.OnAudioInCallback(SendAudioStream);
+                Microphone.StartRecording();
+            }
+        }
         private void list_Options_SelectedIndexChanged(object sender, EventArgs e) {
             //Start camera
             if(list_Options.Items[0].Selected)
             {
+                //If camera is in no use, we can send a webcam request
                 if(ClientSession.HasCamera)
                 {
                     if (!Camera.IsRunning) {
-                        Camera.OwnerChat = chatID;
-                        Camera.Start();
-                        Camera.OnNewFrameCallback(SendCameraPacket);
-                        //start audio record
-                        Microphone.OnAudioInCallback(SendAudioStream);
-                        Microphone.StartRecording();
+                        Packet packet = new Packet(PacketType.WebCamRequest);
+                        packet.tag["chatID"] = chatID;
+                        packet.tag["sender"] = ClientSession.username;
+                        packet.tag["waveFormat"] = Microphone.GetWaveFormat();
+                        ClientSession.Connection.SendPacket(packet);
+                        //Camera.OwnerChat = chatID;
+                        //Camera.Start();
+                        //Camera.OnNewFrameCallback(SendCameraPacket);
+                        ////start audio record
+                        //Microphone.OnAudioInCallback(SendAudioStream);
+                        //Microphone.StartRecording();
+                        
                     } else {
                         //Camera is in use;
-
+                        MessageBox.Show("La camara se encuentra en uso por otro chat", "Camara en uso", MessageBoxButtons.OK);
                     }
                 }
             }
@@ -227,6 +245,8 @@ namespace ChatApp
             //System.Buffer.BlockCopy(username.ToCharArray(), 0, stringBytes, 0, stringBytes.Length);
             packet.WriteData(BitConverter.GetBytes(stringBytes.Length));
             packet.WriteData(stringBytes);
+            //wave format
+
             ClientSession.Connection.SendUdpPacket(packet);
         }
         //camera new frame event

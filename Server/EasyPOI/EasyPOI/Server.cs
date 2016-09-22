@@ -52,15 +52,21 @@ namespace EasyPOI
 
             //
             ipEndPoint = new IPEndPoint(IPAddress.Any, UdpPort);
-            //udpListener = new UdpClient(ipEndPoint);
-            udpListener = new UdpClient();
-            udpListener.ExclusiveAddressUse = false;
-            udpListener.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-            udpListener.Client.Bind(ipEndPoint);
+            //udpListener = new UdpClient();
+            //udpListener.ExclusiveAddressUse = false;
+            //udpListener.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+            //udpListener.Client.Bind(ipEndPoint);
             state = new UdpState();
             state.client = udpListener;
             state.ipEndPoint = ipEndPoint;
-            udpListener.BeginReceive(new AsyncCallback(UdpReceive), state);
+            try
+            {
+                udpListener.BeginReceive(new AsyncCallback(UdpReceive), state);
+            }
+            catch
+            {
+
+            }
             //udpListener.BeginReceive(new AsyncCallback(UdpReceive), state);
         }
         public void SendUdpPacket(UdpPacket packet, IPEndPoint ipEndPoint)

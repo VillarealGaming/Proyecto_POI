@@ -17,6 +17,7 @@ namespace Server {
             database = new ServerDataSet();
             database.ReadXml("Database.xml");
             connectedUsers = new Dictionary<string, Socket>();
+            connectedUsersUdp = new Dictionary<string, IPEndPoint>();
             server = new EasyPOI.Server();
             server.SetOnClientDisconnectFunc(OnClientDisconnect);
             server.SetPacketReceivedFunc(OnPacketReceived);
@@ -364,6 +365,8 @@ namespace Server {
                 case PacketType.PrivateBuzz:
                 case PacketType.FileSendPrivate:
                 case PacketType.WebCamFrame:
+                case PacketType.WebCamRequest:
+                case PacketType.WebCamResponse:
                     {
                         ServerDataSet.UsuarioPrivadoDataTable usuarioPrivado = database.UsuarioPrivado;
                         //usuarios a mandar
@@ -377,12 +380,13 @@ namespace Server {
                         }
                     }
                     break;
-                //case PacketType.WebCamFrame:
-                //    {
-                //        if (connectedUsers.ContainsKey(packet.tag["user"] as string))
-                //            server.SendPacket(packet, connectedUsers[packet.tag["user"] as string]);
-                //    }
-                //    break;
+                case PacketType.UdpLocalEndPoint:
+                    {
+                        string username = packet.tag["username"] as string;
+                        if (!connectedUsersUdp.ContainsKey(username))
+                            connectedUsersUdp.Add(username, packet.tag["endPoint"] as IPEndPoint);
+                    }
+                    break;
             }
         }
         private static void OnUdpPacket(UdpPacket packet)
@@ -393,14 +397,17 @@ namespace Server {
                     {
                         ServerDataSet.UsuarioPrivadoDataTable usuarioPrivado = database.UsuarioPrivado;
                         int chatID = BitConverter.ToInt32(packet.ReadData(4, 0), 0);
+                        int audioStreamLenght = packet.ReadInt(4);
+                        int stringLenght = packet.ReadInt(8 + audioStreamLenght);
+                        string username = Encoding.Unicode.GetString(packet.ReadData(stringLenght, 12 + audioStreamLenght));
                         //usuarios a mandar
                         var queryResult = from user in usuarioPrivado
                                           where user.ConversacionPrivada == chatID
                                           select user;
                         foreach (var user in queryResult)
                         {
-                            if (connectedUsersUdp.ContainsKey(user.Usuario))
-                                server.SendUdpPacket(packet, connectedUsersUdp[user.Usuario].Client.LocalEndPoint as IPEndPoint);
+                            if (connectedUsersUdp.ContainsKey(user.Usuario) && user.Usuario != username)
+                                server.SendUdpPacket(packet, connectedUsersUdp[user.Usuario]);
                         }
                     }
                     break;
@@ -459,6 +466,7 @@ namespace Server {
         {
             Socket user = connectedUsers[username];
             connectedUsers.Remove(username);
+            connectedUsersUdp.Remove(username);
             server.CloseClientConnection(user);
         }
         private static void OnClientDisconnect(Socket client)
@@ -482,6 +490,7 @@ namespace Server {
                 //Removemos el usuario de la lista de conectados
                 Console.WriteLine("Sesion de " + user.Key + " cerrada");
                 connectedUsers.Remove(user.Key);
+                connectedUsersUdp.Remove(user.Key);
                 foreach (var connectedUser in connectedUsers)
                 {
                     server.SendPacket(packet, connectedUser.Value);
@@ -492,7 +501,7 @@ namespace Server {
         }
         private static ServerDataSet database;
         private static Dictionary<string, Socket> connectedUsers;
-        private static Dictionary<string, UdpClient> connectedUsersUdp;
+        private static Dictionary<string, IPEndPoint> connectedUsersUdp;
         private const string databaseFile = "Database.xml";
     }
 }

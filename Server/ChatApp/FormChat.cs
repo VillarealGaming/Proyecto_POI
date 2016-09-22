@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using EasyPOI;
+using System.Threading;
 namespace ChatApp
 {
     public partial class formChat : Form
@@ -24,6 +25,7 @@ namespace ChatApp
         private Stopwatch buzzStopWatch;
         private Point formStartPoint;
         private List<Point> controlsStartPositions;
+        private static Mutex clipboardMutex = new Mutex(false, "Clipboard");
         public formChat(int chatID, ListViewItem listItem)
         {
             this.chatID = chatID;
@@ -49,28 +51,30 @@ namespace ChatApp
         public void CheckEmoticons()
         {
             richTextBoxChat.ReadOnly = false;
-            bool ClipboardSuccesfull = true;
+            clipboardMutex.WaitOne();
             foreach (string[] emoteArray in ClientSession.Emoticons.Values)
             {
-                foreach (string emote in emoteArray)
+                while (true)
                 {
-                    while (richTextBoxChat.Text.Contains(emote) && ClipboardSuccesfull)
+                    foreach (string emote in emoteArray)
                     {
-                        int index = richTextBoxChat.Text.IndexOf(emote);
-                        richTextBoxChat.Select(index, emote.Length);
                         try
                         {
-                            Clipboard.SetDataObject(ClientSession.Emoticons.FirstOrDefault(x => x.Value.Contains(emote)).Key, false, 2, 100);
-                            richTextBoxChat.Paste();
-                            ClipboardSuccesfull = true;
+                            Clipboard.SetImage(ClientSession.Emoticons.FirstOrDefault(x => x.Value.Contains(emote)).Key);
+                            while (richTextBoxChat.Text.Contains(emote))
+                            {
+                                int index = richTextBoxChat.Text.IndexOf(emote);
+                                richTextBoxChat.Select(index, emote.Length);
+                                //Clipboard.SetDataObject(ClientSession.Emoticons.FirstOrDefault(x => x.Value.Contains(emote)).Key, false, 2, 1);
+                                richTextBoxChat.Paste();
+                            }
                         }
-                        catch
-                        {
-                            ClipboardSuccesfull = false;
-                        }
+                        catch { }
                     }
+                    break;
                 }
             }
+            clipboardMutex.ReleaseMutex();
             richTextBoxChat.Select(richTextBoxChat.Text.Length, 0);
             richTextBoxChat.ScrollToCaret();
             richTextBoxChat.ReadOnly = true;

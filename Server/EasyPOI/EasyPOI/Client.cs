@@ -268,6 +268,10 @@ namespace EasyPOI
         {
             OnUdpPacketReceived = func;
         }
+        public IPEndPoint UdpLocalEndPoint
+        {
+            get { return udpSocket.Client.LocalEndPoint as IPEndPoint; }
+        }
         //private bool connected;
         private Socket socket;
         private UdpClient udpSocket;
