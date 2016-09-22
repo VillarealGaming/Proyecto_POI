@@ -20,9 +20,9 @@ namespace ChatApp
         public ListViewItem listItem { get; set; }
         private const int buzzDuration = 500;
         private const int buzzStrength = 5;
-        private const int minSize = 334;
-        private const int maxSize = 690;
-        private Size resizeRatio = new Size(1, 1);
+        private const int minSize = 333;
+        private const int maxSize = 689;
+        private Size resizeRatio = new Size(8, 0);
         private bool resizing = false;
         private bool expanding = true;
         private bool dragging = false;
@@ -69,22 +69,6 @@ namespace ChatApp
                 buzzTimer.Stop();
                 buzzStopWatch.Reset();
             }
-            if (resizing) {
-                if (expanding && this.Size.Width <= maxSize) {
-                    this.Size += resizeRatio;
-                } else {
-                    expanding = false;
-                    resizing = false;
-                    return;
-                }
-                if (!expanding && this.Size.Width >= minSize) {
-                    this.Size -= resizeRatio;
-                } else {
-                    expanding = true;
-                    resizing = false;
-                    return;
-                }
-            }
         }
 
         private Point RandomPoint(Point startPoint, int minValue, int maxValue)
@@ -101,21 +85,21 @@ namespace ChatApp
             {
                 while (true)
                 {
-                    foreach (string emote in emoteArray)
-                    {
+                foreach (string emote in emoteArray)
+                {
                         try
                         {
                             Clipboard.SetImage(ClientSession.Emoticons.FirstOrDefault(x => x.Value.Contains(emote)).Key);
-                            while (richTextBoxChat.Text.Contains(emote))
-                            {
-                                int index = richTextBoxChat.Text.IndexOf(emote);
-                                richTextBoxChat.Select(index, emote.Length);
+                    while (richTextBoxChat.Text.Contains(emote))
+                    {
+                        int index = richTextBoxChat.Text.IndexOf(emote);
+                        richTextBoxChat.Select(index, emote.Length);
                                 //Clipboard.SetDataObject(ClientSession.Emoticons.FirstOrDefault(x => x.Value.Contains(emote)).Key, false, 2, 1);
-                                richTextBoxChat.Paste();
-                            }
-                        }
-                        catch { }
+                        richTextBoxChat.Paste();
                     }
+                }
+                        catch { }
+            }
                     break;
                 }
             }
@@ -192,11 +176,11 @@ namespace ChatApp
             this.Hide();
         }
         public void StartWebcam()
-        {
+            {
             if (!Camera.IsRunning)
             {
-                Camera.OwnerChat = chatID;
-                Camera.Start();
+                        Camera.OwnerChat = chatID;
+                        Camera.Start();
                 Camera.OnNewFrameCallback(SendCameraPacket);
                 //start audio record
                 Microphone.OnAudioInCallback(SendAudioStream);
@@ -265,6 +249,7 @@ namespace ChatApp
                     Camera.CanSend = false;
                 }
             }
+
         }
 
         public void ReceiveCameraPacket(Packet packet)
@@ -285,6 +270,7 @@ namespace ChatApp
                 textBoxChat.Text = "";
             } else { //bloque de pruebas
                 resizing = true;
+                timer1.Start();
             }
         }
 
@@ -328,7 +314,7 @@ namespace ChatApp
 
         private void FormPrivateChat_Load(object sender, EventArgs e)
         {
-
+            timer1.Stop();
         }
 
         private void listViewEmoticons_Leave(object sender, EventArgs e)
@@ -429,7 +415,31 @@ namespace ChatApp
         }
 
         private void timer1_Tick(object sender, EventArgs e) {
+            if (resizing) {
+                if (expanding) {
+                    if (this.Size.Width <= maxSize) {
+                        this.Size += resizeRatio;
+                    } else {
+                        this.Size = new Size(maxSize, 397);
+                        expanding = false;
+                        resizing = false;
+                        timer1.Stop();
+                    }
+                } else {
+                    if (this.Size.Width >= minSize) {
+                        this.Size -= resizeRatio;
+                    } else {
+                        this.Size = new Size(minSize, 397);
+                        expanding = true;
+                        resizing = false;
+                        timer1.Stop();
+                    }
+                }
+            }
+        }
 
+        private void picBox_CloseIcon_Click(object sender, EventArgs e) {
+            this.Hide();
         }
 
         private void FormPrivateChat_MouseUp(object sender, MouseEventArgs e)
