@@ -18,14 +18,14 @@ namespace ChatApp
         private static BufferedWaveProvider bufferedProvider;
         //play audio from buffer
         //http://stackoverflow.com/questions/28792548/how-can-i-play-byte-array-of-audio-raw-data-using-naudio
-        public static void Init(int rate, int bits, int channels)
+        public static void Init(int channels)
         {
             Dispose();
             speaker = new WaveOut();
-            format = new WaveFormat(rate, bits, channels);
+            format = new WaveFormat(8000, 16, channels);
             bufferedProvider = new BufferedWaveProvider(format);
             speaker.Init(bufferedProvider);
-            //speaker.DesiredLatency = 25;
+            speaker.DesiredLatency = 25;
             speaker.Play();
         }
 
@@ -114,6 +114,7 @@ namespace ChatApp
             if (audioInput == null)
             {
                 audioInput = new WaveIn();
+                audioInput.WaveFormat = new WaveFormat(8000, 16, Channels);
                 audioInput.BufferMilliseconds = 25;
                 audioInput.DataAvailable += DataAvailable;
                 audioInput.StartRecording();
@@ -135,29 +136,12 @@ namespace ChatApp
                 audioInput = null;
             }
         }
-        public static Dictionary<string, int> GetWaveFormat()
+        public static int Channels
         {
-            Dictionary<string, int> waveFormat = new Dictionary<string, int>();
-            WaveFormat format;
-            if (audioInput == null)
-            {
-                audioInput = new WaveIn();
-                format = audioInput.WaveFormat;
-                audioInput.Dispose();
-                audioInput = null;
-            }
-            else
-            {
-                format = audioInput.WaveFormat;
-            }
-            waveFormat.Add("rate", format.SampleRate);
-            waveFormat.Add("bits", format.BitsPerSample);
-            waveFormat.Add("channels", format.Channels);
-            return waveFormat;
+            get { return WaveIn.GetCapabilities(0).Channels; }
         }
         private static void DataAvailable(object sender, WaveInEventArgs e)
         {
-            int i = e.BytesRecorded;
             onAudioIn(e.Buffer);
         }
     }

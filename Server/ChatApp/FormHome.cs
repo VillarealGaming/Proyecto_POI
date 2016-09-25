@@ -290,11 +290,8 @@ namespace ChatApp
                                 if(result == DialogResult.Yes)
                                 {
                                     sendPacket.tag["response"] = true;
-                                    Dictionary<string, int> waveFormat = packet.tag["waveFormat"] as Dictionary<string, int>;
-                                    int rate = waveFormat["rate"];
-                                    int bits = waveFormat["bits"];
-                                    int channels = waveFormat["channels"];
-                                    Speaker.Init(rate, bits, channels);
+                                    int channels = (int)packet.tag["channels"];
+                                    Speaker.Init(channels);
                                 }
                                 else
                                 {
@@ -466,7 +463,7 @@ namespace ChatApp
         private void picBox_CloseIcon_MouseEnter(object sender, EventArgs e) { picBox_CloseIcon.BackColor = Color.Brown; }
         private void picBox_CloseIcon_MouseLeave(object sender, EventArgs e) { picBox_CloseIcon.BackColor = Color.White; }
         //unused
-        private void listViewConversacion_SelectedIndexChanged(object sender, EventArgs e) { }
+        //private void listViewConversacion_SelectedIndexChanged(object sender, EventArgs e) { }
         private void toolTip1_Popup(object sender, PopupEventArgs e) { }
         private void treeViewUsers_AfterSelect(object sender, TreeViewEventArgs e) { }
     }

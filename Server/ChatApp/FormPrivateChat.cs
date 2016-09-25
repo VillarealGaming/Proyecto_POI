@@ -173,7 +173,7 @@ namespace ChatApp
                         Packet packet = new Packet(PacketType.WebCamRequest);
                         packet.tag["chatID"] = chatID;
                         packet.tag["sender"] = ClientSession.username;
-                        packet.tag["waveFormat"] = Microphone.GetWaveFormat();
+                        packet.tag["channels"] = Microphone.Channels;
                         ClientSession.Connection.SendPacket(packet);
                         //Camera.OwnerChat = chatID;
                         //Camera.Start();
