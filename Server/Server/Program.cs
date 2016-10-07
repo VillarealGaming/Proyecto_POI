@@ -102,10 +102,17 @@ namespace Server {
                         ServerDataSet.MensajeDataTable mensajeTable = database.Mensaje;
                         ServerDataSet.UsuarioConversacionDataTable usuarioConversacionTable = database.UsuarioConversacion;
                         ServerDataSet.MensajeRow mensajeRow = database.Mensaje.NewMensajeRow();
-                        mensajeRow.Mensaje = packet.tag["text"] as string;
+                        if ((bool)packet.tag["encriptado"]) {
+                            mensajeRow.Mensaje = EncryptString(packet.tag["text"] as string, packet.tag["sender"] as string);
+                        }
+                        else {
+                            mensajeRow.Mensaje = packet.tag["text"] as string;
+                        }
+                        //mensajeRow.Mensaje = packet.tag["text"] as string;
                         mensajeRow.Usuario = packet.tag["sender"] as string;
                         mensajeRow.Conversacion = (int)packet.tag["chatID"];
                         mensajeRow.Date = (DateTime)packet.tag["date"];
+                        mensajeRow.Encriptado = (bool)packet.tag["encriptado"];
                         mensajeTable.AddMensajeRow(mensajeRow);
                         database.WriteXml(databaseFile);
                         //Usuarios a mandar
@@ -292,9 +299,9 @@ namespace Server {
                             var queryResultMessages = from mensaje in mensajeTable
                                                       where mensaje.Conversacion == c.ID
                                                       select mensaje;
-                            foreach (var result in queryResultMessages)
-                            {
-                                text[c.ID].Add(new Tuple<string, string>(result.Mensaje, result.Usuario));
+                            foreach (var result in queryResultMessages) {
+                                string mensaje = result.Encriptado ? DecryptString(result.Mensaje, result.Usuario) : result.Mensaje;
+                                text[c.ID].Add(new Tuple<string, string>(mensaje, result.Usuario));
                             }
                             if(queryResultMessages.Count() > 0)
                             {

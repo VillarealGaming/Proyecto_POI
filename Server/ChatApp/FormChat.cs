@@ -130,6 +130,7 @@ namespace ChatApp
                 packet.tag["text"] = textBoxChat.Text;
                 packet.tag["chatID"] = chatID;
                 packet.tag["date"] = DateTime.Now;
+                packet.tag["encriptado"] = checkBoxEncrypt.Checked;
                 ClientSession.Connection.SendPacket(packet);
                 textBoxChat.Text = "";
             }

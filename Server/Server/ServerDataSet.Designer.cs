@@ -1524,7 +1524,7 @@ namespace Server {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public MensajeRow AddMensajeRow(ConversacionRow parentConversacionRowByConversacion_Mensaje, UsuarioRow parentUsuarioRowByUsuario_Mensaje, string Mensaje, System.DateTime Date, string Encriptado) {
+            public MensajeRow AddMensajeRow(ConversacionRow parentConversacionRowByConversacion_Mensaje, UsuarioRow parentUsuarioRowByUsuario_Mensaje, string Mensaje, System.DateTime Date, bool Encriptado) {
                 MensajeRow rowMensajeRow = ((MensajeRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -1578,12 +1578,13 @@ namespace Server {
                 base.Columns.Add(this.columnMensaje);
                 this.columnDate = new global::System.Data.DataColumn("Date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDate);
-                this.columnEncriptado = new global::System.Data.DataColumn("Encriptado", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnEncriptado = new global::System.Data.DataColumn("Encriptado", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnEncriptado);
                 this.columnConversacion.AllowDBNull = false;
                 this.columnUsuario.AllowDBNull = false;
                 this.columnMensaje.AllowDBNull = false;
                 this.columnDate.AllowDBNull = false;
+                this.columnEncriptado.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2823,14 +2824,9 @@ namespace Server {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Encriptado {
+            public bool Encriptado {
                 get {
-                    try {
-                        return ((string)(this[this.tableMensaje.EncriptadoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Encriptado\' in table \'Mensaje\' is DBNull.", e);
-                    }
+                    return ((bool)(this[this.tableMensaje.EncriptadoColumn]));
                 }
                 set {
                     this[this.tableMensaje.EncriptadoColumn] = value;
@@ -2857,18 +2853,6 @@ namespace Server {
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["Usuario_Mensaje"]);
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsEncriptadoNull() {
-                return this.IsNull(this.tableMensaje.EncriptadoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetEncriptadoNull() {
-                this[this.tableMensaje.EncriptadoColumn] = global::System.Convert.DBNull;
             }
         }
         
