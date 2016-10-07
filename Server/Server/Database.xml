@@ -636,6 +636,48 @@
     <Mensaje>lol</Mensaje>
     <Date>2016-09-15T20:47:07.9262008-05:00</Date>
   </Mensaje>
+  <Mensaje>
+    <Conversacion>2</Conversacion>
+    <Usuario>satan</Usuario>
+    <Mensaje>Este texto increíblemente largo pone a prueba que funcionen los acentos y que el texto se recorte en la pantalla de HOME</Mensaje>
+    <Date>2016-10-06T23:10:09.7800468-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>2</Conversacion>
+    <Usuario>satan</Usuario>
+    <Mensaje>Este texto increíblemente largo pone a prueba que funcionen los acentos y que el texto se recorte en la pantalla de HOME :D</Mensaje>
+    <Date>2016-10-06T23:10:56.6033551-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>2</Conversacion>
+    <Usuario>satan</Usuario>
+    <Mensaje> Este texto increíblemente largo pone a prueba que funcionen los acentos y que el texto se recorte en la pantalla de HOME :D :D :D</Mensaje>
+    <Date>2016-10-06T23:11:06.3789785-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>2</Conversacion>
+    <Usuario>Yamil</Usuario>
+    <Mensaje>--Archivo adjunto enviado--</Mensaje>
+    <Date>2016-10-06T23:11:54.97719-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>2</Conversacion>
+    <Usuario>satan</Usuario>
+    <Mensaje>.-*Zumbido*-.</Mensaje>
+    <Date>2016-10-06T23:12:25.1879769-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>2</Conversacion>
+    <Usuario>satan</Usuario>
+    <Mensaje>.-*Zumbido*-.</Mensaje>
+    <Date>2016-10-06T23:12:26.2753924-05:00</Date>
+  </Mensaje>
+  <Mensaje>
+    <Conversacion>2</Conversacion>
+    <Usuario>satan</Usuario>
+    <Mensaje>Este texto increíblemente largo pone a prueba que funcionen los acentos y que el texto se recorte en la pantalla de HOME   </Mensaje>
+    <Date>2016-10-06T23:12:35.9390774-05:00</Date>
+  </Mensaje>
   <MensajePrivado>
     <Encriptado>false</Encriptado>
     <Date>2016-09-16T00:18:01.6574496-05:00</Date>
@@ -671,8 +713,406 @@
     <ConversacionPrivada>0</ConversacionPrivada>
     <Usuario>123</Usuario>
   </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T00:52:40.9844213-05:00</Date>
+    <Mensaje>Ando bien happy :cool: </Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>satan</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T10:04:34.4975821-05:00</Date>
+    <Mensaje>:surprise: </Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T10:14:04.2414074-05:00</Date>
+    <Mensaje>:naughty:  </Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T10:33:43.2095033-05:00</Date>
+    <Mensaje>:wink: </Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T10:49:17.4134801-05:00</Date>
+    <Mensaje>asdf</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>true</Encriptado>
+    <Date>2016-09-16T10:49:22.9104762-05:00</Date>
+    <Mensaje>IP1hWba2zhtgnYshG5Bchw==</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>true</Encriptado>
+    <Date>2016-09-16T10:55:35.0327515-05:00</Date>
+    <Mensaje>Qhk8PynbOxuppsRKT6V6pA==</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>true</Encriptado>
+    <Date>2016-09-16T10:55:45.1031362-05:00</Date>
+    <Mensaje>tKvTG2FpCTukh4+plhYKBA==</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T10:55:51.9523117-05:00</Date>
+    <Mensaje>:angry: </Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T10:59:11.6932087-05:00</Date>
+    <Mensaje>fs</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T11:11:29.5489423-05:00</Date>
+    <Mensaje>faaff</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>true</Encriptado>
+    <Date>2016-09-16T11:11:54.8728594-05:00</Date>
+    <Mensaje>7b0ZpRHYnBBDnUi8Ixvy2w==</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T11:23:14.1956787-05:00</Date>
+    <Mensaje>.-*Zumbido*-.</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T11:23:16.5628932-05:00</Date>
+    <Mensaje>.-*Zumbido*-.</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>satan</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T11:23:19.755302-05:00</Date>
+    <Mensaje>.-*Zumbido*-.</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T11:23:25.1313241-05:00</Date>
+    <Mensaje>.-*Zumbido*-.</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>satan</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T11:23:32.2392982-05:00</Date>
+    <Mensaje>--Archivo adjunto enviado--</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>satan</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T11:24:04.5314621-05:00</Date>
+    <Mensaje>.-*Zumbido*-.</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>satan</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T11:24:08.9852385-05:00</Date>
+    <Mensaje>.-*Zumbido*-.</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-16T11:24:10.333789-05:00</Date>
+    <Mensaje>:angry: </Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-18T17:13:45.8482511-05:00</Date>
+    <Mensaje>damm</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-18T17:12:41.8560821-05:00</Date>
+    <Mensaje>good</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>satan</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>true</Encriptado>
+    <Date>2016-09-18T18:29:08.3468559-05:00</Date>
+    <Mensaje>x4Q9Rp8sjeNnppOjJOE8fA==</Mensaje>
+    <ConversacionPrivada>1</ConversacionPrivada>
+    <Usuario>satan</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T11:45:01.060091-05:00</Date>
+    <Mensaje>:D :D :D :D :D</Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>true</Encriptado>
+    <Date>2016-09-20T11:45:26.53911-05:00</Date>
+    <Mensaje>Gke6dzsUj4wDUG/cZvjv1A==</Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>Luis Carlos</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>true</Encriptado>
+    <Date>2016-09-20T11:46:23.786333-05:00</Date>
+    <Mensaje>MfsiAQPNaxh/XSRwSmHXaw==</Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>Luis Carlos</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T11:49:22.1653248-05:00</Date>
+    <Mensaje>:angry:</Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T11:49:32.9292073-05:00</Date>
+    <Mensaje>:angry: :smile: :meh: </Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T11:49:43.1851477-05:00</Date>
+    <Mensaje>:(</Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T11:49:55.51315-05:00</Date>
+    <Mensaje>:P</Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>Luis Carlos</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T11:50:03.1734577-05:00</Date>
+    <Mensaje>dfg</Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>Luis Carlos</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T11:50:37.9705369-05:00</Date>
+    <Mensaje>.-*Zumbido*-.</Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T11:50:42.4582939-05:00</Date>
+    <Mensaje>:serious: </Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T11:51:05.6775036-05:00</Date>
+    <Mensaje>:D</Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T11:51:10.9173528-05:00</Date>
+    <Mensaje>.-.</Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T11:51:12.653229-05:00</Date>
+    <Mensaje>:D :D</Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T11:51:41.9527601-05:00</Date>
+    <Mensaje>:D :D :D :D :D :D :D</Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T11:51:52.4095039-05:00</Date>
+    <Mensaje>:angry: :surprise: :meh: :happy: </Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T12:03:26.34233-05:00</Date>
+    <Mensaje>:surprise: :wink: :naughty:  :cool: </Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>Luis Carlos</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T12:04:14.6140966-05:00</Date>
+    <Mensaje>:angry: </Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T12:04:19.957286-05:00</Date>
+    <Mensaje>:surprise: :happy: </Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T12:25:45.9033133-05:00</Date>
+    <Mensaje>:dumb: :surprise: :cool: </Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>Luis Carlos</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T12:28:04.9216631-05:00</Date>
+    <Mensaje>:happy: :wink: :serious: </Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T12:28:12.9618525-05:00</Date>
+    <Mensaje>:devil: :sad: :naughty:  :smile: </Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T13:20:48.6542369-05:00</Date>
+    <Mensaje>:D D: o: .-. :D :D</Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-20T13:20:58.1537093-05:00</Date>
+    <Mensaje>:o</Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-22T11:55:31.6751304-05:00</Date>
+    <Mensaje>.-*Zumbido*-.</Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-22T11:55:32.6319294-05:00</Date>
+    <Mensaje>.-*Zumbido*-.</Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-22T11:55:33.7645144-05:00</Date>
+    <Mensaje>.-*Zumbido*-.</Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-22T12:00:30.5400026-05:00</Date>
+    <Mensaje>:D :D :D :D :D</Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-22T12:00:49.7726961-05:00</Date>
+    <Mensaje>:dumb: :angry: :surprise: :wink: :weird: :happy: </Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>Luis Carlos</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-22T12:00:58.6959068-05:00</Date>
+    <Mensaje>:( :( :( :( :( :( :( :( :(</Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-09-22T12:17:00.2003212-05:00</Date>
+    <Mensaje>.-*Zumbido*-.</Mensaje>
+    <ConversacionPrivada>2</ConversacionPrivada>
+    <Usuario>123</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-10-06T23:02:17.0938685-05:00</Date>
+    <Mensaje>sf</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>satan</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-10-06T23:05:28.8345884-05:00</Date>
+    <Mensaje>caca</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>satan</Usuario>
+  </MensajePrivado>
+  <MensajePrivado>
+    <Encriptado>false</Encriptado>
+    <Date>2016-10-06T23:10:46.1873385-05:00</Date>
+    <Mensaje>very very good :D</Mensaje>
+    <ConversacionPrivada>0</ConversacionPrivada>
+    <Usuario>satan</Usuario>
+  </MensajePrivado>
   <ConversacionPrivada>
     <ID>0</ID>
+  </ConversacionPrivada>
+  <ConversacionPrivada>
+    <ID>1</ID>
+  </ConversacionPrivada>
+  <ConversacionPrivada>
+    <ID>2</ID>
   </ConversacionPrivada>
   <UsuarioPrivado>
     <Usuario>123</Usuario>
@@ -681,5 +1121,21 @@
   <UsuarioPrivado>
     <Usuario>satan</Usuario>
     <ConversacionPrivada>0</ConversacionPrivada>
+  </UsuarioPrivado>
+  <UsuarioPrivado>
+    <Usuario>satan</Usuario>
+    <ConversacionPrivada>1</ConversacionPrivada>
+  </UsuarioPrivado>
+  <UsuarioPrivado>
+    <Usuario>mr.barry</Usuario>
+    <ConversacionPrivada>1</ConversacionPrivada>
+  </UsuarioPrivado>
+  <UsuarioPrivado>
+    <Usuario>123</Usuario>
+    <ConversacionPrivada>2</ConversacionPrivada>
+  </UsuarioPrivado>
+  <UsuarioPrivado>
+    <Usuario>Luis Carlos</Usuario>
+    <ConversacionPrivada>2</ConversacionPrivada>
   </UsuarioPrivado>
 </ServerDataSet>
