@@ -200,7 +200,6 @@
             this.listViewConversacion.TabIndex = 15;
             this.listViewConversacion.UseCompatibleStateImageBehavior = false;
             this.listViewConversacion.View = System.Windows.Forms.View.Details;
-            this.listViewConversacion.SelectedIndexChanged += new System.EventHandler(this.listViewConversacion_SelectedIndexChanged);
             this.listViewConversacion.Click += new System.EventHandler(this.listViewConversacion_Click);
             // 
             // columnChatName

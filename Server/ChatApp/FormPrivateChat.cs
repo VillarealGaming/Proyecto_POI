@@ -19,6 +19,7 @@ namespace ChatApp
         public ListViewItem listItem { get; set; }
         private const int buzzDuration = 500;
         private const int buzzStrength = 5;
+
         private const int minSize = 333;
         private const int maxSize = 689;
         private Size resizeRatio = new Size(8, 0);
@@ -181,7 +182,9 @@ namespace ChatApp
                         ////start audio record
                         //Microphone.OnAudioInCallback(SendAudioStream);
                         //Microphone.StartRecording();
-
+                        resizing = true;
+                        timer1.Start();
+                        picBox_CloseIcon.Location = new Point(665, 0);
                     } else {
                         //Camera is in use;
                         MessageBox.Show("La camara se encuentra en uso por otro chat", "Camara en uso", MessageBoxButtons.OK);
@@ -240,9 +243,6 @@ namespace ChatApp
                 packet.tag["encriptado"] = checkBoxEncrypt.Checked;
                 ClientSession.Connection.SendPacket(packet);
                 textBoxChat.Text = "";
-            } else { //bloque de pruebas
-                resizing = true;
-                timer1.Start();
             }
         }
 
@@ -349,6 +349,13 @@ namespace ChatApp
         private void picBox_CloseIcon_MouseLeave(object sender, EventArgs e) { picBox_CloseIcon.BackColor = Color.White; }
         private void picBox_CloseIcon_MouseEnter(object sender, EventArgs e) { picBox_CloseIcon.BackColor = Color.Brown; }
         private void picBox_CloseIcon_Click(object sender, EventArgs e) { this.Hide(); }
+
+        private void picBox_EndCall_Click(object sender, EventArgs e) {
+            resizing = true;
+            timer1.Start();
+            picBox_CloseIcon.Location = new Point(665, 0);
+        }
+
         private void FormPrivateChat_MouseUp(object sender, MouseEventArgs e) { dragging = false; }
     }
 }

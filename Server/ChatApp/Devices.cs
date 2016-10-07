@@ -85,7 +85,11 @@ namespace ChatApp
         }
 
         public static void Start() { VideoSource.Start(); }
-        public static void Stop() { VideoSource.Stop(); }
+        public static void Stop() {
+            if (VideoSource != null) {
+                VideoSource.Stop();
+            }
+        }
         public static void Release()
         {
             VideoSource.SignalToStop();
