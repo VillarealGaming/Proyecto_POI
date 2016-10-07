@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using EasyPOI;
 using NAudio.Wave;
+using mGame;
 namespace ChatApp
 {
     public partial class FormHome : Form
@@ -393,6 +394,9 @@ namespace ChatApp
             ClientSession.Emoticons.Add(ChatApp.Properties.Resources.weird, new string[] { " :$", " .~.", ":weird:" });
             ClientSession.Emoticons.Add(ChatApp.Properties.Resources.wink, new string[] { " ;)", ":wink:" });
             ClientSession.HasCamera = Camera.Detect();
+            //using (var game = new POIGame()) {
+            //    game.Run();
+            //}
             //Speaker.Init();
         }
 

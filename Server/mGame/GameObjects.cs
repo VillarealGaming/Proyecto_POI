@@ -23,7 +23,7 @@ namespace mGame
             animation.AddAnimation("stop", new int[] { 0 });
             animation.AddAnimation("move", new int[] { 1 });
             animation.SetAnimation("stop");
-            moveComponent = new MoveableTile(position, 8, 8);
+            moveComponent = new MoveableTile(position, 250, 250);
             moveComponent.MoveEase = 7.0f;
             POIGame.GraphicManager.AddGraphic(sprite);
             POIGame.AnimationManager.AddInstance(animation);
@@ -52,7 +52,9 @@ namespace mGame
                 moveComponent.MoveDown();
             }
             base.Update();
-            POIGame.Camera.Location = position.Value.ToPoint();
+            POIGame.Camera.Value.Location = position.Value.ToPoint();
+            POIGame.Camera.Value.X -= POIGame.Camera.Value.Width / 2;
+            POIGame.Camera.Value.Y -= POIGame.Camera.Value.Height / 2;
         }
         public override void Removed() {
             POIGame.GraphicManager.Remove(sprite);

@@ -9,5 +9,6 @@ namespace mGame
     static class Assets
     {
         public static Texture2D playerSprite;
+        public static Texture2D mapTiles;
     }
 }

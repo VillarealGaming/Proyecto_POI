@@ -47,29 +47,35 @@ namespace mGame
         internal Position position;
         internal Texture2D texture;
         internal AnimationFrame frame;
+        private RefRectangle offSet;
         public SpriteEffects effects;
         public Vector2 scale;
         public float rotation { get; set; }
         public Vector2 origin;
-        public GraphicInstance(Texture2D texture, Position position) {
+        //I don't like this layer implementation
+        public float layerDepth;
+        public GraphicInstance(Texture2D texture, Position position, bool fixedPosition = false) {
             this.texture = texture;
             this.position = position;
             scale.X = 1.0f;
             scale.Y = 1.0f;
             frame = new AnimationFrame();
             effects = new SpriteEffects();
+            offSet = fixedPosition ? new RefRectangle() : POIGame.Camera;
+            layerDepth = 1.0f;
         }
         internal override void Draw() {
             POIGame.spriteBatch.Draw(
                 texture,
-                position.ClampValue - POIGame.Camera.Location.ToVector2(),
+                position.ClampValue - offSet.Value.Location.ToVector2(),
                 null,
                 frame.rectangle,
                 origin,
                 rotation,
                 scale,
                 Color.White,
-                effects
+                effects,
+                layerDepth
                 );
             base.Draw();
         }
@@ -106,7 +112,8 @@ namespace mGame
             }
         }
     }
-    //position component
+    //position and rectangle component, they just wrap an struct so
+    //it can be handled by reference
     public class Position
     {
         private Vector2 clampValue;
@@ -117,8 +124,9 @@ namespace mGame
                 return clampValue;
             }
         }
-        public Vector2 Value { get; set; }
+        public Vector2 Value;
     }
+    public class RefRectangle{ public Rectangle Value; }
     //frame component
     public class AnimationFrame
     {
@@ -170,34 +178,86 @@ namespace mGame
     {
         struct TileInfo {
             public Vector2 tilePosition;
-            public Rectangle textureRect;
+            public Point textureCoord;
         }
         private TileInfo[] tiles;
         private GraphicInstance tile;
+        private int tileWidth;
+        private int tileHeight;
         //Texture2D texture;
         public TileMap(Texture2D texture, int tileWidth = 24, int tileHeight = 24) {
             //tiles = new TileInfo[mapWidth * mapHeight];
             tile = new GraphicInstance(texture, new Position());
             tile.frame.rectangle = new Rectangle(0, 0, tileWidth, tileHeight);
+            this.tileWidth = tileWidth;
+            this.tileHeight = tileHeight;
+            //test locals
+            const int mapWidth = 500;
+            const int mapHeight = 500;
+            tile.layerDepth = 0.001f;
+            tiles = new TileInfo[POIGame.LevelData.Length];
+            int index = 501;// = i * mapWidth + j;
+            for (int i = 1; i < mapHeight-1; i++) {
+                for (int j = 1; j < mapWidth-1; j++) {
+                    tiles[i * mapWidth + j].tilePosition = new Vector2(j * tileWidth, i * tileHeight);
+                    if(POIGame.LevelData[index] == 0) {
+                        bool isWall = false;
+                        if(
+                            //Side check
+                            POIGame.LevelData[index + 1] != 0 ||
+                            POIGame.LevelData[index - 1] != 0 ||
+                            POIGame.LevelData[index - mapWidth] != 0 ||
+                            POIGame.LevelData[index + mapWidth] != 0 ||
+                            //Corner check
+                            POIGame.LevelData[index + mapWidth + 1] != 0 ||
+                            POIGame.LevelData[index + mapWidth - 1] != 0 ||
+                            POIGame.LevelData[index - mapWidth + 1] != 0 ||
+                            POIGame.LevelData[index - mapWidth - 1] != 0
+                            ) {
+                            isWall = true;
+                        }
+                        tiles[index].textureCoord = isWall? new Point(48, 0) : new Point(24, 0);
+                    }
+                    else {
+                        tiles[index].textureCoord = new Point();
+                    }
+                    index++;
+                }
+            }
             //this.texture = texture;
         }
         /// <summary>
         /// Loads the tiles from an array, it just evaluates
         /// if the value is different from 0
         /// </summary>
-        public void GenerateFromArray(UInt32[] data, int mapWidth, int mapHeight) {
-            tiles = new TileInfo[data.Length];
-
+        public void GenerateFromArray(int mapWidth, int mapHeight) {
         }
         internal override void Draw() {
-            foreach(var tile in tiles) {
-                //POIGame.spriteBatch.Draw(
-                //    texture,
-                //    tile.tilePosition,
-                //    tile.textureRect,
-                //    Color.White
-                //    );
+            //Just draw current on screen tiles...
+            //TODO: Make tile size a global static const
+            Point cameraGrid = new Point(POIGame.Camera.Value.X / 24, POIGame.Camera.Value.Y / 24);
+            int index = (cameraGrid.Y) * 500 + (cameraGrid.X);// = i * mapWidth + j;
+            for (int i = 0; i < POIGame.Camera.Value.Height / 24 + 1; i ++) {
+                for(int j = 0; j < POIGame.Camera.Value.Width / 24 + 1; j++) {
+                    TileInfo tileInfo = tiles[(cameraGrid.Y + i) * 500 + (cameraGrid.X + j)];
+                    tile.position.Value = tileInfo.tilePosition;
+                    tile.frame.rectangle = new Rectangle(tileInfo.textureCoord, new Point(24, 24));
+                    tile.Draw();
+                    index++;
+                }
+                index -= POIGame.Camera.Value.Width / 24 + 1;
+                index += i * POIGame.Camera.Value.Width / 24 + 1;
             }
+            //foreach(var tileInfo in tiles) {
+            //    tile.position.Value = tileInfo.tilePosition;
+            //    tile.Draw();
+            //    //POIGame.spriteBatch.Draw(
+            //    //    texture,
+            //    //    tile.tilePosition,
+            //    //    tile.textureRect,
+            //    //    Color.White
+            //    //    );
+            //}
             base.Draw();
         }
     }

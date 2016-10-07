@@ -18,8 +18,9 @@ namespace mGame {
         public static UpdateableContainer AnimationManager;
         public static UpdateableContainer InstanceManager;
         public static UpdateableContainer MoveableManager;
+        public static UInt32[] LevelData;
         //Will define a lot of the draw behavior...
-        public static Rectangle Camera;
+        public static RefRectangle Camera;
         private const int GameWidth = 432;
         private const int GameHeight = 336;
         //level generation test
@@ -30,6 +31,7 @@ namespace mGame {
         }
         private static double deltaTime;
         private Player player;
+        private TileMap tiles;
         public POIGame() {
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = GameWidth;
@@ -38,6 +40,9 @@ namespace mGame {
             AnimationManager = new UpdateableContainer();
             InstanceManager = new UpdateableContainer();
             MoveableManager = new UpdateableContainer();
+            Camera = new RefRectangle();
+            Camera.Value.Width = GameWidth;
+            Camera.Value.Height = GameHeight;
         }
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -51,7 +56,8 @@ namespace mGame {
             //level generation test
             levelDimensions = new Rectangle(0, 0, 500, 500);
             level = new Texture2D(GraphicsDevice, levelDimensions.Width, levelDimensions.Height);
-            level.SetData(new RoomGenerator(500, 500).Generate(6, 24, 2, 4, 2));//6, 24, 4, 10
+            LevelData = new RoomGenerator(500, 500).Generate(6, 14, 4, 10, 2);//6,24, 2, 4 //6, 24, 4, 10
+            level.SetData(LevelData);
             base.Initialize();
         }
         /// <summary>
@@ -63,8 +69,12 @@ namespace mGame {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
             Assets.playerSprite = Content.Load<Texture2D>("Content/Player");
+            Assets.mapTiles = Content.Load<Texture2D>("Content/tileSet");
             player = new Player();
+            tiles = new TileMap(Assets.mapTiles);
             InstanceManager.AddInstance(player);
+            GraphicManager.AddGraphic(tiles);
+            
             Content.RootDirectory = "Content";
         }
 
@@ -102,7 +112,7 @@ namespace mGame {
             GraphicsDevice.Clear(Color.DarkSlateGray);
             GraphicsDevice.Textures[0] = null;
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.FrontToBack);
             GraphicManager.Draw();
             spriteBatch.Draw(level, new Vector2(), Color.White);
             spriteBatch.End();

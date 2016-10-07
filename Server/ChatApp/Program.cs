@@ -18,6 +18,7 @@ namespace ChatApp
             Application.SetCompatibleTextRenderingDefault(false);
 
             Application.Run(new formLogin());
+            
         }
     }
 }
