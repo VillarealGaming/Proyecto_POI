@@ -35,8 +35,14 @@ namespace mGame
             components.Remove(component.id);
         }
     }
+    //Drawable component and container
+    public class Drawable : Component
+    {
+        internal virtual void Draw() { }
+    }
     //graphic component and container
-    public class GraphicInstance : Component
+    //it draw itself based on the camera position
+    public class GraphicInstance : Drawable
     {
         internal Position position;
         internal Texture2D texture;
@@ -53,26 +59,33 @@ namespace mGame
             frame = new AnimationFrame();
             effects = new SpriteEffects();
         }
+        internal override void Draw() {
+            POIGame.spriteBatch.Draw(
+                texture,
+                position.ClampValue - POIGame.Camera.Location.ToVector2(),
+                null,
+                frame.rectangle,
+                origin,
+                rotation,
+                scale,
+                Color.White,
+                effects
+                );
+            base.Draw();
+        }
     }
+    //TODO: GUI graphic
+    //class...
+    //
     public class Graphics : ComponentContainer
     {
-        public void AddGraphic(GraphicInstance graphic) {
+        public void AddGraphic(Drawable graphic) {
             Add(graphic);
         }
         public void Draw() {
             foreach (var pair in components) {
-                GraphicInstance graphic = (GraphicInstance)pair.Value;
-                POIGame.spriteBatch.Draw(
-                    graphic.texture, 
-                    graphic.position.ClampValue,
-                    null, 
-                    graphic.frame.rectangle,
-                    graphic.origin,
-                    graphic.rotation,
-                    graphic.scale,
-                    Color.White,
-                    graphic.effects
-                    );
+                Drawable graphic = (Drawable)pair.Value;
+                graphic.Draw();
             }
         }
     }
@@ -150,6 +163,42 @@ namespace mGame
         }
         public void RemoveAnimation(string animationName) {
             animations.Remove(animationName);
+        }
+    }
+    //Custom Tilemap component
+    public class TileMap : Drawable
+    {
+        struct TileInfo {
+            public Vector2 tilePosition;
+            public Rectangle textureRect;
+        }
+        private TileInfo[] tiles;
+        private GraphicInstance tile;
+        //Texture2D texture;
+        public TileMap(Texture2D texture, int tileWidth = 24, int tileHeight = 24) {
+            //tiles = new TileInfo[mapWidth * mapHeight];
+            tile = new GraphicInstance(texture, new Position());
+            tile.frame.rectangle = new Rectangle(0, 0, tileWidth, tileHeight);
+            //this.texture = texture;
+        }
+        /// <summary>
+        /// Loads the tiles from an array, it just evaluates
+        /// if the value is different from 0
+        /// </summary>
+        public void GenerateFromArray(UInt32[] data, int mapWidth, int mapHeight) {
+            tiles = new TileInfo[data.Length];
+
+        }
+        internal override void Draw() {
+            foreach(var tile in tiles) {
+                //POIGame.spriteBatch.Draw(
+                //    texture,
+                //    tile.tilePosition,
+                //    tile.textureRect,
+                //    Color.White
+                //    );
+            }
+            base.Draw();
         }
     }
 }

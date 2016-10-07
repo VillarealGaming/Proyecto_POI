@@ -210,6 +210,7 @@ namespace ChatApp
         }
         //camera new frame event
         public void SendCameraPacket(Bitmap bitmap) {
+            pictureBoxCamLocal.Image = new Bitmap(bitmap, pictureBoxCamLocal.Size);
             using (Bitmap img = new Bitmap(bitmap, pictureBoxCam.Size)) {
                 if (Camera.CanSend) {
                     //pictureBoxCam.Image = img;

@@ -52,6 +52,7 @@ namespace mGame
                 moveComponent.MoveDown();
             }
             base.Update();
+            POIGame.Camera.Location = position.Value.ToPoint();
         }
         public override void Removed() {
             POIGame.GraphicManager.Remove(sprite);
@@ -110,7 +111,6 @@ namespace mGame
             else {
                 goalReached = true;
             }
-            
             base.Update();
         }
         public void MoveRight() {

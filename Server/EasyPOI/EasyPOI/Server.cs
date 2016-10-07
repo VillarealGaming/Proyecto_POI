@@ -15,7 +15,7 @@ namespace EasyPOI
         private const int listenTime = 10;
         internal const int TcpPort = 6666;
         internal const int UdpPort = 7777;
-        internal const string Address = "192.168.1.64";
+        internal const string Address = "192.168.1.67";
         public Server()
         {
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
