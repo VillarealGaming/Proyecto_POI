@@ -353,7 +353,11 @@ namespace ChatApp
         private void picBox_EndCall_Click(object sender, EventArgs e) {
             resizing = true;
             timer1.Start();
-            picBox_CloseIcon.Location = new Point(665, 0);
+            picBox_CloseIcon.Location = new Point(306, 0);
+            if (Camera.OwnerChat == chatID) {
+                Camera.Stop();
+                Microphone.EndRecording();
+            }
         }
 
         private void FormPrivateChat_MouseUp(object sender, MouseEventArgs e) { dragging = false; }
