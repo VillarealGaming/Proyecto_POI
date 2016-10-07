@@ -25,7 +25,13 @@ namespace EasyPOI
             udpSocket = new UdpClient();
             udpSocket.ExclusiveAddressUse = false;
             udpSocket.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-            udpSocket.Client.Bind(ipEndPoint);
+            IPAddress localAddress = new IPAddress(0);
+            foreach(IPAddress adress in Dns.GetHostAddresses(Dns.GetHostName())) {
+                if(IPAddress.Parse(adress.ToString()).AddressFamily == AddressFamily.InterNetwork) {
+                    localAddress = adress;
+                }
+            }
+            udpSocket.Client.Bind(new IPEndPoint(localAddress, 0));
             UdpState state = new UdpState();
             state.client = udpSocket;
             state.ipEndPoint = ipEndPoint;
