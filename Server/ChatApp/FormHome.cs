@@ -147,6 +147,7 @@ namespace ChatApp
                             chatsForms[chatID].AddMessageToChat(packet.tag["sender"] as string, packet.tag["text"] as string);
                             chatsForms[chatID].SetLastMessage(packet.tag["sender"] as string, packet.tag["text"] as string, date);
                             chatsForms[chatID].CheckEmoticons();
+                            chatsForms[chatID].Show();
                             listViewConversacion.Sort();
                         }
                         break;
@@ -157,6 +158,7 @@ namespace ChatApp
                             privateChatForms[chatID].AddMessageToChat(packet.tag["sender"] as string, packet.tag["text"] as string);
                             privateChatForms[chatID].SetLastMessage(packet.tag["sender"] as string, packet.tag["text"] as string, date);
                             privateChatForms[chatID].CheckEmoticons();
+                            privateChatForms[chatID].Show();
                             listViewConversacion.Sort();
                         }
                         break;
@@ -174,6 +176,11 @@ namespace ChatApp
                                 //userList
                                 ClientSession.userList.Add(user.Key);
                             }
+                            //remove self username
+                            foreach (TreeNode carrer in treeViewUsers.Nodes)
+                            {
+                                carrer.Nodes.RemoveByKey(ClientSession.username);
+                            }
                             treeViewUsers.ExpandAll();
                             Packet sendPacket = new Packet(PacketType.GetUserConversations);
                             sendPacket.tag["user"] = ClientSession.username;
@@ -182,8 +189,11 @@ namespace ChatApp
                         break;
                     case PacketType.SetUserState:
                         {
-                            TreeNode node = treeViewUsers.Nodes.Find(packet.tag["user"] as string, true)[0];
-                            node.ImageIndex = ClientSession.connectionStateHash[packet.tag["state"] as string].Item1 + 1;
+                            if(packet.tag["user"] as string != ClientSession.username)
+                            {
+                                TreeNode node = treeViewUsers.Nodes.Find(packet.tag["user"] as string, true)[0];
+                                node.ImageIndex = ClientSession.connectionStateHash[packet.tag["state"] as string].Item1 + 1;
+                            }
                         }
                         break;
                     case PacketType.SessionBegin:

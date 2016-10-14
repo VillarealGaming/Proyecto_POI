@@ -40,6 +40,8 @@
             this.lbl_Registrar = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.picBox_CloseIcon = new System.Windows.Forms.PictureBox();
+            this.labelEstado = new System.Windows.Forms.Label();
+            this.comboBoxEstado = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).BeginInit();
             this.SuspendLayout();
@@ -50,10 +52,10 @@
             this.buttonConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonConnect.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonConnect.ForeColor = System.Drawing.Color.White;
-            this.buttonConnect.Location = new System.Drawing.Point(238, 243);
+            this.buttonConnect.Location = new System.Drawing.Point(238, 300);
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.Size = new System.Drawing.Size(75, 23);
-            this.buttonConnect.TabIndex = 4;
+            this.buttonConnect.TabIndex = 5;
             this.buttonConnect.Text = "Entrar";
             this.buttonConnect.UseVisualStyleBackColor = false;
             this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
@@ -138,7 +140,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("MS Reference Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(9, 251);
+            this.label2.Location = new System.Drawing.Point(9, 308);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(139, 15);
             this.label2.TabIndex = 7;
@@ -149,7 +151,7 @@
             this.lbl_Registrar.AutoSize = true;
             this.lbl_Registrar.Font = new System.Drawing.Font("MS Reference Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Registrar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.lbl_Registrar.Location = new System.Drawing.Point(144, 251);
+            this.lbl_Registrar.Location = new System.Drawing.Point(144, 308);
             this.lbl_Registrar.Name = "lbl_Registrar";
             this.lbl_Registrar.Size = new System.Drawing.Size(65, 15);
             this.lbl_Registrar.TabIndex = 8;
@@ -184,12 +186,43 @@
             this.picBox_CloseIcon.MouseEnter += new System.EventHandler(this.picBox_CloseIcon_MouseEnter);
             this.picBox_CloseIcon.MouseLeave += new System.EventHandler(this.picBox_CloseIcon_MouseLeave);
             // 
+            // labelEstado
+            // 
+            this.labelEstado.AutoSize = true;
+            this.labelEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelEstado.ForeColor = System.Drawing.Color.White;
+            this.labelEstado.Location = new System.Drawing.Point(9, 255);
+            this.labelEstado.Name = "labelEstado";
+            this.labelEstado.Size = new System.Drawing.Size(115, 15);
+            this.labelEstado.TabIndex = 10;
+            this.labelEstado.Text = "Estado de conexión";
+            // 
+            // comboBoxEstado
+            // 
+            this.comboBoxEstado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.comboBoxEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxEstado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBoxEstado.ForeColor = System.Drawing.Color.White;
+            this.comboBoxEstado.FormattingEnabled = true;
+            this.comboBoxEstado.Items.AddRange(new object[] {
+            "Predeterminado",
+            "Disponible",
+            "No disponible",
+            "Ocupado",
+            "Desconectado"});
+            this.comboBoxEstado.Location = new System.Drawing.Point(124, 255);
+            this.comboBoxEstado.Name = "comboBoxEstado";
+            this.comboBoxEstado.Size = new System.Drawing.Size(189, 21);
+            this.comboBoxEstado.TabIndex = 4;
+            // 
             // formLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
-            this.ClientSize = new System.Drawing.Size(328, 282);
+            this.ClientSize = new System.Drawing.Size(328, 343);
+            this.Controls.Add(this.comboBoxEstado);
+            this.Controls.Add(this.labelEstado);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lbl_Registrar);
             this.Controls.Add(this.label2);
@@ -229,5 +262,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lbl_Registrar;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label labelEstado;
+        private System.Windows.Forms.ComboBox comboBoxEstado;
     }
 }

@@ -39,7 +39,7 @@ namespace ChatApp
                 if(packet.Type == PacketType.SessionBegin)
                 {
                     ClientSession.username = textBoxUsername.Text;
-                    ClientSession.state = packet.tag["state"] as string;
+                    ClientSession.state = comboBoxEstado.SelectedIndex>0? ((UserConnectionState)comboBoxEstado.SelectedIndex - 1).ToString() : packet.tag["state"] as string;
                     this.Hide();
                     FormHome home = new FormHome();
                     home.FormClosed += (s, args) => { this.Close(); };
@@ -73,6 +73,7 @@ namespace ChatApp
         //TODO: Comenzar la conexion en otro form, uno que solo aparezca una vez
         private void formLogin_Load(object sender, EventArgs e)
         {
+            comboBoxEstado.SelectedIndex = 0;
         }
 
         private void formLogin_Shown(object sender, EventArgs e)
