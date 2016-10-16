@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using EasyPOI;
-//TODO: Trabajar en las tablas y relaciones de la base de datos
 //TODO: Agregar un timer de espera máximo para conectarse al servidor
 //TODO: Manejar desconexión del servidor
 //TODO: Inhabilitar el boton de cerrar del servidor en la consola

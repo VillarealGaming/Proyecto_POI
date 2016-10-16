@@ -8,6 +8,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Drawing;
 namespace mGame {
+    enum KeyState
+    {
+        Idle,
+        On,
+        Off
+    }
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -19,6 +25,12 @@ namespace mGame {
         public static UpdateableContainer InstanceManager;
         public static UpdateableContainer MoveableManager;
         public static UInt32[] LevelData;
+        public static bool GetKeyPressed(Keys key)
+        {
+            return keyPressed[key] == KeyState.On;
+        }
+        private static Dictionary<Keys, KeyState> keyPressed;
+        public const int LevelWidth = 500, LevelHeight = 500;
         //Will define a lot of the draw behavior...
         public static RefRectangle Camera;
         private const int GameWidth = 432;
@@ -30,7 +42,7 @@ namespace mGame {
             get { return deltaTime; }
         }
         private static double deltaTime;
-        private Player player;
+        private Player playerA, playerB;
         private TileMap tiles;
         public POIGame() {
             graphics = new GraphicsDeviceManager(this);
@@ -43,6 +55,7 @@ namespace mGame {
             Camera = new RefRectangle();
             Camera.Value.Width = GameWidth;
             Camera.Value.Height = GameHeight;
+            keyPressed = new Dictionary<Keys, KeyState>();
         }
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -70,9 +83,11 @@ namespace mGame {
             // TODO: use this.Content to load your game content here
             Assets.playerSprite = Content.Load<Texture2D>("Content/Player");
             Assets.mapTiles = Content.Load<Texture2D>("Content/tileSet");
-            player = new Player();
+            playerA = new Player(Keys.Right, Keys.Left,Keys.Up, Keys.Down);
+            playerB = new Player(Keys.D, Keys.A, Keys.W, Keys.S, 251, 250);
             tiles = new TileMap(Assets.mapTiles);
-            InstanceManager.AddInstance(player);
+            InstanceManager.AddInstance(playerA);
+            InstanceManager.AddInstance(playerB);
             GraphicManager.AddGraphic(tiles);
             
             Content.RootDirectory = "Content";
@@ -97,13 +112,33 @@ namespace mGame {
                 Exit();
 
             // TODO: Add your update logic here
+            foreach(Keys key in Enum.GetValues(typeof(Keys)))
+            {
+                if (Keyboard.GetState().IsKeyDown(key))
+                {
+                    if (keyPressed[key] == KeyState.Idle)
+                        keyPressed[key] = KeyState.On;
+                    else if (keyPressed[key] == KeyState.On)
+                        keyPressed[key] = KeyState.Off;
+                }
+                else
+                {
+                    keyPressed[key] = KeyState.Idle;
+                }
+            }
             deltaTime = gameTime.ElapsedGameTime.TotalSeconds;
             InstanceManager.Update();
             AnimationManager.Update();
             MoveableManager.Update();
+            //Camera logic
+            int playerA_X = playerA.Position.Value.ToPoint().X - Camera.Value.Width / 2;
+            int playerB_X = playerB.Position.Value.ToPoint().X - Camera.Value.Width / 2;
+            int playerA_Y = playerA.Position.Value.ToPoint().Y - Camera.Value.Height / 2;
+            int playerB_Y = playerB.Position.Value.ToPoint().Y - Camera.Value.Height / 2;
+            Camera.Value.X -= (int)(Camera.Value.X - ((playerA_X + playerB_X) / 2)) / 20;
+            Camera.Value.Y -= (int)(Camera.Value.Y - ((playerA_Y + playerB_Y) / 2)) / 20;
             base.Update(gameTime);
         }
-
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -114,7 +149,7 @@ namespace mGame {
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.FrontToBack);
             GraphicManager.Draw();
-            spriteBatch.Draw(level, new Vector2(), Color.White);
+            //spriteBatch.Draw(level, new Vector2(), Color.White);
             spriteBatch.End();
             base.Draw(gameTime);
         }

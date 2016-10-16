@@ -192,8 +192,8 @@ namespace mGame
             this.tileWidth = tileWidth;
             this.tileHeight = tileHeight;
             //test locals
-            const int mapWidth = 500;
-            const int mapHeight = 500;
+            const int mapWidth = POIGame.LevelWidth;
+            const int mapHeight = POIGame.LevelHeight;
             tile.layerDepth = 0.001f;
             tiles = new TileInfo[POIGame.LevelData.Length];
             int index = 501;// = i * mapWidth + j;
