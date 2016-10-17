@@ -360,6 +360,15 @@ namespace ChatApp
             }
         }
 
+        private void picBox_StartGame_Click(object sender, EventArgs e)
+        {
+            ClientSession.GameIsRunning = true;
+            Packet packet = new Packet(PacketType.GameStart);
+            packet.tag["chatID"] = chatID;
+            packet.tag["sender"] = ClientSession.username;
+            ClientSession.Connection.SendPacket(packet);
+        }
+
         private void FormPrivateChat_MouseUp(object sender, MouseEventArgs e) { dragging = false; }
     }
 }

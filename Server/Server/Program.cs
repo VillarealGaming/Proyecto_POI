@@ -18,6 +18,7 @@ namespace Server {
             database.ReadXml("Database.xml");
             connectedUsers = new Dictionary<string, Socket>();
             connectedUsersUdp = new Dictionary<string, IPEndPoint>();
+            connectedPlayers = new Dictionary<int, List<string>>();
             server = new EasyPOI.Server();
             server.SetOnClientDisconnectFunc(OnClientDisconnect);
             server.SetPacketReceivedFunc(OnPacketReceived);
@@ -394,6 +395,27 @@ namespace Server {
                             connectedUsersUdp.Add(username, packet.tag["endPoint"] as IPEndPoint);
                     }
                     break;
+                case PacketType.GameStart:
+                    {
+                        ServerDataSet.UsuarioPrivadoDataTable usuarioPrivado = database.UsuarioPrivado;
+                        //usuarios a mandar
+                        int chatID = (int)packet.tag["chatID"];
+                        var queryResult = from user in usuarioPrivado
+                                          where user.ConversacionPrivada == chatID
+                                          select user;
+                        if(!connectedPlayers.ContainsKey(chatID))
+                        {
+                            connectedPlayers[chatID] = new List<string>();
+                            connectedPlayers[chatID].Add(packet.tag["sender"] as string);
+                            Packet sendPacket = new Packet(PacketType.GameFirstPlayer);
+                            server.SendPacket(sendPacket, connectedUsers[packet.tag["sender"] as string]);
+                        }
+                        else
+                        {
+                            connectedPlayers[chatID].Add(packet.tag["sender"] as string);
+                        }
+                    }
+                    break;
             }
         }
         private static void OnUdpPacket(UdpPacket packet)
@@ -509,6 +531,7 @@ namespace Server {
         private static ServerDataSet database;
         private static Dictionary<string, Socket> connectedUsers;
         private static Dictionary<string, IPEndPoint> connectedUsersUdp;
+        private static Dictionary<int, List<string>> connectedPlayers;
         private const string databaseFile = "Database.xml";
     }
 }

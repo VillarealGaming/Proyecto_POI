@@ -13,7 +13,7 @@ namespace mGame {
         [STAThread]
         static void Main()
         {
-            using (var game = new POIGame())
+            using (var game = new POIGame(new LevelState()))
                 game.Run();
         }
     }

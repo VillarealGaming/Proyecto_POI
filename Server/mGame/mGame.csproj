@@ -39,8 +39,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets.cs" />
-    <Compile Include="Components.cs" />
-    <Compile Include="GameObjects.cs" />
+    <Compile Include="Enemies.cs" />
+    <Compile Include="GameComponents.cs" />
+    <Compile Include="LevelObjects.cs" />
+    <Compile Include="GameState.cs" />
+    <Compile Include="LevelState.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="POIGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,12 +58,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Player.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\tileSet.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

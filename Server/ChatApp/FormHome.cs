@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using EasyPOI;
@@ -20,6 +20,40 @@ namespace ChatApp
         private Dictionary<int, formChat> chatsForms = new Dictionary<int, formChat>();
         private Dictionary<int, FormPrivateChat> privateChatForms = new Dictionary<int, FormPrivateChat>();
         private ToolStripMenuItem selectedStateItem;
+        private Thread gameThread;
+        private POIGame game;
+        public class LevelStateOnline : LevelState
+        {
+
+        }
+        public class ConnectingState : GameState
+        {
+            private TextSprite text;
+            private float elapse;
+            public override void Init()
+            {
+                text = new TextSprite(Assets.retroFont, camera.Value.Center.ToVector2());
+                text.text = "ESPERANDO A OTRO USUARIO...";
+                text.origin = new Microsoft.Xna.Framework.Vector2(180, 10);
+                AddGraphic(text);
+                base.Init();
+            }
+            public override void Update()
+            {
+                elapse += (float)POIGame.DeltaTime * 0.7f;
+                float effect = 1.0f + (float)Math.Sin(elapse) * 0.125f;
+                text.scale = new Microsoft.Xna.Framework.Vector2(effect, effect);
+                base.Update();
+            }
+        }
+        public void Game()
+        {
+            //Packet packet = new Packet(PacketType.BeginGame);
+            //ClientSession.Connection.SendPacket(packet);
+            game = new POIGame(new ConnectingState());
+            game.Run();
+            ClientSession.GameIsRunning = false;
+        }
         public FormHome()
         {
             InitializeComponent();
@@ -48,6 +82,12 @@ namespace ChatApp
             {
                 switch(packet.Type)
                 {
+                    case PacketType.GameFirstPlayer:
+                        {
+                            gameThread = new Thread(Game);
+                            gameThread.Start();
+                        }
+                        break;
                     case PacketType.CreatePrivateConversation:
                         {
                             List<string> users = (List<string>)packet.tag["users"];
@@ -404,6 +444,8 @@ namespace ChatApp
             ClientSession.Emoticons.Add(ChatApp.Properties.Resources.weird, new string[] { " :$", " .~.", ":weird:" });
             ClientSession.Emoticons.Add(ChatApp.Properties.Resources.wink, new string[] { " ;)", ":wink:" });
             ClientSession.HasCamera = Camera.Detect();
+            //gameThread = new Thread(Game);
+            //gameThread.Start();
             //using (var game = new POIGame()) {
             //    game.Run();
             //}
@@ -489,6 +531,7 @@ namespace ChatApp
         public static string state;
         public const int textMessagesVisibleText = 40;
         public static bool HasCamera;
+        public static bool GameIsRunning;
         public static Client Connection
         {
             get { return client; }
