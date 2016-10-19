@@ -413,6 +413,27 @@ namespace Server {
                         else
                         {
                             connectedPlayers[chatID].Add(packet.tag["sender"] as string);
+                            Packet sendPacket = new Packet(PacketType.GameSecondPlayer);
+                            foreach (var user in queryResult)
+                            {
+                                if (connectedUsers.ContainsKey(user.Usuario))
+                                    server.SendPacket(sendPacket, connectedUsers[user.Usuario]);
+                            }
+                        }
+                    }
+                    break;
+                case PacketType.LevelData:
+                    {
+                        ServerDataSet.UsuarioPrivadoDataTable usuarioPrivado = database.UsuarioPrivado;
+                        //usuarios a mandar
+                        int chatID = (int)packet.tag["chatID"];
+                        var queryResult = from user in usuarioPrivado
+                                          where user.ConversacionPrivada == chatID
+                                          select user;
+                        foreach (var user in queryResult)
+                        {
+                            if (connectedUsers.ContainsKey(user.Usuario) && user.Usuario != packet.tag["sender"] as string)
+                                server.SendPacket(packet, connectedUsers[user.Usuario]);
                         }
                     }
                     break;
@@ -436,6 +457,23 @@ namespace Server {
                         foreach (var user in queryResult)
                         {
                             if (connectedUsersUdp.ContainsKey(user.Usuario) && user.Usuario != username)
+                                server.SendUdpPacket(packet, connectedUsersUdp[user.Usuario]);
+                        }
+                    }
+                    break;
+                case UdpPacketType.PlayerInput:
+                    {
+                        ServerDataSet.UsuarioPrivadoDataTable usuarioPrivado = database.UsuarioPrivado;
+                        int chatID = BitConverter.ToInt32(packet.ReadData(4, 0), 0);
+                        int direction = packet.ReadInt(4);
+                        int player = packet.ReadInt(8) - 1;
+                        //usuarios a mandar
+                        var queryResult = from user in usuarioPrivado
+                                          where user.ConversacionPrivada == chatID
+                                          select user;
+                        foreach (var user in queryResult)
+                        {
+                            if (connectedUsersUdp.ContainsKey(user.Usuario) && user.Usuario != connectedPlayers[chatID][player])
                                 server.SendUdpPacket(packet, connectedUsersUdp[user.Usuario]);
                         }
                     }

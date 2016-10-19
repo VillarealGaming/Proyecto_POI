@@ -23,9 +23,14 @@ namespace mGame {
         }
         public static void SetState(GameState gameState)
         {
+            lock(state)
             state.Out();
             state = gameState;
-            state.Init();
+            lock(state)
+            {
+                while(!state.Initialized)
+                state.Init();
+            }
         }
         //public static UInt32[] LevelData;
         public static bool GetKeyPressed(Keys key)
@@ -71,10 +76,10 @@ namespace mGame {
             Assets.mapTiles = Content.Load<Texture2D>("Content/tileSet");
             Assets.randomBot = Content.Load<Texture2D>("Content/Enemy1");
             Assets.retroFont = Content.Load<SpriteFont>("Content/RetroFont");
-            CurrentState.Init();
+            //lock(this)
+                state.Init();
             Content.RootDirectory = "Content";
         }
-
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// game-specific content.
@@ -108,7 +113,8 @@ namespace mGame {
                 }
             }
             deltaTime = gameTime.ElapsedGameTime.TotalSeconds;
-            CurrentState.Update();
+            //lock(this)
+                CurrentState.Update();
             base.Update(gameTime);
         }
         /// <summary>

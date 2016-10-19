@@ -22,9 +22,22 @@ namespace ChatApp
         private ToolStripMenuItem selectedStateItem;
         private Thread gameThread;
         private POIGame game;
+        private LevelStateOnline level;
         public class LevelStateOnline : LevelState
         {
-
+            public LevelStateOnline(int player) : base(player) { }
+            public override void PlayerInput(Direction direction)
+            {
+                UdpPacket udpPacket = new UdpPacket(UdpPacketType.PlayerInput);
+                udpPacket.WriteData(BitConverter.GetBytes(ClientSession.GameSessionChatID));
+                udpPacket.WriteData(BitConverter.GetBytes((int)direction));
+                udpPacket.WriteData(BitConverter.GetBytes(ClientSession.IsPlayerOne ? 1 : 2));
+                ClientSession.Connection.SendUdpPacket(udpPacket);
+            }
+            public void MovePlayer(Direction direction)
+            {
+                players[playerNumber == 1 ? 1 : 0].Move(direction);
+            }
         }
         public class ConnectingState : GameState
         {
@@ -84,8 +97,36 @@ namespace ChatApp
                 {
                     case PacketType.GameFirstPlayer:
                         {
+                            ClientSession.IsPlayerOne = true;
                             gameThread = new Thread(Game);
                             gameThread.Start();
+                        }
+                        break;
+                    case PacketType.GameSecondPlayer:
+                        {
+                            if(!ClientSession.IsPlayerOne)
+                            {
+                                gameThread = new Thread(Game);
+                                gameThread.Start();
+                            }
+                            else
+                            {
+                                level = new LevelStateOnline(1);
+                                level.GenerateLevelData();
+                                Packet packetSend = new Packet(PacketType.LevelData);
+                                packetSend.tag["chatID"] = ClientSession.GameSessionChatID;
+                                packetSend.tag["levelData"] = level.LevelData;
+                                packetSend.tag["sender"] = ClientSession.username;
+                                ClientSession.Connection.SendPacket(packetSend);
+                                POIGame.SetState(level);
+                            }
+                        }
+                        break;
+                    case PacketType.LevelData:
+                        {
+                            level = new LevelStateOnline(2);
+                            level.SetLevelData((UInt32[])packet.tag["levelData"]);
+                            POIGame.SetState(level);
                         }
                         break;
                     case PacketType.CreatePrivateConversation:
@@ -393,6 +434,14 @@ namespace ChatApp
                             Speaker.PlayBuffer(audioStream);
                         }
                         break;
+                    case UdpPacketType.PlayerInput:
+                        {
+                            int chatID = packet.ReadInt(0);
+                            Direction direction = (Direction)packet.ReadInt(4);
+                            //int player = packet.ReadInt(8);
+                            level.MovePlayer(direction);
+                        }
+                        break;
                 }
             }
         }
@@ -532,6 +581,8 @@ namespace ChatApp
         public const int textMessagesVisibleText = 40;
         public static bool HasCamera;
         public static bool GameIsRunning;
+        public static bool IsPlayerOne;
+        public static int GameSessionChatID = -1;
         public static Client Connection
         {
             get { return client; }

@@ -367,6 +367,7 @@ namespace ChatApp
             packet.tag["chatID"] = chatID;
             packet.tag["sender"] = ClientSession.username;
             ClientSession.Connection.SendPacket(packet);
+            ClientSession.GameSessionChatID = chatID;
         }
 
         private void FormPrivateChat_MouseUp(object sender, MouseEventArgs e) { dragging = false; }

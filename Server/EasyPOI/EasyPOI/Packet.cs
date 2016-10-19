@@ -135,6 +135,7 @@ namespace EasyPOI
         GameFirstPlayer,
         //load level data
         GameSecondPlayer,
+        LevelData,
         //two players already connected
         GameStart
         //
