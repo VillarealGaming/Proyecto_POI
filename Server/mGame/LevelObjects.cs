@@ -57,6 +57,15 @@ namespace mGame
             baseSpeed = 1.0f;
             gridPosition = this.position.Value / 24;
         }
+        public void SetTile(int tileX, int tileY)
+        {
+            position = new Position();
+            position.Value = new Vector2(tileX * TileSize, tileY * TileSize);
+            goal = position.Value;
+            previousGoal = goal;
+            goalReached = true;
+            gridPosition = this.position.Value / 24;
+        }
         public override void Added()
         {
             sprite = new GraphicInstance(texture, position);
@@ -152,6 +161,10 @@ namespace mGame
             tile.frame.rectangle = new Rectangle(0, 0, tileWidth, tileHeight);
             this.tileWidth = tileWidth;
             this.tileHeight = tileHeight;
+            //this.texture = texture;
+        }
+        public void Generate()
+        {
             //test locals
             const int mapWidth = LevelState.LevelWidth;
             const int mapHeight = LevelState.LevelHeight;
@@ -189,14 +202,6 @@ namespace mGame
                     index++;
                 }
             }
-            //this.texture = texture;
-        }
-        /// <summary>
-        /// Loads the tiles from an array, it just evaluates
-        /// if the value is different from 0
-        /// </summary>
-        public void GenerateFromArray(int mapWidth, int mapHeight)
-        {
         }
         internal override void Draw()
         {

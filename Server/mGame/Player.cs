@@ -12,6 +12,7 @@ namespace mGame
     //I believe this is the most hardcoded class from the whole game...
     public class Player : MoveableTile
     {
+        protected new LevelState state;
         private Animation animation;
         private Direction nextStep;
         public Vector2 OtherPlayerGrid { get; set; }
@@ -19,6 +20,7 @@ namespace mGame
         private Keys right, left, up, down;
         public Player(Keys right, Keys left, Keys up, Keys down, int tileX = 250, int tileY = 250) : base(Assets.playerSprite, tileX, tileY)
         {
+            state = (LevelState)POIGame.CurrentState;
             this.right = right;
             this.left = left;
             this.up = up;
@@ -46,69 +48,97 @@ namespace mGame
             else {
                 animation.SetAnimation("stop");
             }
-            if (!isGoalReached)
+            if(right != Keys.Escape)
             {
-                if (POIGame.GetKeyPressed(right))
-                    nextStep = Speed.X < 0 ? Direction.None : Direction.Right;
-                else if (POIGame.GetKeyPressed(left))
-                    nextStep = Speed.X > 0 ? Direction.None : Direction.Left;
-                else if (POIGame.GetKeyPressed(up))
-                    nextStep = Speed.Y > 0 ? Direction.None : Direction.Up;
-                else if (POIGame.GetKeyPressed(down))
-                    nextStep = Speed.Y < 0 ? Direction.None : Direction.Down;
+                if (!isGoalReached)
+                {
+                    if (POIGame.GetKeyPressed(right))
+                        nextStep = Speed.X < 0 ? Direction.None : Direction.Right;
+                    else if (POIGame.GetKeyPressed(left))
+                        nextStep = Speed.X > 0 ? Direction.None : Direction.Left;
+                    else if (POIGame.GetKeyPressed(up))
+                        nextStep = Speed.Y > 0 ? Direction.None : Direction.Up;
+                    else if (POIGame.GetKeyPressed(down))
+                        nextStep = Speed.Y < 0 ? Direction.None : Direction.Down;
 
-                if (POIGame.GetKeyPressed(right))
-                {
-                    sprite.effects = SpriteEffects.FlipHorizontally;
-                    if (new Vector2(GridPosition.X + 1, GridPosition.Y) != OtherPlayerGrid) MoveRight();
+                    if (POIGame.GetKeyPressed(right))
+                    {
+                        sprite.effects = SpriteEffects.FlipHorizontally;
+                        if (new Vector2(GridPosition.X + 1, GridPosition.Y) != OtherPlayerGrid)
+                        {
+                            MoveRight();
+                            state.PlayerInput(Direction.Right);
+                        }
+                    }
+                    else if (POIGame.GetKeyPressed(left))
+                    {
+                        sprite.effects = SpriteEffects.None;
+                        if (new Vector2(GridPosition.X - 1, GridPosition.Y) != OtherPlayerGrid)
+                        {
+                            MoveLeft();
+                            state.PlayerInput(Direction.Left);
+                        }
+                    }
+                    else if (POIGame.GetKeyPressed(up))
+                    {
+                        if (new Vector2(GridPosition.X, GridPosition.Y - 1) != OtherPlayerGrid)
+                        {
+                            MoveUp();
+                            state.PlayerInput(Direction.Up);
+                        }
+                    }
+                    else if (POIGame.GetKeyPressed(down))
+                    {
+                        if (new Vector2(GridPosition.X, GridPosition.Y + 1) != OtherPlayerGrid)
+                        {
+                            MoveDown();
+                            state.PlayerInput(Direction.Down);
+                        }
+                    }
                 }
-                else if (POIGame.GetKeyPressed(left))
+                else
                 {
-                    sprite.effects = SpriteEffects.None;
-                    if (new Vector2(GridPosition.X - 1, GridPosition.Y) != OtherPlayerGrid) MoveLeft();
+                    if (POIGame.GetKeyPressed(right) || nextStep == Direction.Right)
+                    {
+                        sprite.effects = SpriteEffects.FlipHorizontally;
+                        if (new Vector2(GridPosition.X + 1, GridPosition.Y) != OtherPlayerGrid)
+                        {
+                            MoveRight();
+                            state.PlayerInput(Direction.Right);
+                        }
+                    }
+                    else if (POIGame.GetKeyPressed(left) || nextStep == Direction.Left)
+                    {
+                        sprite.effects = SpriteEffects.None;
+                        if (new Vector2(GridPosition.X - 1, GridPosition.Y) != OtherPlayerGrid)
+                        {
+                            MoveLeft();
+                            state.PlayerInput(Direction.Left);
+                        }
+                    }
+                    else if (POIGame.GetKeyPressed(up) || nextStep == Direction.Up)
+                    {
+                        if (new Vector2(GridPosition.X, GridPosition.Y - 1) != OtherPlayerGrid)
+                        {
+                            MoveUp();
+                            state.PlayerInput(Direction.Up);
+                        }
+                    }
+                    else if (POIGame.GetKeyPressed(down) || nextStep == Direction.Down)
+                    {
+                        if (new Vector2(GridPosition.X, GridPosition.Y + 1) != OtherPlayerGrid)
+                        {
+                            MoveDown();
+                            state.PlayerInput(Direction.Down);
+                        }
+                    }
+                    nextStep = Direction.None;
                 }
-                else if (POIGame.GetKeyPressed(up))
-                {
-                    if (new Vector2(GridPosition.X, GridPosition.Y - 1) != OtherPlayerGrid) MoveUp();
-                }
-                else if (POIGame.GetKeyPressed(down))
-                {
-                    if (new Vector2(GridPosition.X, GridPosition.Y + 1) != OtherPlayerGrid) MoveDown();
-                }
-            }
-            else
-            {
-                if (POIGame.GetKeyPressed(right) || nextStep == Direction.Right)
-                {
-                    sprite.effects = SpriteEffects.FlipHorizontally;
-                    if (new Vector2(GridPosition.X + 1, GridPosition.Y) != OtherPlayerGrid) MoveRight();
-                }
-                else if (POIGame.GetKeyPressed(left) || nextStep == Direction.Left)
-                {
-                    sprite.effects = SpriteEffects.None;
-                    if (new Vector2(GridPosition.X - 1, GridPosition.Y) != OtherPlayerGrid) MoveLeft();
-                }
-                else if (POIGame.GetKeyPressed(up) || nextStep == Direction.Up)
-                {
-                    if (new Vector2(GridPosition.X, GridPosition.Y - 1) != OtherPlayerGrid) MoveUp();
-                }
-                else if (POIGame.GetKeyPressed(down) || nextStep == Direction.Down)
-                {
-                    if (new Vector2(GridPosition.X, GridPosition.Y + 1) != OtherPlayerGrid) MoveDown();
-                }
-                nextStep = Direction.None;
             }
             base.Update();
         }
         public void Move(Direction direction)
         {
-            if (Velocity > 1.0f)
-            {
-                animation.SetAnimation("move");
-            }
-            else {
-                animation.SetAnimation("stop");
-            }
             if (!isGoalReached)
             {
                 if (direction == Direction.Right)
@@ -161,7 +191,7 @@ namespace mGame
                 }
                 nextStep = Direction.None;
             }
-            base.Update();
+            //base.Update();
         }
         public override void Removed()
         {
