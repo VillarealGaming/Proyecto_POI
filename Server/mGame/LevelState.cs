@@ -11,6 +11,7 @@ namespace mGame
     public class LevelState : GameState
     {
         public const int LevelWidth = 500, LevelHeight = 500;
+        protected Player[] players;
         private Player playerA, playerB;
         private TileMap tiles;
         //private UpdateableContainer moveableContainer;
@@ -19,6 +20,7 @@ namespace mGame
         Rectangle levelDimensions;
         private TextSprite text;
         //Texture2D level;
+        public int playerNumber;
         public UInt32[] LevelData
         {
             get { return levelData; }
@@ -27,21 +29,36 @@ namespace mGame
         {
             levelData = data;
         }
+        public LevelState(int playerNumber = 0)
+        {
+            this.playerNumber = playerNumber - 1;
+        }
         public override void Init()
         {
             levelDimensions = new Rectangle(0, 0, 500, 500);
             //level = new Texture2D(GraphicsDevice, levelDimensions.Width, levelDimensions.Height);
-            levelData = new RoomGenerator(500, 500).Generate(6, 14, 4, 10, 2);//6,24, 2, 4 //6, 24, 4, 10
+            //levelData = new RoomGenerator(500, 500).Generate(6, 14, 4, 10, 2);//6,24, 2, 4 //6, 24, 4, 10
             //level.SetData(LevelData);
-            playerA = new Player(Keys.Right, Keys.Left, Keys.Up, Keys.Down);
-            playerB = new Player(Keys.D, Keys.A, Keys.W, Keys.S, 251, 250);
-            tiles = new TileMap(Assets.mapTiles);
+            players = new Player[2];
+            players[playerNumber == 1 ? 0 : 1] = new Player(Keys.Right, Keys.Left, Keys.Up, Keys.Down);
+            players[playerNumber == 1 ? 1 : 0] = new Player(Keys.Escape, Keys.Escape, Keys.Escape, Keys.Escape);
+            playerA = players[0];
+            playerB = players[1];
+            playerB.SetTile(251, 250);
+            //tiles.Generate();
             text = new TextSprite(Assets.retroFont, new Vector2(24, 24));
             AddInstance(playerA);
             AddInstance(playerB);
             AddInstance(new RandomBot(254, 254));
-            AddGraphic(tiles);
             AddGraphic(text);
+            tiles = new TileMap(Assets.mapTiles);
+            tiles.Generate();
+            AddGraphic(tiles);
+            base.Init();
+        }
+        public void GenerateLevelData()
+        {
+            levelData = new RoomGenerator(500, 500).Generate(6, 14, 4, 10, 2);
         }
         public override void Update()
         {
@@ -56,7 +73,7 @@ namespace mGame
             base.Update();
             text.text = camera.Value.Location.X + ", " + camera.Value.Location.Y;
         }
-        public void PlayerInput(Direction direction)
+        public virtual void PlayerInput(Direction direction)
         {
 
         }
