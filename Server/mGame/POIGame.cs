@@ -29,7 +29,10 @@ namespace mGame {
             lock(state)
             {
                 while(!state.Initialized)
-                state.Init();
+                {
+                    state.Clear();
+                    state.Init();
+                }
             }
         }
         //public static UInt32[] LevelData;

@@ -71,6 +71,12 @@ namespace mGame
             lock (this)
             graphicManager.Remove(graphic);
         }
+        public virtual void Clear()
+        {
+            instanceManager.Clear();
+            animationManager.Clear();
+            graphicManager.Clear();
+        }
         public virtual void Init() { initialized = true; }
         public virtual void Out() { }
     }

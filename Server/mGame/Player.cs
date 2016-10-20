@@ -9,18 +9,17 @@ using Microsoft.Xna.Framework.Graphics;
 namespace mGame
 {
     public enum Direction { Left, Right, Up, Down, None }
-    //I believe this is the most hardcoded class from the whole game...
+    //Creo que esta es la clase más hardcodeada de todo el juego...
     public class Player : MoveableTile
     {
-        protected new LevelState state;
+        //protected new LevelState state;
         private Animation animation;
         private Direction nextStep;
         public Vector2 OtherPlayerGrid { get; set; }
-        //FOR TESTS ONLY!!!
+        //No me gusta esta implementación
         private Keys right, left, up, down;
         public Player(Keys right, Keys left, Keys up, Keys down, int tileX = 250, int tileY = 250) : base(Assets.playerSprite, tileX, tileY)
         {
-            state = (LevelState)POIGame.CurrentState;
             this.right = right;
             this.left = left;
             this.up = up;
@@ -29,6 +28,7 @@ namespace mGame
         public override void Added()
         {
             base.Added();
+            //state = (LevelState)POIGame.CurrentState;
             animation = new Animation(sprite, 24, 24);
             animation.AddAnimation("walk", new int[] { 0, 1 });
             animation.AddAnimation("stop", new int[] { 0 });

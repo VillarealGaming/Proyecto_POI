@@ -13,6 +13,11 @@ using System.Security.Cryptography;
 namespace Server {
     class Program {
         private static EasyPOI.Server server;
+        private static ServerDataSet database;
+        private static Dictionary<string, Socket> connectedUsers;
+        private static Dictionary<string, IPEndPoint> connectedUsersUdp;
+        private static Dictionary<int, List<string>> connectedPlayers;
+        private const string databaseFile = "Database.xml";
         static void Main(string[] args) {
             database = new ServerDataSet();
             database.ReadXml("Database.xml");
@@ -423,6 +428,7 @@ namespace Server {
                     }
                     break;
                 case PacketType.LevelData:
+                case PacketType.BeginGame:
                     {
                         ServerDataSet.UsuarioPrivadoDataTable usuarioPrivado = database.UsuarioPrivado;
                         //usuarios a mandar
@@ -462,11 +468,13 @@ namespace Server {
                     }
                     break;
                 case UdpPacketType.PlayerInput:
+                case UdpPacketType.RandomBotInput:
+                case UdpPacketType.RandomBotAllign:
                     {
                         ServerDataSet.UsuarioPrivadoDataTable usuarioPrivado = database.UsuarioPrivado;
                         int chatID = BitConverter.ToInt32(packet.ReadData(4, 0), 0);
-                        int direction = packet.ReadInt(4);
-                        int player = packet.ReadInt(8) - 1;
+                        int player = packet.ReadInt(4) - 1;
+                        //int direction = packet.ReadInt(4);
                         //usuarios a mandar
                         var queryResult = from user in usuarioPrivado
                                           where user.ConversacionPrivada == chatID
@@ -566,10 +574,5 @@ namespace Server {
             Console.WriteLine("Cliente en " + client.RemoteEndPoint + " desconectado");
             server.CloseClientConnection(client);
         }
-        private static ServerDataSet database;
-        private static Dictionary<string, Socket> connectedUsers;
-        private static Dictionary<string, IPEndPoint> connectedUsersUdp;
-        private static Dictionary<int, List<string>> connectedPlayers;
-        private const string databaseFile = "Database.xml";
     }
 }

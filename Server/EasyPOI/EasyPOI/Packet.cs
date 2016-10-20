@@ -105,7 +105,8 @@ namespace EasyPOI
         Busy,           //Ocupado
         Offline         //Desconectado
     }
-    //I don't like putting game logic here but... pff, it's so easy to do it this way
+    //No me gusta tener la lógica del juego mezclada de esta manera pero meh,
+    //creo que es más facil así
     public enum PacketType
     {
         TextMessage,
@@ -130,22 +131,22 @@ namespace EasyPOI
         WebCamResponse,
         WebCamFrame,
         UdpLocalEndPoint,
+        //lógica de juego
         BeginGame,
-        //start level data
         GameFirstPlayer,
-        //load level data
         GameSecondPlayer,
         LevelData,
-        //two players already connected
         GameStart
-        //
     }
-    //I don't like putting game logic here but... pff, it's so easy to do it this way
+    //No me gusta tener la lógica del juego mezclada de esta manera pero meh,
+    //creo que es más facil así
     public enum UdpPacketType
     {
         AudioStream,
+        //lógica de juego
         PlayerInput,
-        RandomBotInput
+        RandomBotInput,
+        RandomBotAllign
     }
     //Referencia
     //https://msdn.microsoft.com/en-us/library/bew39x2a(v=vs.110).aspx

@@ -29,12 +29,23 @@ namespace mGame
     {
         internal Dictionary<int, Component> components = new Dictionary<int, Component>();
         protected void Add(Component component) {
-            components.Add(component.id, component);
-            component.Added();
+            try
+            {
+                components.Add(component.id, component);
+                component.Added();
+            }
+            catch { }
         }
         public void Remove(Component component) {
             component.Removed();
             components.Remove(component.id);
+        }
+        public void Clear()
+        {
+            components.Clear();
+        }
+        public T GetComponent<T>(int id) where T: Component{
+            return (T)components[id];
         }
     }
     public class RefRectangle { public Rectangle Value; }
@@ -74,19 +85,26 @@ namespace mGame
             frame = new AnimationFrame();
         }
         internal override void Draw() {
-            POIGame.spriteBatch.Draw(
-                texture,
-                position.ClampValue - offSet.Value.Location.ToVector2(),
-                null,
-                frame.rectangle,
-                origin,
-                rotation,
-                scale,
-                Color.White,
-                effects,
-                layerDepth
-                );
-            base.Draw();
+            try
+            {
+                POIGame.spriteBatch.Draw(
+                    texture,
+                    position.ClampValue - offSet.Value.Location.ToVector2(),
+                    null,
+                    frame.rectangle,
+                    origin,
+                    rotation,
+                    scale,
+                    Color.White,
+                    effects,
+                    layerDepth
+                    );
+                base.Draw();
+            }
+            catch
+            {
+                throw new System.Exception("...");
+            }
         }
     }
     //TODO: GUI graphic
@@ -197,17 +215,23 @@ namespace mGame
         }
         internal override void Draw()
         {
-            POIGame.spriteBatch.DrawString(
-                font, 
-                text,
-                position - offSet.Value.Location.ToVector2(), 
-                color, 
-                rotation, 
-                origin, 
-                scale, 
-                effects, 
-                layerDepth);
-            base.Draw();
+            try
+            {
+                POIGame.spriteBatch.DrawString(
+                    font,
+                    text,
+                    position - offSet.Value.Location.ToVector2(),
+                    color,
+                    rotation,
+                    origin,
+                    scale,
+                    effects,
+                    layerDepth);
+                base.Draw();
+            }
+            catch {
+                throw new System.Exception("...");
+            }
         }
     }
 }

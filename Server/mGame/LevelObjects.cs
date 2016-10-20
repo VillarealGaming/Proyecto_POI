@@ -46,7 +46,6 @@ namespace mGame
         private bool goalReached;
         private Texture2D texture;
         public MoveableTile(Texture2D texture, int tileX, int tileY) {
-            state = (LevelState)POIGame.CurrentState;
             position = new Position();
             position.Value = new Vector2(tileX * TileSize, tileY * TileSize);
             this.texture = texture;
@@ -59,7 +58,7 @@ namespace mGame
         }
         public void SetTile(int tileX, int tileY)
         {
-            position = new Position();
+            //position = new Position();
             position.Value = new Vector2(tileX * TileSize, tileY * TileSize);
             goal = position.Value;
             previousGoal = goal;
@@ -68,6 +67,7 @@ namespace mGame
         }
         public override void Added()
         {
+            state = (LevelState)POIGame.CurrentState;
             sprite = new GraphicInstance(texture, position);
             state.AddGraphic(sprite);
             base.Added();
@@ -95,35 +95,44 @@ namespace mGame
             }
             else {
             }
+            //gridPosition = this.position.Value / 24;
             base.Update();
         }
-        protected void MoveRight() {
+        public bool MoveRight() {
             if((goalReached || speed.X < 0) && speed.Y == 0 && CheckEmpty(1, 0)) {
                 goal.X += TileSize;
                 goalReached = false;
                 gridPosition.X++;
+                return true;
             }
+            return false;
         }
-        protected void MoveLeft() {
+        public bool MoveLeft() {
             if ((goalReached || speed.X > 0) && speed.Y == 0 && CheckEmpty(-1, 0)) {
                 goal.X -= TileSize;
                 goalReached = false;
                 gridPosition.X--;
+                return true;
             }
+            return false;
         }
-        protected void MoveUp() {
+        public bool MoveUp() {
             if ((goalReached || speed.Y > 0) && speed.X == 0 && CheckEmpty(0, -1)) {
                 goal.Y -= TileSize;
                 goalReached = false;
                 gridPosition.Y--;
+                return true;
             }
+            return false;
         }
-        protected void MoveDown() {
+        public bool MoveDown() {
             if ((goalReached || speed.Y < 0) && speed.X == 0 && CheckEmpty(0, 1)) {
                 goal.Y += TileSize;
                 goalReached = false;
                 gridPosition.Y++;
+                return true;
             }
+            return false;
         }
         private bool CheckEmpty(int x, int y)
         {
