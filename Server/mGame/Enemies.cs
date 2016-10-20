@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace mGame
 {
-    class RandomBot : MoveableTile
+    public class RandomBot : MoveableTile
     {
         public RandomBot(int tileX, int tileY) : base(Assets.randomBot, tileX, tileY) { }
         public void Move()
@@ -16,29 +16,40 @@ namespace mGame
             switch (new Random().Next(4))
             {
                 case 0:
-                    MoveRight();
+                    if(MoveRight())
+                        state.RandomBotInput(Direction.Right, id);
                     break;
                 case 1:
-                    MoveLeft();
+                    if(MoveLeft())
+                        state.RandomBotInput(Direction.Left, id);
                     break;
                 case 2:
-                    MoveUp();
+                    if(MoveUp())
+                        state.RandomBotInput(Direction.Up, id);
                     break;
                 case 3:
-                    MoveDown();
+                    if(MoveDown())
+                        state.RandomBotInput(Direction.Down, id);
                     break;
             }
         }
         public override void Added()
         {
+            //state = (LevelState)POIGame.CurrentState;
+            base.Added();
             BaseSpeed = 0.5f;
             MoveEase = 20.0f;
             Move();
-            base.Added();
         }
         protected override void GoalReached()
         {
-            Move();
+            //Solo movemos los randombots en el player host(el primero en iniciar la sesión de juego)
+            //... hardcode
+            if(state.playerNumber == 0)
+            {
+                Move();
+                state.RandomBotAllign(id, (int)GridPosition.X, (int)GridPosition.Y);
+            }
             base.GoalReached();
         }
     }

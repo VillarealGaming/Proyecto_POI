@@ -13,6 +13,7 @@ namespace mGame
         public const int LevelWidth = 500, LevelHeight = 500;
         protected Player[] players;
         private Player playerA, playerB;
+        protected Dictionary<int, RandomBot> randomBots;
         private TileMap tiles;
         //private UpdateableContainer moveableContainer;
         private UInt32[] levelData;
@@ -32,33 +33,68 @@ namespace mGame
         public LevelState(int playerNumber = 0)
         {
             this.playerNumber = playerNumber - 1;
-        }
-        public override void Init()
-        {
+            randomBots = new Dictionary<int, RandomBot>();
             levelDimensions = new Rectangle(0, 0, 500, 500);
             //level = new Texture2D(GraphicsDevice, levelDimensions.Width, levelDimensions.Height);
             //levelData = new RoomGenerator(500, 500).Generate(6, 14, 4, 10, 2);//6,24, 2, 4 //6, 24, 4, 10
             //level.SetData(LevelData);
             players = new Player[2];
-            players[playerNumber == 1 ? 0 : 1] = new Player(Keys.Right, Keys.Left, Keys.Up, Keys.Down);
-            players[playerNumber == 1 ? 1 : 0] = new Player(Keys.Escape, Keys.Escape, Keys.Escape, Keys.Escape);
+            players[this.playerNumber] = new Player(Keys.Right, Keys.Left, Keys.Up, Keys.Down);
+            players[this.playerNumber == 0 ? 1 : 0] = new Player(Keys.Escape, Keys.Escape, Keys.Escape, Keys.Escape);
             playerA = players[0];
             playerB = players[1];
             playerB.SetTile(251, 250);
             //tiles.Generate();
             text = new TextSprite(Assets.retroFont, new Vector2(24, 24));
-            AddInstance(playerA);
-            AddInstance(playerB);
-            AddInstance(new RandomBot(254, 254));
-            AddGraphic(text);
-            tiles = new TileMap(Assets.mapTiles);
-            tiles.Generate();
-            AddGraphic(tiles);
-            base.Init();
+        }
+        public override void Init()
+        {
+            lock(this)
+            {
+                AddInstance(playerA);
+                AddInstance(playerB);
+                AddGraphic(text);
+                tiles = new TileMap(Assets.mapTiles);
+                tiles.Generate();
+                AddGraphic(tiles);
+                foreach (var randomBot in randomBots)
+                    AddInstance(randomBot.Value);
+                base.Init();
+                //FullyInitialized();
+            }
         }
         public void GenerateLevelData()
         {
             levelData = new RoomGenerator(500, 500).Generate(6, 14, 4, 10, 2);
+        }
+        //generamos un nuevo robot
+        public void GenerateRandomBot()
+        {
+            RandomBot newRandomBot = new RandomBot(255, 255);
+            //AddInstance(newRandomBot);
+            randomBots.Add(newRandomBot.id, newRandomBot);
+        }
+        //Creamos un robot con id fija remota
+        public void GenerateRandomBot(Tuple<int, int[]>[] data)
+        {
+            foreach(var d in data)
+            {
+                RandomBot newRandomBot = new RandomBot((int)d.Item2[0], (int)d.Item2[1]);
+                //AddInstance(newRandomBot);
+                randomBots.Add(d.Item1, newRandomBot);
+            }
+        }
+        public Tuple<int, int[]>[] GetRandomBotData()
+        {
+            List<Tuple<int, int[]>> randomBotData = new List<Tuple<int, int[]>>();
+            foreach(var randomBot in randomBots)
+            {
+                int[] position = new int[2];
+                position[0] = (int)randomBot.Value.GridPosition.X;
+                position[1] = (int)randomBot.Value.GridPosition.Y;
+                randomBotData.Add(new Tuple<int, int[]>(randomBot.Key, position));
+            }
+            return randomBotData.ToArray();
         }
         public override void Update()
         {
@@ -73,9 +109,8 @@ namespace mGame
             base.Update();
             text.text = camera.Value.Location.X + ", " + camera.Value.Location.Y;
         }
-        public virtual void PlayerInput(Direction direction)
-        {
-
-        }
+        public virtual void PlayerInput(Direction direction) { }
+        public virtual void RandomBotInput(Direction direction, int robotID) { }
+        public virtual void RandomBotAllign(int robotID, int gridX, int gridY) { }
     }
 }
