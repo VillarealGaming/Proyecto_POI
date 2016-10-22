@@ -278,5 +278,15 @@ namespace mGame
             levelData.GetData(output, 0, output.Length);
             return output;
         }
+        public List<Rectangle> GetGeneratedRooms()
+        {
+            List<Rectangle> totalRooms = new List<Rectangle>();
+            foreach (var room in Room.TotalRooms)
+            {
+                room.CheckConnection();
+                totalRooms.Add(room.Bounds);
+            }
+            return totalRooms;
+        }
     }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/w7/Source/Repos/Proyecto_POI/Server/mGame/Content/Enemy1.png</SourceFile>
-  <SourceTime>2016-10-19T16:11:47.1977998-05:00</SourceTime>
+  <SourceTime>2016-10-21T13:07:40.6725133-05:00</SourceTime>
   <DestFile>C:/Users/w7/Source/Repos/Proyecto_POI/Server/mGame/Content/bin/Windows/Enemy1.xnb</DestFile>
-  <DestTime>2016-10-19T22:08:31.1079298-05:00</DestTime>
+  <DestTime>2016-10-21T13:07:52.9548243-05:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2016-03-30T00:36:08-06:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

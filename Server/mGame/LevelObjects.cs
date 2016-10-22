@@ -17,7 +17,7 @@ namespace mGame
         protected Position position;
         private const int TileSize = 24;
         private float baseSpeed;
-        protected float BaseSpeed {
+        public float BaseSpeed {
             get { return baseSpeed; }
             set { baseSpeed = Math.Abs(value) > 1.0f ? 1.0f: Math.Abs(value); }
         }
@@ -203,10 +203,10 @@ namespace mGame
                         {
                             isWall = true;
                         }
-                        tiles[index].textureCoord = isWall ? new Point(48, 0) : new Point(24, 0);
+                        tiles[index].textureCoord = isWall ? new Point(72, 0) : new Point(0, 0);
                     }
                     else {
-                        tiles[index].textureCoord = new Point();
+                        tiles[index].textureCoord = new Point(24, 0);
                     }
                     index++;
                 }

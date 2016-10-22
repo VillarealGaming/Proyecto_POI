@@ -75,6 +75,8 @@ namespace mGame {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
+            Assets.cameraEffect = Content.Load<Texture2D>("Content/CameraEffect");
+            Assets.background = Content.Load<Texture2D>("Content/background");
             Assets.playerSprite = Content.Load<Texture2D>("Content/Player");
             Assets.mapTiles = Content.Load<Texture2D>("Content/tileSet");
             Assets.randomBot = Content.Load<Texture2D>("Content/Enemy1");

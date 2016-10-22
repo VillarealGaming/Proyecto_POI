@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/w7/Source/Repos/Proyecto_POI/Server/mGame/Content/Retrofont.spritefont</SourceFile>
-  <SourceTime>2016-10-19T16:11:47.2013408-05:00</SourceTime>
+  <SourceTime>2016-10-20T14:40:37.2619588-05:00</SourceTime>
   <DestFile>C:/Users/w7/Source/Repos/Proyecto_POI/Server/mGame/Content/bin/Windows/Retrofont.xnb</DestFile>
-  <DestTime>2016-10-19T22:08:31.6344135-05:00</DestTime>
+  <DestTime>2016-10-21T10:38:13.598646-05:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2016-03-30T00:36:08-06:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>

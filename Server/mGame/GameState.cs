@@ -77,6 +77,7 @@ namespace mGame
             animationManager.Clear();
             graphicManager.Clear();
         }
+        //public virtual void NullDrawCall() { }
         public virtual void Init() { initialized = true; }
         public virtual void Out() { }
     }

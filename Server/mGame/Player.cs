@@ -18,22 +18,27 @@ namespace mGame
         public Vector2 OtherPlayerGrid { get; set; }
         //No me gusta esta implementación
         private Keys right, left, up, down;
+        private string currentFaceDirection;
         public Player(Keys right, Keys left, Keys up, Keys down, int tileX = 250, int tileY = 250) : base(Assets.playerSprite, tileX, tileY)
         {
             this.right = right;
             this.left = left;
             this.up = up;
             this.down = down;
+            currentFaceDirection = "Down";
         }
         public override void Added()
         {
             base.Added();
             //state = (LevelState)POIGame.CurrentState;
             animation = new Animation(sprite, 24, 24);
-            animation.AddAnimation("walk", new int[] { 0, 1 });
-            animation.AddAnimation("stop", new int[] { 0 });
-            animation.AddAnimation("move", new int[] { 1 });
-            animation.SetAnimation("stop");
+            animation.AddAnimation("stopSide", new int[] { 0 });
+            animation.AddAnimation("moveSide", new int[] { 1 });
+            animation.AddAnimation("stopDown", new int[] { 2 });
+            animation.AddAnimation("moveDown", new int[] { 3 });
+            animation.AddAnimation("stopUp", new int[] { 4 });
+            animation.AddAnimation("moveUp", new int[] { 5 });
+            animation.SetAnimation("stopDown");
             state.AddAnimation(animation);
             MoveEase = 7.0f;
             nextStep = Direction.None;
@@ -41,12 +46,12 @@ namespace mGame
         }
         internal override void Update()
         {
-            if (Velocity > 1.0f)
+            if (Velocity > 1.5f)
             {
-                animation.SetAnimation("move");
+                animation.SetAnimation("move" + currentFaceDirection);
             }
             else {
-                animation.SetAnimation("stop");
+                animation.SetAnimation("stop" + currentFaceDirection);
             }
             if(right != Keys.Escape)
             {
@@ -67,6 +72,7 @@ namespace mGame
                         if (new Vector2(GridPosition.X + 1, GridPosition.Y) != OtherPlayerGrid)
                         {
                             MoveRight();
+                            currentFaceDirection = "Side";
                             state.PlayerInput(Direction.Right);
                         }
                     }
@@ -76,6 +82,7 @@ namespace mGame
                         if (new Vector2(GridPosition.X - 1, GridPosition.Y) != OtherPlayerGrid)
                         {
                             MoveLeft();
+                            currentFaceDirection = "Side";
                             state.PlayerInput(Direction.Left);
                         }
                     }
@@ -84,6 +91,7 @@ namespace mGame
                         if (new Vector2(GridPosition.X, GridPosition.Y - 1) != OtherPlayerGrid)
                         {
                             MoveUp();
+                            currentFaceDirection = "Up";
                             state.PlayerInput(Direction.Up);
                         }
                     }
@@ -92,6 +100,7 @@ namespace mGame
                         if (new Vector2(GridPosition.X, GridPosition.Y + 1) != OtherPlayerGrid)
                         {
                             MoveDown();
+                            currentFaceDirection = "Down";
                             state.PlayerInput(Direction.Down);
                         }
                     }
@@ -104,6 +113,7 @@ namespace mGame
                         if (new Vector2(GridPosition.X + 1, GridPosition.Y) != OtherPlayerGrid)
                         {
                             MoveRight();
+                            currentFaceDirection = "Side";
                             state.PlayerInput(Direction.Right);
                         }
                     }
@@ -113,6 +123,7 @@ namespace mGame
                         if (new Vector2(GridPosition.X - 1, GridPosition.Y) != OtherPlayerGrid)
                         {
                             MoveLeft();
+                            currentFaceDirection = "Side";
                             state.PlayerInput(Direction.Left);
                         }
                     }
@@ -121,6 +132,7 @@ namespace mGame
                         if (new Vector2(GridPosition.X, GridPosition.Y - 1) != OtherPlayerGrid)
                         {
                             MoveUp();
+                            currentFaceDirection = "Up";
                             state.PlayerInput(Direction.Up);
                         }
                     }
@@ -129,6 +141,7 @@ namespace mGame
                         if (new Vector2(GridPosition.X, GridPosition.Y + 1) != OtherPlayerGrid)
                         {
                             MoveDown();
+                            currentFaceDirection = "Down";
                             state.PlayerInput(Direction.Down);
                         }
                     }
@@ -153,20 +166,36 @@ namespace mGame
                 if (direction == Direction.Right)
                 {
                     sprite.effects = SpriteEffects.FlipHorizontally;
-                    if (new Vector2(GridPosition.X + 1, GridPosition.Y) != OtherPlayerGrid) MoveRight();
+                    if (new Vector2(GridPosition.X + 1, GridPosition.Y) != OtherPlayerGrid)
+                    {
+                        MoveRight();
+                        currentFaceDirection = "Side";
+                    }
                 }
                 else if (direction == Direction.Left)
                 {
                     sprite.effects = SpriteEffects.None;
-                    if (new Vector2(GridPosition.X - 1, GridPosition.Y) != OtherPlayerGrid) MoveLeft();
+                    if (new Vector2(GridPosition.X - 1, GridPosition.Y) != OtherPlayerGrid)
+                    {
+                        MoveLeft();
+                        currentFaceDirection = "Side";
+                    }
                 }
                 else if (direction == Direction.Up)
                 {
-                    if (new Vector2(GridPosition.X, GridPosition.Y - 1) != OtherPlayerGrid) MoveUp();
+                    if (new Vector2(GridPosition.X, GridPosition.Y - 1) != OtherPlayerGrid)
+                    {
+                        MoveUp();
+                        currentFaceDirection = "Up";
+                    }
                 }
                 else if (direction == Direction.Down)
                 {
-                    if (new Vector2(GridPosition.X, GridPosition.Y + 1) != OtherPlayerGrid) MoveDown();
+                    if (new Vector2(GridPosition.X, GridPosition.Y + 1) != OtherPlayerGrid)
+                    {
+                        MoveDown();
+                        currentFaceDirection = "Down";
+                    }
                 }
             }
             else
@@ -174,20 +203,36 @@ namespace mGame
                 if (direction == Direction.Right || nextStep == Direction.Right)
                 {
                     sprite.effects = SpriteEffects.FlipHorizontally;
-                    if (new Vector2(GridPosition.X + 1, GridPosition.Y) != OtherPlayerGrid) MoveRight();
+                    if (new Vector2(GridPosition.X + 1, GridPosition.Y) != OtherPlayerGrid)
+                    {
+                        MoveRight();
+                        currentFaceDirection = "Side";
+                    }
                 }
                 else if (direction == Direction.Left || nextStep == Direction.Left)
                 {
                     sprite.effects = SpriteEffects.None;
-                    if (new Vector2(GridPosition.X - 1, GridPosition.Y) != OtherPlayerGrid) MoveLeft();
+                    if (new Vector2(GridPosition.X - 1, GridPosition.Y) != OtherPlayerGrid)
+                    {
+                        MoveLeft();
+                        currentFaceDirection = "Side";
+                    }
                 }
                 else if (direction == Direction.Up || nextStep == Direction.Up)
                 {
-                    if (new Vector2(GridPosition.X, GridPosition.Y - 1) != OtherPlayerGrid) MoveUp();
+                    if (new Vector2(GridPosition.X, GridPosition.Y - 1) != OtherPlayerGrid)
+                    {
+                        MoveUp();
+                        currentFaceDirection = "Up";
+                    }
                 }
                 else if (direction == Direction.Down || nextStep == Direction.Down)
                 {
-                    if (new Vector2(GridPosition.X, GridPosition.Y + 1) != OtherPlayerGrid) MoveDown();
+                    if (new Vector2(GridPosition.X, GridPosition.Y + 1) != OtherPlayerGrid)
+                    {
+                        MoveDown();
+                        currentFaceDirection = "Down";
+                    }
                 }
                 nextStep = Direction.None;
             }

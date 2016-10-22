@@ -34,20 +34,22 @@ namespace ChatApp
                 udpPacket.WriteData(BitConverter.GetBytes((int)direction));
                 ClientSession.Connection.SendUdpPacket(udpPacket);
             }
-            public override void RandomBotInput(Direction direction, int robotID)
+            public override void RandomBotInput(Direction direction, int robotID, int gridX, int gridY)
             {
                 UdpPacket udpPacket = new UdpPacket(UdpPacketType.RandomBotInput);
                 udpPacket.WriteData(BitConverter.GetBytes(ClientSession.GameSessionChatID));
                 udpPacket.WriteData(BitConverter.GetBytes(ClientSession.IsPlayerOne ? 1 : 2));
                 udpPacket.WriteData(BitConverter.GetBytes((int)direction));
                 udpPacket.WriteData(BitConverter.GetBytes(robotID));
+                udpPacket.WriteData(BitConverter.GetBytes(gridX));
+                udpPacket.WriteData(BitConverter.GetBytes(gridY));
                 ClientSession.Connection.SendUdpPacket(udpPacket);
             }
             public void MovePlayer(Direction direction)
             {
                 players[playerNumber == 1 ? 0 : 1].Move(direction);
             }
-            public void MoveRandomBot(Direction direction, int randomBotID)
+            public void MoveRandomBot(Direction direction, int randomBotID, int gridX, int gridY)
             {
                 if(!ClientSession.IsPlayerOne)
                 {
@@ -69,28 +71,7 @@ namespace ChatApp
                                 randomBot.MoveDown();
                                 break;
                         }
-                    }
-                    catch { }
-                }
-            }
-            public override void RandomBotAllign(int robotID, int gridX, int gridY)
-            {
-                UdpPacket udpPacket = new UdpPacket(UdpPacketType.RandomBotAllign);
-                udpPacket.WriteData(BitConverter.GetBytes(ClientSession.GameSessionChatID));
-                udpPacket.WriteData(BitConverter.GetBytes(ClientSession.IsPlayerOne ? 1 : 2));
-                udpPacket.WriteData(BitConverter.GetBytes(robotID));
-                udpPacket.WriteData(BitConverter.GetBytes(gridX));
-                udpPacket.WriteData(BitConverter.GetBytes(gridY));
-                ClientSession.Connection.SendUdpPacket(udpPacket);
-            }
-            public void SetBotGrid(int robotID, int gridX, int gridY)
-            {
-                if (!ClientSession.IsPlayerOne)
-                {
-                    try
-                    {
-                        RandomBot randomBot = randomBots[robotID];
-                        if((int)randomBot.GridPosition.X != gridX || (int)randomBot.GridPosition.Y != gridY)
+                        if ((int)randomBot.GridPosition.X != gridX || (int)randomBot.GridPosition.Y != gridY)
                         {
                             randomBot.SetTile(gridX, gridY);
                         }
@@ -98,6 +79,31 @@ namespace ChatApp
                     catch { }
                 }
             }
+            //public override void RandomBotAllign(int robotID, int gridX, int gridY)
+            //{
+            //    UdpPacket udpPacket = new UdpPacket(UdpPacketType.RandomBotAllign);
+            //    udpPacket.WriteData(BitConverter.GetBytes(ClientSession.GameSessionChatID));
+            //    udpPacket.WriteData(BitConverter.GetBytes(ClientSession.IsPlayerOne ? 1 : 2));
+            //    udpPacket.WriteData(BitConverter.GetBytes(robotID));
+            //    udpPacket.WriteData(BitConverter.GetBytes(gridX));
+            //    udpPacket.WriteData(BitConverter.GetBytes(gridY));
+            //    ClientSession.Connection.SendUdpPacket(udpPacket);
+            //}
+            //public void SetBotGrid(int robotID, int gridX, int gridY)
+            //{
+            //    if (!ClientSession.IsPlayerOne)
+            //    {
+            //        try
+            //        {
+            //            RandomBot randomBot = randomBots[robotID];
+            //            if((int)randomBot.GridPosition.X != gridX || (int)randomBot.GridPosition.Y != gridY)
+            //            {
+            //                randomBot.SetTile(gridX, gridY);
+            //            }
+            //        }
+            //        catch { }
+            //    }
+            //}
         }
         public class ConnectingState : GameState
         {
@@ -193,7 +199,8 @@ namespace ChatApp
                         {
                             level = new LevelStateOnline(2);
                             level.SetLevelData((UInt32[])packet.tag["levelData"]);
-                            level.GenerateRandomBot((Tuple<int, int[]>[])packet.tag["randomBotData"]);
+                            level.GenerateRandomBot((Tuple<int, float[]>[])packet.tag["randomBotData"]);
+                            lock (game)
                             POIGame.SetState(level);
                             Packet packetSend = new Packet(PacketType.BeginGame);
                             packetSend.tag["chatID"] = ClientSession.GameSessionChatID;
@@ -203,6 +210,7 @@ namespace ChatApp
                         break;
                     case PacketType.BeginGame:
                         {
+                            lock(game)
                             POIGame.SetState(level);
                         }
                         break;
@@ -521,21 +529,27 @@ namespace ChatApp
                         break;
                     case UdpPacketType.RandomBotInput:
                         {
-                            int chatID = packet.ReadInt(0);
-                            Direction direction = (Direction)packet.ReadInt(8);
-                            int randomBotID = packet.ReadInt(12);
-                            level.MoveRandomBot(direction, randomBotID);
+                            //int chatID = packet.ReadInt(0);
+                            //Direction direction = (Direction)packet.ReadInt(8);
+                            //int randomBotID = packet.ReadInt(12);
+                            //int gridX = packet.ReadInt(16);
+                            //int gridY = packet.ReadInt(20);
+                            level.MoveRandomBot(
+                                (Direction)packet.ReadInt(8), 
+                                packet.ReadInt(12), 
+                                packet.ReadInt(16),
+                                packet.ReadInt(20));
                         }
                         break;
-                    case UdpPacketType.RandomBotAllign:
-                        {
-                            int chatID = packet.ReadInt(0);
-                            int randomBotID = packet.ReadInt(8);
-                            int gridX = packet.ReadInt(12);
-                            int gridY = packet.ReadInt(16);
-                            level.SetBotGrid(randomBotID, gridX, gridY);
-                        }
-                        break;
+                    //case UdpPacketType.RandomBotAllign:
+                    //    {
+                    //        int chatID = packet.ReadInt(0);
+                    //        int randomBotID = packet.ReadInt(8);
+                    //        int gridX = packet.ReadInt(12);
+                    //        int gridY = packet.ReadInt(16);
+                    //        level.SetBotGrid(randomBotID, gridX, gridY);
+                    //    }
+                    //    break;
                 }
             }
         }

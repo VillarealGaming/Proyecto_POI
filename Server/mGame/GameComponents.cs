@@ -28,13 +28,9 @@ namespace mGame
     public abstract class ComponentContainer
     {
         internal Dictionary<int, Component> components = new Dictionary<int, Component>();
-        protected void Add(Component component) {
-            try
-            {
-                components.Add(component.id, component);
-                component.Added();
-            }
-            catch { }
+        protected void Add(Component component){
+            components.Add(component.id, component);
+            component.Added();
         }
         public void Remove(Component component) {
             component.Removed();
@@ -42,7 +38,8 @@ namespace mGame
         }
         public void Clear()
         {
-            components.Clear();
+            components = new Dictionary<int, Component>();
+            //components.Clear();
         }
         public T GetComponent<T>(int id) where T: Component{
             return (T)components[id];
@@ -103,7 +100,7 @@ namespace mGame
             }
             catch
             {
-                throw new System.Exception("...");
+                //state.NullDrawCall();
             }
         }
     }
@@ -229,8 +226,9 @@ namespace mGame
                     layerDepth);
                 base.Draw();
             }
-            catch {
-                throw new System.Exception("...");
+            catch
+            {
+                //state.NullDrawCall();
             }
         }
     }
