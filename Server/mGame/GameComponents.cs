@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 namespace mGame
-{ 
+{
     public class Component
     {
         protected GameState state;
@@ -28,7 +28,7 @@ namespace mGame
     public abstract class ComponentContainer
     {
         internal Dictionary<int, Component> components = new Dictionary<int, Component>();
-        protected void Add(Component component){
+        protected void Add(Component component) {
             components.Add(component.id, component);
             component.Added();
         }
@@ -41,7 +41,7 @@ namespace mGame
             components = new Dictionary<int, Component>();
             //components.Clear();
         }
-        public T GetComponent<T>(int id) where T: Component{
+        public T GetComponent<T>(int id) where T : Component {
             return (T)components[id];
         }
     }
@@ -113,7 +113,7 @@ namespace mGame
             Add(graphic);
         }
         public void Draw() {
-            foreach (var pair in components) {
+            foreach (var pair in components.ToList()) {
                 Drawable graphic = (Drawable)pair.Value;
                 graphic.Draw();
             }
@@ -130,7 +130,7 @@ namespace mGame
             Add(updatable);
         }
         public void Update() {
-            foreach (var pair in components) {
+            foreach (var pair in components.ToList()) {
                 Updateable updatable = (Updateable)pair.Value;
                 updatable.Update();
             }
@@ -165,6 +165,9 @@ namespace mGame
         private int[] currentAnimation;
         private float currentFrame;
         private float animationSpeed;
+        private bool animationEnd;
+        public bool AnimationEnd { get { return animationEnd; } }
+        public Rectangle Frame { get { return frame; } }
         public Animation(GraphicInstance graphic, int frameWidth, int frameHeight) {
             frameReference = graphic.frame;
             frame = new Rectangle(0, 0, frameWidth, frameHeight);
@@ -173,7 +176,7 @@ namespace mGame
             animationSpeed = 1;
         }
         public void SetAnimation(string animationName) {
-            if(animations.ContainsKey(animationName)) {
+            if (animations.ContainsKey(animationName)) {
                 currentAnimation = animations[animationName];
             }
         }
@@ -183,6 +186,7 @@ namespace mGame
         }
         internal override void Update() {
             currentFrame += animationSpeed * (float)POIGame.DeltaTime;
+            animationEnd = currentFrame > currentAnimation.Length - 1;
             currentFrame %= currentAnimation.Length;
             frame.X = currentAnimation[(int)currentFrame] * frame.Width;
             //Crappy reasignation thanks to Rectangle struct type...
@@ -230,6 +234,51 @@ namespace mGame
             {
                 //state.NullDrawCall();
             }
+        }
+    }
+    //hitbox class
+    public class Hitbox
+    {
+        public static bool Collide(Hitbox hitbox1, Hitbox hitbox2)
+        {
+            return !Rectangle.Intersect(hitbox1.Value, hitbox2.Value).IsEmpty;
+        }
+        //private static int idCount;
+        private Rectangle rect;
+        private Position position;
+        private Vector2 offset;
+        public readonly string group;
+        public readonly Action<string, string> callback;
+        //public readonly int id;
+        //returns a rectangle with the position offset applied
+        public Rectangle Value
+        {
+            get
+            {
+                return new Rectangle(
+                    (int)(position.Value.X + offset.X),
+                    (int)(position.Value.Y + offset.Y),
+                    rect.Width, rect.Height);
+            }
+        }
+        public Hitbox(
+            string group,
+            Action<string, string> callback,
+            int width,
+            int height,
+            Position position = null,
+            Vector2 offset = new Vector2())
+        {
+            //idCount++;
+            //id = idCount;
+            this.group = group;
+            this.callback = callback;
+            this.offset = offset;
+            rect = new Rectangle(0, 0, width, height);
+            if (position == null)
+                this.position = new Position();
+            else
+                this.position = position;
         }
     }
 }

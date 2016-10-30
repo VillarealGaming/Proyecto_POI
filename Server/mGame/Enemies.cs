@@ -10,19 +10,19 @@ namespace mGame
 {
     public class RandomBot : MoveableTile
     {
-        public RandomBot(int tileX, int tileY) : base(Assets.randomBot, tileX, tileY) {
+        public RandomBot(int tileX, int tileY) : base(Assets.randomBot, tileX, tileY, "randomBot") {
             Random rand = new Random(DateTime.Now.Millisecond);
             BaseSpeed = 0.5f;
             MoveEase = rand.Next(10, 20);//20.0f;
         }
-        public RandomBot(int tileX, int tileY, float baseSpeed, float moveEase) : base(Assets.randomBot, tileX, tileY)
+        public RandomBot(int tileX, int tileY, float baseSpeed, float moveEase) : base(Assets.randomBot, tileX, tileY, "randomBot")
         {
             BaseSpeed = baseSpeed;
             MoveEase = moveEase;//20.0f;
         }
         internal override void Update()
         {
-            if(Vector2.Distance(position.Value, state.camera.Value.Center.ToVector2()) < (POIGame.GameWidth / 2) + (POIGame.GameWidth/8))
+            if(Vector2.Distance(position.Value, state.camera.Value.Center.ToVector2()) < (POIGame.GameWidth / 2) + (POIGame.GameWidth/6))
             {
                 base.Update();
             }
@@ -73,6 +73,11 @@ namespace mGame
                 //state.RandomBotAllign(id, (int)GridPosition.X, (int)GridPosition.Y);
             }
             base.GoalReached();
+        }
+        protected override void OnCollide(string group1, string group2)
+        {
+            state.RemoveInstance(this);
+            base.OnCollide(group1, group2);
         }
     }
 }

@@ -17,14 +17,16 @@ namespace mGame
         private Direction nextStep;
         public Vector2 OtherPlayerGrid { get; set; }
         //No me gusta esta implementación
-        private Keys right, left, up, down;
+        private Keys right, left, up, down, shot;
         private string currentFaceDirection;
-        public Player(Keys right, Keys left, Keys up, Keys down, int tileX = 250, int tileY = 250) : base(Assets.playerSprite, tileX, tileY)
+        Direction bulletDirection;
+        public Player(Keys right, Keys left, Keys up, Keys down, Keys shot, int tileX = 250, int tileY = 250) : base(Assets.playerSprite, tileX, tileY, "player")
         {
             this.right = right;
             this.left = left;
             this.up = up;
             this.down = down;
+            this.shot = shot;
             currentFaceDirection = "Down";
         }
         public override void Added()
@@ -42,6 +44,7 @@ namespace mGame
             state.AddAnimation(animation);
             MoveEase = 7.0f;
             nextStep = Direction.None;
+            bulletDirection = Direction.Down;
             state.camera.Value.Location = position.Value.ToPoint();
         }
         internal override void Update()
@@ -53,8 +56,27 @@ namespace mGame
             else {
                 animation.SetAnimation("stop" + currentFaceDirection);
             }
-            if(right != Keys.Escape)
+            if (right != Keys.Escape)
             {
+                //if (POIGame.GetKeyPressed(right))
+                //    Move(Direction.Right);
+                //else if (POIGame.GetKeyPressed(left))
+                //    Move(Direction.Left);
+                //else if (POIGame.GetKeyPressed(up))
+                //    Move(Direction.Up);
+                //else if (POIGame.GetKeyPressed(down))
+                //    Move(Direction.Down);
+                //shot logic
+                if (POIGame.GetKeyPressed(shot))
+                {
+                    state.AddInstance(new Bullet(
+                        Assets.playerBullet, 
+                        (int)position.Value.X + 12, 
+                        (int)position.Value.Y + 12,
+                        8.0f,
+                        bulletDirection));
+                }
+                //move logic
                 if (!isGoalReached)
                 {
                     if (POIGame.GetKeyPressed(right))
@@ -74,6 +96,7 @@ namespace mGame
                             MoveRight();
                             currentFaceDirection = "Side";
                             state.PlayerInput(Direction.Right);
+                            bulletDirection = Direction.Right;
                         }
                     }
                     else if (POIGame.GetKeyPressed(left))
@@ -84,6 +107,7 @@ namespace mGame
                             MoveLeft();
                             currentFaceDirection = "Side";
                             state.PlayerInput(Direction.Left);
+                            bulletDirection = Direction.Left;
                         }
                     }
                     else if (POIGame.GetKeyPressed(up))
@@ -93,6 +117,7 @@ namespace mGame
                             MoveUp();
                             currentFaceDirection = "Up";
                             state.PlayerInput(Direction.Up);
+                            bulletDirection = Direction.Up;
                         }
                     }
                     else if (POIGame.GetKeyPressed(down))
@@ -102,6 +127,7 @@ namespace mGame
                             MoveDown();
                             currentFaceDirection = "Down";
                             state.PlayerInput(Direction.Down);
+                            bulletDirection = Direction.Down;
                         }
                     }
                 }
@@ -115,6 +141,7 @@ namespace mGame
                             MoveRight();
                             currentFaceDirection = "Side";
                             state.PlayerInput(Direction.Right);
+                            bulletDirection = Direction.Right;
                         }
                     }
                     else if (POIGame.GetKeyPressed(left) || nextStep == Direction.Left)
@@ -125,6 +152,7 @@ namespace mGame
                             MoveLeft();
                             currentFaceDirection = "Side";
                             state.PlayerInput(Direction.Left);
+                            bulletDirection = Direction.Left;
                         }
                     }
                     else if (POIGame.GetKeyPressed(up) || nextStep == Direction.Up)
@@ -134,6 +162,7 @@ namespace mGame
                             MoveUp();
                             currentFaceDirection = "Up";
                             state.PlayerInput(Direction.Up);
+                            bulletDirection = Direction.Up;
                         }
                     }
                     else if (POIGame.GetKeyPressed(down) || nextStep == Direction.Down)
@@ -143,6 +172,7 @@ namespace mGame
                             MoveDown();
                             currentFaceDirection = "Down";
                             state.PlayerInput(Direction.Down);
+                            bulletDirection = Direction.Down;
                         }
                     }
                     nextStep = Direction.None;
@@ -170,6 +200,7 @@ namespace mGame
                     {
                         MoveRight();
                         currentFaceDirection = "Side";
+                        bulletDirection = Direction.Right;
                     }
                 }
                 else if (direction == Direction.Left)
@@ -179,6 +210,7 @@ namespace mGame
                     {
                         MoveLeft();
                         currentFaceDirection = "Side";
+                        bulletDirection = Direction.Left;
                     }
                 }
                 else if (direction == Direction.Up)
@@ -187,6 +219,7 @@ namespace mGame
                     {
                         MoveUp();
                         currentFaceDirection = "Up";
+                        bulletDirection = Direction.Up;
                     }
                 }
                 else if (direction == Direction.Down)
@@ -195,6 +228,7 @@ namespace mGame
                     {
                         MoveDown();
                         currentFaceDirection = "Down";
+                        bulletDirection = Direction.Down;
                     }
                 }
             }
@@ -207,6 +241,7 @@ namespace mGame
                     {
                         MoveRight();
                         currentFaceDirection = "Side";
+                        bulletDirection = Direction.Right;
                     }
                 }
                 else if (direction == Direction.Left || nextStep == Direction.Left)
@@ -216,6 +251,7 @@ namespace mGame
                     {
                         MoveLeft();
                         currentFaceDirection = "Side";
+                        bulletDirection = Direction.Left;
                     }
                 }
                 else if (direction == Direction.Up || nextStep == Direction.Up)
@@ -224,6 +260,7 @@ namespace mGame
                     {
                         MoveUp();
                         currentFaceDirection = "Up";
+                        bulletDirection = Direction.Up;
                     }
                 }
                 else if (direction == Direction.Down || nextStep == Direction.Down)
@@ -232,6 +269,7 @@ namespace mGame
                     {
                         MoveDown();
                         currentFaceDirection = "Down";
+                        bulletDirection = Direction.Down;
                     }
                 }
                 nextStep = Direction.None;

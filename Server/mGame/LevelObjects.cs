@@ -17,6 +17,8 @@ namespace mGame
         protected Position position;
         private const int TileSize = 24;
         private float baseSpeed;
+        private string hitboxGroup;
+        Hitbox hitbox;
         public float BaseSpeed {
             get { return baseSpeed; }
             set { baseSpeed = Math.Abs(value) > 1.0f ? 1.0f: Math.Abs(value); }
@@ -45,7 +47,7 @@ namespace mGame
         }
         private bool goalReached;
         private Texture2D texture;
-        public MoveableTile(Texture2D texture, int tileX, int tileY) {
+        public MoveableTile(Texture2D texture, int tileX, int tileY, string hitboxGroup) {
             position = new Position();
             position.Value = new Vector2(tileX * TileSize, tileY * TileSize);
             this.texture = texture;
@@ -55,6 +57,8 @@ namespace mGame
             MoveEase = 5.0f;
             baseSpeed = 1.0f;
             gridPosition = this.position.Value / 24;
+            hitbox = new Hitbox(hitboxGroup, OnCollide, 24, 24, position);
+            this.hitboxGroup = hitboxGroup;
         }
         public void SetTile(int tileX, int tileY)
         {
@@ -71,6 +75,7 @@ namespace mGame
             sprite = new GraphicInstance(texture, position);
             state.AddGraphic(sprite);
             base.Added();
+            state.AddHitbox(hitbox);
         }
         internal override void Update() {
             speed.X = (goal.X - position.Value.X) / MoveEase;
@@ -144,9 +149,11 @@ namespace mGame
         }
         public override void Removed()
         {
+            state.RemoveHitbox(hitbox);
             state.RemoveGraphic(sprite);
             base.Removed();
         }
+        protected virtual void OnCollide(string group1, string group2) { }
     }
     //Custom Tilemap component
     public class TileMap : Drawable

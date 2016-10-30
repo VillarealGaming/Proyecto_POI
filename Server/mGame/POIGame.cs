@@ -80,6 +80,8 @@ namespace mGame {
             Assets.playerSprite = Content.Load<Texture2D>("Content/Player");
             Assets.mapTiles = Content.Load<Texture2D>("Content/tileSet");
             Assets.randomBot = Content.Load<Texture2D>("Content/Enemy1");
+            Assets.playerBullet = Content.Load<Texture2D>("Content/playerBullet");
+            Assets.bulletExplode = Content.Load<Texture2D>("Content/bulletExplode");
             Assets.retroFont = Content.Load<SpriteFont>("Content/RetroFont");
             //lock(this)
                 state.Init();

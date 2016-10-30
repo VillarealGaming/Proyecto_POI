@@ -11,7 +11,7 @@ namespace mGame
     public class LevelState : GameState
     {
         public const int LevelWidth = 500, LevelHeight = 500;
-        private GraphicInstance background;
+        //private GraphicInstance background;
         private GraphicInstance cameraEffect;
         protected Player[] players;
         private Player playerA, playerB;
@@ -46,6 +46,11 @@ namespace mGame
         {
             lock(this)
             {
+                //
+                AddCollisionGroup("player");
+                AddCollisionGroup("playerBullet");
+                AddCollisionGroup("randomBot");
+                AddCollisionListener("playerBullet", "randomBot");
                 //tests only
                 if (playerNumber == 0)
                 {
@@ -53,25 +58,26 @@ namespace mGame
                     GenerateRandomBot();
                 }
                 players = new Player[2];
-                players[this.playerNumber] = new Player(Keys.Right, Keys.Left, Keys.Up, Keys.Down);
+                players[this.playerNumber] = new Player(Keys.Right, Keys.Left, Keys.Up, Keys.Down, Keys.RightShift);
                 //For tests only 
                 //players[this.playerNumber == 0 ? 1 : 0] = new Player(Keys.Escape, Keys.Escape, Keys.Escape, Keys.Escape);
-                players[this.playerNumber == 0 ? 1 : 0] = new Player(Keys.D, Keys.A, Keys.W, Keys.S);
+                players[this.playerNumber == 0 ? 1 : 0] = new Player(Keys.D, Keys.A, Keys.W, Keys.S, Keys.LeftShift);
                 playerA = players[0];
                 playerB = players[1];
                 playerB.SetTile(251, 250);
                 //tiles.Generate();
                 text = new TextSprite(Assets.retroFont, new Vector2(24, 24));
                 cameraEffect = new GraphicInstance(Assets.cameraEffect, new Position(), true);
-                background = new GraphicInstance(Assets.background, new Position(), true);
-                background.layerDepth = 0.0f;
+                cameraEffect.layerDepth = 0.9f;
+                //background = new GraphicInstance(Assets.background, new Position(), true);
+                //background.layerDepth = 0.0f;
                 AddGraphic(cameraEffect);
                 AddInstance(playerA);
                 AddInstance(playerB);
                 AddGraphic(text);
                 tiles = new TileMap(Assets.mapTiles);
                 tiles.Generate();
-                AddGraphic(background);
+                //AddGraphic(background);
                 AddGraphic(tiles);
                 foreach (var randomBot in randomBots)
                     AddInstance(randomBot.Value);

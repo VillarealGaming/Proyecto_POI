@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets.cs" />
+    <Compile Include="Bullet.cs" />
     <Compile Include="Enemies.cs" />
     <Compile Include="GameComponents.cs" />
     <Compile Include="LevelObjects.cs" />
