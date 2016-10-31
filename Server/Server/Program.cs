@@ -443,6 +443,22 @@ namespace Server {
                         }
                     }
                     break;
+                case PacketType.ExitGame:
+                    {
+                        ServerDataSet.UsuarioPrivadoDataTable usuarioPrivado = database.UsuarioPrivado;
+                        //usuarios a mandar
+                        int chatID = (int)packet.tag["chatID"];
+                        var queryResult = from user in usuarioPrivado
+                                          where user.ConversacionPrivada == chatID
+                                          select user;
+                        foreach (var user in queryResult)
+                        {
+                            if (connectedUsers.ContainsKey(user.Usuario) && user.Usuario != packet.tag["sender"] as string)
+                                server.SendPacket(packet, connectedUsers[user.Usuario]);
+                        }
+                        connectedPlayers.Remove(chatID);
+                    }
+                    break;
             }
         }
         private static void OnUdpPacket(UdpPacket packet)
@@ -468,6 +484,7 @@ namespace Server {
                     }
                     break;
                 case UdpPacketType.PlayerInput:
+                case UdpPacketType.PlayerShot:
                 case UdpPacketType.RandomBotInput:
                 case UdpPacketType.RandomBotAllign:
                     {
@@ -570,6 +587,17 @@ namespace Server {
                 {
                     server.SendPacket(packet, connectedUser.Value);
                 }
+                //disconnect players
+                int playerSession = -1;
+                foreach(var players in connectedPlayers)
+                {
+                    foreach(var player in players.Value)
+                    {
+                        if (player == user.Key)
+                            playerSession = players.Key;
+                    }
+                }
+                connectedPlayers.Remove(playerSession);
             }
             Console.WriteLine("Cliente en " + client.RemoteEndPoint + " desconectado");
             server.CloseClientConnection(client);

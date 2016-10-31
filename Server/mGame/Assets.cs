@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 namespace mGame
 {
     public static class Assets
@@ -15,6 +17,13 @@ namespace mGame
         public static Texture2D randomBot;
         public static Texture2D playerBullet;
         public static Texture2D bulletExplode;
-        public static SpriteFont retroFont; 
+        //public static Texture2D enemyExplode;
+        public static SpriteFont retroFont;
+        //sounds
+        public static SoundEffect bulletSound;
+        public static SoundEffect bulletHitSound;
+        public static SoundEffect explosionSound;
+        public static SoundEffect stepSound;
+        public static Song LevelSong;
     }
 }

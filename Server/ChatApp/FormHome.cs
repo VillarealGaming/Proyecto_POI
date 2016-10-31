@@ -23,108 +23,6 @@ namespace ChatApp
         private Thread gameThread;
         private POIGame game;
         private LevelStateOnline level;
-        public class LevelStateOnline : LevelState
-        {
-            public LevelStateOnline(int player) : base(player) { }
-            public override void PlayerInput(Direction direction)
-            {
-                UdpPacket udpPacket = new UdpPacket(UdpPacketType.PlayerInput);
-                udpPacket.WriteData(BitConverter.GetBytes(ClientSession.GameSessionChatID));
-                udpPacket.WriteData(BitConverter.GetBytes(ClientSession.IsPlayerOne ? 1 : 2));
-                udpPacket.WriteData(BitConverter.GetBytes((int)direction));
-                ClientSession.Connection.SendUdpPacket(udpPacket);
-            }
-            public override void RandomBotInput(Direction direction, int robotID, int gridX, int gridY)
-            {
-                UdpPacket udpPacket = new UdpPacket(UdpPacketType.RandomBotInput);
-                udpPacket.WriteData(BitConverter.GetBytes(ClientSession.GameSessionChatID));
-                udpPacket.WriteData(BitConverter.GetBytes(ClientSession.IsPlayerOne ? 1 : 2));
-                udpPacket.WriteData(BitConverter.GetBytes((int)direction));
-                udpPacket.WriteData(BitConverter.GetBytes(robotID));
-                udpPacket.WriteData(BitConverter.GetBytes(gridX));
-                udpPacket.WriteData(BitConverter.GetBytes(gridY));
-                ClientSession.Connection.SendUdpPacket(udpPacket);
-            }
-            public void MovePlayer(Direction direction)
-            {
-                players[playerNumber == 1 ? 0 : 1].Move(direction);
-            }
-            public void MoveRandomBot(Direction direction, int randomBotID, int gridX, int gridY)
-            {
-                if(!ClientSession.IsPlayerOne)
-                {
-                    try
-                    {
-                        RandomBot randomBot = randomBots[randomBotID];
-                        switch (direction)
-                        {
-                            case Direction.Right:
-                                randomBot.MoveRight();
-                                break;
-                            case Direction.Left:
-                                randomBot.MoveLeft();
-                                break;
-                            case Direction.Up:
-                                randomBot.MoveUp();
-                                break;
-                            case Direction.Down:
-                                randomBot.MoveDown();
-                                break;
-                        }
-                        if ((int)randomBot.GridPosition.X != gridX || (int)randomBot.GridPosition.Y != gridY)
-                        {
-                            randomBot.SetTile(gridX, gridY);
-                        }
-                    }
-                    catch { }
-                }
-            }
-            //public override void RandomBotAllign(int robotID, int gridX, int gridY)
-            //{
-            //    UdpPacket udpPacket = new UdpPacket(UdpPacketType.RandomBotAllign);
-            //    udpPacket.WriteData(BitConverter.GetBytes(ClientSession.GameSessionChatID));
-            //    udpPacket.WriteData(BitConverter.GetBytes(ClientSession.IsPlayerOne ? 1 : 2));
-            //    udpPacket.WriteData(BitConverter.GetBytes(robotID));
-            //    udpPacket.WriteData(BitConverter.GetBytes(gridX));
-            //    udpPacket.WriteData(BitConverter.GetBytes(gridY));
-            //    ClientSession.Connection.SendUdpPacket(udpPacket);
-            //}
-            //public void SetBotGrid(int robotID, int gridX, int gridY)
-            //{
-            //    if (!ClientSession.IsPlayerOne)
-            //    {
-            //        try
-            //        {
-            //            RandomBot randomBot = randomBots[robotID];
-            //            if((int)randomBot.GridPosition.X != gridX || (int)randomBot.GridPosition.Y != gridY)
-            //            {
-            //                randomBot.SetTile(gridX, gridY);
-            //            }
-            //        }
-            //        catch { }
-            //    }
-            //}
-        }
-        public class ConnectingState : GameState
-        {
-            private TextSprite text;
-            private float elapse;
-            public override void Init()
-            {
-                text = new TextSprite(Assets.retroFont, camera.Value.Center.ToVector2());
-                text.text = "ESPERANDO A OTRO USUARIO...";
-                text.origin = new Microsoft.Xna.Framework.Vector2(180, 10);
-                AddGraphic(text);
-                base.Init();
-            }
-            public override void Update()
-            {
-                elapse += (float)POIGame.DeltaTime * 0.7f;
-                float effect = 1.0f + (float)Math.Sin(elapse) * 0.125f;
-                text.scale = new Microsoft.Xna.Framework.Vector2(effect, effect);
-                base.Update();
-            }
-        }
         public void Game()
         {
             //Packet packet = new Packet(PacketType.BeginGame);
@@ -132,6 +30,10 @@ namespace ChatApp
             game = new POIGame(new ConnectingState());
             game.Run();
             ClientSession.GameIsRunning = false;
+            Packet packet = new Packet(PacketType.ExitGame);
+            packet.tag["chatID"] = ClientSession.GameSessionChatID;
+            packet.tag["sender"] = ClientSession.username;
+            ClientSession.Connection.SendPacket(packet);
         }
         public FormHome()
         {
@@ -161,13 +63,18 @@ namespace ChatApp
             {
                 switch(packet.Type)
                 {
+                    case PacketType.ExitGame:
+                        {
+                            this.Invoke(new ClientSession.ExitGameCallback(game.Exit));
+                        }
+                        break;
                     case PacketType.GameFirstPlayer:
                         {
                             ClientSession.IsPlayerOne = true;
                             gameThread = new Thread(Game);
                             gameThread.Start();
                             //evitar que cosas raras pasen si hacemos todo muy rapido...
-                            //System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(500);
                             //level = new LevelStateOnline(1);
                             //level.GenerateLevelData();
                             //level.GenerateRandomBot();
@@ -180,6 +87,8 @@ namespace ChatApp
                             {
                                 gameThread = new Thread(Game);
                                 gameThread.Start();
+                                //evitar que cosas raras pasen si hacemos todo muy rapido...
+                                System.Threading.Thread.Sleep(500);
                             }
                             else
                             {
@@ -357,8 +266,12 @@ namespace ChatApp
                         {
                             if(packet.tag["user"] as string != ClientSession.username)
                             {
-                                TreeNode node = treeViewUsers.Nodes.Find(packet.tag["user"] as string, true)[0];
-                                node.ImageIndex = ClientSession.connectionStateHash[packet.tag["state"] as string].Item1 + 1;
+                                try
+                                {
+                                    TreeNode node = treeViewUsers.Nodes.Find(packet.tag["user"] as string, true)[0];
+                                    node.ImageIndex = ClientSession.connectionStateHash[packet.tag["state"] as string].Item1 + 1;
+                                }
+                                catch { }
                             }
                         }
                         break;
@@ -521,10 +434,18 @@ namespace ChatApp
                         break;
                     case UdpPacketType.PlayerInput:
                         {
-                            int chatID = packet.ReadInt(0);
-                            Direction direction = (Direction)packet.ReadInt(8);
+                            //int chatID = packet.ReadInt(0);
+                            //Direction direction = ;
                             //int player = packet.ReadInt(8);
-                            level.MovePlayer(direction);
+                            level.MovePlayer(
+                                (Direction)packet.ReadInt(8),
+                                packet.ReadInt(12),
+                                packet.ReadInt(16));
+                        }
+                        break;
+                    case UdpPacketType.PlayerShot:
+                        {
+                            level.MakeShot();
                         }
                         break;
                     case UdpPacketType.RandomBotInput:
@@ -573,9 +494,10 @@ namespace ChatApp
                 Microphone.Dispose();
             }
             Speaker.Dispose();
+            if(game != null)
+                this.Invoke(new ClientSession.ExitGameCallback(game.Exit));
             this.Close();
         }
-
         private void FormHome_Load(object sender, EventArgs e)
         {
             this.Header.Text = ClientSession.username + " - " + ClientSession.connectionStateHash[ClientSession.state].Item2;
@@ -684,6 +606,7 @@ namespace ChatApp
     {
         public delegate void ReceivePacketCallback(Packet packet);
         public delegate void ReceiveUdpPacketCallback(UdpPacket packet);
+        public delegate void ExitGameCallback();
         public static string username { get; set; }
         public static string state;
         public const int textMessagesVisibleText = 40;

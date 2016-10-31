@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 namespace mGame
 {
     class Bullet : Updateable
@@ -78,6 +77,7 @@ namespace mGame
         }
         public override void Removed()
         {
+            Assets.bulletHitSound.Play(0.6f, 0.0f, 0.0f);
             state.AddInstance(
                 new OnceAnimation(
                     Assets.bulletExplode,
@@ -98,9 +98,12 @@ namespace mGame
         private Animation animation;
         private Texture2D texture;
         private float animationSpeed;
-        public OnceAnimation(Texture2D texture, int x, int y, int frameWidth, int frameHeight, float speed = 45.0f)
+        private int frameWidth, frameHeight;
+        public OnceAnimation(Texture2D texture, int x, int y, int frameWidth, int frameHeight, float speed = 30.0f)
         {
             animationSpeed = speed;
+            this.frameWidth = frameWidth;
+            this.frameHeight = frameHeight;
             this.texture = texture;
             position = new Position();
             position.Value = new Vector2(x, y);
@@ -109,7 +112,7 @@ namespace mGame
         {
             base.Added();
             graphic = new GraphicInstance(texture, position);
-            animation = new Animation(graphic, 48, 48);
+            animation = new Animation(graphic, frameWidth, frameWidth);
             int[] frames = new int[texture.Width / animation.Frame.Width];
             for(int i = 0; i < frames.Length; i++) { frames[i] = i; }
             animation.AddAnimation("base", frames);

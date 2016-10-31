@@ -69,6 +69,8 @@ namespace mGame
                 //shot logic
                 if (POIGame.GetKeyPressed(shot))
                 {
+                    state.PlayerShot();
+                    Assets.bulletSound.Play(0.6f, 0.2f, 0.0f);
                     state.AddInstance(new Bullet(
                         Assets.playerBullet, 
                         (int)position.Value.X + 12, 
@@ -95,7 +97,7 @@ namespace mGame
                         {
                             MoveRight();
                             currentFaceDirection = "Side";
-                            state.PlayerInput(Direction.Right);
+                            state.PlayerInput(Direction.Right, (int)GridPosition.X, (int)GridPosition.Y);
                             bulletDirection = Direction.Right;
                         }
                     }
@@ -106,7 +108,7 @@ namespace mGame
                         {
                             MoveLeft();
                             currentFaceDirection = "Side";
-                            state.PlayerInput(Direction.Left);
+                            state.PlayerInput(Direction.Left, (int)GridPosition.X, (int)GridPosition.Y);
                             bulletDirection = Direction.Left;
                         }
                     }
@@ -116,7 +118,7 @@ namespace mGame
                         {
                             MoveUp();
                             currentFaceDirection = "Up";
-                            state.PlayerInput(Direction.Up);
+                            state.PlayerInput(Direction.Up, (int)GridPosition.X, (int)GridPosition.Y);
                             bulletDirection = Direction.Up;
                         }
                     }
@@ -126,7 +128,7 @@ namespace mGame
                         {
                             MoveDown();
                             currentFaceDirection = "Down";
-                            state.PlayerInput(Direction.Down);
+                            state.PlayerInput(Direction.Down, (int)GridPosition.X, (int)GridPosition.Y);
                             bulletDirection = Direction.Down;
                         }
                     }
@@ -140,8 +142,9 @@ namespace mGame
                         {
                             MoveRight();
                             currentFaceDirection = "Side";
-                            state.PlayerInput(Direction.Right);
+                            state.PlayerInput(Direction.Right, (int)GridPosition.X, (int)GridPosition.Y);
                             bulletDirection = Direction.Right;
+                            Assets.stepSound.Play(0.6f, 0.5f, 0.0f);
                         }
                     }
                     else if (POIGame.GetKeyPressed(left) || nextStep == Direction.Left)
@@ -151,8 +154,9 @@ namespace mGame
                         {
                             MoveLeft();
                             currentFaceDirection = "Side";
-                            state.PlayerInput(Direction.Left);
+                            state.PlayerInput(Direction.Left, (int)GridPosition.X, (int)GridPosition.Y);
                             bulletDirection = Direction.Left;
+                            Assets.stepSound.Play(0.6f, 0.5f, 0.0f);
                         }
                     }
                     else if (POIGame.GetKeyPressed(up) || nextStep == Direction.Up)
@@ -161,8 +165,9 @@ namespace mGame
                         {
                             MoveUp();
                             currentFaceDirection = "Up";
-                            state.PlayerInput(Direction.Up);
+                            state.PlayerInput(Direction.Up, (int)GridPosition.X, (int)GridPosition.Y);
                             bulletDirection = Direction.Up;
+                            Assets.stepSound.Play(0.6f, 0.5f, 0.0f);
                         }
                     }
                     else if (POIGame.GetKeyPressed(down) || nextStep == Direction.Down)
@@ -171,8 +176,9 @@ namespace mGame
                         {
                             MoveDown();
                             currentFaceDirection = "Down";
-                            state.PlayerInput(Direction.Down);
+                            state.PlayerInput(Direction.Down, (int)GridPosition.X, (int)GridPosition.Y);
                             bulletDirection = Direction.Down;
+                            Assets.stepSound.Play(0.6f, 0.5f, 0.0f);
                         }
                     }
                     nextStep = Direction.None;
@@ -242,6 +248,7 @@ namespace mGame
                         MoveRight();
                         currentFaceDirection = "Side";
                         bulletDirection = Direction.Right;
+                        Assets.stepSound.Play(0.6f, 0.5f, 0.0f);
                     }
                 }
                 else if (direction == Direction.Left || nextStep == Direction.Left)
@@ -252,6 +259,7 @@ namespace mGame
                         MoveLeft();
                         currentFaceDirection = "Side";
                         bulletDirection = Direction.Left;
+                        Assets.stepSound.Play(0.6f, 0.5f, 0.0f);
                     }
                 }
                 else if (direction == Direction.Up || nextStep == Direction.Up)
@@ -261,6 +269,7 @@ namespace mGame
                         MoveUp();
                         currentFaceDirection = "Up";
                         bulletDirection = Direction.Up;
+                        Assets.stepSound.Play(0.6f, 0.5f, 0.0f);
                     }
                 }
                 else if (direction == Direction.Down || nextStep == Direction.Down)
@@ -270,11 +279,22 @@ namespace mGame
                         MoveDown();
                         currentFaceDirection = "Down";
                         bulletDirection = Direction.Down;
+                        Assets.stepSound.Play(0.6f, 0.5f, 0.0f);
                     }
                 }
                 nextStep = Direction.None;
             }
             //base.Update();
+        }
+        public void Shot()
+        {
+            Assets.bulletSound.Play(0.6f, 0.2f, 0.0f);
+            state.AddInstance(new Bullet(
+                Assets.playerBullet,
+                (int)position.Value.X + 12,
+                (int)position.Value.Y + 12,
+                8.0f,
+                bulletDirection));
         }
         public override void Removed()
         {

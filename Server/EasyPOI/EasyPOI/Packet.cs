@@ -136,7 +136,8 @@ namespace EasyPOI
         GameFirstPlayer,
         GameSecondPlayer,
         LevelData,
-        GameStart
+        GameStart,
+        ExitGame
     }
     //No me gusta tener la lógica del juego mezclada de esta manera pero meh,
     //creo que es más facil así
@@ -145,6 +146,7 @@ namespace EasyPOI
         AudioStream,
         //lógica de juego
         PlayerInput,
+        PlayerShot,
         RandomBotInput,
         RandomBotAllign
     }

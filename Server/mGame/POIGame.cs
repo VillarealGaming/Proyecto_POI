@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 using System.Drawing;
 namespace mGame {
     /// <summary>
@@ -82,7 +84,14 @@ namespace mGame {
             Assets.randomBot = Content.Load<Texture2D>("Content/Enemy1");
             Assets.playerBullet = Content.Load<Texture2D>("Content/playerBullet");
             Assets.bulletExplode = Content.Load<Texture2D>("Content/bulletExplode");
+            //Assets.enemyExplode = Content.Load<Texture2D>("Content/enemyExplode");
             Assets.retroFont = Content.Load<SpriteFont>("Content/RetroFont");
+            //sounds
+            Assets.bulletSound = Content.Load<SoundEffect>("Content/bullet");
+            Assets.bulletHitSound = Content.Load<SoundEffect>("Content/hit");
+            Assets.explosionSound = Content.Load<SoundEffect>("Content/explosion");
+            Assets.stepSound = Content.Load<SoundEffect>("Content/step");
+            Assets.LevelSong = Content.Load<Song>("Content/3DGalax");
             //lock(this)
                 state.Init();
             Content.RootDirectory = "Content";
@@ -137,6 +146,11 @@ namespace mGame {
             //spriteBatch.Draw(level, new Vector2(), Color.White);
             spriteBatch.End();
             base.Draw(gameTime);
+        }
+        protected override void EndRun()
+        {
+            MediaPlayer.Stop();
+            base.EndRun();
         }
     }
 }

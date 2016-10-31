@@ -79,5 +79,18 @@ namespace mGame
             state.RemoveInstance(this);
             base.OnCollide(group1, group2);
         }
+        public override void Removed()
+        {
+            Assets.explosionSound.Play(0.5f, 0.0f, 0.0f);
+            //state.AddInstance(
+            //    new OnceAnimation(
+            //        Assets.enemyExplode,
+            //        (int)position.Value.X,
+            //        (int)position.Value.Y,
+            //        36,
+            //        36,
+            //        40.0f));
+            base.Removed();
+        }
     }
 }
