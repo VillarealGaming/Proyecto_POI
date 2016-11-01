@@ -434,9 +434,6 @@ namespace ChatApp
                         break;
                     case UdpPacketType.PlayerInput:
                         {
-                            //int chatID = packet.ReadInt(0);
-                            //Direction direction = ;
-                            //int player = packet.ReadInt(8);
                             level.MovePlayer(
                                 (Direction)packet.ReadInt(8),
                                 packet.ReadInt(12),
@@ -450,11 +447,6 @@ namespace ChatApp
                         break;
                     case UdpPacketType.RandomBotInput:
                         {
-                            //int chatID = packet.ReadInt(0);
-                            //Direction direction = (Direction)packet.ReadInt(8);
-                            //int randomBotID = packet.ReadInt(12);
-                            //int gridX = packet.ReadInt(16);
-                            //int gridY = packet.ReadInt(20);
                             level.MoveRandomBot(
                                 (Direction)packet.ReadInt(8), 
                                 packet.ReadInt(12), 
@@ -462,15 +454,6 @@ namespace ChatApp
                                 packet.ReadInt(20));
                         }
                         break;
-                    //case UdpPacketType.RandomBotAllign:
-                    //    {
-                    //        int chatID = packet.ReadInt(0);
-                    //        int randomBotID = packet.ReadInt(8);
-                    //        int gridX = packet.ReadInt(12);
-                    //        int gridY = packet.ReadInt(16);
-                    //        level.SetBotGrid(randomBotID, gridX, gridY);
-                    //    }
-                    //    break;
                 }
             }
         }

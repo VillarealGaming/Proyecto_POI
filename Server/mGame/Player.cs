@@ -20,7 +20,7 @@ namespace mGame
         private Keys right, left, up, down, shot;
         private string currentFaceDirection;
         Direction bulletDirection;
-        public Player(Keys right, Keys left, Keys up, Keys down, Keys shot, int tileX = 250, int tileY = 250) : base(Assets.playerSprite, tileX, tileY, "player")
+        public Player(Texture2D sprite, Keys right, Keys left, Keys up, Keys down, Keys shot, int tileX = 250, int tileY = 250) : base(sprite, tileX, tileY, "player")
         {
             this.right = right;
             this.left = left;

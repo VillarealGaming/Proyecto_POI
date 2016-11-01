@@ -459,6 +459,24 @@ namespace Server {
                         connectedPlayers.Remove(chatID);
                     }
                     break;
+                case PacketType.EnemyKilled:
+                    {
+                        ServerDataSet.UsuarioDataTable usuarioTable = database.Usuario;
+                        var queryResult = from usuario in usuarioTable
+                                          where usuario.NombreUsuario == packet.tag["user"] as string
+                                          select usuario;
+                        queryResult.First().EnemigosAbatidos++;
+                        while(true)
+                        {
+                            try
+                            {
+                                database.WriteXml(databaseFile);
+                                break;
+                            }
+                            catch { }
+                        }
+                    }
+                    break;
             }
         }
         private static void OnUdpPacket(UdpPacket packet)
@@ -486,7 +504,6 @@ namespace Server {
                 case UdpPacketType.PlayerInput:
                 case UdpPacketType.PlayerShot:
                 case UdpPacketType.RandomBotInput:
-                case UdpPacketType.RandomBotAllign:
                     {
                         ServerDataSet.UsuarioPrivadoDataTable usuarioPrivado = database.UsuarioPrivado;
                         int chatID = BitConverter.ToInt32(packet.ReadData(4, 0), 0);

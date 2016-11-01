@@ -12,15 +12,12 @@ namespace mGame
     public class LevelState : GameState
     {
         public const int LevelWidth = 500, LevelHeight = 500;
-        //private GraphicInstance background;
         private GraphicInstance cameraEffect;
         protected Player[] players;
         private Player playerA, playerB;
         protected Dictionary<int, RandomBot> randomBots;
         private TileMap tiles;
-        //private UpdateableContainer moveableContainer;
         private UInt32[] levelData;
-        //level generation test
         Rectangle levelDimensions;
         private TextSprite text;
         //Texture2D level;
@@ -47,7 +44,6 @@ namespace mGame
         {
             lock(this)
             {
-                //
                 AddCollisionGroup("player");
                 AddCollisionGroup("playerBullet");
                 AddCollisionGroup("randomBot");
@@ -59,9 +55,9 @@ namespace mGame
                 //    GenerateRandomBot();
                 //}
                 players = new Player[2];
-                players[this.playerNumber] = new Player(Keys.Right, Keys.Left, Keys.Up, Keys.Down, Keys.RightShift);
+                players[this.playerNumber] = new Player(this.playerNumber == 0 ? Assets.playerSprite : Assets.player2Sprite, Keys.Right, Keys.Left, Keys.Up, Keys.Down, Keys.RightShift);
+                players[this.playerNumber == 0 ? 1 : 0] = new Player(this.playerNumber == 0 ? Assets.player2Sprite : Assets.playerSprite, Keys.Escape, Keys.Escape, Keys.Escape, Keys.Escape, Keys.Escape);
                 //For tests only 
-                players[this.playerNumber == 0 ? 1 : 0] = new Player(Keys.Escape, Keys.Escape, Keys.Escape, Keys.Escape, Keys.Escape);
                 //players[this.playerNumber == 0 ? 1 : 0] = new Player(Keys.D, Keys.A, Keys.W, Keys.S, Keys.LeftShift);
                 playerA = players[0];
                 playerB = players[1];
@@ -70,15 +66,12 @@ namespace mGame
                 text = new TextSprite(Assets.retroFont, new Vector2(24, 24));
                 cameraEffect = new GraphicInstance(Assets.cameraEffect, new Position(), true);
                 cameraEffect.layerDepth = 0.9f;
-                //background = new GraphicInstance(Assets.background, new Position(), true);
-                //background.layerDepth = 0.0f;
                 AddGraphic(cameraEffect);
                 AddInstance(playerA);
                 AddInstance(playerB);
                 AddGraphic(text);
                 tiles = new TileMap(Assets.mapTiles);
                 tiles.Generate();
-                //AddGraphic(background);
                 AddGraphic(tiles);
                 foreach (var randomBot in randomBots)
                     AddInstance(randomBot.Value);
@@ -150,6 +143,7 @@ namespace mGame
         }
         public virtual void PlayerInput(Direction direction, int gridX, int gridY) { }
         public virtual void PlayerShot() { }
+        public virtual void EnemyKilled() { }
         public virtual void RandomBotInput(Direction direction, int robotID, int gridX, int gridY) { }
         //public virtual void RandomBotAllign(int robotID, int gridX, int gridY) { }
     }

@@ -78,8 +78,8 @@ namespace mGame {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
             Assets.cameraEffect = Content.Load<Texture2D>("Content/CameraEffect");
-            Assets.background = Content.Load<Texture2D>("Content/background");
             Assets.playerSprite = Content.Load<Texture2D>("Content/Player");
+            Assets.player2Sprite = Content.Load<Texture2D>("Content/Player2");
             Assets.mapTiles = Content.Load<Texture2D>("Content/tileSet");
             Assets.randomBot = Content.Load<Texture2D>("Content/Enemy1");
             Assets.playerBullet = Content.Load<Texture2D>("Content/playerBullet");

@@ -11,8 +11,8 @@ namespace mGame
     public static class Assets
     {
         public static Texture2D cameraEffect;
-        public static Texture2D background;
         public static Texture2D playerSprite;
+        public static Texture2D player2Sprite;
         public static Texture2D mapTiles;
         public static Texture2D randomBot;
         public static Texture2D playerBullet;

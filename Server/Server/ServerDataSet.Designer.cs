@@ -553,6 +553,10 @@ namespace Server {
             
             private global::System.Data.DataColumn columnCarrera;
             
+            private global::System.Data.DataColumn columnCorreo;
+            
+            private global::System.Data.DataColumn columnEnemigosAbatidos;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public UsuarioDataTable() {
@@ -620,6 +624,22 @@ namespace Server {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn CorreoColumn {
+                get {
+                    return this.columnCorreo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn EnemigosAbatidosColumn {
+                get {
+                    return this.columnEnemigosAbatidos;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -655,13 +675,15 @@ namespace Server {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public UsuarioRow AddUsuarioRow(string NombreUsuario, string Contrasenia, string Estado, string Carrera) {
+            public UsuarioRow AddUsuarioRow(string NombreUsuario, string Contrasenia, string Estado, string Carrera, string Correo, int EnemigosAbatidos) {
                 UsuarioRow rowUsuarioRow = ((UsuarioRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         NombreUsuario,
                         Contrasenia,
                         Estado,
-                        Carrera};
+                        Carrera,
+                        Correo,
+                        EnemigosAbatidos};
                 rowUsuarioRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowUsuarioRow);
                 return rowUsuarioRow;
@@ -695,6 +717,8 @@ namespace Server {
                 this.columnContrasenia = base.Columns["Contrasenia"];
                 this.columnEstado = base.Columns["Estado"];
                 this.columnCarrera = base.Columns["Carrera"];
+                this.columnCorreo = base.Columns["Correo"];
+                this.columnEnemigosAbatidos = base.Columns["EnemigosAbatidos"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -708,6 +732,10 @@ namespace Server {
                 base.Columns.Add(this.columnEstado);
                 this.columnCarrera = new global::System.Data.DataColumn("Carrera", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCarrera);
+                this.columnCorreo = new global::System.Data.DataColumn("Correo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCorreo);
+                this.columnEnemigosAbatidos = new global::System.Data.DataColumn("EnemigosAbatidos", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEnemigosAbatidos);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnNombreUsuario}, true));
                 this.columnNombreUsuario.AllowDBNull = false;
@@ -2599,6 +2627,62 @@ namespace Server {
                 set {
                     this[this.tableUsuario.CarreraColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Correo {
+                get {
+                    try {
+                        return ((string)(this[this.tableUsuario.CorreoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Correo\' in table \'Usuario\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableUsuario.CorreoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int EnemigosAbatidos {
+                get {
+                    try {
+                        return ((int)(this[this.tableUsuario.EnemigosAbatidosColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EnemigosAbatidos\' in table \'Usuario\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableUsuario.EnemigosAbatidosColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCorreoNull() {
+                return this.IsNull(this.tableUsuario.CorreoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetCorreoNull() {
+                this[this.tableUsuario.CorreoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsEnemigosAbatidosNull() {
+                return this.IsNull(this.tableUsuario.EnemigosAbatidosColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetEnemigosAbatidosNull() {
+                this[this.tableUsuario.EnemigosAbatidosColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

@@ -23,9 +23,7 @@ namespace mGame
         internal override void Update()
         {
             if(Vector2.Distance(position.Value, state.camera.Value.Center.ToVector2()) < (POIGame.GameWidth / 2) + (POIGame.GameWidth/6))
-            {
                 base.Update();
-            }
         }
         public void Move()
         {
@@ -68,14 +66,12 @@ namespace mGame
             //Solo movemos los randombots en el player host(el primero en iniciar la sesión de juego)
             //... hardcode
             if(state.playerNumber == 0)
-            {
                 Move();
-                //state.RandomBotAllign(id, (int)GridPosition.X, (int)GridPosition.Y);
-            }
             base.GoalReached();
         }
         protected override void OnCollide(string group1, string group2)
         {
+            state.EnemyKilled();
             state.RemoveInstance(this);
             base.OnCollide(group1, group2);
         }

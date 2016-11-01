@@ -137,7 +137,8 @@ namespace EasyPOI
         GameSecondPlayer,
         LevelData,
         GameStart,
-        ExitGame
+        ExitGame,
+        EnemyKilled
     }
     //No me gusta tener la lógica del juego mezclada de esta manera pero meh,
     //creo que es más facil así
@@ -147,8 +148,7 @@ namespace EasyPOI
         //lógica de juego
         PlayerInput,
         PlayerShot,
-        RandomBotInput,
-        RandomBotAllign
+        RandomBotInput
     }
     //Referencia
     //https://msdn.microsoft.com/en-us/library/bew39x2a(v=vs.110).aspx
@@ -176,5 +176,4 @@ namespace EasyPOI
         public UdpClient client = null;
         public IPEndPoint ipEndPoint = null;
     }
-    //similar a la clase de packete normal, solo que omitira
 }

@@ -38,14 +38,19 @@ namespace ChatApp
             udpPacket.WriteData(BitConverter.GetBytes(gridY));
             ClientSession.Connection.SendUdpPacket(udpPacket);
         }
+        public override void EnemyKilled()
+        {
+            Packet packet = new Packet(PacketType.EnemyKilled);
+            packet.tag["user"] = ClientSession.username;
+            ClientSession.Connection.SendPacket(packet);
+        }
         public void MovePlayer(Direction direction, int gridX, int gridY)
         {
             var player = players[playerNumber == 1 ? 0 : 1];
             player.Move(direction);
-            if ((int)player.GridPosition.X != gridX || (int)player.GridPosition.Y != gridY)
-            {
+            if ((int)player.GridPosition.X != gridX || 
+                (int)player.GridPosition.Y != gridY)
                 player.SetTile(gridX, gridY);
-            }
         }
         public void MakeShot()
         {
@@ -73,39 +78,13 @@ namespace ChatApp
                             randomBot.MoveDown();
                             break;
                     }
-                    if ((int)randomBot.GridPosition.X != gridX || (int)randomBot.GridPosition.Y != gridY)
-                    {
+                    if ((int)randomBot.GridPosition.X != gridX || 
+                        (int)randomBot.GridPosition.Y != gridY)               
                         randomBot.SetTile(gridX, gridY);
-                    }
                 }
                 catch { }
             }
         }
-        //public override void RandomBotAllign(int robotID, int gridX, int gridY)
-        //{
-        //    UdpPacket udpPacket = new UdpPacket(UdpPacketType.RandomBotAllign);
-        //    udpPacket.WriteData(BitConverter.GetBytes(ClientSession.GameSessionChatID));
-        //    udpPacket.WriteData(BitConverter.GetBytes(ClientSession.IsPlayerOne ? 1 : 2));
-        //    udpPacket.WriteData(BitConverter.GetBytes(robotID));
-        //    udpPacket.WriteData(BitConverter.GetBytes(gridX));
-        //    udpPacket.WriteData(BitConverter.GetBytes(gridY));
-        //    ClientSession.Connection.SendUdpPacket(udpPacket);
-        //}
-        //public void SetBotGrid(int robotID, int gridX, int gridY)
-        //{
-        //    if (!ClientSession.IsPlayerOne)
-        //    {
-        //        try
-        //        {
-        //            RandomBot randomBot = randomBots[robotID];
-        //            if((int)randomBot.GridPosition.X != gridX || (int)randomBot.GridPosition.Y != gridY)
-        //            {
-        //                randomBot.SetTile(gridX, gridY);
-        //            }
-        //        }
-        //        catch { }
-        //    }
-        //}
     }
     public class ConnectingState : GameState
     {

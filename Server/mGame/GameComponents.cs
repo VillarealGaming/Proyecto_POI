@@ -104,9 +104,6 @@ namespace mGame
             }
         }
     }
-    //TODO: GUI graphic
-    //class...
-    //
     public class Graphics : ComponentContainer
     {
         public void AddGraphic(Drawable graphic) {
@@ -279,6 +276,49 @@ namespace mGame
                 this.position = new Position();
             else
                 this.position = position;
+        }
+    }
+    //component that remove itself when animation ends
+    public class OnceAnimation : Updateable
+    {
+        private GraphicInstance graphic;
+        private Position position;
+        private Animation animation;
+        private Texture2D texture;
+        private float animationSpeed;
+        private int frameWidth, frameHeight;
+        public OnceAnimation(Texture2D texture, int x, int y, int frameWidth, int frameHeight, float speed = 30.0f)
+        {
+            animationSpeed = speed;
+            this.frameWidth = frameWidth;
+            this.frameHeight = frameHeight;
+            this.texture = texture;
+            position = new Position();
+            position.Value = new Vector2(x, y);
+        }
+        public override void Added()
+        {
+            base.Added();
+            graphic = new GraphicInstance(texture, position);
+            animation = new Animation(graphic, frameWidth, frameWidth);
+            int[] frames = new int[texture.Width / animation.Frame.Width];
+            for (int i = 0; i < frames.Length; i++) { frames[i] = i; }
+            animation.AddAnimation("base", frames);
+            animation.SetAnimation("base", animationSpeed);
+            state.AddGraphic(graphic);
+            state.AddAnimation(animation);
+        }
+        internal override void Update()
+        {
+            base.Update();
+            if (animation.AnimationEnd)
+                state.RemoveInstance(this);
+        }
+        public override void Removed()
+        {
+            state.RemoveGraphic(graphic);
+            state.RemoveAnimation(animation);
+            base.Removed();
         }
     }
 }
