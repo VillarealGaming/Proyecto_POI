@@ -400,6 +400,23 @@ namespace Server {
                             connectedUsersUdp.Add(username, packet.tag["endPoint"] as IPEndPoint);
                     }
                     break;
+                case PacketType.SendMail:
+                    {
+                        ServerDataSet.UsuarioDataTable usuarioTable = database.Usuario;
+                        var queryResultFrom = from usuario in usuarioTable
+                                              where usuario.NombreUsuario == packet.tag["from"] as string
+                                              select usuario;
+                        var queryResultTo = from usuario in usuarioTable
+                                          where usuario.NombreUsuario == packet.tag["to"] as string
+                                          select usuario;
+                        server.SendMailText(
+                            //queryResultFrom.First().Correo,
+                            queryResultTo.First().Correo,
+                            packet.tag["from"] as string + ": " + packet.tag["subject"] as string,
+                            packet.tag["body"] as string);
+                        Console.WriteLine("Correo enviado de " + packet.tag["from"] as string + " a " + packet.tag["to"]);
+                    }
+                    break;
                 case PacketType.GameStart:
                     {
                         ServerDataSet.UsuarioPrivadoDataTable usuarioPrivado = database.UsuarioPrivado;

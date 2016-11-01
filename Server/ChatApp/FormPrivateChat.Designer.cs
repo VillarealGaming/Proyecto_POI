@@ -101,7 +101,9 @@
             this.list_Options.UseCompatibleStateImageBehavior = false;
             this.list_Options.View = System.Windows.Forms.View.List;
             this.list_Options.Visible = false;
+            this.list_Options.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.list_Options_ItemChecked);
             this.list_Options.SelectedIndexChanged += new System.EventHandler(this.list_Options_SelectedIndexChanged);
+            this.list_Options.Click += new System.EventHandler(this.list_Options_Click);
             this.list_Options.Leave += new System.EventHandler(this.list_Options_Leave);
             // 
             // buttonEnviar

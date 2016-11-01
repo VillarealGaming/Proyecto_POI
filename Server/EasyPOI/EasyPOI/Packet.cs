@@ -131,6 +131,7 @@ namespace EasyPOI
         WebCamResponse,
         WebCamFrame,
         UdpLocalEndPoint,
+        SendMail,
         //lógica de juego
         BeginGame,
         GameFirstPlayer,

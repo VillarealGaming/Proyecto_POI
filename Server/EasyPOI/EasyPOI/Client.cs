@@ -108,6 +108,7 @@ namespace EasyPOI
             Socket client = (Socket)ar.AsyncState;
             try
             {
+                //Conección con el servidor exitosa.
                 client.EndConnect(ar);
                 //connected = true;
                 if (onConnection != null) onConnection();

@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Net.Mail;
+using System.ComponentModel;
 
 namespace EasyPOI
 {
@@ -16,6 +18,9 @@ namespace EasyPOI
         internal const int TcpPort = 6666;
         internal const int UdpPort = 7777;
         internal const string Address = "192.168.1.66";
+        //el correo tiene que ser @hotmail
+        const string MailAdress = "correo@hotmail.com";
+        const string MailPassword = "contraseña";
         public Server()
         {
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -38,6 +43,12 @@ namespace EasyPOI
             state.client = udpListener;
             state.ipEndPoint = ipEndPoint;
             udpListener.BeginReceive(new AsyncCallback(UdpReceive), state);
+            //smtp
+            mailClient = new SmtpClient("smtp.live.com", 587);
+            mailClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            mailClient.UseDefaultCredentials = false;
+            mailClient.Credentials = new NetworkCredential(MailAdress, MailPassword);
+            mailClient.EnableSsl = true;
         }
         //https://msdn.microsoft.com/en-us/library/system.net.sockets.udpclient.beginreceive(v=vs.110).aspx
         private void UdpReceive(IAsyncResult ar)
@@ -262,6 +273,11 @@ namespace EasyPOI
         {
             OnUdpPacketReceived = func;
         }
+        public void SendMailText(string to, string subject, string text)
+        {
+            MailMessage message = new MailMessage(MailAdress, to, subject, text);
+            mailClient.SendAsync(message, null);
+        }
         //Manejamos cada uno de los eventos que nos pueden llegar en los paquetes
         private Action<Socket> onClientAccepted;
         private Action<Packet, Socket> OnPacketReceived;
@@ -270,6 +286,7 @@ namespace EasyPOI
         private Action<Socket> OnClientDisconnect;
         private Socket socket;
         private UdpClient udpListener;
+        private SmtpClient mailClient;
         //extensions
         //private List<Socket> clients;
     }

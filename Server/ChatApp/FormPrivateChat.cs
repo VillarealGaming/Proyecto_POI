@@ -165,36 +165,6 @@ namespace ChatApp
             }
         }
 
-        private void list_Options_SelectedIndexChanged(object sender, EventArgs e) {
-            //Start camera
-            if (list_Options.Items[0].Selected) {
-                //If camera is in no use, we can send a webcam request
-                if (ClientSession.HasCamera) {
-                    if (!Camera.IsRunning) {
-                        Packet packet = new Packet(PacketType.WebCamRequest);
-                        packet.tag["chatID"] = chatID;
-                        packet.tag["sender"] = ClientSession.username;
-                        packet.tag["channels"] = Microphone.Channels;
-                        ClientSession.Connection.SendPacket(packet);
-                        //Camera.OwnerChat = chatID;
-                        //Camera.Start();
-                        //Camera.OnNewFrameCallback(SendCameraPacket);
-                        ////start audio record
-                        //Microphone.OnAudioInCallback(SendAudioStream);
-                        //Microphone.StartRecording();
-                        resizing = true;
-                        timer1.Start();
-                        picBox_CloseIcon.Location = new Point(665, 0);
-                    } else {
-                        //Camera is in use;
-                        MessageBox.Show("La camara se encuentra en uso por otro chat", "Camara en uso", MessageBoxButtons.OK);
-                    }
-                }
-            }
-            list_Options.Visible = false;
-            textBoxChat.Focus();
-        }
-
         public void SendAudioStream(byte[] bytes) {
             UdpPacket packet = new UdpPacket(UdpPacketType.AudioStream);
             packet.WriteData(BitConverter.GetBytes(chatID));
@@ -370,6 +340,54 @@ namespace ChatApp
             ClientSession.GameSessionChatID = chatID;
         }
 
+        private void list_Options_Click(object sender, EventArgs e)
+        {
+            if(list_Options.SelectedIndices.Count == 1)
+            {
+                int selectedIndex = list_Options.SelectedIndices[0];
+                //Start camera
+                //if (list_Options.Items[0].Selected)
+                if (selectedIndex == 0)
+                {
+                    //If camera is in no use, we can send a webcam request
+                    if (ClientSession.HasCamera)
+                    {
+                        if (!Camera.IsRunning)
+                        {
+                            Packet packet = new Packet(PacketType.WebCamRequest);
+                            packet.tag["chatID"] = chatID;
+                            packet.tag["sender"] = ClientSession.username;
+                            packet.tag["channels"] = Microphone.Channels;
+                            ClientSession.Connection.SendPacket(packet);
+                            //Camera.OwnerChat = chatID;
+                            //Camera.Start();
+                            //Camera.OnNewFrameCallback(SendCameraPacket);
+                            ////start audio record
+                            //Microphone.OnAudioInCallback(SendAudioStream);
+                            //Microphone.StartRecording();
+                            resizing = true;
+                            timer1.Start();
+                            picBox_CloseIcon.Location = new Point(665, 0);
+                        }
+                        else {
+                            //Camera is in use;
+                            MessageBox.Show("La camara se encuentra en uso por otro chat", "Camara en uso", MessageBoxButtons.OK);
+                        }
+                    }
+                }
+                //Send mail
+                else if (selectedIndex == 1)
+                {
+                    FormEmail form = new FormEmail();
+                    form.ShowDialog();
+                }
+                list_Options.Visible = false;
+                textBoxChat.Focus();
+            }
+        }
+
+        private void list_Options_ItemChecked(object sender, ItemCheckedEventArgs e) { }
+        private void list_Options_SelectedIndexChanged(object sender, EventArgs e) { }
         private void FormPrivateChat_MouseUp(object sender, MouseEventArgs e) { dragging = false; }
     }
 }

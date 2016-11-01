@@ -26,12 +26,12 @@
             this.Header = new System.Windows.Forms.Label();
             this.picBox_CloseIcon = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.textBoxSubject = new System.Windows.Forms.TextBox();
+            this.richTextBoxBody = new System.Windows.Forms.RichTextBox();
             this.buttonEnviar = new System.Windows.Forms.Button();
             this.picBox_Attach = new System.Windows.Forms.PictureBox();
+            this.textBoxTo = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_Attach)).BeginInit();
             this.SuspendLayout();
@@ -78,19 +78,6 @@
             this.label1.TabIndex = 14;
             this.label1.Text = "Para";
             // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(55, 36);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(316, 21);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "Nombre del Contacto";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -101,27 +88,28 @@
             this.label4.TabIndex = 17;
             this.label4.Text = "Asunto";
             // 
-            // textBox1
+            // textBoxSubject
             // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.ForeColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(55, 73);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(316, 20);
-            this.textBox1.TabIndex = 19;
+            this.textBoxSubject.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.textBoxSubject.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxSubject.ForeColor = System.Drawing.Color.White;
+            this.textBoxSubject.Location = new System.Drawing.Point(55, 73);
+            this.textBoxSubject.Name = "textBoxSubject";
+            this.textBoxSubject.Size = new System.Drawing.Size(316, 20);
+            this.textBoxSubject.TabIndex = 19;
             // 
-            // richTextBox1
+            // richTextBoxBody
             // 
-            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox1.ForeColor = System.Drawing.Color.White;
-            this.richTextBox1.Location = new System.Drawing.Point(12, 109);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.richTextBox1.Size = new System.Drawing.Size(359, 186);
-            this.richTextBox1.TabIndex = 20;
-            this.richTextBox1.Text = "";
+            this.richTextBoxBody.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.richTextBoxBody.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBoxBody.ForeColor = System.Drawing.Color.White;
+            this.richTextBoxBody.Location = new System.Drawing.Point(12, 109);
+            this.richTextBoxBody.Name = "richTextBoxBody";
+            this.richTextBoxBody.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.richTextBoxBody.Size = new System.Drawing.Size(359, 186);
+            this.richTextBoxBody.TabIndex = 20;
+            this.richTextBoxBody.Text = "";
+            this.richTextBoxBody.TextChanged += new System.EventHandler(this.richTextBoxBody_TextChanged);
             // 
             // buttonEnviar
             // 
@@ -136,6 +124,7 @@
             this.buttonEnviar.TabIndex = 21;
             this.buttonEnviar.Text = "Enviar";
             this.buttonEnviar.UseVisualStyleBackColor = false;
+            this.buttonEnviar.Click += new System.EventHandler(this.buttonEnviar_Click);
             // 
             // picBox_Attach
             // 
@@ -148,9 +137,21 @@
             this.picBox_Attach.Size = new System.Drawing.Size(27, 27);
             this.picBox_Attach.TabIndex = 22;
             this.picBox_Attach.TabStop = false;
+            this.picBox_Attach.Visible = false;
             this.picBox_Attach.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picBox_Attach_MouseClick);
             this.picBox_Attach.MouseEnter += new System.EventHandler(this.picBox_Attach_MouseEnter);
             this.picBox_Attach.MouseLeave += new System.EventHandler(this.picBox_Attach_MouseLeave);
+            // 
+            // textBoxTo
+            // 
+            this.textBoxTo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.textBoxTo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxTo.ForeColor = System.Drawing.Color.White;
+            this.textBoxTo.Location = new System.Drawing.Point(55, 40);
+            this.textBoxTo.Name = "textBoxTo";
+            this.textBoxTo.Size = new System.Drawing.Size(316, 20);
+            this.textBoxTo.TabIndex = 23;
+            this.textBoxTo.TextChanged += new System.EventHandler(this.textBoxTo_TextChanged);
             // 
             // FormEmail
             // 
@@ -158,12 +159,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
             this.ClientSize = new System.Drawing.Size(383, 343);
+            this.Controls.Add(this.textBoxTo);
             this.Controls.Add(this.picBox_Attach);
             this.Controls.Add(this.buttonEnviar);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.richTextBoxBody);
+            this.Controls.Add(this.textBoxSubject);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.picBox_CloseIcon);
             this.Controls.Add(this.Header);
@@ -186,11 +187,11 @@
         private System.Windows.Forms.PictureBox picBox_CloseIcon;
         private System.Windows.Forms.Label Header;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.TextBox textBoxSubject;
+        private System.Windows.Forms.RichTextBox richTextBoxBody;
         private System.Windows.Forms.Button buttonEnviar;
         private System.Windows.Forms.PictureBox picBox_Attach;
+        private System.Windows.Forms.TextBox textBoxTo;
     }
 }
