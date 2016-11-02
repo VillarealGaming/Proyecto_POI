@@ -95,7 +95,7 @@ namespace ChatApp
         public override void Init()
         {
             text = new TextSprite(Assets.retroFont, camera.Value.Center.ToVector2());
-            text.text = "Esperando a tu compañero...";
+            text.text = "Esperando aliado...";
             text.origin = new Microsoft.Xna.Framework.Vector2(180, 10);
             AddGraphic(text);
             base.Init();

@@ -88,13 +88,15 @@ namespace ChatApp
                                 gameThread = new Thread(Game);
                                 gameThread.Start();
                                 //evitar que cosas raras pasen si hacemos todo muy rapido...
-                                System.Threading.Thread.Sleep(500);
+                                //System.Threading.Thread.Sleep(500);
                             }
                             else
                             {
                                 level = new LevelStateOnline(1, ClientSession.username, packet.tag["sender"] as string);
                                 level.GenerateLevelData();
                                 level.GenerateRandomBot();
+                                //evitar que cosas raras pasen si hacemos todo muy rapido...
+                                System.Threading.Thread.Sleep(2000);
                                 Packet packetSend = new Packet(PacketType.LevelData);
                                 packetSend.tag["chatID"] = ClientSession.GameSessionChatID;
                                 packetSend.tag["levelData"] = level.LevelData;
@@ -109,6 +111,8 @@ namespace ChatApp
                             level = new LevelStateOnline(2, packet.tag["sender"] as string, ClientSession.username);
                             level.SetLevelData((UInt32[])packet.tag["levelData"]);
                             level.GenerateRandomBot((Tuple<int, float[]>[])packet.tag["randomBotData"]);
+                            //evitar que cosas raras pasen si hacemos todo muy rapido...
+                            System.Threading.Thread.Sleep(1000);
                             lock (game)
                             POIGame.SetState(level);
                             Packet packetSend = new Packet(PacketType.BeginGame);
