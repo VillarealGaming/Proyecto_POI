@@ -16,7 +16,9 @@ namespace mGame
         public static Texture2D mapTiles;
         public static Texture2D randomBot;
         public static Texture2D playerBullet;
+        public static Texture2D enemyBullet;
         public static Texture2D bulletExplode;
+        public static Texture2D hud;
         //public static Texture2D enemyExplode;
         public static SpriteFont retroFont;
         //sounds

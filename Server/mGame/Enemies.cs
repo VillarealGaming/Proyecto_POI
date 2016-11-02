@@ -10,10 +10,11 @@ namespace mGame
 {
     public class RandomBot : MoveableTile
     {
+        private const float BulletSpeed = 3.0f;
         public RandomBot(int tileX, int tileY) : base(Assets.randomBot, tileX, tileY, "randomBot") {
             Random rand = new Random(DateTime.Now.Millisecond);
-            BaseSpeed = 0.5f;
-            MoveEase = rand.Next(10, 20);//20.0f;
+            BaseSpeed = 0.24f;//0.5
+            MoveEase = rand.Next(20, 40);//20.0f;//10-20
         }
         public RandomBot(int tileX, int tileY, float baseSpeed, float moveEase) : base(Assets.randomBot, tileX, tileY, "randomBot")
         {
@@ -30,12 +31,12 @@ namespace mGame
             switch (new Random().Next(4))
             {
                 case 0:
-                    if(MoveRight())
-                        state.RandomBotInput(Direction.Right, id,(int)GridPosition.X, (int)GridPosition.Y);
+                    if(MoveLeft())
+                        state.RandomBotInput(Direction.Left, id,(int)GridPosition.X, (int)GridPosition.Y);
                     break;
                 case 1:
-                    if(MoveLeft())
-                        state.RandomBotInput(Direction.Left, id, (int)GridPosition.X, (int)GridPosition.Y);
+                    if(MoveRight())
+                        state.RandomBotInput(Direction.Right, id, (int)GridPosition.X, (int)GridPosition.Y);
                     break;
                 case 2:
                     if(MoveUp())
@@ -59,15 +60,113 @@ namespace mGame
             //    BaseSpeed = 0.5f;
             //    MoveEase = rand.Next(10, 20);//20.0f;
             //}
-            Move();
+            //Move();
         }
         protected override void GoalReached()
         {
             //Solo movemos los randombots en el player host(el primero en iniciar la sesión de juego)
             //... hardcode
-            if(state.playerNumber == 0)
+            if (state.playerNumber == 0)
                 Move();
             base.GoalReached();
+            //if (Vector2.Distance(position.Value, state.camera.Value.Center.ToVector2()) < (POIGame.GameWidth / 2) + (POIGame.GameWidth / 6))
+
+        }
+        public override bool MoveLeft()
+        {
+            if(base.MoveLeft())
+            {
+                state.AddInstance(new Bullet(
+                   "enemyBullet",
+                   Assets.enemyBullet,
+                   (int)position.Value.X + 12,
+                   (int)position.Value.Y + 12,
+                   BulletSpeed,
+                   Direction.Up
+                   ));
+                state.AddInstance(new Bullet(
+                   "enemyBullet",
+                   Assets.enemyBullet,
+                   (int)position.Value.X + 12,
+                   (int)position.Value.Y + 12,
+                   BulletSpeed,
+                   Direction.Down
+                   ));
+                return true;
+            }
+            return false;
+        }
+        public override bool MoveRight()
+        {
+            if (base.MoveRight())
+            {
+                state.AddInstance(new Bullet(
+                   "enemyBullet",
+                   Assets.enemyBullet,
+                   (int)position.Value.X + 12,
+                   (int)position.Value.Y + 12,
+                   BulletSpeed,
+                   Direction.Up
+                   ));
+                state.AddInstance(new Bullet(
+                   "enemyBullet",
+                   Assets.enemyBullet,
+                   (int)position.Value.X + 12,
+                   (int)position.Value.Y + 12,
+                   BulletSpeed,
+                   Direction.Down
+                   ));
+                return true;
+            }
+            return false;
+        }
+        public override bool MoveUp()
+        {
+            if (base.MoveUp())
+            {
+                state.AddInstance(new Bullet(
+                   "enemyBullet",
+                   Assets.enemyBullet,
+                   (int)position.Value.X + 12,
+                   (int)position.Value.Y + 12,
+                   BulletSpeed,
+                   Direction.Left
+                   ));
+                state.AddInstance(new Bullet(
+                   "enemyBullet",
+                   Assets.enemyBullet,
+                   (int)position.Value.X + 12,
+                   (int)position.Value.Y + 12,
+                   BulletSpeed,
+                   Direction.Right
+                   ));
+                return true;
+            }
+            return false;
+        }
+        public override bool MoveDown()
+        {
+            if (base.MoveDown())
+            {
+                state.AddInstance(new Bullet(
+                   "enemyBullet",
+                   Assets.enemyBullet,
+                   (int)position.Value.X + 12,
+                   (int)position.Value.Y + 12,
+                   BulletSpeed,
+                   Direction.Left
+                   ));
+                state.AddInstance(new Bullet(
+                   "enemyBullet",
+                   Assets.enemyBullet,
+                   (int)position.Value.X + 12,
+                   (int)position.Value.Y + 12,
+                   BulletSpeed,
+                   Direction.Right
+                   ));
+                return true;
+            }
+            return false;
         }
         protected override void OnCollide(string group1, string group2)
         {

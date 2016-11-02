@@ -436,6 +436,7 @@ namespace Server {
                         {
                             connectedPlayers[chatID].Add(packet.tag["sender"] as string);
                             Packet sendPacket = new Packet(PacketType.GameSecondPlayer);
+                            sendPacket.tag["sender"] = packet.tag["sender"];
                             foreach (var user in queryResult)
                             {
                                 if (connectedUsers.ContainsKey(user.Usuario))

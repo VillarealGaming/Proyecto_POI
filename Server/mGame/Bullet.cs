@@ -17,7 +17,7 @@ namespace mGame
         private Vector2 direction;
         float speed;
         float rotation;
-        public Bullet(Texture2D texture, int x, int y, float speed, Direction direction)
+        public Bullet(string collisionGroup, Texture2D texture, int x, int y, float speed, Direction direction)
         {
             position = new Position();
             position.Value = new Vector2(x, y);
@@ -41,7 +41,7 @@ namespace mGame
                     rotation = 90.0f;
                     break;
             }
-            hitbox = new Hitbox("playerBullet", OnCollide, 24, 24, position, new Vector2(-12, -12));
+            hitbox = new Hitbox(collisionGroup, OnCollide, 24, 24, position, new Vector2(-12, -12));
         }
         public override void Added()
         {

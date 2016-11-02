@@ -9,7 +9,8 @@ namespace ChatApp
 {
     public class LevelStateOnline : LevelState
     {
-        public LevelStateOnline(int player) : base(player) { }
+        public LevelStateOnline(int player, string player1name, string player2name) : 
+            base(player,player1name, player2name) { }
         public override void PlayerInput(Direction direction, int gridX, int gridY)
         {
             UdpPacket udpPacket = new UdpPacket(UdpPacketType.PlayerInput);
@@ -43,6 +44,7 @@ namespace ChatApp
             Packet packet = new Packet(PacketType.EnemyKilled);
             packet.tag["user"] = ClientSession.username;
             ClientSession.Connection.SendPacket(packet);
+            base.EnemyKilled();
         }
         public void MovePlayer(Direction direction, int gridX, int gridY)
         {
@@ -93,7 +95,7 @@ namespace ChatApp
         public override void Init()
         {
             text = new TextSprite(Assets.retroFont, camera.Value.Center.ToVector2());
-            text.text = "ESPERANDO A OTRO USUARIO...";
+            text.text = "Esperando a tu compañero...";
             text.origin = new Microsoft.Xna.Framework.Vector2(180, 10);
             AddGraphic(text);
             base.Init();

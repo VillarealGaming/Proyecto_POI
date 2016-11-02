@@ -42,7 +42,7 @@ namespace mGame
             animation.AddAnimation("moveUp", new int[] { 5 });
             animation.SetAnimation("stopDown");
             state.AddAnimation(animation);
-            MoveEase = 7.0f;
+            MoveEase = 5.0f;//7.0f
             nextStep = Direction.None;
             bulletDirection = Direction.Down;
             state.camera.Value.Location = position.Value.ToPoint();
@@ -58,20 +58,20 @@ namespace mGame
             }
             if (right != Keys.Escape)
             {
-                //if (POIGame.GetKeyPressed(right))
-                //    Move(Direction.Right);
-                //else if (POIGame.GetKeyPressed(left))
-                //    Move(Direction.Left);
-                //else if (POIGame.GetKeyPressed(up))
-                //    Move(Direction.Up);
-                //else if (POIGame.GetKeyPressed(down))
-                //    Move(Direction.Down);
-                //shot logic
+                if(state.playerNumber == 0)
+                {
+                    POIGame.MapKeyPress(delegate { return GetGamePadSide(Direction.Right); }, right);
+                    POIGame.MapKeyPress(delegate { return GetGamePadSide(Direction.Left); }, left);
+                    POIGame.MapKeyPress(delegate { return GetGamePadSide(Direction.Up); }, up);
+                    POIGame.MapKeyPress(delegate { return GetGamePadSide(Direction.Down); }, down);
+                    POIGame.MapKeyPress(delegate { return GetGamePadInput(Buttons.B); }, shot);
+                }
                 if (POIGame.GetKeyPressed(shot))
                 {
                     state.PlayerShot();
                     Assets.bulletSound.Play(0.6f, 0.2f, 0.0f);
                     state.AddInstance(new Bullet(
+                        "playerBullet",
                         Assets.playerBullet, 
                         (int)position.Value.X + 12, 
                         (int)position.Value.Y + 12,
@@ -290,6 +290,7 @@ namespace mGame
         {
             Assets.bulletSound.Play(0.6f, 0.2f, 0.0f);
             state.AddInstance(new Bullet(
+                "playerBullet",
                 Assets.playerBullet,
                 (int)position.Value.X + 12,
                 (int)position.Value.Y + 12,
@@ -300,6 +301,65 @@ namespace mGame
         {
             state.RemoveAnimation(animation);
             base.Removed();
+        }
+        //http://www.gamefromscratch.com/post/2015/06/28/MonoGame-Tutorial-Handling-Keyboard-Mouse-and-GamePad-Input.aspx
+        private bool GetGamePadSide(Direction direction)
+        {
+            GamePadCapabilities gPadCapabilities = GamePad.GetCapabilities(PlayerIndex.One);
+            if (!gPadCapabilities.IsConnected)
+                return false;
+            GamePadState gPadState = GamePad.GetState(PlayerIndex.One);
+            bool flag = false;
+            if (gPadCapabilities.HasLeftXThumbStick &&
+                gPadCapabilities.HasLeftYThumbStick)
+            {
+                switch(direction)
+                {
+                    case Direction.Left:
+                        flag = gPadState.ThumbSticks.Left.X < -0.5f;
+                        break;
+                    case Direction.Right:
+                        flag = gPadState.ThumbSticks.Left.X > 0.5f;
+                        break;
+                    case Direction.Up:
+                        flag = gPadState.ThumbSticks.Left.Y > 0.5f;
+                        break;
+                    case Direction.Down:
+                        flag = gPadState.ThumbSticks.Left.Y < -0.5f;
+                        break;
+                }
+            }
+            if(flag == false &&
+                gPadCapabilities.HasDPadRightButton &&
+                gPadCapabilities.HasDPadLeftButton &&
+                gPadCapabilities.HasDPadUpButton &&
+                gPadCapabilities.HasDPadDownButton)
+            {
+                switch (direction)
+                {
+                    case Direction.Left:
+                        flag = gPadState.IsButtonDown(Buttons.DPadLeft);
+                        break;
+                    case Direction.Right:
+                        flag = gPadState.IsButtonDown(Buttons.DPadRight);
+                        break;
+                    case Direction.Up:
+                        flag = gPadState.IsButtonDown(Buttons.DPadUp);
+                        break;
+                    case Direction.Down:
+                        flag = gPadState.IsButtonDown(Buttons.DPadDown);
+                        break;
+                }
+            }
+            return flag;
+        }
+        private bool GetGamePadInput(Buttons button)
+        {
+            GamePadCapabilities gPadCapabilities = GamePad.GetCapabilities(PlayerIndex.One);
+            if (!gPadCapabilities.IsConnected)
+                return false;
+            GamePadState gPadState = GamePad.GetState(PlayerIndex.One);
+            return gPadState.IsButtonDown(button);
         }
     }
 }

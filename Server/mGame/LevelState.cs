@@ -13,6 +13,7 @@ namespace mGame
     {
         public const int LevelWidth = 500, LevelHeight = 500;
         private GraphicInstance cameraEffect;
+        private GraphicInstance hud;
         protected Player[] players;
         private Player playerA, playerB;
         protected Dictionary<int, RandomBot> randomBots;
@@ -23,6 +24,11 @@ namespace mGame
         //Texture2D level;
         public int playerNumber;
         private RoomGenerator roomGenerator;
+        private int enemiesKill;
+        private TextSprite player1NameSprite;
+        private TextSprite player2NameSprite;
+        private string player1Name;
+        private string player2Name;
         public UInt32[] LevelData
         {
             get { return levelData; }
@@ -31,9 +37,13 @@ namespace mGame
         {
             levelData = data;
         }
-        public LevelState(int playerNumber)
+        public LevelState(int playerNumber, string player1name, string player2name)
         {
             this.playerNumber = playerNumber - 1;
+            int indexOfplayer1 = player1name.IndexOf(" ");
+            int indexOfplayer2 = player2name.IndexOf(" ");
+            player1Name = indexOfplayer1 > 0 ? player1name.Substring(0, indexOfplayer1) : player1name;
+            player2Name = indexOfplayer2 > 0 ? player2name.Substring(0, indexOfplayer2) : player2name;
             randomBots = new Dictionary<int, RandomBot>();
             levelDimensions = new Rectangle(0, 0, 500, 500);
             //level = new Texture2D(GraphicsDevice, levelDimensions.Width, levelDimensions.Height);
@@ -46,8 +56,10 @@ namespace mGame
             {
                 AddCollisionGroup("player");
                 AddCollisionGroup("playerBullet");
+                AddCollisionGroup("enemyBullet");
                 AddCollisionGroup("randomBot");
                 AddCollisionListener("playerBullet", "randomBot");
+                AddCollisionListener("enemyBullet", "player");
                 //tests only
                 //if (playerNumber == 0)
                 //{
@@ -55,21 +67,34 @@ namespace mGame
                 //    GenerateRandomBot();
                 //}
                 players = new Player[2];
-                players[this.playerNumber] = new Player(this.playerNumber == 0 ? Assets.playerSprite : Assets.player2Sprite, Keys.Right, Keys.Left, Keys.Up, Keys.Down, Keys.RightShift);
+                players[this.playerNumber] = new Player(this.playerNumber == 0 ? Assets.playerSprite : Assets.player2Sprite, Keys.Right, Keys.Left, Keys.Up, Keys.Down, Keys.Z);
                 players[this.playerNumber == 0 ? 1 : 0] = new Player(this.playerNumber == 0 ? Assets.player2Sprite : Assets.playerSprite, Keys.Escape, Keys.Escape, Keys.Escape, Keys.Escape, Keys.Escape);
                 //For tests only 
-                //players[this.playerNumber == 0 ? 1 : 0] = new Player(Keys.D, Keys.A, Keys.W, Keys.S, Keys.LeftShift);
+                //players[this.playerNumber == 0 ? 1 : 0] = new Player(this.playerNumber == 0 ? Assets.player2Sprite : Assets.playerSprite, Keys.D, Keys.A, Keys.W, Keys.S, Keys.LeftShift);
                 playerA = players[0];
                 playerB = players[1];
                 playerB.SetTile(251, 250);
                 //tiles.Generate();
-                text = new TextSprite(Assets.retroFont, new Vector2(24, 24));
+                text = new TextSprite(Assets.retroFont, new Vector2(4, 4));
+                text.text = "Enemigos abatidos: " + enemiesKill.ToString();
                 cameraEffect = new GraphicInstance(Assets.cameraEffect, new Position(), true);
                 cameraEffect.layerDepth = 0.9f;
+                hud = new GraphicInstance(Assets.hud, new Position(), true);
+                hud.scale = new Vector2(POIGame.GameWidth, 16);
+                hud.layerDepth = 0.99f;
+                player1NameSprite = new TextSprite(Assets.retroFont, playerA.Position.Value, false);
+                player2NameSprite = new TextSprite(Assets.retroFont, playerB.Position.Value, false);
+                player1NameSprite.text = player1Name;
+                player2NameSprite.text = player2Name;
+                player1NameSprite.layerDepth = 1.0f;
+                player2NameSprite.layerDepth = 1.0f;
+                AddGraphic(hud);
                 AddGraphic(cameraEffect);
                 AddInstance(playerA);
                 AddInstance(playerB);
                 AddGraphic(text);
+                AddGraphic(player1NameSprite);
+                AddGraphic(player2NameSprite);
                 tiles = new TileMap(Assets.mapTiles);
                 tiles.Generate();
                 AddGraphic(tiles);
@@ -136,14 +161,20 @@ namespace mGame
                 camera.Value.Y -= (int)(camera.Value.Y - ((playerA_Y + playerB_Y) / 2)) / 20;
                 playerA.OtherPlayerGrid = playerB.GridPosition;
                 playerB.OtherPlayerGrid = playerA.GridPosition;
+                player1NameSprite.position = playerA.Position.Value - new Vector2(0.0f, 16.0f);
+                player2NameSprite.position = playerB.Position.Value - new Vector2(0.0f, 16.0f);
             }
             catch{ }
             base.Update();
-            text.text = camera.Value.Location.X + ", " + camera.Value.Location.Y;
+            //text.text = camera.Value.Location.X + ", " + camera.Value.Location.Y;
         }
         public virtual void PlayerInput(Direction direction, int gridX, int gridY) { }
         public virtual void PlayerShot() { }
-        public virtual void EnemyKilled() { }
+        public virtual void EnemyKilled()
+        {
+            enemiesKill++;
+            text.text = "Enemigos abatidos: " + enemiesKill.ToString();
+        }
         public virtual void RandomBotInput(Direction direction, int robotID, int gridX, int gridY) { }
         //public virtual void RandomBotAllign(int robotID, int gridX, int gridY) { }
     }

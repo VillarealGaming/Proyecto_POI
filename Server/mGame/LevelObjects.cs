@@ -103,7 +103,7 @@ namespace mGame
             //gridPosition = this.position.Value / 24;
             base.Update();
         }
-        public bool MoveRight() {
+        public virtual bool MoveRight() {
             if((goalReached || speed.X < 0) && speed.Y == 0 && CheckEmpty(1, 0)) {
                 goal.X += TileSize;
                 goalReached = false;
@@ -112,7 +112,7 @@ namespace mGame
             }
             return false;
         }
-        public bool MoveLeft() {
+        public virtual bool MoveLeft() {
             if ((goalReached || speed.X > 0) && speed.Y == 0 && CheckEmpty(-1, 0)) {
                 goal.X -= TileSize;
                 goalReached = false;
@@ -121,7 +121,7 @@ namespace mGame
             }
             return false;
         }
-        public bool MoveUp() {
+        public virtual bool MoveUp() {
             if ((goalReached || speed.Y > 0) && speed.X == 0 && CheckEmpty(0, -1)) {
                 goal.Y -= TileSize;
                 goalReached = false;
@@ -130,7 +130,7 @@ namespace mGame
             }
             return false;
         }
-        public bool MoveDown() {
+        public virtual bool MoveDown() {
             if ((goalReached || speed.Y < 0) && speed.X == 0 && CheckEmpty(0, 1)) {
                 goal.Y += TileSize;
                 goalReached = false;

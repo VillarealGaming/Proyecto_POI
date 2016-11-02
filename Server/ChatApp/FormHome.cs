@@ -92,7 +92,7 @@ namespace ChatApp
                             }
                             else
                             {
-                                level = new LevelStateOnline(1);
+                                level = new LevelStateOnline(1, ClientSession.username, packet.tag["sender"] as string);
                                 level.GenerateLevelData();
                                 level.GenerateRandomBot();
                                 Packet packetSend = new Packet(PacketType.LevelData);
@@ -106,7 +106,7 @@ namespace ChatApp
                         break;
                     case PacketType.LevelData:
                         {
-                            level = new LevelStateOnline(2);
+                            level = new LevelStateOnline(2, packet.tag["sender"] as string, ClientSession.username);
                             level.SetLevelData((UInt32[])packet.tag["levelData"]);
                             level.GenerateRandomBot((Tuple<int, float[]>[])packet.tag["randomBotData"]);
                             lock (game)

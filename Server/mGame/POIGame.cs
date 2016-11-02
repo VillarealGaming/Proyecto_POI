@@ -42,7 +42,29 @@ namespace mGame {
         {
             return keyPressed[key] == KeyState.On;
         }
+        public static void MapKeyPress(Func<bool> condition, Keys keyMap)
+        {
+            if(condition())
+            {
+                if(keyMapsPressed[keyMap] == KeyState.Idle)
+                {
+                    keyMapsPressed[keyMap] = KeyState.On;
+                    keyPressed[keyMap] = KeyState.On;
+                }
+                else if (keyMapsPressed[keyMap] == KeyState.On)
+                {
+                    keyMapsPressed[keyMap] = KeyState.Off;
+                    keyPressed[keyMap] = KeyState.Off;
+                }
+            }
+            else
+            {
+                keyMapsPressed[keyMap] = KeyState.Idle;
+                //keyPressed[keyMap] = KeyState.Idle;
+            }
+        }
         private static Dictionary<Keys, KeyState> keyPressed;
+        private static Dictionary<Keys, KeyState> keyMapsPressed;
         //Will define a lot of the draw behavior...
         public const int GameWidth = 432;
         public const int GameHeight = 336;
@@ -56,6 +78,7 @@ namespace mGame {
             graphics.PreferredBackBufferHeight = GameHeight;
             state = gameState;
             keyPressed = new Dictionary<Keys, KeyState>();
+            keyMapsPressed = new Dictionary<Keys, KeyState>();
         }
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -83,7 +106,9 @@ namespace mGame {
             Assets.mapTiles = Content.Load<Texture2D>("Content/tileSet");
             Assets.randomBot = Content.Load<Texture2D>("Content/Enemy1");
             Assets.playerBullet = Content.Load<Texture2D>("Content/playerBullet");
+            Assets.enemyBullet = Content.Load<Texture2D>("Content/enemyBullet");
             Assets.bulletExplode = Content.Load<Texture2D>("Content/bulletExplode");
+            Assets.hud = Content.Load<Texture2D>("Content/hud");
             //Assets.enemyExplode = Content.Load<Texture2D>("Content/enemyExplode");
             Assets.retroFont = Content.Load<SpriteFont>("Content/RetroFont");
             //sounds

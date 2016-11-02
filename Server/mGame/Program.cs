@@ -13,7 +13,7 @@ namespace mGame {
         [STAThread]
         static void Main()
         {
-            LevelState state = new LevelState(1);
+            LevelState state = new LevelState(1, "Homero Simpson", "Bart Simpson");
             using (var game = new POIGame(state))
                 game.Run();
         }
