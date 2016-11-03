@@ -11,20 +11,29 @@ namespace mGame
     public class RandomBot : MoveableTile
     {
         private const float BulletSpeed = 3.0f;
+        private int health;
+        private Color colorMask;
         public RandomBot(int tileX, int tileY) : base(Assets.randomBot, tileX, tileY, "randomBot") {
             Random rand = new Random(DateTime.Now.Millisecond);
             BaseSpeed = 0.24f;//0.5
             MoveEase = rand.Next(20, 40);//20.0f;//10-20
+            health = 5;
+            colorMask = Color.White;
         }
         public RandomBot(int tileX, int tileY, float baseSpeed, float moveEase) : base(Assets.randomBot, tileX, tileY, "randomBot")
         {
             BaseSpeed = baseSpeed;
             MoveEase = moveEase;//20.0f;
+            health = 5;
+            colorMask = Color.White;
         }
         internal override void Update()
         {
-            if(Vector2.Distance(position.Value, state.camera.Value.Center.ToVector2()) < (POIGame.GameWidth / 2) + (POIGame.GameWidth/6))
+            if (Vector2.Distance(position.Value, state.camera.Value.Center.ToVector2()) < (POIGame.GameWidth / 2) + (POIGame.GameWidth / 6))
+            {
                 base.Update();
+                sprite.colorMask = colorMask;
+            }
         }
         public void Move()
         {
@@ -172,8 +181,18 @@ namespace mGame
         {
             if(group1 == "playerBullet")
             {
-                state.EnemyKilled();
-                state.RemoveInstance(this);
+                health--;
+                if(health <= 0)
+                {
+                    state.EnemyKilled();
+                    state.RemoveInstance(this);
+                }
+                else
+                {
+                    float redEffect = 0.25f + (health / 5.0f) *0.75f;
+                    colorMask = new Color(1.0f, redEffect, redEffect, 1.0f);
+                    sprite.colorMask = new Color(10.0f, 10.0f, 10.0f, 0.0f);
+                }
                 base.OnCollide(group1, group2);
             }
         }

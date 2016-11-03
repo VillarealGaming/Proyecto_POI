@@ -55,7 +55,7 @@ namespace mGame
         {
             if(!isDeath && health < 100)
             {
-                health += 0.01f;
+                health += 0.015f;
             }
             if (Velocity > 1.5f)
             {
