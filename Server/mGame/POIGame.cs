@@ -19,6 +19,8 @@ namespace mGame {
         GraphicsDeviceManager graphics;
         public static SpriteBatch spriteBatch;
         private static GameState state;
+        private static Game currentGame;
+        public static Game CurrentGame { get { return currentGame; } }
         public static GameState CurrentState
         {
             get { return state; }
@@ -79,6 +81,7 @@ namespace mGame {
             state = gameState;
             keyPressed = new Dictionary<Keys, KeyState>();
             keyMapsPressed = new Dictionary<Keys, KeyState>();
+            currentGame = this;
         }
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -177,6 +180,7 @@ namespace mGame {
             if (state != null)
                 state.Out();
             MediaPlayer.Stop();
+            currentGame = null;
             base.EndRun();
         }
     }

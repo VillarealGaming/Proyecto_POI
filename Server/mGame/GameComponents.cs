@@ -60,6 +60,7 @@ namespace mGame
         protected RefRectangle offSet;
         //I don't like this layer implementation
         public float layerDepth;
+        public Color colorMask;
         public AdvancedDrawable(bool fixedPosition = false)
         {
             effects = new SpriteEffects();
@@ -67,6 +68,7 @@ namespace mGame
             scale.Y = 1.0f;
             layerDepth = 0.5f;
             offSet = fixedPosition ? new RefRectangle() : state.camera;
+            colorMask = Color.White;
         }
     }
     //graphic component and container
@@ -92,7 +94,7 @@ namespace mGame
                     origin,
                     rotation,
                     scale,
-                    Color.White,
+                    colorMask,//Color.White,
                     effects,
                     layerDepth
                     );

@@ -15,6 +15,9 @@ namespace mGame
         //protected new LevelState state;
         private Animation animation;
         private Direction nextStep;
+        private bool isDeath;
+        private float health;
+        public int Health { get { return (int)health; } }
         public Vector2 OtherPlayerGrid { get; set; }
         //No me gusta esta implementación
         private Keys right, left, up, down, shot;
@@ -28,6 +31,7 @@ namespace mGame
             this.down = down;
             this.shot = shot;
             currentFaceDirection = "Down";
+            health = 100.0f;
         }
         public override void Added()
         {
@@ -49,6 +53,10 @@ namespace mGame
         }
         internal override void Update()
         {
+            if(!isDeath && health < 100)
+            {
+                health += 0.01f;
+            }
             if (Velocity > 1.5f)
             {
                 animation.SetAnimation("move" + currentFaceDirection);
@@ -66,7 +74,7 @@ namespace mGame
                     POIGame.MapKeyPress(delegate { return GetGamePadSide(Direction.Down); }, down);
                     POIGame.MapKeyPress(delegate { return GetGamePadInput(Buttons.B); }, shot);
                 }
-                if (POIGame.GetKeyPressed(shot))
+                if (POIGame.GetKeyPressed(shot) && !isDeath)
                 {
                     state.PlayerShot();
                     Assets.bulletSound.Play(0.6f, 0.2f, 0.0f);
@@ -360,6 +368,24 @@ namespace mGame
                 return false;
             GamePadState gPadState = GamePad.GetState(PlayerIndex.One);
             return gPadState.IsButtonDown(button);
+        }
+        protected override void OnCollide(string group1, string group2)
+        {
+            if(group1 =="randomBot")
+            {
+                health--;
+            }
+            else if(group1 == "enemyBullet")
+            {
+                health -= 10.0f;
+            }
+            if(health <= 0)
+            {
+                health = 0;
+                sprite.colorMask = new Color(0.0f, 1.0f, 1.0f, 0.0f);
+                isDeath = true;
+            }
+            base.OnCollide(group1, group2);
         }
     }
 }

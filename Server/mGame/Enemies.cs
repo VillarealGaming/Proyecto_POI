@@ -170,9 +170,12 @@ namespace mGame
         }
         protected override void OnCollide(string group1, string group2)
         {
-            state.EnemyKilled();
-            state.RemoveInstance(this);
-            base.OnCollide(group1, group2);
+            if(group1 == "playerBullet")
+            {
+                state.EnemyKilled();
+                state.RemoveInstance(this);
+                base.OnCollide(group1, group2);
+            }
         }
         public override void Removed()
         {

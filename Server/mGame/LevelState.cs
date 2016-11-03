@@ -21,6 +21,7 @@ namespace mGame
         private UInt32[] levelData;
         Rectangle levelDimensions;
         private TextSprite text;
+        private TextSprite playerHealth;
         //Texture2D level;
         public int playerNumber;
         private RoomGenerator roomGenerator;
@@ -60,6 +61,7 @@ namespace mGame
                 AddCollisionGroup("randomBot");
                 AddCollisionListener("playerBullet", "randomBot");
                 AddCollisionListener("enemyBullet", "player");
+                AddCollisionListener("randomBot", "player");
                 //tests only
                 //if (playerNumber == 0)
                 //{
@@ -77,6 +79,8 @@ namespace mGame
                 //tiles.Generate();
                 text = new TextSprite(Assets.retroFont, new Vector2(4, 4));
                 text.text = "Enemigos abatidos: " + enemiesKill.ToString();
+                playerHealth = new TextSprite(Assets.retroFont, new Vector2(360, 4));
+                playerHealth.text = "Salud: 100";
                 cameraEffect = new GraphicInstance(Assets.cameraEffect, new Position(), true);
                 cameraEffect.layerDepth = 0.9f;
                 hud = new GraphicInstance(Assets.hud, new Position(), true);
@@ -93,6 +97,7 @@ namespace mGame
                 AddInstance(playerA);
                 AddInstance(playerB);
                 AddGraphic(text);
+                AddGraphic(playerHealth);
                 AddGraphic(player1NameSprite);
                 AddGraphic(player2NameSprite);
                 tiles = new TileMap(Assets.mapTiles);
@@ -163,6 +168,9 @@ namespace mGame
                 playerB.OtherPlayerGrid = playerA.GridPosition;
                 player1NameSprite.position = playerA.Position.Value - new Vector2(0.0f, 16.0f);
                 player2NameSprite.position = playerB.Position.Value - new Vector2(0.0f, 16.0f);
+                playerHealth.text = "Salud: " + players[playerNumber].Health;
+                if (playerA.Health == 0 && playerB.Health == 0)
+                    POIGame.CurrentGame.Exit();
             }
             catch{ }
             base.Update();
