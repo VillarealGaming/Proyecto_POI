@@ -174,6 +174,8 @@ namespace mGame {
         }
         protected override void EndRun()
         {
+            if (state != null)
+                state.Out();
             MediaPlayer.Stop();
             base.EndRun();
         }

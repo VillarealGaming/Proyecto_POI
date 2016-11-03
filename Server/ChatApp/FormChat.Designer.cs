@@ -42,25 +42,28 @@
             System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem("", 3);
             System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem("", 0);
             System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem("", 2);
+            System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem("", 13);
+            System.Windows.Forms.ListViewItem listViewItem15 = new System.Windows.Forms.ListViewItem("", 14);
+            System.Windows.Forms.ListViewItem listViewItem16 = new System.Windows.Forms.ListViewItem("", 15);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formChat));
-            System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem("", 3);
-            System.Windows.Forms.ListViewItem listViewItem15 = new System.Windows.Forms.ListViewItem("", 0);
-            System.Windows.Forms.ListViewItem listViewItem16 = new System.Windows.Forms.ListViewItem("", 2);
+            System.Windows.Forms.ListViewItem listViewItem17 = new System.Windows.Forms.ListViewItem("", 3);
+            System.Windows.Forms.ListViewItem listViewItem18 = new System.Windows.Forms.ListViewItem("", 0);
+            System.Windows.Forms.ListViewItem listViewItem19 = new System.Windows.Forms.ListViewItem("", 2);
             this.richTextBoxChat = new System.Windows.Forms.RichTextBox();
             this.buttonEnviar = new System.Windows.Forms.Button();
             this.Header = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.listViewUsers = new System.Windows.Forms.ListView();
-            this.picBox_Attach = new System.Windows.Forms.PictureBox();
-            this.picBox_Buzz = new System.Windows.Forms.PictureBox();
-            this.picBox_CloseIcon = new System.Windows.Forms.PictureBox();
-            this.picBox_EmoteIcon = new System.Windows.Forms.PictureBox();
             this.textBoxChat = new System.Windows.Forms.TextBox();
             this.buzzTimer = new System.Windows.Forms.Timer(this.components);
             this.listViewEmoticons = new System.Windows.Forms.ListView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.listViewBuzzers = new System.Windows.Forms.ListView();
             this.checkBoxEncrypt = new System.Windows.Forms.CheckBox();
+            this.picBox_Attach = new System.Windows.Forms.PictureBox();
+            this.picBox_Buzz = new System.Windows.Forms.PictureBox();
+            this.picBox_CloseIcon = new System.Windows.Forms.PictureBox();
+            this.picBox_EmoteIcon = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_Attach)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_Buzz)).BeginInit();
@@ -140,6 +143,140 @@
             this.listViewUsers.UseCompatibleStateImageBehavior = false;
             this.listViewUsers.View = System.Windows.Forms.View.List;
             // 
+            // textBoxChat
+            // 
+            this.textBoxChat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.textBoxChat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxChat.ForeColor = System.Drawing.Color.White;
+            this.textBoxChat.Location = new System.Drawing.Point(12, 308);
+            this.textBoxChat.Multiline = true;
+            this.textBoxChat.Name = "textBoxChat";
+            this.textBoxChat.Size = new System.Drawing.Size(428, 57);
+            this.textBoxChat.TabIndex = 0;
+            this.textBoxChat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxChat_KeyDown);
+            // 
+            // buzzTimer
+            // 
+            this.buzzTimer.Interval = 32;
+            this.buzzTimer.Tick += new System.EventHandler(this.buzzTimer_Tick);
+            // 
+            // listViewEmoticons
+            // 
+            this.listViewEmoticons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.listViewEmoticons.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listViewEmoticons.ForeColor = System.Drawing.Color.Black;
+            this.listViewEmoticons.HoverSelection = true;
+            listViewItem1.Tag = ":happy:";
+            listViewItem2.Tag = ":wink:";
+            listViewItem3.Tag = ":serious:";
+            listViewItem4.Tag = ":naughty: ";
+            listViewItem5.Tag = ":weird:";
+            listViewItem6.Tag = ":smile:";
+            listViewItem7.Tag = ":surprise:";
+            listViewItem8.Tag = ":sad:";
+            listViewItem9.Tag = ":meh:";
+            listViewItem10.Tag = ":cool:";
+            listViewItem11.Tag = ":dumb:";
+            listViewItem12.Tag = ":angry:";
+            listViewItem13.Tag = ":devil:";
+            listViewItem14.Tag = ":player1:";
+            listViewItem15.Tag = ":player2:";
+            listViewItem16.Tag = ":enemy:";
+            this.listViewEmoticons.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4,
+            listViewItem5,
+            listViewItem6,
+            listViewItem7,
+            listViewItem8,
+            listViewItem9,
+            listViewItem10,
+            listViewItem11,
+            listViewItem12,
+            listViewItem13,
+            listViewItem14,
+            listViewItem15,
+            listViewItem16});
+            this.listViewEmoticons.LargeImageList = this.imageList1;
+            this.listViewEmoticons.Location = new System.Drawing.Point(12, 258);
+            this.listViewEmoticons.MultiSelect = false;
+            this.listViewEmoticons.Name = "listViewEmoticons";
+            this.listViewEmoticons.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.listViewEmoticons.Size = new System.Drawing.Size(124, 107);
+            this.listViewEmoticons.SmallImageList = this.imageList1;
+            this.listViewEmoticons.TabIndex = 1;
+            this.listViewEmoticons.TabStop = false;
+            this.listViewEmoticons.TileSize = new System.Drawing.Size(24, 24);
+            this.listViewEmoticons.UseCompatibleStateImageBehavior = false;
+            this.listViewEmoticons.View = System.Windows.Forms.View.Tile;
+            this.listViewEmoticons.Visible = false;
+            this.listViewEmoticons.SelectedIndexChanged += new System.EventHandler(this.listViewEmoticons_SelectedIndexChanged);
+            this.listViewEmoticons.Leave += new System.EventHandler(this.listViewEmoticons_Leave);
+            this.listViewEmoticons.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewEmoticons_MouseDoubleClick);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "angry.png");
+            this.imageList1.Images.SetKeyName(1, "cool.png");
+            this.imageList1.Images.SetKeyName(2, "devil.png");
+            this.imageList1.Images.SetKeyName(3, "dumb.png");
+            this.imageList1.Images.SetKeyName(4, "happy.PNG");
+            this.imageList1.Images.SetKeyName(5, "meh.png");
+            this.imageList1.Images.SetKeyName(6, "naughty.png");
+            this.imageList1.Images.SetKeyName(7, "sad.png");
+            this.imageList1.Images.SetKeyName(8, "serious.png");
+            this.imageList1.Images.SetKeyName(9, "smile.png");
+            this.imageList1.Images.SetKeyName(10, "surprise.png");
+            this.imageList1.Images.SetKeyName(11, "weird.png");
+            this.imageList1.Images.SetKeyName(12, "wink.png");
+            this.imageList1.Images.SetKeyName(13, "player1.png");
+            this.imageList1.Images.SetKeyName(14, "player2.png");
+            this.imageList1.Images.SetKeyName(15, "enemy.png");
+            // 
+            // listViewBuzzers
+            // 
+            this.listViewBuzzers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
+            this.listViewBuzzers.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listViewBuzzers.ForeColor = System.Drawing.Color.Black;
+            this.listViewBuzzers.HoverSelection = true;
+            listViewItem17.Tag = ":dumb:";
+            listViewItem18.Tag = ":angry:";
+            listViewItem19.Tag = ":devil:";
+            this.listViewBuzzers.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem17,
+            listViewItem18,
+            listViewItem19});
+            this.listViewBuzzers.LargeImageList = this.imageList1;
+            this.listViewBuzzers.Location = new System.Drawing.Point(45, 258);
+            this.listViewBuzzers.MultiSelect = false;
+            this.listViewBuzzers.Name = "listViewBuzzers";
+            this.listViewBuzzers.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.listViewBuzzers.Size = new System.Drawing.Size(124, 107);
+            this.listViewBuzzers.SmallImageList = this.imageList1;
+            this.listViewBuzzers.TabIndex = 17;
+            this.listViewBuzzers.TabStop = false;
+            this.listViewBuzzers.TileSize = new System.Drawing.Size(24, 24);
+            this.listViewBuzzers.UseCompatibleStateImageBehavior = false;
+            this.listViewBuzzers.View = System.Windows.Forms.View.Tile;
+            this.listViewBuzzers.Visible = false;
+            this.listViewBuzzers.Leave += new System.EventHandler(this.listViewBuzzers_Leave);
+            // 
+            // checkBoxEncrypt
+            // 
+            this.checkBoxEncrypt.AutoSize = true;
+            this.checkBoxEncrypt.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEncrypt.ForeColor = System.Drawing.Color.White;
+            this.checkBoxEncrypt.Location = new System.Drawing.Point(149, 376);
+            this.checkBoxEncrypt.Name = "checkBoxEncrypt";
+            this.checkBoxEncrypt.Size = new System.Drawing.Size(131, 19);
+            this.checkBoxEncrypt.TabIndex = 28;
+            this.checkBoxEncrypt.Text = "Habilitar encriptado";
+            this.checkBoxEncrypt.UseVisualStyleBackColor = true;
+            // 
             // picBox_Attach
             // 
             this.picBox_Attach.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
@@ -203,131 +340,6 @@
             this.picBox_EmoteIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picBox_EmoteIcon_MouseClick);
             this.picBox_EmoteIcon.MouseEnter += new System.EventHandler(this.picBox_EmoteIcon_MouseEnter);
             this.picBox_EmoteIcon.MouseLeave += new System.EventHandler(this.picBox_EmoteIcon_MouseLeave);
-            // 
-            // textBoxChat
-            // 
-            this.textBoxChat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
-            this.textBoxChat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxChat.ForeColor = System.Drawing.Color.White;
-            this.textBoxChat.Location = new System.Drawing.Point(12, 308);
-            this.textBoxChat.Multiline = true;
-            this.textBoxChat.Name = "textBoxChat";
-            this.textBoxChat.Size = new System.Drawing.Size(428, 57);
-            this.textBoxChat.TabIndex = 0;
-            this.textBoxChat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxChat_KeyDown);
-            // 
-            // buzzTimer
-            // 
-            this.buzzTimer.Interval = 32;
-            this.buzzTimer.Tick += new System.EventHandler(this.buzzTimer_Tick);
-            // 
-            // listViewEmoticons
-            // 
-            this.listViewEmoticons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
-            this.listViewEmoticons.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.listViewEmoticons.ForeColor = System.Drawing.Color.Black;
-            this.listViewEmoticons.HoverSelection = true;
-            listViewItem1.Tag = ":happy:";
-            listViewItem2.Tag = ":wink:";
-            listViewItem3.Tag = ":serious:";
-            listViewItem4.Tag = ":naughty: ";
-            listViewItem5.Tag = ":weird:";
-            listViewItem6.Tag = ":smile:";
-            listViewItem7.Tag = ":surprise:";
-            listViewItem8.Tag = ":sad:";
-            listViewItem9.Tag = ":meh:";
-            listViewItem10.Tag = ":cool:";
-            listViewItem11.Tag = ":dumb:";
-            listViewItem12.Tag = ":angry:";
-            listViewItem13.Tag = ":devil:";
-            this.listViewEmoticons.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4,
-            listViewItem5,
-            listViewItem6,
-            listViewItem7,
-            listViewItem8,
-            listViewItem9,
-            listViewItem10,
-            listViewItem11,
-            listViewItem12,
-            listViewItem13});
-            this.listViewEmoticons.LargeImageList = this.imageList1;
-            this.listViewEmoticons.Location = new System.Drawing.Point(12, 258);
-            this.listViewEmoticons.MultiSelect = false;
-            this.listViewEmoticons.Name = "listViewEmoticons";
-            this.listViewEmoticons.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.listViewEmoticons.Size = new System.Drawing.Size(124, 107);
-            this.listViewEmoticons.SmallImageList = this.imageList1;
-            this.listViewEmoticons.TabIndex = 1;
-            this.listViewEmoticons.TabStop = false;
-            this.listViewEmoticons.TileSize = new System.Drawing.Size(24, 24);
-            this.listViewEmoticons.UseCompatibleStateImageBehavior = false;
-            this.listViewEmoticons.View = System.Windows.Forms.View.Tile;
-            this.listViewEmoticons.Visible = false;
-            this.listViewEmoticons.SelectedIndexChanged += new System.EventHandler(this.listViewEmoticons_SelectedIndexChanged);
-            this.listViewEmoticons.Leave += new System.EventHandler(this.listViewEmoticons_Leave);
-            this.listViewEmoticons.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewEmoticons_MouseDoubleClick);
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "angry.png");
-            this.imageList1.Images.SetKeyName(1, "cool.png");
-            this.imageList1.Images.SetKeyName(2, "devil.png");
-            this.imageList1.Images.SetKeyName(3, "dumb.png");
-            this.imageList1.Images.SetKeyName(4, "happy.PNG");
-            this.imageList1.Images.SetKeyName(5, "meh.png");
-            this.imageList1.Images.SetKeyName(6, "naughty.png");
-            this.imageList1.Images.SetKeyName(7, "sad.png");
-            this.imageList1.Images.SetKeyName(8, "serious.png");
-            this.imageList1.Images.SetKeyName(9, "smile.png");
-            this.imageList1.Images.SetKeyName(10, "surprise.png");
-            this.imageList1.Images.SetKeyName(11, "weird.png");
-            this.imageList1.Images.SetKeyName(12, "wink.png");
-            // 
-            // listViewBuzzers
-            // 
-            this.listViewBuzzers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(53)))), ((int)(((byte)(60)))));
-            this.listViewBuzzers.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.listViewBuzzers.ForeColor = System.Drawing.Color.Black;
-            this.listViewBuzzers.HoverSelection = true;
-            listViewItem14.Tag = ":dumb:";
-            listViewItem15.Tag = ":angry:";
-            listViewItem16.Tag = ":devil:";
-            this.listViewBuzzers.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem14,
-            listViewItem15,
-            listViewItem16});
-            this.listViewBuzzers.LargeImageList = this.imageList1;
-            this.listViewBuzzers.Location = new System.Drawing.Point(45, 258);
-            this.listViewBuzzers.MultiSelect = false;
-            this.listViewBuzzers.Name = "listViewBuzzers";
-            this.listViewBuzzers.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.listViewBuzzers.Size = new System.Drawing.Size(124, 107);
-            this.listViewBuzzers.SmallImageList = this.imageList1;
-            this.listViewBuzzers.TabIndex = 17;
-            this.listViewBuzzers.TabStop = false;
-            this.listViewBuzzers.TileSize = new System.Drawing.Size(24, 24);
-            this.listViewBuzzers.UseCompatibleStateImageBehavior = false;
-            this.listViewBuzzers.View = System.Windows.Forms.View.Tile;
-            this.listViewBuzzers.Visible = false;
-            this.listViewBuzzers.Leave += new System.EventHandler(this.listViewBuzzers_Leave);
-            // 
-            // checkBoxEncrypt
-            // 
-            this.checkBoxEncrypt.AutoSize = true;
-            this.checkBoxEncrypt.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEncrypt.ForeColor = System.Drawing.Color.White;
-            this.checkBoxEncrypt.Location = new System.Drawing.Point(149, 376);
-            this.checkBoxEncrypt.Name = "checkBoxEncrypt";
-            this.checkBoxEncrypt.Size = new System.Drawing.Size(131, 19);
-            this.checkBoxEncrypt.TabIndex = 28;
-            this.checkBoxEncrypt.Text = "Habilitar encriptado";
-            this.checkBoxEncrypt.UseVisualStyleBackColor = true;
             // 
             // formChat
             // 

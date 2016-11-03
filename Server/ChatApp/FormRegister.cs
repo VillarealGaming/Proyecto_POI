@@ -61,6 +61,7 @@ namespace ChatApp
                     Packet packet = new Packet(PacketType.Register);
                     packet.tag["password"] = textBoxPassword.Text;
                     packet.tag["username"] = textBoxUsername.Text;
+                    packet.tag["email"] = textBoxEmail.Text;
                     packet.tag["carrera"] = comboBoxCarrera.SelectedItem.ToString().Normalize();
                     packet.tag["encrypt"] = checkBoxEncrypt.Checked;
                     ClientSession.Connection.SendPacket(packet);

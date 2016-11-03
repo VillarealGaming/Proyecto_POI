@@ -10,6 +10,7 @@ using EasyPOI;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Security.Cryptography;
+using System.Threading;
 namespace Server {
     class Program {
         private static EasyPOI.Server server;
@@ -18,6 +19,7 @@ namespace Server {
         private static Dictionary<string, IPEndPoint> connectedUsersUdp;
         private static Dictionary<int, List<string>> connectedPlayers;
         private const string databaseFile = "Database.xml";
+        private static Mutex databaseFileMutex = new Mutex(false, "databaseWritting");
         static void Main(string[] args) {
             database = new ServerDataSet();
             database.ReadXml("Database.xml");
@@ -54,8 +56,10 @@ namespace Server {
                             if (!connectedUsers.ContainsKey(username))
                             {
                                 connectedUsers.Add(username, client);
+                                var user = queryResult.First();
                                 packetSend = new Packet(PacketType.SessionBegin);
-                                packetSend.tag["state"] = queryResult.First().Estado;
+                                packetSend.tag["state"] = user.Estado;
+                                packetSend.tag["enemiesKilled"] = user.EnemigosAbatidos;
                                 //packetContent.message = "Sesión iniciada";
                                 Console.WriteLine("Sesion de " + username + " iniciada");
                             }
@@ -88,6 +92,7 @@ namespace Server {
                             //packetContent.tag["message"] = username;
                             ServerDataSet.UsuarioRow usuarioRow = database.Usuario.NewUsuarioRow();
                             usuarioRow.NombreUsuario = username;
+                            usuarioRow.Correo = packet.tag["email"] as string;
                             usuarioRow.Estado = UserConnectionState.Available.ToString();
                             usuarioRow.Contrasenia = password;
                             usuarioRow.Carrera = packet.tag["carrera"] as string;
@@ -483,12 +488,17 @@ namespace Server {
                         var queryResult = from usuario in usuarioTable
                                           where usuario.NombreUsuario == packet.tag["user"] as string
                                           select usuario;
-                        queryResult.First().EnemigosAbatidos++;
+                        var username = packet.tag["user"] as string;
+                        queryResult.First().EnemigosAbatidos += (int)packet.tag["enemiesKilled"];
                         while(true)
                         {
                             try
                             {
+                                databaseFileMutex.WaitOne();
                                 database.WriteXml(databaseFile);
+                                databaseFileMutex.ReleaseMutex();
+                                if (connectedUsers.ContainsKey(username))
+                                    server.SendPacket(packet, connectedUsers[username]);
                                 break;
                             }
                             catch { }

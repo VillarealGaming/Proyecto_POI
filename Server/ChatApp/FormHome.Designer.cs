@@ -60,6 +60,7 @@
             this.lbl_Rango = new System.Windows.Forms.Label();
             this.picBox_IconoRango = new System.Windows.Forms.PictureBox();
             this.picBox_CloseIcon = new System.Windows.Forms.PictureBox();
+            this.labelEnemies = new System.Windows.Forms.Label();
             this.contextMenuStripEstado.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_IconoRango)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_CloseIcon)).BeginInit();
@@ -291,7 +292,7 @@
             this.lbl_Jugador.AutoSize = true;
             this.lbl_Jugador.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Jugador.ForeColor = System.Drawing.Color.White;
-            this.lbl_Jugador.Location = new System.Drawing.Point(81, 42);
+            this.lbl_Jugador.Location = new System.Drawing.Point(80, 42);
             this.lbl_Jugador.Name = "lbl_Jugador";
             this.lbl_Jugador.Size = new System.Drawing.Size(235, 29);
             this.lbl_Jugador.TabIndex = 19;
@@ -302,7 +303,7 @@
             this.lbl_Rango.AutoSize = true;
             this.lbl_Rango.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Rango.ForeColor = System.Drawing.Color.Silver;
-            this.lbl_Rango.Location = new System.Drawing.Point(82, 82);
+            this.lbl_Rango.Location = new System.Drawing.Point(81, 67);
             this.lbl_Rango.Name = "lbl_Rango";
             this.lbl_Rango.Size = new System.Drawing.Size(92, 20);
             this.lbl_Rango.TabIndex = 21;
@@ -314,6 +315,7 @@
             this.picBox_IconoRango.Location = new System.Drawing.Point(15, 42);
             this.picBox_IconoRango.Name = "picBox_IconoRango";
             this.picBox_IconoRango.Size = new System.Drawing.Size(60, 60);
+            this.picBox_IconoRango.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.picBox_IconoRango.TabIndex = 20;
             this.picBox_IconoRango.TabStop = false;
             // 
@@ -333,12 +335,24 @@
             this.picBox_CloseIcon.MouseEnter += new System.EventHandler(this.picBox_CloseIcon_MouseEnter);
             this.picBox_CloseIcon.MouseLeave += new System.EventHandler(this.picBox_CloseIcon_MouseLeave);
             // 
+            // labelEnemies
+            // 
+            this.labelEnemies.AutoSize = true;
+            this.labelEnemies.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelEnemies.ForeColor = System.Drawing.Color.Silver;
+            this.labelEnemies.Location = new System.Drawing.Point(82, 87);
+            this.labelEnemies.Name = "labelEnemies";
+            this.labelEnemies.Size = new System.Drawing.Size(119, 15);
+            this.labelEnemies.TabIndex = 22;
+            this.labelEnemies.Text = "Enemigos abatidos: ";
+            // 
             // FormHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(65)))), ((int)(((byte)(75)))));
             this.ClientSize = new System.Drawing.Size(632, 524);
+            this.Controls.Add(this.labelEnemies);
             this.Controls.Add(this.lbl_Rango);
             this.Controls.Add(this.picBox_IconoRango);
             this.Controls.Add(this.lbl_Jugador);
@@ -390,5 +404,6 @@
         private System.Windows.Forms.ColumnHeader columnPrivateUser;
         private System.Windows.Forms.ColumnHeader columnPrivateFecha;
         private System.Windows.Forms.ColumnHeader columnPrivateMessage;
+        private System.Windows.Forms.Label labelEnemies;
     }
 }

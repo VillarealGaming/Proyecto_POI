@@ -39,12 +39,17 @@ namespace ChatApp
             udpPacket.WriteData(BitConverter.GetBytes(gridY));
             ClientSession.Connection.SendUdpPacket(udpPacket);
         }
-        public override void EnemyKilled()
+        //public override void EnemyKilled()
+        //{
+        //    base.EnemyKilled();
+        //}
+        public override void Out()
         {
             Packet packet = new Packet(PacketType.EnemyKilled);
             packet.tag["user"] = ClientSession.username;
+            packet.tag["enemiesKilled"] = enemiesKill;
             ClientSession.Connection.SendPacket(packet);
-            base.EnemyKilled();
+            base.Out();
         }
         public void MovePlayer(Direction direction, int gridX, int gridY)
         {

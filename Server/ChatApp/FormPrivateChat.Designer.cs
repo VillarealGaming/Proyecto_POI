@@ -49,6 +49,9 @@
             System.Windows.Forms.ListViewItem listViewItem16 = new System.Windows.Forms.ListViewItem("", 3);
             System.Windows.Forms.ListViewItem listViewItem17 = new System.Windows.Forms.ListViewItem("", 0);
             System.Windows.Forms.ListViewItem listViewItem18 = new System.Windows.Forms.ListViewItem("", 2);
+            System.Windows.Forms.ListViewItem listViewItem19 = new System.Windows.Forms.ListViewItem("", 13);
+            System.Windows.Forms.ListViewItem listViewItem20 = new System.Windows.Forms.ListViewItem("", 14);
+            System.Windows.Forms.ListViewItem listViewItem21 = new System.Windows.Forms.ListViewItem("", 15);
             this.list_Options = new System.Windows.Forms.ListView();
             this.buttonEnviar = new System.Windows.Forms.Button();
             this.textBoxChat = new System.Windows.Forms.TextBox();
@@ -270,6 +273,9 @@
             this.imageList1.Images.SetKeyName(10, "surprise.png");
             this.imageList1.Images.SetKeyName(11, "weird.png");
             this.imageList1.Images.SetKeyName(12, "wink.png");
+            this.imageList1.Images.SetKeyName(13, "player1.png");
+            this.imageList1.Images.SetKeyName(14, "player2.png");
+            this.imageList1.Images.SetKeyName(15, "enemy.png");
             // 
             // buzzTimer
             // 
@@ -322,6 +328,9 @@
             listViewItem16.Tag = ":dumb:";
             listViewItem17.Tag = ":angry:";
             listViewItem18.Tag = ":devil:";
+            listViewItem19.Tag = ":player1:";
+            listViewItem20.Tag = ":player2:";
+            listViewItem21.Tag = ":enemy:";
             this.listViewEmoticons.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem6,
             listViewItem7,
@@ -335,7 +344,10 @@
             listViewItem15,
             listViewItem16,
             listViewItem17,
-            listViewItem18});
+            listViewItem18,
+            listViewItem19,
+            listViewItem20,
+            listViewItem21});
             this.listViewEmoticons.LargeImageList = this.imageList1;
             this.listViewEmoticons.Location = new System.Drawing.Point(12, 238);
             this.listViewEmoticons.MultiSelect = false;

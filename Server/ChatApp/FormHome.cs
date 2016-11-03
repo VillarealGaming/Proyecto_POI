@@ -63,6 +63,12 @@ namespace ChatApp
             {
                 switch(packet.Type)
                 {
+                    case PacketType.EnemyKilled:
+                        {
+                            ClientSession.enemiesKilled += (int)packet.tag["enemiesKilled"];
+                            SetStatusLabels();
+                        }
+                        break;
                     case PacketType.ExitGame:
                         {
                             this.Invoke(new ClientSession.ExitGameCallback(game.Exit));
@@ -74,7 +80,7 @@ namespace ChatApp
                             gameThread = new Thread(Game);
                             gameThread.Start();
                             //evitar que cosas raras pasen si hacemos todo muy rapido...
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep(1000);
                             //level = new LevelStateOnline(1);
                             //level.GenerateLevelData();
                             //level.GenerateRandomBot();
@@ -112,7 +118,7 @@ namespace ChatApp
                             level.SetLevelData((UInt32[])packet.tag["levelData"]);
                             level.GenerateRandomBot((Tuple<int, float[]>[])packet.tag["randomBotData"]);
                             //evitar que cosas raras pasen si hacemos todo muy rapido...
-                            System.Threading.Thread.Sleep(1000);
+                            System.Threading.Thread.Sleep(2000);
                             lock (game)
                             POIGame.SetState(level);
                             Packet packetSend = new Packet(PacketType.BeginGame);
@@ -485,10 +491,29 @@ namespace ChatApp
                 this.Invoke(new ClientSession.ExitGameCallback(game.Exit));
             this.Close();
         }
+        //http://stackoverflow.com/questions/11339191/switch-case-check-ranges-in-c-sharp-3-5
+        private void SetStatusLabels()
+        {
+            labelEnemies.Text = "Enemigos abatidos: " + ClientSession.enemiesKilled;
+            var rangeCases = new Dictionary<Func<int, bool>, Action>
+            {
+                { x => x < 1,   () => { lbl_Rango.Text = "Pacifista"; picBox_IconoRango.Image =  Properties.Resources.pacifista; } },
+                { x => x < 10,   () => { lbl_Rango.Text = "Principiante"; picBox_IconoRango.Image =  Properties.Resources.principiante; } },
+                { x => x < 50,   () => { lbl_Rango.Text = "Emprendedor"; picBox_IconoRango.Image =  Properties.Resources.emprendedor; } },
+                { x => x < 150,   () => { lbl_Rango.Text = "Combatiente experimentado"; picBox_IconoRango.Image =  Properties.Resources.combatiente; } },
+                { x => x < 300,   () => { lbl_Rango.Text = "Veterano"; picBox_IconoRango.Image =  Properties.Resources.veterano; } },
+                { x => x < 500,   () => { lbl_Rango.Text = "Maestro aniquilabots"; picBox_IconoRango.Image =  Properties.Resources.maestro; } },
+                { x => x < 1000,   () => { lbl_Rango.Text = "Vengador del futuro"; picBox_IconoRango.Image =  Properties.Resources.vengador; } },
+                { x => x < 2000,   () => { lbl_Rango.Text = "Mesías"; picBox_IconoRango.Image =  Properties.Resources.mesias; } }
+            };
+            rangeCases.First(switchCase => switchCase.Key(ClientSession.enemiesKilled)).Value();
+        }
+
         private void FormHome_Load(object sender, EventArgs e)
         {
             this.Header.Text = ClientSession.username + " - " + ClientSession.connectionStateHash[ClientSession.state].Item2;
             lbl_Jugador.Text = ClientSession.username;
+            SetStatusLabels();
             selectedStateItem = ((contextMenuStripEstado.Items[0] as ToolStripDropDownItem).DropDownItems[ClientSession.connectionStateHash[ClientSession.state].Item1] as ToolStripMenuItem);
             selectedStateItem.Checked = true;
             ClientSession.Connection.OnPacketReceivedFunc(OnPacket);
@@ -509,6 +534,9 @@ namespace ChatApp
             ClientSession.Emoticons.Add(ChatApp.Properties.Resources.surprise, new string[] { " :O", " :o", " :0", ":surprise:" });
             ClientSession.Emoticons.Add(ChatApp.Properties.Resources.weird, new string[] { " :$", " .~.", ":weird:" });
             ClientSession.Emoticons.Add(ChatApp.Properties.Resources.wink, new string[] { " ;)", ":wink:" });
+            ClientSession.Emoticons.Add(ChatApp.Properties.Resources.player1, new string[] {":p1:",":player1:" });
+            ClientSession.Emoticons.Add(ChatApp.Properties.Resources.player2, new string[] {":p2:",":player2:" });
+            ClientSession.Emoticons.Add(ChatApp.Properties.Resources.enemy, new string[] { ":bot:", ":enemy:" });
             ClientSession.HasCamera = Camera.Detect();
             //gameThread = new Thread(Game);
             //gameThread.Start();
@@ -596,6 +624,7 @@ namespace ChatApp
         public delegate void ExitGameCallback();
         public static string username { get; set; }
         public static string state;
+        public static int enemiesKilled;
         public const int textMessagesVisibleText = 40;
         public static bool HasCamera;
         public static bool GameIsRunning;

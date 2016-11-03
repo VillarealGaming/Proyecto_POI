@@ -322,7 +322,18 @@
     <None Include="players.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Emoticons\enemy.png" />
+    <Content Include="Emoticons\player1.png" />
+    <Content Include="Emoticons\player2.png" />
     <Content Include="Icono.ico" />
+    <None Include="ranks\veterano.png" />
+    <None Include="ranks\vengador.png" />
+    <None Include="ranks\principiante.png" />
+    <None Include="ranks\pacifista.png" />
+    <None Include="ranks\mesias.png" />
+    <None Include="ranks\maestro.png" />
+    <None Include="ranks\emprendedor.png" />
+    <None Include="ranks\combatiente.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Game\" />

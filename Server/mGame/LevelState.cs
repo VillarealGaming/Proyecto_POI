@@ -24,7 +24,7 @@ namespace mGame
         //Texture2D level;
         public int playerNumber;
         private RoomGenerator roomGenerator;
-        private int enemiesKill;
+        protected int enemiesKill;
         private TextSprite player1NameSprite;
         private TextSprite player2NameSprite;
         private string player1Name;

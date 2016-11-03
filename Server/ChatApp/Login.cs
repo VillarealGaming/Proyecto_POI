@@ -39,6 +39,7 @@ namespace ChatApp
                 {
                     ClientSession.username = textBoxUsername.Text;
                     ClientSession.state = comboBoxEstado.SelectedIndex>0? ((UserConnectionState)comboBoxEstado.SelectedIndex - 1).ToString() : packet.tag["state"] as string;
+                    ClientSession.enemiesKilled = (int)packet.tag["enemiesKilled"];
                     this.Hide();
                     FormHome home = new FormHome();
                     home.FormClosed += (s, args) => { this.Close(); };
