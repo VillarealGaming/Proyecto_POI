@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AForge.Video;
 using AForge.Video.DirectShow;
 using System.Drawing;
 using NAudio.Wave;
-using System.IO;
-using System.Media;
+
 namespace ChatApp
 {
     static class Speaker
@@ -27,6 +22,23 @@ namespace ChatApp
             speaker.Init(bufferedProvider);
             speaker.DesiredLatency = 25;
             speaker.Play();
+        }
+        public static void PlaySound(string path)
+        {
+            var sound = new WaveOut();
+            var audioFileReader = new AudioFileReader(path);
+            sound.Init(audioFileReader);
+            sound.PlaybackStopped += Sound_PlaybackStopped;
+            sound.Play();
+            audioFileReader.Dispose();
+        }
+
+        private static void Sound_PlaybackStopped(object sender, StoppedEventArgs e)
+        {
+            var sound = (WaveOut)sender;
+            sound.Stop();
+            sound.PlaybackStopped -= Sound_PlaybackStopped;
+            sound.Dispose();
         }
 
         public static void PlayBuffer(byte[] bytes)

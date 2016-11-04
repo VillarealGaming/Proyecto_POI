@@ -80,9 +80,17 @@ namespace ChatApp
         {
             ClientSession.Connection.OnPacketReceivedFunc(OnPacket);
             ClientSession.Connection.BeginConnect();
-            while (!ClientSession.Connection.Connected)
+            int tries = 0;
+            while (!ClientSession.Connection.Connected && tries < 100)
             {
                 this.Text = "Buscando servidor...";
+                tries++;
+            }
+            if(tries >= 100)
+            {
+                this.Header.Text = "Servidor no econtrado";
+                buttonConnect.Enabled = false;
+                buttonRegistrar.Enabled = false;
             }
             this.Text = "Iniciar sesión";
         }

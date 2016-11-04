@@ -189,6 +189,7 @@ namespace mGame
                 }
                 else
                 {
+                    Assets.explosionSound.Play(0.4f, 1.0f, 0.0f);
                     float redEffect = 0.25f + (health / 5.0f) *0.75f;
                     colorMask = new Color(1.0f, redEffect, redEffect, 1.0f);
                     sprite.colorMask = new Color(10.0f, 10.0f, 10.0f, 0.0f);
@@ -198,7 +199,7 @@ namespace mGame
         }
         public override void Removed()
         {
-            Assets.explosionSound.Play(0.5f, 0.0f, 0.0f);
+            Assets.explosionSound.Play(0.6f, 0.0f, 0.0f);
             //state.AddInstance(
             //    new OnceAnimation(
             //        Assets.enemyExplode,

@@ -305,6 +305,7 @@ namespace ChatApp
                             if(packet.tag["sender"] as string != ClientSession.username)
                             {
                                 chatsForms[(int)packet.tag["chatID"]].Buzz();
+                                Speaker.PlaySound("buzz\\explosion.mp3");
                             }
                             else
                             {
@@ -313,6 +314,7 @@ namespace ChatApp
                                 packetSend.tag["text"] = ".-*Zumbido*-.";
                                 packetSend.tag["chatID"] = packet.tag["chatID"];
                                 packetSend.tag["date"] = DateTime.Now;
+                                packetSend.tag["encriptado"] = false;
                                 ClientSession.Connection.SendPacket(packetSend);
                             }
                         }
@@ -322,6 +324,7 @@ namespace ChatApp
                             if (packet.tag["sender"] as string != ClientSession.username)
                             {
                                 privateChatForms[(int)packet.tag["chatID"]].Buzz();
+                                Speaker.PlaySound("buzz\\explosion.mp3");
                             }
                             else
                             {

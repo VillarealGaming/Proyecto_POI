@@ -63,16 +63,16 @@ namespace mGame
                 AddCollisionListener("enemyBullet", "player");
                 AddCollisionListener("randomBot", "player");
                 //tests only
-                if (playerNumber == 0)
-                {
-                    GenerateLevelData();
-                    GenerateRandomBot();
-                }
+                //if (playerNumber == 0)
+                //{
+                //    GenerateLevelData();
+                //    GenerateRandomBot();
+                //}
                 players = new Player[2];
                 players[this.playerNumber] = new Player(this.playerNumber == 0 ? Assets.playerSprite : Assets.player2Sprite, Keys.Right, Keys.Left, Keys.Up, Keys.Down, Keys.Z);
-                //players[this.playerNumber == 0 ? 1 : 0] = new Player(this.playerNumber == 0 ? Assets.player2Sprite : Assets.playerSprite, Keys.Escape, Keys.Escape, Keys.Escape, Keys.Escape, Keys.Escape);
+                players[this.playerNumber == 0 ? 1 : 0] = new Player(this.playerNumber == 0 ? Assets.player2Sprite : Assets.playerSprite, Keys.Escape, Keys.Escape, Keys.Escape, Keys.Escape, Keys.Escape);
                 //For tests only 
-                players[this.playerNumber == 0 ? 1 : 0] = new Player(this.playerNumber == 0 ? Assets.player2Sprite : Assets.playerSprite, Keys.D, Keys.A, Keys.W, Keys.S, Keys.LeftShift);
+                //players[this.playerNumber == 0 ? 1 : 0] = new Player(this.playerNumber == 0 ? Assets.player2Sprite : Assets.playerSprite, Keys.D, Keys.A, Keys.W, Keys.S, Keys.LeftShift);
                 playerA = players[0];
                 playerB = players[1];
                 playerB.SetTile(251, 250);
