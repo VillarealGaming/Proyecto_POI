@@ -67,6 +67,10 @@ namespace ChatApp
                         {
                             ClientSession.enemiesKilled += (int)packet.tag["enemiesKilled"];
                             SetStatusLabels();
+                            foreach (var privateChat in privateChatForms)
+                                privateChat.Value.SetBuzzes();
+                            foreach (var chat in chatsForms)
+                                chat.Value.SetBuzzes();
                         }
                         break;
                     case PacketType.ExitGame:
@@ -288,6 +292,7 @@ namespace ChatApp
                     case PacketType.SessionBegin:
                         {
                             Show();
+                            SetStatusLabels();
                             Packet sendPacket = new Packet(PacketType.UdpLocalEndPoint);
                             sendPacket.tag["username"] = ClientSession.username;
                             sendPacket.tag["endPoint"] = ClientSession.Connection.UdpLocalEndPoint;
@@ -305,7 +310,7 @@ namespace ChatApp
                             if(packet.tag["sender"] as string != ClientSession.username)
                             {
                                 chatsForms[(int)packet.tag["chatID"]].Buzz();
-                                Speaker.PlaySound("buzz\\explosion.mp3");
+                                Speaker.PlaySound("buzz\\" + packet.tag["sound"] as string);
                             }
                             else
                             {
@@ -324,7 +329,7 @@ namespace ChatApp
                             if (packet.tag["sender"] as string != ClientSession.username)
                             {
                                 privateChatForms[(int)packet.tag["chatID"]].Buzz();
-                                Speaker.PlaySound("buzz\\explosion.mp3");
+                                Speaker.PlaySound("buzz\\" + packet.tag["sound"] as string);
                             }
                             else
                             {
@@ -516,7 +521,6 @@ namespace ChatApp
         {
             this.Header.Text = ClientSession.username + " - " + ClientSession.connectionStateHash[ClientSession.state].Item2;
             lbl_Jugador.Text = ClientSession.username;
-            SetStatusLabels();
             selectedStateItem = ((contextMenuStripEstado.Items[0] as ToolStripDropDownItem).DropDownItems[ClientSession.connectionStateHash[ClientSession.state].Item1] as ToolStripMenuItem);
             selectedStateItem.Checked = true;
             ClientSession.Connection.OnPacketReceivedFunc(OnPacket);

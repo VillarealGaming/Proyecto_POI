@@ -29,26 +29,23 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("", 4);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("", 12);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("", 8);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("", 6);
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("", 11);
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("", 9);
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("", 10);
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("", 7);
-            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("", 5);
-            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem("", 1);
-            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem("", 3);
-            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem("", 0);
-            System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem("", 2);
-            System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem("", 13);
-            System.Windows.Forms.ListViewItem listViewItem15 = new System.Windows.Forms.ListViewItem("", 14);
-            System.Windows.Forms.ListViewItem listViewItem16 = new System.Windows.Forms.ListViewItem("", 15);
+            System.Windows.Forms.ListViewItem listViewItem17 = new System.Windows.Forms.ListViewItem("", 4);
+            System.Windows.Forms.ListViewItem listViewItem18 = new System.Windows.Forms.ListViewItem("", 12);
+            System.Windows.Forms.ListViewItem listViewItem19 = new System.Windows.Forms.ListViewItem("", 8);
+            System.Windows.Forms.ListViewItem listViewItem20 = new System.Windows.Forms.ListViewItem("", 6);
+            System.Windows.Forms.ListViewItem listViewItem21 = new System.Windows.Forms.ListViewItem("", 11);
+            System.Windows.Forms.ListViewItem listViewItem22 = new System.Windows.Forms.ListViewItem("", 9);
+            System.Windows.Forms.ListViewItem listViewItem23 = new System.Windows.Forms.ListViewItem("", 10);
+            System.Windows.Forms.ListViewItem listViewItem24 = new System.Windows.Forms.ListViewItem("", 7);
+            System.Windows.Forms.ListViewItem listViewItem25 = new System.Windows.Forms.ListViewItem("", 5);
+            System.Windows.Forms.ListViewItem listViewItem26 = new System.Windows.Forms.ListViewItem("", 1);
+            System.Windows.Forms.ListViewItem listViewItem27 = new System.Windows.Forms.ListViewItem("", 3);
+            System.Windows.Forms.ListViewItem listViewItem28 = new System.Windows.Forms.ListViewItem("", 0);
+            System.Windows.Forms.ListViewItem listViewItem29 = new System.Windows.Forms.ListViewItem("", 2);
+            System.Windows.Forms.ListViewItem listViewItem30 = new System.Windows.Forms.ListViewItem("", 13);
+            System.Windows.Forms.ListViewItem listViewItem31 = new System.Windows.Forms.ListViewItem("", 14);
+            System.Windows.Forms.ListViewItem listViewItem32 = new System.Windows.Forms.ListViewItem("", 15);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formChat));
-            System.Windows.Forms.ListViewItem listViewItem17 = new System.Windows.Forms.ListViewItem("", 3);
-            System.Windows.Forms.ListViewItem listViewItem18 = new System.Windows.Forms.ListViewItem("", 0);
-            System.Windows.Forms.ListViewItem listViewItem19 = new System.Windows.Forms.ListViewItem("", 2);
             this.richTextBoxChat = new System.Windows.Forms.RichTextBox();
             this.buttonEnviar = new System.Windows.Forms.Button();
             this.Header = new System.Windows.Forms.Label();
@@ -64,6 +61,7 @@
             this.picBox_Buzz = new System.Windows.Forms.PictureBox();
             this.picBox_CloseIcon = new System.Windows.Forms.PictureBox();
             this.picBox_EmoteIcon = new System.Windows.Forms.PictureBox();
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_Attach)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_Buzz)).BeginInit();
@@ -166,39 +164,39 @@
             this.listViewEmoticons.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listViewEmoticons.ForeColor = System.Drawing.Color.Black;
             this.listViewEmoticons.HoverSelection = true;
-            listViewItem1.Tag = ":happy:";
-            listViewItem2.Tag = ":wink:";
-            listViewItem3.Tag = ":serious:";
-            listViewItem4.Tag = ":naughty: ";
-            listViewItem5.Tag = ":weird:";
-            listViewItem6.Tag = ":smile:";
-            listViewItem7.Tag = ":surprise:";
-            listViewItem8.Tag = ":sad:";
-            listViewItem9.Tag = ":meh:";
-            listViewItem10.Tag = ":cool:";
-            listViewItem11.Tag = ":dumb:";
-            listViewItem12.Tag = ":angry:";
-            listViewItem13.Tag = ":devil:";
-            listViewItem14.Tag = ":player1:";
-            listViewItem15.Tag = ":player2:";
-            listViewItem16.Tag = ":enemy:";
+            listViewItem17.Tag = ":happy:";
+            listViewItem18.Tag = ":wink:";
+            listViewItem19.Tag = ":serious:";
+            listViewItem20.Tag = ":naughty: ";
+            listViewItem21.Tag = ":weird:";
+            listViewItem22.Tag = ":smile:";
+            listViewItem23.Tag = ":surprise:";
+            listViewItem24.Tag = ":sad:";
+            listViewItem25.Tag = ":meh:";
+            listViewItem26.Tag = ":cool:";
+            listViewItem27.Tag = ":dumb:";
+            listViewItem28.Tag = ":angry:";
+            listViewItem29.Tag = ":devil:";
+            listViewItem30.Tag = ":player1:";
+            listViewItem31.Tag = ":player2:";
+            listViewItem32.Tag = ":enemy:";
             this.listViewEmoticons.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4,
-            listViewItem5,
-            listViewItem6,
-            listViewItem7,
-            listViewItem8,
-            listViewItem9,
-            listViewItem10,
-            listViewItem11,
-            listViewItem12,
-            listViewItem13,
-            listViewItem14,
-            listViewItem15,
-            listViewItem16});
+            listViewItem17,
+            listViewItem18,
+            listViewItem19,
+            listViewItem20,
+            listViewItem21,
+            listViewItem22,
+            listViewItem23,
+            listViewItem24,
+            listViewItem25,
+            listViewItem26,
+            listViewItem27,
+            listViewItem28,
+            listViewItem29,
+            listViewItem30,
+            listViewItem31,
+            listViewItem32});
             this.listViewEmoticons.LargeImageList = this.imageList1;
             this.listViewEmoticons.Location = new System.Drawing.Point(12, 258);
             this.listViewEmoticons.MultiSelect = false;
@@ -243,27 +241,22 @@
             this.listViewBuzzers.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listViewBuzzers.ForeColor = System.Drawing.Color.Black;
             this.listViewBuzzers.HoverSelection = true;
-            listViewItem17.Tag = ":dumb:";
-            listViewItem18.Tag = ":angry:";
-            listViewItem19.Tag = ":devil:";
-            this.listViewBuzzers.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem17,
-            listViewItem18,
-            listViewItem19});
-            this.listViewBuzzers.LargeImageList = this.imageList1;
+            this.listViewBuzzers.LargeImageList = this.imageList2;
             this.listViewBuzzers.Location = new System.Drawing.Point(45, 258);
             this.listViewBuzzers.MultiSelect = false;
             this.listViewBuzzers.Name = "listViewBuzzers";
             this.listViewBuzzers.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.listViewBuzzers.Size = new System.Drawing.Size(124, 107);
-            this.listViewBuzzers.SmallImageList = this.imageList1;
+            this.listViewBuzzers.SmallImageList = this.imageList2;
             this.listViewBuzzers.TabIndex = 17;
             this.listViewBuzzers.TabStop = false;
             this.listViewBuzzers.TileSize = new System.Drawing.Size(24, 24);
             this.listViewBuzzers.UseCompatibleStateImageBehavior = false;
             this.listViewBuzzers.View = System.Windows.Forms.View.Tile;
             this.listViewBuzzers.Visible = false;
+            this.listViewBuzzers.Click += new System.EventHandler(this.listViewBuzzers_Click);
             this.listViewBuzzers.Leave += new System.EventHandler(this.listViewBuzzers_Leave);
+            this.listViewBuzzers.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listViewBuzzers_MouseDown);
             // 
             // checkBoxEncrypt
             // 
@@ -306,6 +299,7 @@
             this.picBox_Buzz.TabStop = false;
             this.picBox_Buzz.Click += new System.EventHandler(this.picBox_Buzz_Click);
             this.picBox_Buzz.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picBox_Buzz_MouseClick);
+            this.picBox_Buzz.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picBox_Buzz_MouseDown);
             this.picBox_Buzz.MouseEnter += new System.EventHandler(this.picBox_Buzz_MouseEnter);
             this.picBox_Buzz.MouseLeave += new System.EventHandler(this.picBox_Buzz_MouseLeave);
             // 
@@ -340,6 +334,19 @@
             this.picBox_EmoteIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picBox_EmoteIcon_MouseClick);
             this.picBox_EmoteIcon.MouseEnter += new System.EventHandler(this.picBox_EmoteIcon_MouseEnter);
             this.picBox_EmoteIcon.MouseLeave += new System.EventHandler(this.picBox_EmoteIcon_MouseLeave);
+            // 
+            // imageList2
+            // 
+            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList2.Images.SetKeyName(0, "buzz1.png");
+            this.imageList2.Images.SetKeyName(1, "buzz2.png");
+            this.imageList2.Images.SetKeyName(2, "buzz3.png");
+            this.imageList2.Images.SetKeyName(3, "buzz4.png");
+            this.imageList2.Images.SetKeyName(4, "buzz5.png");
+            this.imageList2.Images.SetKeyName(5, "buzz6.png");
+            this.imageList2.Images.SetKeyName(6, "buzz7.png");
+            this.imageList2.Images.SetKeyName(7, "buzz8.png");
             // 
             // formChat
             // 
@@ -393,6 +400,7 @@
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ListView listViewBuzzers;
         private System.Windows.Forms.CheckBox checkBoxEncrypt;
+        private System.Windows.Forms.ImageList imageList2;
     }
 }
 

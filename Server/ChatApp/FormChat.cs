@@ -155,25 +155,23 @@ namespace ChatApp
             dragCursorPoint = Cursor.Position;
             dragFormPoint = this.Location;
         }
-
-
+        
         private void picBox_Buzz_Click(object sender, EventArgs e)
         {
-            MouseEventArgs mE = (MouseEventArgs)e;
-            if (mE.Button == System.Windows.Forms.MouseButtons.Left) {
-                listViewBuzzers.Visible = false;
-                Packet packet = new Packet(PacketType.Buzz);
-                packet.tag["sender"] = ClientSession.username;
-                packet.tag["chatID"] = chatID;
-                ClientSession.Connection.SendPacket(packet);
-            } else if (mE.Button == System.Windows.Forms.MouseButtons.Right) {
-                listViewBuzzers.Visible = !listViewBuzzers.Visible;
-                listViewBuzzers.Focus();
-            }
+            //MouseEventArgs mE = (MouseEventArgs)e;
+            //if (mE.Button == System.Windows.Forms.MouseButtons.Left) {
+            //    listViewBuzzers.Visible = false;
+            //    //Packet packet = new Packet(PacketType.Buzz);
+            //    //packet.tag["sender"] = ClientSession.username;
+            //    //packet.tag["chatID"] = chatID;
+            //    //ClientSession.Connection.SendPacket(packet);
+            //} else if (mE.Button == System.Windows.Forms.MouseButtons.Right) {
+            //    listViewBuzzers.Visible = !listViewBuzzers.Visible;
+            //    listViewBuzzers.Focus();
+            //}
             
         }
-
-
+        
         private void picBox_EmoteIcon_Click(object sender, EventArgs e)
         {
             listViewEmoticons.Visible = !listViewEmoticons.Visible;
@@ -236,7 +234,10 @@ namespace ChatApp
         
         private void picBox_Attach_Click(object sender, EventArgs e) { SendFile(); }
         private void listView1_Leave(object sender, EventArgs e) { listViewEmoticons.Visible = false; }
-        private void formChat_Load(object sender, EventArgs e) { textBoxChat.Focus(); }
+        private void formChat_Load(object sender, EventArgs e) {
+            textBoxChat.Focus();
+            SetBuzzes();
+        }
         private void listViewBuzzers_Leave(object sender, EventArgs e) { listViewBuzzers.Visible = false; }
         private void listViewEmoticons_Leave(object sender, EventArgs e) { listViewEmoticons.Visible = false; }
         private void formChat_MouseUp(object sender, MouseEventArgs e) { dragging = false; }
@@ -255,6 +256,61 @@ namespace ChatApp
         private void TextBoxChat_KeyDown_1(object sender, KeyEventArgs e) { }
         private void picBox_Attach_MouseClick(object sender, MouseEventArgs e) { }
         private void picBox_EmoteIcon_MouseClick(object sender, MouseEventArgs e) { }
+
+        public void SetBuzzes()
+        {
+            listViewBuzzers.Clear();
+            if (ClientSession.enemiesKilled >= 0)
+                listViewBuzzers.Items.Add("1", "1", 0);
+            if (ClientSession.enemiesKilled >= 10)
+                listViewBuzzers.Items.Add("2", "2", 1);
+            if (ClientSession.enemiesKilled >= 50)
+                listViewBuzzers.Items.Add("3", "3", 2);
+            if (ClientSession.enemiesKilled >= 150)
+                listViewBuzzers.Items.Add("4", "4", 3);
+            if (ClientSession.enemiesKilled >= 300)
+                listViewBuzzers.Items.Add("5", "5", 4);
+            if (ClientSession.enemiesKilled >= 500)
+                listViewBuzzers.Items.Add("6", "6", 5);
+            if (ClientSession.enemiesKilled >= 1000)
+                listViewBuzzers.Items.Add("7", "7", 6);
+            if (ClientSession.enemiesKilled >= 2000)
+                listViewBuzzers.Items.Add("8", "8", 7);
+        }
+        private void SendBuzz(string value)
+        {
+            Packet packet = new Packet(PacketType.Buzz);
+            packet.tag["sender"] = ClientSession.username;
+            packet.tag["chatID"] = chatID;
+            packet.tag["sound"] = "buzz" + value + ".mp3";
+            ClientSession.Connection.SendPacket(packet);
+        }
+        private void listViewBuzzers_MouseDown(object sender, MouseEventArgs e)
+        {
+        }
+
+        private void picBox_Buzz_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                SendBuzz("1");
+                listViewBuzzers.Visible = false;
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                listViewBuzzers.Visible = !listViewBuzzers.Visible;
+            }
+        }
+
+        private void listViewBuzzers_Click(object sender, EventArgs e)
+        {
+            if (listViewBuzzers.SelectedItems[0] != null)
+            {
+                SendBuzz(listViewBuzzers.SelectedItems[0].Text);
+                listViewBuzzers.Visible = false;
+            }
+        }
+
         private void listViewEmoticons_SelectedIndexChanged(object sender, EventArgs e) { }
     }
 }

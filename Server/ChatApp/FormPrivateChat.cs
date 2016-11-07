@@ -229,6 +229,7 @@ namespace ChatApp
             if (listViewEmoticons.SelectedItems.Count == 1)
             {
                 listViewEmoticons.Visible = false;
+                listViewBuzz.Visible = false;
                 textBoxChat.AppendText(listViewEmoticons.SelectedItems[0].Tag as string + " ");
                 textBoxChat.Focus();
             }
@@ -236,10 +237,10 @@ namespace ChatApp
 
         private void picBox_Buzz_Click(object sender, EventArgs e)
         {
-            Packet packet = new Packet(PacketType.PrivateBuzz);
-            packet.tag["sender"] = ClientSession.username;
-            packet.tag["chatID"] = chatID;
-            ClientSession.Connection.SendPacket(packet);
+            //Packet packet = new Packet(PacketType.PrivateBuzz);
+            //packet.tag["sender"] = ClientSession.username;
+            //packet.tag["chatID"] = chatID;
+            //ClientSession.Connection.SendPacket(packet);
         }
         
         private void textBoxChat_KeyDown(object sender, KeyEventArgs e)
@@ -313,7 +314,10 @@ namespace ChatApp
         private void picBox_StartGame_MouseLeave(object sender, EventArgs e) { picBox_StartGame.BackgroundImage = ChatApp.Properties.Resources.gameIcon; }
         private void picBox_StartGame_MouseClick(object sender, MouseEventArgs e) { }
         private void listViewEmoticons_MouseLeave(object sender, EventArgs e) { listViewEmoticons.Visible = false; }
-        private void FormPrivateChat_Load(object sender, EventArgs e) { timer1.Stop(); }
+        private void FormPrivateChat_Load(object sender, EventArgs e) {
+            timer1.Stop();
+            SetBuzzes();
+        }
         private void listViewEmoticons_Leave(object sender, EventArgs e) { listViewEmoticons.Visible = false; }
         private void picBox_Attach_Click(object sender, EventArgs e) { SendFile(); }
         private void picBox_CloseIcon_MouseLeave(object sender, EventArgs e) { picBox_CloseIcon.BackColor = Color.White; }
@@ -388,6 +392,56 @@ namespace ChatApp
 
         private void list_Options_ItemChecked(object sender, ItemCheckedEventArgs e) { }
         private void list_Options_SelectedIndexChanged(object sender, EventArgs e) { }
+        public void SetBuzzes()
+        {
+            listViewBuzz.Clear();
+            if(ClientSession.enemiesKilled >= 0)
+                listViewBuzz.Items.Add("1", "1", 0);
+            if (ClientSession.enemiesKilled >= 10)
+                listViewBuzz.Items.Add("2", "2", 1);
+            if (ClientSession.enemiesKilled >= 50)
+                listViewBuzz.Items.Add("3", "3", 2);
+            if (ClientSession.enemiesKilled >= 150)
+                listViewBuzz.Items.Add("4", "4", 3);
+            if (ClientSession.enemiesKilled >= 300)
+                listViewBuzz.Items.Add("5", "5", 4);
+            if (ClientSession.enemiesKilled >= 500)
+                listViewBuzz.Items.Add("6", "6", 5);
+            if (ClientSession.enemiesKilled >= 1000)
+                listViewBuzz.Items.Add("7", "7", 6);
+            if (ClientSession.enemiesKilled >= 2000)
+                listViewBuzz.Items.Add("8", "8", 7);
+        }
+        private void listViewBuzz_Click(object sender, EventArgs e)
+        {
+            if (listViewBuzz.SelectedItems[0] != null)
+            {
+                SendBuzz(listViewBuzz.SelectedItems[0].Text);
+                listViewBuzz.Visible = false;
+            }
+        }
+
+        private void SendBuzz(string value)
+        {
+            Packet packet = new Packet(PacketType.PrivateBuzz);
+            packet.tag["sender"] = ClientSession.username;
+            packet.tag["chatID"] = chatID;
+            packet.tag["sound"] = "buzz" + value + ".mp3";
+            ClientSession.Connection.SendPacket(packet);
+        }
+        private void picBox_Buzz_MouseDown(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Left)
+            {
+                SendBuzz("1");
+                listViewBuzz.Visible = false;
+            }
+            else if(e.Button == MouseButtons.Right)
+            {
+                listViewBuzz.Visible = !listViewBuzz.Visible;
+            }
+        }
+
         private void FormPrivateChat_MouseUp(object sender, MouseEventArgs e) { dragging = false; }
     }
 }

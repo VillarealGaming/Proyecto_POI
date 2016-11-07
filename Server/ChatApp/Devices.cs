@@ -27,19 +27,33 @@ namespace ChatApp
         {
             var sound = new WaveOut();
             var audioFileReader = new AudioFileReader(path);
-            sound.Init(audioFileReader);
-            sound.PlaybackStopped += Sound_PlaybackStopped;
+            try
+            {
+                sound.Init(audioFileReader, true);
+            }
+            catch
+            {
+                try
+                {
+                    sound.Init(audioFileReader);
+                }
+                catch { }
+            }
             sound.Play();
-            audioFileReader.Dispose();
+            sound.PlaybackStopped += new EventHandler<StoppedEventArgs>(delegate(object sender, StoppedEventArgs e) {
+                sound.Stop();
+                sound.Dispose();
+                audioFileReader.Dispose();
+            });
         }
 
-        private static void Sound_PlaybackStopped(object sender, StoppedEventArgs e)
-        {
-            var sound = (WaveOut)sender;
-            sound.Stop();
-            sound.PlaybackStopped -= Sound_PlaybackStopped;
-            sound.Dispose();
-        }
+        //private static void Sound_PlaybackStopped(object sender, StoppedEventArgs e)
+        //{
+        //    var sound = (WaveOut)sender;
+        //    sound.Stop();
+        //    sound.PlaybackStopped -= Sound_PlaybackStopped;
+        //    sound.Dispose();
+        //}
 
         public static void PlayBuffer(byte[] bytes)
         {
